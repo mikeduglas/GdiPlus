@@ -196,6 +196,7 @@ err                             GpStatus, AUTO
 TGdiPlus.GetImageWidth        PROCEDURE(*ULONG pWidth)
 err                             GpStatus, AUTO
   CODE
+  pWidth = 0
   err = gp::GetImageWidth(SELF.bitmap, pWidth)
   SELF.ReportError('GetImageWidth', err)
   RETURN err
@@ -203,10 +204,20 @@ err                             GpStatus, AUTO
 TGdiPlus.GetImageHeight       PROCEDURE(*ULONG pHeight)
 err                             GpStatus, AUTO
   CODE
+  pHeight = 0
   err = gp::GetImageHeight(SELF.bitmap, pHeight)
   SELF.ReportError('GetImageHeight', err)
   RETURN err
 
+TGdiPlus.GetImageResolution   PROCEDURE(*ULONG pWidth, *ULONG pHeight)
+err                             GpStatus, AUTO
+  CODE
+  err = SELF.GetImageWidth(pWidth)
+  IF err = GpStatus:Ok
+    err = SELF.GetImageHeight(pHeight)
+  END
+  RETURN err
+  
 TGdiPlus.DisposeImage         PROCEDURE()
 err                             GpStatus, AUTO
   CODE

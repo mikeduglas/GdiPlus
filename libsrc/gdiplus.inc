@@ -122,5 +122,6 @@ LoadImageFromFile               PROCEDURE(STRING pFileName), GpStatus, PROC
 LoadImageFromString             PROCEDURE(STRING pImageData), GpStatus, PROC
 GetImageWidth                   PROCEDURE(*ULONG pWidth), GpStatus, PROC
 GetImageHeight                  PROCEDURE(*ULONG pHeight), GpStatus, PROC
+GetImageResolution              PROCEDURE(*ULONG pWidth, *ULONG pHeight), GpStatus, PROC
 DisposeImage                    PROCEDURE(), GpStatus, PROC
                               END
