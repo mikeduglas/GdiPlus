@@ -8,29 +8,40 @@
   INCLUDE('gdiplus.inc'), ONCE
   INCLUDE('winapi.inc'), ONCE
 
+size_t                        EQUATE(UNSIGNED)
+
 tagGdiplusStartupInput        GROUP, TYPE
 GdiplusVersion                  ULONG
-DebugEventCallback              LONG  !void* 
+DebugEventCallback              LONG  !- void* 
 SuppressBackgroundThread        BOOL
 SuppressExternalCodecs          BOOL
                               END
 
-szGdiplusStartup              CSTRING('GdiplusStartup'), STATIC
-paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
-szGdiplusShutdown             CSTRING('GdiplusShutdown'), STATIC
-paGdiplusShutdown             LONG, NAME('fptr_GdiplusShutdown')
-szGdipCreateHBITMAPFromBitmap CSTRING('GdipCreateHBITMAPFromBitmap'), STATIC
-paGdipCreateHBITMAPFromBitmap LONG, NAME('fptr_GdipCreateHBITMAPFromBitmap')
-szGdipLoadImageFromFile       CSTRING('GdipLoadImageFromFile'), STATIC
-paGdipLoadImageFromFile       LONG, NAME('fptr_GdipLoadImageFromFile')
-szGdipLoadImageFromStream     CSTRING('GdipLoadImageFromStream'), STATIC
-paGdipLoadImageFromStream     LONG, NAME('fptr_GdipLoadImageFromStream')
-szGdipGetImageWidth           CSTRING('GdipGetImageWidth'), STATIC
-paGdipGetImageWidth           LONG, NAME('fptr_GdipGetImageWidth')
-szGdipGetImageHeight          CSTRING('GdipGetImageHeight'), STATIC
-paGdipGetImageHeight          LONG, NAME('fptr_GdipGetImageHeight')
-szGdipDisposeImage            CSTRING('GdipDisposeImage'), STATIC
-paGdipDisposeImage            LONG, NAME('fptr_GdipDisposeImage')
+szGdiplusStartup                      CSTRING('GdiplusStartup'), STATIC
+szGdiplusShutdown                     CSTRING('GdiplusShutdown'), STATIC
+szGdipCreateHBITMAPFromBitmap         CSTRING('GdipCreateHBITMAPFromBitmap'), STATIC
+szGdipLoadImageFromFile               CSTRING('GdipLoadImageFromFile'), STATIC
+szGdipLoadImageFromFileICM            CSTRING('GdipLoadImageFromFileICM'), STATIC
+szGdipLoadImageFromStream             CSTRING('GdipLoadImageFromStream'), STATIC
+szGdipLoadImageFromStreamICM          CSTRING('GdipLoadImageFromStreamICM'), STATIC
+szGdipDisposeImage                    CSTRING('GdipDisposeImage'), STATIC
+szGdipGetImageWidth                   CSTRING('GdipGetImageWidth'), STATIC
+szGdipGetImageHeight                  CSTRING('GdipGetImageHeight'), STATIC
+szGdipGetImageHorizontalResolution    CSTRING('GdipGetImageHorizontalResolution'), STATIC
+szGdipGetImageVerticalResolution      CSTRING('GdipGetImageVerticalResolution'), STATIC
+
+paGdiplusStartup                      LONG, NAME('fptr_GdiplusStartup')
+paGdiplusShutdown                     LONG, NAME('fptr_GdiplusShutdown')
+paGdipCreateHBITMAPFromBitmap         LONG, NAME('fptr_GdipCreateHBITMAPFromBitmap')
+paGdipLoadImageFromFile               LONG, NAME('fptr_GdipLoadImageFromFile')
+paGdipLoadImageFromFileICM            LONG, NAME('fptr_GdipLoadImageFromFileICM')
+paGdipLoadImageFromStream             LONG, NAME('fptr_GdipLoadImageFromStream')
+paGdipLoadImageFromStreamICM          LONG, NAME('fptr_GdipLoadImageFromStreamICM')
+paGdipDisposeImage                    LONG, NAME('fptr_GdipDisposeImage')
+paGdipGetImageWidth                   LONG, NAME('fptr_GdipGetImageWidth')
+paGdipGetImageHeight                  LONG, NAME('fptr_GdipGetImageHeight')
+paGdipGetImageHorizontalResolution    LONG, NAME('fptr_GdipGetImageHorizontalResolution')
+paGdipGetImageVerticalResolution      LONG, NAME('fptr_GdipGetImageVerticalResolution')
 
   MAP
     MODULE('win api')
@@ -41,15 +52,20 @@ paGdipDisposeImage            LONG, NAME('fptr_GdipDisposeImage')
       winapi::GetLastError(),LONG,PASCAL,NAME('GetLastError')
     END
     MODULE('GdiPlus api')
+      !c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusinit.h
       gp::Startup(*ULONG pToken, LONG pInput, LONG pOutput),GpStatus,PASCAL,NAME('fptr_GdiplusStartup'),DLL
       gp::Shutdown(ULONG pToken),PASCAL,NAME('fptr_GdiplusShutdown'),DLL
+      !c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusflat.h
       gp::CreateHBITMAPFromBitmap(LONG pBitmap, *HBITMAP pHbmReturn, ULONG pBackground),GpStatus,PASCAL,NAME('fptr_GdipCreateHBITMAPFromBitmap'),DLL
       gp::LoadImageFromFile(LONG pFileName, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFile'),DLL
+      gp::LoadImageFromFileICM(LONG pFileName, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFileICM'),DLL
       gp::LoadImageFromStream(LONG pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStream'),DLL
-      gp::LoadImageFromStream(IStream pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStream'),DLL
-      gp::GetImageWidth(LONG pBitmap, *ULONG pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetImageWidth'),DLL
-      gp::GetImageHeight(LONG pBitmap, *ULONG pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetImageHeight'),DLL
-      gp::DisposeImage(LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipDisposeImage'),DLL
+      gp::LoadImageFromStreamICM(LONG pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStreamICM'),DLL
+      gp::DisposeImage(LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipDisposeImage'),DLL
+      gp::GetImageWidth(LONG pImage, *ULONG pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetImageWidth'),DLL
+      gp::GetImageHeight(LONG pImage, *ULONG pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetImageHeight'),DLL
+      gp::GetImageHorizontalResolution(LONG pImage, *SREAL pResolution),GpStatus,PASCAL,NAME('fptr_GdipGetImageHorizontalResolution'),DLL
+      gp::GetImageVerticalResolution(LONG pImage, *SREAL pResolution),GpStatus,PASCAL,NAME('fptr_GdipGetImageVerticalResolution'),DLL
     END
     MODULE('Global memory api')
       winapi::GlobalAlloc(LONG uFlags,LONG dwBytes),HGLOBAL,PASCAL,NAME('GlobalAlloc')
@@ -60,40 +76,49 @@ paGdipDisposeImage            LONG, NAME('fptr_GdipDisposeImage')
       winapi::CreateStreamOnHGlobal(LONG hGlobal,BOOL fDeleteOnRelease,LONG ppstm),LONG,PASCAL,PROC,NAME('CreateStreamOnHGlobal')
     END
 
+    ReportError(STRING pMethodName, GpStatus pErr),PRIVATE
+    ToStream(STRING pData),LONG,PRIVATE
+
     INCLUDE('printf.inc'), ONCE
   END
 
 !!!region GdiPlus initializer
-GP_DLLNAME                    CSTRING('Gdiplus.dll'), STATIC
-
+!https://www.codeproject.com/Messages/2274891/Re-GDIplus-initialization
 TGdiPlusInitializer           CLASS, TYPE
-hDll                            HINSTANCE
-bInitialized                    BOOL
-Construct                       PROCEDURE()
-Destruct                        PROCEDURE()
+hDll                            HINSTANCE, PRIVATE
+bInitialized                    BOOL, PRIVATE
+token                           ULONG, PRIVATE
+Construct                       PROCEDURE(), PRIVATE
+Destruct                        PROCEDURE(), PRIVATE
+Startup                         PROCEDURE(), GpStatus, PROC, PRIVATE
+Shutdown                        PROCEDURE(), PRIVATE
                               END
 
 gpInitializer                 TGdiPlusInitializer
 
 TGdiPlusInitializer.Construct PROCEDURE()
+GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
   CODE
   SELF.hDll = winapi::LoadLibrary(GP_DLLNAME)
   IF SELF.hDll
     !- get procedure addresses
-    paGdiplusStartup = winapi::GetProcAddress(SELF.hDll, szGdiplusStartup)
+    paGdiplusStartup  = winapi::GetProcAddress(SELF.hDll, szGdiplusStartup)
     paGdiplusShutdown = winapi::GetProcAddress(SELF.hDll, szGdiplusShutdown)
-    paGdipCreateHBITMAPFromBitmap = winapi::GetProcAddress(SELF.hDll, szGdipCreateHBITMAPFromBitmap)
-    paGdipLoadImageFromFile = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFile)
-    paGdipLoadImageFromStream = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromStream)
-    paGdipGetImageWidth = winapi::GetProcAddress(SELF.hDll, szGdipGetImageWidth)
-    paGdipGetImageHeight = winapi::GetProcAddress(SELF.hDll, szGdipGetImageHeight)
-    paGdipDisposeImage = winapi::GetProcAddress(SELF.hDll, szGdipDisposeImage)
-    
-    IF paGdiplusStartup AND paGdiplusShutdown AND paGdipCreateHBITMAPFromBitmap |
-      AND paGdipLoadImageFromFile AND paGdipLoadImageFromStream AND paGdipGetImageWidth | paGdipGetImageHeight |
-      AND paGdipDisposeImage
-      !- initialized
+
+    IF paGdiplusStartup AND paGdiplusShutdown
       SELF.bInitialized = TRUE
+
+      paGdipCreateHBITMAPFromBitmap       = winapi::GetProcAddress(SELF.hDll, szGdipCreateHBITMAPFromBitmap)
+      paGdipLoadImageFromFile             = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFile)
+      paGdipLoadImageFromFileICM          = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFileICM)
+      paGdipLoadImageFromStream           = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromStream)
+      paGdipLoadImageFromStreamICM        = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromStreamICM)
+      paGdipDisposeImage                  = winapi::GetProcAddress(SELF.hDll, szGdipDisposeImage)
+      paGdipGetImageWidth                 = winapi::GetProcAddress(SELF.hDll, szGdipGetImageWidth)
+      paGdipGetImageHeight                = winapi::GetProcAddress(SELF.hDll, szGdipGetImageHeight)
+      paGdipGetImageHorizontalResolution  = winapi::GetProcAddress(SELF.hDll, szGdipGetImageHorizontalResolution)
+      paGdipGetImageVerticalResolution    = winapi::GetProcAddress(SELF.hDll, szGdipGetImageVerticalResolution)
+
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
     END
@@ -101,29 +126,23 @@ TGdiPlusInitializer.Construct PROCEDURE()
     printd('[GdiPlus] TGdiPlusInitializer.Construct: LoadLibrary(%Z) failed, error %i', GP_DLLNAME, winapi::GetLastError())
   END
   
+  IF SELF.bInitialized = TRUE
+    SELF.Startup()
+  END
+
 TGdiPlusInitializer.Destruct  PROCEDURE()
   CODE
+  IF SELF.token
+    SELF.Shutdown()
+  END
+  
   IF SELF.hDll
     winapi::FreeLibrary(SELF.hDll)
     SELF.hDll = 0
     SELF.bInitialized = FALSE
   END
-!!!endregion
-
-!!!region TGdiPlus
-TGdiPlus.Construct            PROCEDURE()
-  CODE
   
-TGdiPlus.Destruct             PROCEDURE()
-  CODE
-  
-TGdiPlus.ReportError          PROCEDURE(STRING pMethodName, GpStatus pErr)
-  CODE
-  IF pErr <> GpStatus:Ok
-    printd('[TGdiPlus] %s failed, error code %i', pMethodName, pErr)
-  END
-
-TGdiPlus.Startup              PROCEDURE()
+TGdiPlusInitializer.Startup   PROCEDURE()
 input                           LIKE(tagGdiplusStartupInput)
 err                             GpStatus, AUTO
   CODE
@@ -132,96 +151,140 @@ err                             GpStatus, AUTO
   input.SuppressBackgroundThread = FALSE
   input.SuppressExternalCodecs = FALSE
   err = gp::Startup(SELF.token, ADDRESS(input), 0)
-  SELF.ReportError('Startup', err)
+  ReportError('TGdiPlusInitializer.Startup', err)
   RETURN err
-  
-TGdiPlus.Shutdown             PROCEDURE()
+
+TGdiPlusInitializer.Shutdown  PROCEDURE()
   CODE
   gp::Shutdown(SELF.token)
+!!!endregion
   
-TGdiPlus.CreateHBITMAPFromBitmap  PROCEDURE(*HBITMAP pHbmReturn, ULONG pBackground=0)
-err                                 GpStatus, AUTO
+!!!region Helper functions
+ReportError                   PROCEDURE(STRING pMethodName, GpStatus pErr)
   CODE
-  err = gp::CreateHBITMAPFromBitmap(SELF.bitmap, pHbmReturn, pBackground)
-  SELF.ReportError('CreateHBITMAPFromBitmap', err)
-  RETURN err
-
-TGdiPlus.LoadImageFromFile    PROCEDURE(STRING pFileName)
-enc                             TStringEncoding
-wstr                            STRING(FILE:MaxFilePath*2+2)
-err                             GpStatus, AUTO
-  CODE
-  wstr = enc.ToCWStr(pFileName)
-  err = gp::LoadImageFromFile(ADDRESS(wstr), SELF.bitmap)
-  SELF.ReportError('LoadImageFromFile', err)
-  RETURN err
-
-TGdiPlus.LoadImageFromString  PROCEDURE(STRING pImageData)
+  IF pErr <> GpStatus:Ok
+    printd('[TGdiPlus] %s failed, error code %i', pMethodName, pErr)
+  END
+  
+ToStream                      PROCEDURE(STRING pData)
 nDataLen                        LONG, AUTO
-stream                          &IStream
 lpStream                        LONG, AUTO
 hMem                            HGDIOBJ, AUTO
 pvData                          LONG
-err                             GpStatus, AUTO
+hr                              HRESULT, AUTO
   CODE
-  nDataLen = SIZE(pImageData)
+  nDataLen = SIZE(pData)
   hMem = winapi::GlobalAlloc(GMEM_MOVEABLE, nDataLen)
   IF hMem
     pvData = winapi::GlobalLock(hMem)
     IF pvData
-      winapi::memcpy(pvData, ADDRESS(pImageData), nDataLen)
+      winapi::memcpy(pvData, ADDRESS(pData), nDataLen)
       winapi::GlobalUnlock(hMem)
 
-      IF winapi::CreateStreamOnHGlobal(hMem, FALSE, ADDRESS(lpStream)) = S_OK
-        stream &= (lpStream)
-        err = gp::LoadImageFromStream(lpStream, SELF.bitmap)
-        SELF.ReportError('LoadImageFromStream', err)
-        stream.Release()
-      ELSE
-        err = 1000
-        SELF.ReportError('CreateStreamOnHGlobal', err)
+      hr = winapi::CreateStreamOnHGlobal(hMem, FALSE, ADDRESS(lpStream))
+      IF hr <> S_OK
+        printd('CreateStreamOnHGlobal error %x', hr)
       END
     ELSE
-      err = 1000
-      SELF.ReportError('winapi::GlobalLock', err)
+      printd('GlobalLock error %i', winapi::GetLastError())
     END
     
     winapi::GlobalFree(hMem)
   ELSE
-    err = 1000
-    SELF.ReportError('winapi::GlobalAlloc', err)
+    printd('GlobalAlloc error %i', winapi::GetLastError())
   END
-  RETURN err
- 
-TGdiPlus.GetImageWidth        PROCEDURE(*ULONG pWidth)
-err                             GpStatus, AUTO
-  CODE
-  pWidth = 0
-  err = gp::GetImageWidth(SELF.bitmap, pWidth)
-  SELF.ReportError('GetImageWidth', err)
-  RETURN err
-
-TGdiPlus.GetImageHeight       PROCEDURE(*ULONG pHeight)
-err                             GpStatus, AUTO
-  CODE
-  pHeight = 0
-  err = gp::GetImageHeight(SELF.bitmap, pHeight)
-  SELF.ReportError('GetImageHeight', err)
-  RETURN err
-
-TGdiPlus.GetImageResolution   PROCEDURE(*ULONG pWidth, *ULONG pHeight)
-err                             GpStatus, AUTO
-  CODE
-  err = SELF.GetImageWidth(pWidth)
-  IF err = GpStatus:Ok
-    err = SELF.GetImageHeight(pHeight)
-  END
-  RETURN err
   
-TGdiPlus.DisposeImage         PROCEDURE()
-err                             GpStatus, AUTO
+  RETURN lpStream
+!!!endregion
+  
+!!!region TGdiPlusImage
+TGdiPlusImage.Construct       PROCEDURE()
   CODE
-  RETURN gp::DisposeImage(SELF.bitmap)
-  SELF.ReportError('DisposeImage', err)
-  RETURN err
+  
+TGdiPlusImage.Destruct        PROCEDURE()
+  CODE
+  SELF.DisposeImage()
+  
+TGdiPlusImage.GetLastStatus   PROCEDURE()
+  CODE
+  RETURN SELF.lastResult
+  
+TGdiPlusImage.FromFile        PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE)
+enc                             TStringEncoding
+wstr                            STRING(FILE:MaxFilePath*2+2)
+  CODE
+  SELF.nativeImage = 0
+  wstr = enc.ToCWStr(pFileName)
+  IF pUseICM
+    SELF.lastResult = gp::LoadImageFromFileICM(ADDRESS(wstr), SELF.nativeImage)
+  ELSE
+    SELF.lastResult = gp::LoadImageFromFile(ADDRESS(wstr), SELF.nativeImage)
+  END
+  
+  ReportError('TGdiPlusImage.FromFile', SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusImage.FromString      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
+lpStream                        LONG, AUTO
+stream                          &IStream, AUTO
+  CODE
+  SELF.nativeImage = 0
+  lpStream = ToStream(pImageData)
+  IF lpStream
+    stream &= (lpStream)
+    IF pUseICM
+      SELF.lastResult = gp::LoadImageFromStreamICM(lpStream, SELF.nativeImage)
+    ELSE
+      SELF.lastResult = gp::LoadImageFromStream(lpStream, SELF.nativeImage)
+    END
+    stream.Release()
+    ReportError('TGdiPlusImage.FromString', SELF.lastResult)
+  END
+  RETURN SELF.lastResult
+
+TGdiPlusImage.DisposeImage    PROCEDURE()
+  CODE
+  IF SELF.nativeImage
+    SELF.lastResult = gp::DisposeImage(SELF.nativeImage)
+    SELF.nativeImage = 0
+    ReportError('TGdiPlusImage.DisposeImage', SELF.lastResult)
+  END
+  RETURN SELF.lastResult
+ 
+TGdiPlusImage.GetWidth        PROCEDURE()
+w                               ULONG(0)
+  CODE
+  SELF.lastResult = gp::GetImageWidth(SELF.nativeImage, w)
+  ReportError('TGdiPlusImage.GetWidth', SELF.lastResult)
+  RETURN w
+
+TGdiPlusImage.GetHeight       PROCEDURE()
+h                               ULONG(0)
+  CODE
+  SELF.lastResult = gp::GetImageHeight(SELF.nativeImage, h)
+  ReportError('TGdiPlusImage.GetHeight', SELF.lastResult)
+  RETURN h
+
+TGdiPlusImage.GetHorizontalResolution PROCEDURE()
+resolution                              SREAL(0.0)
+  CODE
+  SELF.lastResult = gp::GetImageHorizontalResolution(SELF.nativeImage, resolution)
+  RETURN resolution
+  
+TGdiPlusImage.GetVerticalResolution   PROCEDURE()
+resolution                              SREAL(0.0)
+  CODE
+  SELF.lastResult = gp::GetImageVerticalResolution(SELF.nativeImage, resolution)
+  RETURN resolution
+
+!!!endregion
+  
+!!!region TGdiPlusBitmap
+TGdiPlusBitmap.GetHBITMAP     PROCEDURE(ULONG pBackground)
+hbmReturn                       HBITMAP(0)
+  CODE
+  SELF.lastResult = gp::CreateHBITMAPFromBitmap(SELF.nativeImage, hbmReturn, pBackground)
+  ReportError('TGdiPlusBitmap.GetHBITMAP', SELF.lastResult)
+  RETURN hbmReturn
+
 !!!endregion
