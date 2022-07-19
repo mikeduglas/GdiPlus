@@ -461,59 +461,26 @@ TGdiPlusPropertyItem.GetStringValue   PROCEDURE()
 TGdiPlusPropertyItem.GetByteValue PROCEDURE()
 v                                   BYTE, AUTO
   CODE
-  v = VAL(SELF.value[1])
+  winapi::memcpy(ADDRESS(v), ADDRESS(SELF.value), 1)
   RETURN v
     
 TGdiPlusPropertyItem.GetShortValue    PROCEDURE()
-strValue                                STRING(2), AUTO
-v                                       SHORT, OVER(strValue)
+v                                       SHORT, AUTO
   CODE
-  strValue = SELF.value
+  winapi::memcpy(ADDRESS(v), ADDRESS(SELF.value), 2)
   RETURN v
     
 TGdiPlusPropertyItem.GetLongValue PROCEDURE()
-strValue                            STRING(4), AUTO
-v                                   LONG, OVER(strValue)
+v                                   LONG, AUTO
   CODE
-  strValue = SELF.value
-  RETURN v
-    
-TGdiPlusPropertyItem.GetRealValue PROCEDURE()
-strValue                            STRING(8), AUTO
-v                                   REAL, OVER(strValue)
-  CODE
-  strValue = SELF.value
+  winapi::memcpy(ADDRESS(v), ADDRESS(SELF.value), 4)
   RETURN v
 
-!TGdiPlusPropertyItem.GetValue PROCEDURE()
-!strValue                        STRING(SELF.length), AUTO
-!aValue                          ANY, AUTO
-!byteValue                       BYTE, AUTO
-!shortValue                      USHORT, AUTO
-!longValue                       ULONG, AUTO
-!  CODE
-!  strValue = SELF.value
-!  aValue = ''
-!  
-!  CASE SELF.type
-!  OF GpPropertyTagType:ASCII
-!    aValue = strValue
-!  OF GpPropertyTagType:Byte
-!    IF SELF.length = SIZE(byteValue)
-!      byteValue = VAL(strValue[1])
-!      aValue = byteValue
-!    ELSE
-!      aValue = '<<An array of bytes>'
-!    END
-!  OF GpPropertyTagType:Short
-!    IF SELF.length = SIZE(shortValue)
-!      shortValue = VAL(strValue[1])
-!      aValue = shortValue
-!    ELSE
-!      aValue = '<<An array of shorts>'
-!    END
-!  END
-!  RETURN aValue
+TGdiPlusPropertyItem.GetRealValue PROCEDURE()
+v                                   REAL, AUTO
+  CODE
+  winapi::memcpy(ADDRESS(v), ADDRESS(SELF.value), 8)
+  RETURN v
 !!!endregion
   
 !!!region TGdiPlusBitmap

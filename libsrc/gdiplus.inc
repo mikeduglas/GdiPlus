@@ -15,8 +15,11 @@ Destruct                        PROCEDURE(), VIRTUAL
 
 GetLastStatus                   PROCEDURE(), GpStatus
 
+!!!<summary>Creates an Image object based on a file.</summary>
 FromFile                        PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE), GpStatus, PROC
+!!!<summary>Creates an Image object based on a string data.</summary>
 FromString                      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE), GpStatus, PROC
+!!!<summary>Releases resources used by the Image object.</summary>
 DisposeImage                    PROCEDURE(), GpStatus, PROC
 !!!<summary>Gets the width, in pixels, of this image.</summary>
 GetWidth                        PROCEDURE(), ULONG
@@ -59,6 +62,7 @@ value                           &STRING, PRIVATE     !- property value
 
 Destruct                        PROCEDURE()
 Assign                          PROCEDURE(GpPropertyItem pItem), PRIVATE
+!!!<summary>Releases resources used by the property item.</summary>
 Free                            PROCEDURE()
 GetId                           PROCEDURE(), ULONG
 GetLength                       PROCEDURE(), ULONG
