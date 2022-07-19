@@ -1,13 +1,19 @@
 # GdiPlus
 GdiPlus support
 
-## Requirements  
-C6.3 and newer.
+### Requirements
+- Clarion versions: C6.3 and higher.
+- Template chains: ABC, Clarion.
+- Multi dll apps supported.
 
-## Contacts
+### Dependencies
+- [winapi](https://github.com/mikeduglas/winapi)
+- [printf](https://github.com/mikeduglas/printf)
+
+### Contacts
 - <mikeduglas@yandex.ru>
 - <mikeduglas66@gmail.com>
 
-## Price
+### Price
 Free
 
