@@ -1,30 +1,32 @@
-!* GdiPlus support
+!* GDI+ support
 !* mikeduglas 2022
 !* mikeduglas@yandex.ru
+
+  INCLUDE('svcomdef.inc'), ONCE
 
 GpStatus                      EQUATE(LONG)
 GpStatusEnum                  ITEMIZE, PRE(GpStatus)
 Ok                              EQUATE(0)
-GenericError                    EQUATE
-InvalidParameter                EQUATE
-OutOfMemory                     EQUATE
-ObjectBusy                      EQUATE
-InsufficientBuffer              EQUATE
+GenericError                    EQUATE(1)
+InvalidParameter                EQUATE(2)
+OutOfMemory                     EQUATE(3)
+ObjectBusy                      EQUATE(4)
+InsufficientBuffer              EQUATE(5)
 NotImplemented                  EQUATE
 Win32Error                      EQUATE
 WrongState                      EQUATE
 Aborted                         EQUATE
-FileNotFound                    EQUATE
+FileNotFound                    EQUATE(10)
 ValueOverflow                   EQUATE
 AccessDenied                    EQUATE
 UnknownImageFormat              EQUATE
 FontFamilyNotFound              EQUATE
-FontStyleNotFound               EQUATE
+FontStyleNotFound               EQUATE(15)
 NotTrueTypeFont                 EQUATE
 UnsupportedGdiplusVersion       EQUATE
 GdiplusNotInitialized           EQUATE
 PropertyNotFound                EQUATE
-PropertyNotSupported            EQUATE
+PropertyNotSupported            EQUATE(20)
                               END
 
 GpImageType                   EQUATE(LONG)
@@ -93,7 +95,9 @@ SRational                       EQUATE(10)
 !- Image property ID tags (full list of the tags in c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusimaging.h)
 GpPropertyTag                 EQUATE(LONG)
 GpPropertyTagEnum             ITEMIZE, PRE(GpPropertyTag)
+ImageDescription                EQUATE(010Eh)
 DateTime                        EQUATE(0132h)
+Artist                          EQUATE(013Bh)
                               END
 
 GpPropertyItem                GROUP, TYPE
@@ -102,4 +106,44 @@ length                          ULONG       !- Length of the property value, in 
 type                            USHORT      !- Type of the value, as one of GpPropertyTagType enum
 dummy                           BYTE,DIM(2) !- alignment
 refvalue                        LONG        !- a reference to property value
+                              END
+
+
+GpImageCodecInfo              GROUP, TYPE
+Clsid                           LIKE(_CLSID)
+FormatID                        LIKE(GUID)
+CodecName                       LONG  !WCHAR*
+DllName                         LONG  !WCHAR*
+FormatDescription               LONG  !WCHAR*
+FilenameExtension               LONG  !WCHAR*
+MimeType                        LONG  !WCHAR*
+Flags                           ULONG
+Version                         ULONG
+SigCount                        ULONG
+SigSize                         ULONG
+SigPattern                      LONG  !BYTE*
+SigMask                         LONG  !BYTE*
+                              END
+
+GpRotateFlipType              EQUATE(LONG)
+GpRotateFlipTypeEnum          ITEMIZE
+RotateNoneFlipNone              EQUATE(0)
+Rotate90FlipNone                EQUATE(1)
+Rotate180FlipNone               EQUATE(2)
+Rotate270FlipNone               EQUATE(3)
+
+RotateNoneFlipX                 EQUATE(4)
+Rotate90FlipX                   EQUATE(5)
+Rotate180FlipX                  EQUATE(6)
+Rotate270FlipX                  EQUATE(7)
+
+RotateNoneFlipY                 EQUATE(Rotate180FlipX)
+Rotate90FlipY                   EQUATE(Rotate270FlipX)
+Rotate180FlipY                  EQUATE(RotateNoneFlipX)
+Rotate270FlipY                  EQUATE(Rotate90FlipX)
+
+RotateNoneFlipXY                EQUATE(Rotate180FlipNone)
+Rotate90FlipXY                  EQUATE(Rotate270FlipNone)
+Rotate180FlipXY                 EQUATE(RotateNoneFlipNone)
+Rotate270FlipXY                 EQUATE(Rotate90FlipNone)
                               END

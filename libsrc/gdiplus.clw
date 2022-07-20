@@ -1,8 +1,8 @@
-!* GdiPlus support
+!* GDI+ support
 !* mikeduglas 2022
 !* mikeduglas@yandex.ru
 
-  MEMBER
+                              MEMBER
 
   INCLUDE('svcomdef.inc'), ONCE
   INCLUDE('gdiplus.inc'), ONCE
@@ -17,51 +17,78 @@ SuppressBackgroundThread        BOOL
 SuppressExternalCodecs          BOOL
                               END
 
-szGdiplusStartup                      CSTRING('GdiplusStartup'), STATIC
-szGdiplusShutdown                     CSTRING('GdiplusShutdown'), STATIC
-szGdipCreateHBITMAPFromBitmap         CSTRING('GdipCreateHBITMAPFromBitmap'), STATIC
-szGdipLoadImageFromFile               CSTRING('GdipLoadImageFromFile'), STATIC
-szGdipLoadImageFromFileICM            CSTRING('GdipLoadImageFromFileICM'), STATIC
-szGdipLoadImageFromStream             CSTRING('GdipLoadImageFromStream'), STATIC
-szGdipLoadImageFromStreamICM          CSTRING('GdipLoadImageFromStreamICM'), STATIC
-szGdipDisposeImage                    CSTRING('GdipDisposeImage'), STATIC
-szGdipGetImageWidth                   CSTRING('GdipGetImageWidth'), STATIC
-szGdipGetImageHeight                  CSTRING('GdipGetImageHeight'), STATIC
+szGdiplusStartup              CSTRING('GdiplusStartup'), STATIC
+szGdiplusShutdown             CSTRING('GdiplusShutdown'), STATIC
+szGdipCreateHBITMAPFromBitmap CSTRING('GdipCreateHBITMAPFromBitmap'), STATIC
+szGdipLoadImageFromFile       CSTRING('GdipLoadImageFromFile'), STATIC
+szGdipLoadImageFromFileICM    CSTRING('GdipLoadImageFromFileICM'), STATIC
+szGdipLoadImageFromStream     CSTRING('GdipLoadImageFromStream'), STATIC
+szGdipLoadImageFromStreamICM  CSTRING('GdipLoadImageFromStreamICM'), STATIC
+szGdipCloneImage              CSTRING('GdipCloneImage'), STATIC
+szGdipGetImageThumbnail       CSTRING('GdipGetImageThumbnail'), STATIC
+szGdipSaveImageToFile         CSTRING('GdipSaveImageToFile'), STATIC
+szGdipSaveImageToStream       CSTRING('GdipSaveImageToStream'), STATIC
+szGdipDisposeImage            CSTRING('GdipDisposeImage'), STATIC
+szGdipGetImageWidth           CSTRING('GdipGetImageWidth'), STATIC
+szGdipGetImageHeight          CSTRING('GdipGetImageHeight'), STATIC
 szGdipGetImageHorizontalResolution    CSTRING('GdipGetImageHorizontalResolution'), STATIC
-szGdipGetImageVerticalResolution      CSTRING('GdipGetImageVerticalResolution'), STATIC
-szGdipGetImageBounds                  CSTRING('GdipGetImageBounds'), STATIC
-szGdipGetImageDimension               CSTRING('GdipGetImageDimension'), STATIC
-szGdipGetImageType                    CSTRING('GdipGetImageType'), STATIC
-szGdipGetImageFlags                   CSTRING('GdipGetImageFlags'), STATIC
-szGdipGetImageRawFormat               CSTRING('GdipGetImageRawFormat'), STATIC
-szGdipGetImagePixelFormat             CSTRING('GdipGetImagePixelFormat'), STATIC
-szGdipGetPropertyCount                CSTRING('GdipGetPropertyCount'), STATIC
-szGdipGetPropertyIdList               CSTRING('GdipGetPropertyIdList'), STATIC
-szGdipGetPropertyItemSize             CSTRING('GdipGetPropertyItemSize'), STATIC
-szGdipGetPropertyItem                 CSTRING('GdipGetPropertyItem'), STATIC
+szGdipGetImageVerticalResolution  CSTRING('GdipGetImageVerticalResolution'), STATIC
+szGdipGetImageBounds          CSTRING('GdipGetImageBounds'), STATIC
+szGdipGetImageDimension       CSTRING('GdipGetImageDimension'), STATIC
+szGdipGetImageType            CSTRING('GdipGetImageType'), STATIC
+szGdipGetImageFlags           CSTRING('GdipGetImageFlags'), STATIC
+szGdipGetImageRawFormat       CSTRING('GdipGetImageRawFormat'), STATIC
+szGdipGetImagePixelFormat     CSTRING('GdipGetImagePixelFormat'), STATIC
 
-paGdiplusStartup                      LONG, NAME('fptr_GdiplusStartup')
-paGdiplusShutdown                     LONG, NAME('fptr_GdiplusShutdown')
-paGdipCreateHBITMAPFromBitmap         LONG, NAME('fptr_GdipCreateHBITMAPFromBitmap')
-paGdipLoadImageFromFile               LONG, NAME('fptr_GdipLoadImageFromFile')
-paGdipLoadImageFromFileICM            LONG, NAME('fptr_GdipLoadImageFromFileICM')
-paGdipLoadImageFromStream             LONG, NAME('fptr_GdipLoadImageFromStream')
-paGdipLoadImageFromStreamICM          LONG, NAME('fptr_GdipLoadImageFromStreamICM')
-paGdipDisposeImage                    LONG, NAME('fptr_GdipDisposeImage')
-paGdipGetImageWidth                   LONG, NAME('fptr_GdipGetImageWidth')
-paGdipGetImageHeight                  LONG, NAME('fptr_GdipGetImageHeight')
+szGdipGetPropertyCount        CSTRING('GdipGetPropertyCount'), STATIC
+szGdipGetPropertyIdList       CSTRING('GdipGetPropertyIdList'), STATIC
+szGdipGetPropertyItemSize     CSTRING('GdipGetPropertyItemSize'), STATIC
+szGdipGetPropertyItem         CSTRING('GdipGetPropertyItem'), STATIC
+szGdipSetPropertyItem         CSTRING('GdipSetPropertyItem'), STATIC
+szGdipRemovePropertyItem      CSTRING('GdipRemovePropertyItem'), STATIC
+
+szGdipGetImageEncodersSize    CSTRING('GdipGetImageEncodersSize'), STATIC
+szGdipGetImageEncoders        CSTRING('GdipGetImageEncoders'), STATIC
+szGdipImageRotateFlip         CSTRING('GdipImageRotateFlip'), STATIC
+szGdipGetImageGraphicsContext CSTRING('GdipGetImageGraphicsContext'), STATIC
+szGdipDeleteGraphics          CSTRING('GdipDeleteGraphics'), STATIC
+
+
+paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
+paGdiplusShutdown             LONG, NAME('fptr_GdiplusShutdown')
+paGdipCreateHBITMAPFromBitmap LONG, NAME('fptr_GdipCreateHBITMAPFromBitmap')
+paGdipLoadImageFromFile       LONG, NAME('fptr_GdipLoadImageFromFile')
+paGdipLoadImageFromFileICM    LONG, NAME('fptr_GdipLoadImageFromFileICM')
+paGdipLoadImageFromStream     LONG, NAME('fptr_GdipLoadImageFromStream')
+paGdipLoadImageFromStreamICM  LONG, NAME('fptr_GdipLoadImageFromStreamICM')
+paGdipCloneImage              LONG, NAME('fptr_GdipCloneImage')
+paGdipGetImageThumbnail       LONG, NAME('fptr_GdipGetImageThumbnail')
+paGdipSaveImageToFile         LONG, NAME('fptr_GdipSaveImageToFile')
+paGdipSaveImageToStream       LONG, NAME('fptr_GdipSaveImageToStream')
+paGdipDisposeImage            LONG, NAME('fptr_GdipDisposeImage')
+paGdipGetImageWidth           LONG, NAME('fptr_GdipGetImageWidth')
+paGdipGetImageHeight          LONG, NAME('fptr_GdipGetImageHeight')
 paGdipGetImageHorizontalResolution    LONG, NAME('fptr_GdipGetImageHorizontalResolution')
-paGdipGetImageVerticalResolution      LONG, NAME('fptr_GdipGetImageVerticalResolution')
-paGdipGetImageBounds                  LONG, NAME('fptr_GdipGetImageBounds')
-paGdipGetImageDimension               LONG, NAME('fptr_GdipGetImageDimension')
-paGdipGetImageType                    LONG, NAME('fptr_GdipGetImageType')
-paGdipGetImageFlags                   LONG, NAME('fptr_GdipGetImageFlags')
-paGdipGetImageRawFormat               LONG, NAME('fptr_GdipGetImageRawFormat')
-paGdipGetImagePixelFormat             LONG, NAME('fptr_GdipGetImagePixelFormat')
-paGdipGetPropertyCount                LONG, NAME('fptr_GdipGetPropertyCount')
-paGdipGetPropertyIdList               LONG, NAME('fptr_GdipGetPropertyIdList')
-paGdipGetPropertyItemSize             LONG, NAME('fptr_GdipGetPropertyItemSize')
-paGdipGetPropertyItem                 LONG, NAME('fptr_GdipGetPropertyItem')
+paGdipGetImageVerticalResolution  LONG, NAME('fptr_GdipGetImageVerticalResolution')
+paGdipGetImageBounds          LONG, NAME('fptr_GdipGetImageBounds')
+paGdipGetImageDimension       LONG, NAME('fptr_GdipGetImageDimension')
+paGdipGetImageType            LONG, NAME('fptr_GdipGetImageType')
+paGdipGetImageFlags           LONG, NAME('fptr_GdipGetImageFlags')
+paGdipGetImageRawFormat       LONG, NAME('fptr_GdipGetImageRawFormat')
+paGdipGetImagePixelFormat     LONG, NAME('fptr_GdipGetImagePixelFormat')
+
+paGdipGetPropertyCount        LONG, NAME('fptr_GdipGetPropertyCount')
+paGdipGetPropertyIdList       LONG, NAME('fptr_GdipGetPropertyIdList')
+paGdipGetPropertyItemSize     LONG, NAME('fptr_GdipGetPropertyItemSize')
+paGdipGetPropertyItem         LONG, NAME('fptr_GdipGetPropertyItem')
+paGdipSetPropertyItem         LONG, NAME('fptr_GdipSetPropertyItem')
+paGdipRemovePropertyItem      LONG, NAME('fptr_GdipRemovePropertyItem')
+
+paGdipGetImageEncodersSize    LONG, NAME('fptr_GdipGetImageEncodersSize')
+paGdipGetImageEncoders        LONG, NAME('fptr_GdipGetImageEncoders')
+paGdipImageRotateFlip         LONG, NAME('fptr_GdipImageRotateFlip')
+paGdipGetImageGraphicsContext LONG, NAME('fptr_GdipGetImageGraphicsContext')
+paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
 
   MAP
     MODULE('win api')
@@ -81,6 +108,10 @@ paGdipGetPropertyItem                 LONG, NAME('fptr_GdipGetPropertyItem')
       gp::LoadImageFromFileICM(LONG pFileName, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFileICM'),DLL
       gp::LoadImageFromStream(LONG pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStream'),DLL
       gp::LoadImageFromStreamICM(LONG pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStreamICM'),DLL
+      gp::CloneImage(LONG pImage,*LONG pCLoneImage),GpStatus,PASCAL,NAME('fptr_GdipCloneImage'),DLL
+      gp::GetImageThumbnail(LONG pImage,ULONG pThumbWidth,ULONG pThumbHeight,*LONG pThumbImage,LONG pCallback,LONG pCallbackData),GpStatus,PASCAL,NAME('fptr_GdipGetImageThumbnail'),DLL
+      gp::SaveImageToFile(LONG pImage,LONG pFileName,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToFile'),DLL
+      gp::SaveImageToStream(LONG pImage,LONG pStream,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToStream'),DLL
       gp::DisposeImage(LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipDisposeImage'),DLL
       gp::GetImageWidth(LONG pImage, *ULONG pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetImageWidth'),DLL
       gp::GetImageHeight(LONG pImage, *ULONG pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetImageHeight'),DLL
@@ -96,6 +127,14 @@ paGdipGetPropertyItem                 LONG, NAME('fptr_GdipGetPropertyItem')
       gp::GetPropertyIdList(LONG pImage,ULONG pCount,LONG pList),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyIdList'),DLL
       gp::GetPropertyItemSize(LONG pImage,ULONG pPropId,*ULONG pSize),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyItemSize'),DLL
       gp::GetPropertyItem(LONG pImage,ULONG pPropId,ULONG pSize,LONG pBuffer),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyItem'),DLL
+      gp::SetPropertyItem(LONG pImage,LONG pItem),GpStatus,PASCAL,NAME('fptr_GdipSetPropertyItem'),DLL
+      gp::RemovePropertyItem(LONG pImage,ULONG pPropId),GpStatus,PASCAL,NAME('fptr_GdipRemovePropertyItem'),DLL
+      gp::GetImageEncodersSize(*ULONG pNumEncoders,*ULONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncodersSize'),DLL
+      gp::GetImageEncoders(ULONG pNumEncoders,ULONG pSize,LONG pEncoders),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncoders'),DLL
+      gp::ImageRotateFlip(LONG pImage,GpRotateFlipType pRfType),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageRotateFlip'),DLL
+
+      gp::GetImageGraphicsContext(LONG pImage,*LONG pGraphics),GpStatus,PASCAL,NAME('fptr_GdipGetImageGraphicsContext'),DLL
+      gp::DeleteGraphics(LONG pGraphics),GpStatus,PASCAL,NAME('fptr_GdipDeleteGraphics'),DLL
     END
     MODULE('Global memory api')
       winapi::GlobalAlloc(LONG uFlags,LONG dwBytes),HGLOBAL,PASCAL,NAME('GlobalAlloc')
@@ -105,12 +144,38 @@ paGdipGetPropertyItem                 LONG, NAME('fptr_GdipGetPropertyItem')
       winapi::memcpy(LONG lpDest,LONG lpSource,LONG nCount),LONG,PROC,NAME('_memcpy')
       winapi::CreateStreamOnHGlobal(LONG hGlobal,BOOL fDeleteOnRelease,LONG ppstm),LONG,PASCAL,PROC,NAME('CreateStreamOnHGlobal')
     END
+    MODULE('C++')
+      lstrlenW(LONG lpWString),SIGNED,PROC,PASCAL
+    END
 
-    ReportError(STRING pMethodName, GpStatus pErr),PRIVATE
+    GdipReportError(STRING pMethodName, GpStatus pErr),PRIVATE
     ToStream(STRING pData),LONG,PRIVATE
+    GetEncoderClsid(STRING pFormat, *_CLSID pClsId),BOOL,PROC,PRIVATE
+    GetFileMimeType(STRING pFileName),STRING,PRIVATE
 
     INCLUDE('printf.inc'), ONCE
   END
+
+!!!region IStream types
+tagSTATSTG                    GROUP, TYPE
+pwcsName                        LONG !LPOLESTR
+type                            ULONG
+cbSize                          LIKE(_ULARGE_INTEGER)
+mtime                           LIKE(_FILETIME)
+ctime                           LIKE(_FILETIME)
+atime                           LIKE(_FILETIME)
+grfMode                         ULONG
+grfLocksSupported               ULONG
+clsid                           LIKE(_CLSID)
+grfStateBits                    ULONG
+reserved                        ULONG
+                              END
+
+STATFLAG_DEFAULT              EQUATE(0) !- Requests that the statistics include the pwcsName member of the STATSTG structure.
+STATFLAG_NONAME               EQUATE(1) !- Requests that the statistics not include the pwcsName member of the STATSTG structure.
+STATFLAG_NOOPEN               EQUATE(2) !- Not implemented.
+
+!!!endregion
 
 !!!region GdiPlus initializer
 !https://www.codeproject.com/Messages/2274891/Re-GDIplus-initialization
@@ -138,11 +203,14 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
     IF paGdiplusStartup AND paGdiplusShutdown
       SELF.bInitialized = TRUE
 
-      paGdipCreateHBITMAPFromBitmap       = winapi::GetProcAddress(SELF.hDll, szGdipCreateHBITMAPFromBitmap)
       paGdipLoadImageFromFile             = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFile)
       paGdipLoadImageFromFileICM          = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFileICM)
       paGdipLoadImageFromStream           = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromStream)
       paGdipLoadImageFromStreamICM        = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromStreamICM)
+      paGdipCloneImage                    = winapi::GetProcAddress(SELF.hDll, szGdipCloneImage)
+      paGdipGetImageThumbnail             = winapi::GetProcAddress(SELF.hDll, szGdipGetImageThumbnail)
+      paGdipSaveImageToFile               = winapi::GetProcAddress(SELF.hDll, szGdipSaveImageToFile)
+      paGdipSaveImageToStream             = winapi::GetProcAddress(SELF.hDll, szGdipSaveImageToStream)
       paGdipDisposeImage                  = winapi::GetProcAddress(SELF.hDll, szGdipDisposeImage)
       paGdipGetImageWidth                 = winapi::GetProcAddress(SELF.hDll, szGdipGetImageWidth)
       paGdipGetImageHeight                = winapi::GetProcAddress(SELF.hDll, szGdipGetImageHeight)
@@ -158,6 +226,16 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipGetPropertyIdList             = winapi::GetProcAddress(SELF.hDll, szGdipGetPropertyIdList)
       paGdipGetPropertyItemSize           = winapi::GetProcAddress(SELF.hDll, szGdipGetPropertyItemSize)
       paGdipGetPropertyItem               = winapi::GetProcAddress(SELF.hDll, szGdipGetPropertyItem)
+      paGdipSetPropertyItem               = winapi::GetProcAddress(SELF.hDll, szGdipSetPropertyItem)
+      paGdipRemovePropertyItem            = winapi::GetProcAddress(SELF.hDll, szGdipRemovePropertyItem)
+      
+      paGdipGetImageEncodersSize          = winapi::GetProcAddress(SELF.hDll, szGdipGetImageEncodersSize)
+      paGdipGetImageEncoders              = winapi::GetProcAddress(SELF.hDll, szGdipGetImageEncoders)
+      paGdipImageRotateFlip               = winapi::GetProcAddress(SELF.hDll, szGdipImageRotateFlip)
+      
+      paGdipCreateHBITMAPFromBitmap       = winapi::GetProcAddress(SELF.hDll, szGdipCreateHBITMAPFromBitmap)
+      paGdipGetImageGraphicsContext       = winapi::GetProcAddress(SELF.hDll, szGdipGetImageGraphicsContext)
+      paGdipDeleteGraphics                = winapi::GetProcAddress(SELF.hDll, szGdipDeleteGraphics)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -191,7 +269,7 @@ err                             GpStatus, AUTO
   input.SuppressBackgroundThread = FALSE
   input.SuppressExternalCodecs = FALSE
   err = gp::Startup(SELF.token, ADDRESS(input), 0)
-  ReportError('TGdiPlusInitializer.Startup', err)
+  GdipReportError('TGdiPlusInitializer.Startup', err)
   RETURN err
 
 TGdiPlusInitializer.Shutdown  PROCEDURE()
@@ -200,7 +278,7 @@ TGdiPlusInitializer.Shutdown  PROCEDURE()
 !!!endregion
   
 !!!region Helper functions
-ReportError                   PROCEDURE(STRING pMethodName, GpStatus pErr)
+GdipReportError               PROCEDURE(STRING pMethodName, GpStatus pErr)
   CODE
   IF pErr <> GpStatus:Ok
     printd('[TGdiPlus] %s failed, error code %i', pMethodName, pErr)
@@ -235,6 +313,80 @@ hr                              HRESULT, AUTO
   END
   
   RETURN lpStream
+  
+GetEncoderClsid               PROCEDURE(STRING pFormat, *_CLSID pClsId)
+num                             ULONG(0)
+bytes                           ULONG(0)
+codecInfo                       LIKE(GpImageCodecInfo)
+codecInfoSize                   ULONG, AUTO
+buf                             &STRING, AUTO
+i                               LONG, AUTO
+enc                             TStringEncoding
+mimeTypeW                       &STRING, AUTO
+mimeTypeStrLen                  LONG, AUTO
+mimeTypeA                       STRING(20), AUTO
+ret                             BOOL(FALSE)
+  CODE
+  gp::GetImageEncodersSize(num, bytes)
+  IF bytes = 0
+    !- Failure
+    RETURN FALSE
+  END
+  
+  !- get a list of encoders
+  buf &= NEW STRING(bytes)
+  gp::GetImageEncoders(num, bytes, ADDRESS(buf))
+  
+  !- loop thru each encoder
+  codecInfoSize = SIZE(codecInfo)
+  LOOP i=1 TO num
+    !- read next encoder
+    codecInfo = SUB(buf, (i-1)*codecInfoSize + 1, codecInfoSize)
+    
+    !- get mime type (WCHAR*)
+    mimeTypeStrLen = lstrlenW(codecInfo.MimeType)
+!    mimeTypeW &= (codecInfo.MimeType) &':'& mimeTypeStrLen
+    mimeTypeW &= NEW STRING(mimeTypeStrLen*2+2)
+    winapi::memcpy(ADDRESS(mimeTypeW), codecInfo.MimeType, mimeTypeStrLen*2+2)
+    mimeTypeA = enc.FromUtf16(mimeTypeW)
+    DISPOSE(mimeTypeW)
+    
+    !- compare mime type against passed format
+    IF LOWER(pFormat) = mimeTypeA
+      !- Success
+      pClsId = codecInfo.Clsid
+      ret = TRUE
+    END
+  END
+
+  !- Failure
+  DISPOSE(buf)
+  RETURN ret
+
+GetFileMimeType               PROCEDURE(STRING pFileName)
+nameLen                         LONG, AUTO
+dotpos                          LONG, AUTO
+sExtension                      STRING(256), AUTO
+  CODE
+  nameLen = LEN(CLIP(pFileName))
+  dotpos = INSTRING('.', pFileName, -1, nameLen)
+  IF NOT dotpos
+    RETURN ''
+  END
+  sExtension = LOWER(pFileName[dotpos+1 : nameLen])
+  CASE sExtension
+  OF 'bmp'
+    RETURN 'image/bmp'
+  OF 'jpg'
+    RETURN 'image/jpeg'
+  OF 'gif'
+    RETURN 'image/gif'
+  OF 'tif'
+    RETURN 'image/tiff'
+  OF 'png'
+    RETURN 'image/png'
+  END
+  RETURN ''
 !!!endregion
   
 !!!region TGdiPlusImage
@@ -254,15 +406,15 @@ enc                             TStringEncoding
 wstr                            STRING(FILE:MaxFilePath*2+2)
   CODE
   SELF.nativeImage = 0
-  wstr = enc.ToCWStr(pFileName)
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
   IF pUseICM
     SELF.lastResult = gp::LoadImageFromFileICM(ADDRESS(wstr), SELF.nativeImage)
   ELSE
     SELF.lastResult = gp::LoadImageFromFile(ADDRESS(wstr), SELF.nativeImage)
   END
-  ReportError(printf('TGdiPlusImage.FromFile(%S, %b)', pFileName, pUseICM), SELF.lastResult)
+  GdipReportError(printf('TGdiPlusImage.FromFile(%S, %b)', pFileName, pUseICM), SELF.lastResult)
   RETURN SELF.lastResult
-
+  
 TGdiPlusImage.FromString      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
 lpStream                        LONG, AUTO
 stream                          &IStream, AUTO
@@ -277,8 +429,113 @@ stream                          &IStream, AUTO
       SELF.lastResult = gp::LoadImageFromStream(lpStream, SELF.nativeImage)
     END
     stream.Release()
-    ReportError('TGdiPlusImage.FromString', SELF.lastResult)
+    GdipReportError('TGdiPlusImage.FromString', SELF.lastResult)
   END
+  RETURN SELF.lastResult
+      
+TGdiPlusImage.Save            PROCEDURE(STRING pFileName, <STRING pFormat>)
+enc                             TStringEncoding
+wstr                            STRING(FILE:MaxFilePath*2+2)
+sMimeType                       STRING(20), AUTO
+clsid                           LIKE(_CLSID), AUTO
+  CODE
+  !- convert filename to UTF-16
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
+
+  !- get encoder
+  IF pFormat
+    sMimeType = pFormat
+  ELSE
+    sMimeType = GetFileMimeType(pFileName)
+  END
+  
+  CLEAR(clsid)
+  GetEncoderClsid(sMimeType, clsid)
+  
+  SELF.lastResult = gp::SaveImageToFile(SELF.nativeImage, ADDRESS(wstr), ADDRESS(clsid), 0)
+  GdipReportError(printf('TGdiPlusImage.ToFile(%S, %S)', pFileName, pFormat), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusImage.ToString        PROCEDURE(STRING pFormat)
+lpStream                        LONG, AUTO
+stream                          &IStream, AUTO
+clsid                           LIKE(_CLSID), AUTO
+hr                              HRESULT, AUTO
+statstg                         LIKE(tagSTATSTG), AUTO
+nDataLen                        ULONG, AUTO
+nBytesRead                      LONG, AUTO
+sImageData                      &STRING
+  CODE
+  !- get encoder
+  CLEAR(clsid)
+  GetEncoderClsid(pFormat, clsid)
+  
+  !- create IStream
+  lpStream = ToStream(' ')
+  IF lpStream
+    !- save image to stream
+    SELF.lastResult = gp::SaveImageToStream(SELF.nativeImage, lpStream, ADDRESS(clsid), 0)
+    GdipReportError(printf('TGdiPlusImage.ToString(%S)', pFormat), SELF.lastResult)
+    
+    stream &= (lpStream)
+    
+    !- get stream size
+    hr = stream.Stat(ADDRESS(statstg), STATFLAG_NONAME)
+    IF hr = S_OK
+      nDataLen = statstg.cbSize.LowPart   !- assume the stream is not too big and doesn't exceed ULONG size
+      
+      !- create data buffer
+      sImageData &= NEW STRING(nDataLen)
+      
+      !- seek to the start of the stream
+      hr = stream.Seek(0, 0, STREAM_SEEK_SET, 0)
+      IF hr = S_OK
+        !- read to the buffer
+        hr = stream.Read(ADDRESS(sImageData), nDataLen, nBytesRead)
+        IF hr = S_OK
+          !nDataLen must be equal to nBytesRead
+          !printd('IStream.Read requested %i bytes, read %i bytes', nDataLen, nBytesRead)
+        ELSE
+          printd('IStream.Read error 0x%x', hr)
+        END
+      ELSE
+        printd('IStream.Seek error 0x%x', hr)
+      END
+    ELSE
+      printd('IStream.Stat error 0x%x', hr)
+    END
+    
+    stream.Release()
+  END
+  
+  RETURN sImageData
+  
+TGdiPlusImage.Clone           PROCEDURE()
+cloneImage                      &TGdiPlusImage
+  CODE
+  cloneImage &= NEW TGdiPlusImage
+  SELF.Clone(cloneImage)
+  RETURN cloneImage
+
+TGdiPlusImage.Clone           PROCEDURE(*TGdiPlusImage pCloneImage)
+  CODE
+  SELF.lastResult = gp::CloneImage(SELF.nativeImage, pCloneImage.nativeImage)
+  GdipReportError('TGdiPlusImage.Clone', SELF.lastResult)
+  pCloneImage.lastResult = SELF.lastResult
+  RETURN SELF.lastResult
+
+TGdiPlusImage.GetThumbnailImage   PROCEDURE(ULONG pThumbWidth, ULONG pThumbHeight)
+thumbImage                          &TGdiPlusImage
+  CODE
+  thumbImage &= NEW TGdiPlusImage
+  SELF.GetThumbnailImage(pThumbWidth, pThumbHeight, thumbImage)
+  RETURN thumbImage
+  
+TGdiPlusImage.GetThumbnailImage   PROCEDURE(ULONG pThumbWidth, ULONG pThumbHeight, *TGdiPlusImage pThumbImage)
+  CODE
+  SELF.lastResult = gp::GetImageThumbnail(SELF.nativeImage, pThumbWidth, pThumbHeight, pThumbImage.nativeImage, 0, 0)
+  GdipReportError('TGdiPlusImage.GetThumbnailImage', SELF.lastResult)
+  pThumbImage.lastResult = SELF.lastResult
   RETURN SELF.lastResult
 
 TGdiPlusImage.DisposeImage    PROCEDURE()
@@ -286,7 +543,7 @@ TGdiPlusImage.DisposeImage    PROCEDURE()
   IF SELF.nativeImage
     SELF.lastResult = gp::DisposeImage(SELF.nativeImage)
     SELF.nativeImage = 0
-    ReportError('TGdiPlusImage.DisposeImage', SELF.lastResult)
+    GdipReportError('TGdiPlusImage.DisposeImage', SELF.lastResult)
   END
   RETURN SELF.lastResult
  
@@ -294,34 +551,34 @@ TGdiPlusImage.GetWidth        PROCEDURE()
 w                               ULONG(0)
   CODE
   SELF.lastResult = gp::GetImageWidth(SELF.nativeImage, w)
-  ReportError('TGdiPlusImage.GetWidth', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetWidth', SELF.lastResult)
   RETURN w
 
 TGdiPlusImage.GetHeight       PROCEDURE()
 h                               ULONG(0)
   CODE
   SELF.lastResult = gp::GetImageHeight(SELF.nativeImage, h)
-  ReportError('TGdiPlusImage.GetHeight', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetHeight', SELF.lastResult)
   RETURN h
 
 TGdiPlusImage.GetHorizontalResolution PROCEDURE()
 resolution                              SREAL(0.0)
   CODE
   SELF.lastResult = gp::GetImageHorizontalResolution(SELF.nativeImage, resolution)
-  ReportError('TGdiPlusImage.GetHorizontalResolution', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetHorizontalResolution', SELF.lastResult)
   RETURN resolution
   
 TGdiPlusImage.GetVerticalResolution   PROCEDURE()
 resolution                              SREAL(0.0)
   CODE
   SELF.lastResult = gp::GetImageVerticalResolution(SELF.nativeImage, resolution)
-  ReportError('TGdiPlusImage.GetVerticalResolution', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetVerticalResolution', SELF.lastResult)
   RETURN resolution
 
 TGdiPlusImage.GetBounds       PROCEDURE(*GpRectF pRect, *GpUnit pUnit)
   CODE
   SELF.lastResult = gp::GetImageBounds(SELF.nativeImage, ADDRESS(pRect), ADDRESS(pUnit))
-  ReportError('TGdiPlusImage.GetBounds', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetBounds', SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusImage.GetPhysicalDimension    PROCEDURE(*GpSizeF pSize)
@@ -329,7 +586,7 @@ w                                       SREAL, AUTO
 h                                       SREAL, AUTO
   CODE
   SELF.lastResult = gp::GetImageDimension(SELF.nativeImage, w, h)
-  ReportError('TGdiPlusImage.GetPhysicalDimension', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetPhysicalDimension', SELF.lastResult)
   pSize.cx = w
   pSize.cy = h
   RETURN SELF.lastResult
@@ -338,63 +595,104 @@ TGdiPlusImage.GetType         PROCEDURE()
 imgType                         GpImageType(GpImageType:Unknown)
   CODE
   SELF.lastResult = gp::GetImageType(SELF.nativeImage, imgType)
-  ReportError('TGdiPlusImage.GetType', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetType', SELF.lastResult)
   RETURN imgType
   
 TGdiPlusImage.GetFlags        PROCEDURE()
 flags                           ULONG(0)
   CODE
   SELF.lastResult = gp::GetImageFlags(SELF.nativeImage, flags)
-  ReportError('TGdiPlusImage.GetFlags', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetFlags', SELF.lastResult)
   RETURN flags
   
 TGdiPlusImage.GetRawFormat    PROCEDURE(*GUID pGuid)
   CODE
   CLEAR(pGuid, -1)
   SELF.lastResult = gp::GetImageRawFormat(SELF.nativeImage, ADDRESS(pGuid))
-  ReportError('TGdiPlusImage.GetRawFormat', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetRawFormat', SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusImage.GetPixelFormat  PROCEDURE()
 fmt                             GpPixelFormat(0)
   CODE
   SELF.lastResult = gp::GetImagePixelFormat(SELF.nativeImage, fmt)
-  ReportError('TGdiPlusImage.GetPixelFormat', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetPixelFormat', SELF.lastResult)
   RETURN fmt
   
 TGdiPlusImage.GetPropertyCount    PROCEDURE()
 nCount                              ULONG(0)
   CODE
   SELF.lastResult = gp::GetPropertyCount(SELF.nativeImage, nCount)
-  ReportError('TGdiPlusImage.GetPropertyCount', SELF.lastResult)
+  GdipReportError('TGdiPlusImage.GetPropertyCount', SELF.lastResult)
   RETURN nCOunt
 
 TGdiPlusImage.GetPropertyIdList   PROCEDURE(ULONG pNumOfProperty, *ULONG[] pList)
   CODE
   CLEAR(pList)
   SELF.lastResult = gp::GetPropertyIdList(SELF.nativeImage, pNumOfProperty, ADDRESS(pList))
-  ReportError(printf('TGdiPlusImage.GetPropertyIdList(%i)', pNumOfProperty), SELF.lastResult)
+  GdipReportError(printf('TGdiPlusImage.GetPropertyIdList(%i)', pNumOfProperty), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusImage.GetPropertyItemSize PROCEDURE(ULONG pPropId)
 itemSize                            ULONG(0)
   CODE
   SELF.lastResult = gp::GetPropertyItemSize(SELF.nativeImage, pPropId, itemSize)
-  ReportError(printf('TGdiPlusImage.GetPropertyItemSize(%x)', pPropId), SELF.lastResult)
+  GdipReportError(printf('TGdiPlusImage.GetPropertyItemSize(%x)', pPropId), SELF.lastResult)
   RETURN itemSize
   
 TGdiPlusImage.GetPropertyItem PROCEDURE(ULONG pPropId, ULONG pItemSize, *TGdiPlusPropertyItem pItem)
 buf                             STRING(pItemSize), AUTO
 itm                             LIKE(GpPropertyItem)
   CODE
-  CLEAR(buf, -1)
-  SELF.lastResult = gp::GetPropertyItem(SELF.nativeImage, pPropId, pItemSize, ADDRESS(buf))
-  ReportError(printf('TGdiPlusImage.GetPropertyItem(%x)', pPropId), SELF.lastResult)
-  IF SELF.lastResult = GpStatus:Ok
-    itm = buf
-    pItem.Assign(itm)
+  IF pItemSize
+    CLEAR(buf, -1)
+    SELF.lastResult = gp::GetPropertyItem(SELF.nativeImage, pPropId, pItemSize, ADDRESS(buf))
+    GdipReportError(printf('TGdiPlusImage.GetPropertyItem(%x)', pPropId), SELF.lastResult)
+    IF SELF.lastResult = GpStatus:Ok
+      itm = buf
+      pItem.Assign(itm)
+    END
+  ELSE
+    SELF.lastResult = GpStatus:InvalidParameter
+    GdipReportError(printf('TGdiPlusImage.GetPropertyItem(%x)', pPropId), SELF.lastResult)
   END
   
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.GetPropertyItem PROCEDURE(ULONG pPropId, *TGdiPlusPropertyItem pItem)
+propSize                        ULONG, AUTO
+  CODE
+  propSize = SELF.GetPropertyItemSize(pPropId)
+  IF SELF.lastResult = GpStatus:Ok
+    SELF.GetPropertyItem(pPropId, propSize, pItem)
+  END
+  RETURN SELF.lastResult
+
+TGdiPlusImage.SetPropertyItem PROCEDURE(GpPropertyItem pItem)
+  CODE
+  SELF.lastResult = gp::SetPropertyItem(SELF.nativeImage, ADDRESS(pItem))
+  GdipReportError(printf('TGdiPlusImage.SetPropertyItem(%i)', pItem.id), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusImage.SetPropertyItem PROCEDURE(TGdiPlusPropertyItem pItem)
+itm                             LIKE(GpPropertyItem)
+  CODE
+  itm.id = pItem.GetId()
+  itm.type = pItem.GetType()
+  itm.length = pItem.GetLength()
+  itm.refValue = pItem.GetValueAddress()
+  RETURN SELF.SetPropertyItem(itm)
+  
+TGdiPlusImage.RemovePropertyItem  PROCEDURE(ULONG pPropId)
+  CODE
+  SELF.lastResult = gp::RemovePropertyItem(SELF.nativeImage, pPropId)
+  GdipReportError(printf('TGdiPlusImage.RemovePropertyItem(%i)', pPropId), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusImage.RotateFlip      PROCEDURE(GpRotateFlipType pRfType)
+  CODE
+  SELF.lastResult = gp::ImageRotateFlip(SELF.nativeImage, pRfType)
+  GdipReportError(printf('TGdiPlusImage.RotateFlip(%i)', pRfType), SELF.lastResult)
   RETURN SELF.lastResult
 !!!endregion
   
@@ -408,7 +706,7 @@ TGdiPlusPropertyItem.Assign   PROCEDURE(GpPropertyItem pItem)
   SELF.id = pItem.id
   SELF.length = pItem.length
   SELF.type = pItem.type
-  SELF.value &= NEW STRING(pItem.length)
+  SELF.value &= NEW CSTRING(pItem.length)
   winapi::memcpy(ADDRESS(SELF.value), pItem.refvalue, pItem.length)
 
 TGdiPlusPropertyItem.Free     PROCEDURE()
@@ -488,7 +786,28 @@ TGdiPlusBitmap.GetHBITMAP     PROCEDURE(ULONG pBackground)
 hbmReturn                       HBITMAP(0)
   CODE
   SELF.lastResult = gp::CreateHBITMAPFromBitmap(SELF.nativeImage, hbmReturn, pBackground)
-  ReportError(printf('TGdiPlusBitmap.GetHBITMAP(%x)', pBackground), SELF.lastResult)
+  GdipReportError(printf('TGdiPlusBitmap.GetHBITMAP(%x)', pBackground), SELF.lastResult)
   RETURN hbmReturn
 
+!!!endregion
+
+!!!region TGdiPlusGraphics
+TGdiPlusGraphics.Construct    PROCEDURE()
+  CODE
+  
+TGdiPlusGraphics.Destruct     PROCEDURE()
+  CODE
+  SELF.DisposeGraphics()
+  
+TGdiPlusGraphics.FromImage    PROCEDURE(TGdiPlusImage pImage)
+  CODE
+  SELF.lastResult = gp::GetImageGraphicsContext(pImage.nativeImage, SELF.nativeGraphics)
+  GdipReportError('TGdiPlusGraphics.FromImage', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusGraphics.DisposeGraphics  PROCEDURE()
+  CODE
+  SELF.lastResult = gp::DeleteGraphics(SELF.nativeGraphics)
+  GdipReportError('TGdiPlusGraphics.DisposeGraphics', SELF.lastResult)
+  RETURN SELF.lastResult
 !!!endregion

@@ -1,5 +1,5 @@
 # GdiPlus
-GdiPlus support
+GDI+ support
 
 ### Requirements
 - Clarion versions: C6.3 and higher.
