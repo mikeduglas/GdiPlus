@@ -14,6 +14,3 @@ GDI+ support
 - <mikeduglas@yandex.ru>
 - <mikeduglas66@gmail.com>
 
-### Price
-Free
-

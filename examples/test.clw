@@ -214,7 +214,7 @@ phSize                          LIKE(GpSizeF)
 imgGuid                         LIKE(GUID)
 
 nPropCount                      ULONG, AUTO
-propList                        ULONG, DIM(10)
+propList                        ULONG, DIM(32)  !- actual DIM could be taken from image.GetPropertyCount()
 propId                          ULONG, AUTO
 propItem                        TGdiPlusPropertyItem
 propArrSize                     ULONG, AUTO

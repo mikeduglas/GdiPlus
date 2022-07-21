@@ -1,4 +1,5 @@
 !* GDI+ support
+!* Base class implementations
 !* mikeduglas 2022
 !* mikeduglas@yandex.ru
 
@@ -7,8 +8,6 @@
   INCLUDE('svcomdef.inc'), ONCE
   INCLUDE('gdiplus.inc'), ONCE
   INCLUDE('winapi.inc'), ONCE
-
-size_t                        EQUATE(UNSIGNED)
 
 tagGdiplusStartupInput        GROUP, TYPE
 GdiplusVersion                  ULONG
@@ -19,7 +18,6 @@ SuppressExternalCodecs          BOOL
 
 szGdiplusStartup              CSTRING('GdiplusStartup'), STATIC
 szGdiplusShutdown             CSTRING('GdiplusShutdown'), STATIC
-szGdipCreateHBITMAPFromBitmap CSTRING('GdipCreateHBITMAPFromBitmap'), STATIC
 szGdipLoadImageFromFile       CSTRING('GdipLoadImageFromFile'), STATIC
 szGdipLoadImageFromFileICM    CSTRING('GdipLoadImageFromFileICM'), STATIC
 szGdipLoadImageFromStream     CSTRING('GdipLoadImageFromStream'), STATIC
@@ -50,13 +48,33 @@ szGdipRemovePropertyItem      CSTRING('GdipRemovePropertyItem'), STATIC
 szGdipGetImageEncodersSize    CSTRING('GdipGetImageEncodersSize'), STATIC
 szGdipGetImageEncoders        CSTRING('GdipGetImageEncoders'), STATIC
 szGdipImageRotateFlip         CSTRING('GdipImageRotateFlip'), STATIC
+szGdipGetImagePaletteSize     CSTRING('GdipGetImagePaletteSize'), STATIC
+szGdipGetImagePalette         CSTRING('GdipGetImagePalette'), STATIC
+szGdipSetImagePalette         CSTRING('GdipSetImagePalette'), STATIC
+szGdipFindFirstImageItem      CSTRING('GdipFindFirstImageItem'), STATIC
+szGdipFindNextImageItem       CSTRING('GdipFindNextImageItem'), STATIC
+szGGdipGetImageItemData       CSTRING('GdipGetImageItemData'), STATIC
+
+szGdipCreateBitmapFromFile    CSTRING('GdipCreateBitmapFromFile'), STATIC
+szGdipCreateBitmapFromFileICM CSTRING('GdipCreateBitmapFromFileICM'), STATIC
+szGdipCreateBitmapFromStream  CSTRING('GdipCreateBitmapFromStream'), STATIC
+szGdipCreateBitmapFromStreamICM   CSTRING('GdipCreateBitmapFromStreamICM'), STATIC
+szGdipCreateBitmapFromScan0   CSTRING('GdipCreateBitmapFromScan0'), STATIC
+szGdipCreateBitmapFromGraphics    CSTRING('GdipCreateBitmapFromGraphics'), STATIC
+szGdipCreateBitmapFromGdiDib  CSTRING('GdipCreateBitmapFromGdiDib'), STATIC
+szGdipCreateBitmapFromHBITMAP CSTRING('GdipCreateBitmapFromHBITMAP'), STATIC
+szGdipCreateHBITMAPFromBitmap CSTRING('GdipCreateHBITMAPFromBitmap'), STATIC
+szGdipCreateBitmapFromHICON   CSTRING('GdipCreateBitmapFromHICON'), STATIC
+szGdipCreateHICONFromBitmap   CSTRING('GdipCreateHICONFromBitmap'), STATIC
+szGdipCreateBitmapFromResource    CSTRING('GdipCreateBitmapFromResource'), STATIC
+szGdipCloneBitmapArea         CSTRING('GdipCloneBitmapArea'), STATIC
+
 szGdipGetImageGraphicsContext CSTRING('GdipGetImageGraphicsContext'), STATIC
 szGdipDeleteGraphics          CSTRING('GdipDeleteGraphics'), STATIC
 
 
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
 paGdiplusShutdown             LONG, NAME('fptr_GdiplusShutdown')
-paGdipCreateHBITMAPFromBitmap LONG, NAME('fptr_GdipCreateHBITMAPFromBitmap')
 paGdipLoadImageFromFile       LONG, NAME('fptr_GdipLoadImageFromFile')
 paGdipLoadImageFromFileICM    LONG, NAME('fptr_GdipLoadImageFromFileICM')
 paGdipLoadImageFromStream     LONG, NAME('fptr_GdipLoadImageFromStream')
@@ -87,6 +105,27 @@ paGdipRemovePropertyItem      LONG, NAME('fptr_GdipRemovePropertyItem')
 paGdipGetImageEncodersSize    LONG, NAME('fptr_GdipGetImageEncodersSize')
 paGdipGetImageEncoders        LONG, NAME('fptr_GdipGetImageEncoders')
 paGdipImageRotateFlip         LONG, NAME('fptr_GdipImageRotateFlip')
+paGdipGetImagePaletteSize     LONG, NAME('fptr_GdipGetImagePaletteSize')
+paGdipGetImagePalette         LONG, NAME('fptr_GdipGetImagePalette')
+paGdipSetImagePalette         LONG, NAME('fptr_GdipSetImagePalette')
+paGdipFindFirstImageItem      LONG, NAME('fptr_GdipFindFirstImageItem')
+paGdipFindNextImageItem       LONG, NAME('fptr_GdipFindNextImageItem')
+paGdipGetImageItemData        LONG, NAME('fptr_GdipGetImageItemData')
+
+paGdipCreateBitmapFromFile    LONG, NAME('fptr_GdipCreateBitmapFromFile')
+paGdipCreateBitmapFromFileICM LONG, NAME('fptr_GdipCreateBitmapFromFileICM')
+paGdipCreateBitmapFromStream  LONG, NAME('fptr_GdipCreateBitmapFromStream')
+paGdipCreateBitmapFromStreamICM   LONG, NAME('fptr_GdipCreateBitmapFromStreamICM')
+paGdipCreateBitmapFromScan0   LONG, NAME('fptr_GdipCreateBitmapFromScan0')
+paGdipCreateBitmapFromGraphics    LONG, NAME('fptr_GdipCreateBitmapFromGraphics')
+paGdipCreateBitmapFromGdiDib  LONG, NAME('fptr_GdipCreateBitmapFromGdiDib')
+paGdipCreateBitmapFromHBITMAP LONG, NAME('fptr_GdipCreateBitmapFromHBITMAP')
+paGdipCreateHBITMAPFromBitmap LONG, NAME('fptr_GdipCreateHBITMAPFromBitmap')
+paGdipCreateBitmapFromHICON   LONG, NAME('fptr_GdipCreateBitmapFromHICON')
+paGdipCreateHICONFromBitmap   LONG, NAME('fptr_GdipCreateHICONFromBitmap')
+paGdipCreateBitmapFromResource    LONG, NAME('fptr_GdipCreateBitmapFromResource')
+paGdipCloneBitmapArea         LONG, NAME('fptr_GdipCloneBitmapArea')
+
 paGdipGetImageGraphicsContext LONG, NAME('fptr_GdipGetImageGraphicsContext')
 paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
 
@@ -103,11 +142,10 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
       gp::Startup(*ULONG pToken, LONG pInput, LONG pOutput),GpStatus,PASCAL,NAME('fptr_GdiplusStartup'),DLL
       gp::Shutdown(ULONG pToken),PASCAL,NAME('fptr_GdiplusShutdown'),DLL
       !c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusflat.h
-      gp::CreateHBITMAPFromBitmap(LONG pBitmap, *HBITMAP pHbmReturn, ULONG pBackground),GpStatus,PASCAL,NAME('fptr_GdipCreateHBITMAPFromBitmap'),DLL
-      gp::LoadImageFromFile(LONG pFileName, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFile'),DLL
-      gp::LoadImageFromFileICM(LONG pFileName, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFileICM'),DLL
-      gp::LoadImageFromStream(LONG pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStream'),DLL
-      gp::LoadImageFromStreamICM(LONG pStream, *LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStreamICM'),DLL
+      gp::LoadImageFromFile(LONG pFileName, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFile'),DLL
+      gp::LoadImageFromFileICM(LONG pFileName, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFileICM'),DLL
+      gp::LoadImageFromStream(LONG pStream, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStream'),DLL
+      gp::LoadImageFromStreamICM(LONG pStream, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStreamICM'),DLL
       gp::CloneImage(LONG pImage,*LONG pCLoneImage),GpStatus,PASCAL,NAME('fptr_GdipCloneImage'),DLL
       gp::GetImageThumbnail(LONG pImage,ULONG pThumbWidth,ULONG pThumbHeight,*LONG pThumbImage,LONG pCallback,LONG pCallbackData),GpStatus,PASCAL,NAME('fptr_GdipGetImageThumbnail'),DLL
       gp::SaveImageToFile(LONG pImage,LONG pFileName,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToFile'),DLL
@@ -132,6 +170,26 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
       gp::GetImageEncodersSize(*ULONG pNumEncoders,*ULONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncodersSize'),DLL
       gp::GetImageEncoders(ULONG pNumEncoders,ULONG pSize,LONG pEncoders),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncoders'),DLL
       gp::ImageRotateFlip(LONG pImage,GpRotateFlipType pRfType),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageRotateFlip'),DLL
+      gp::GetImagePaletteSize(LONG pImage,*LONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImagePaletteSize'),DLL
+      gp::GetImagePalette(LONG pImage,LONG pPalette,LONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImagePalette'),DLL
+      gp::SetImagePalette(LONG pImage,LONG pPalette),GpStatus,PROC,PASCAL,NAME('fptr_GdipSetImagePalette'),DLL
+      gp::FindFirstImageItem(LONG pImage,LONG pItem),GpStatus,PROC,PASCAL,NAME('fptr_GdipFindFirstImageItem'),DLL
+      gp::FindNextImageItem(LONG pImage,LONG pItem),GpStatus,PROC,PASCAL,NAME('fptr_GdipFindNextImageItem'),DLL
+      gp::GetImageItemData(LONG pImage,LONG pItem),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageItemData'),DLL
+
+      gp::CreateBitmapFromFile(LONG pFileName,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromFile'),DLL
+      gp::CreateBitmapFromFileICM(LONG pFileName,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromFileICM'),DLL
+      gp::CreateBitmapFromStream(LONG pStream,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromStream'),DLL
+      gp::CreateBitmapFromScan0(LONG pWidth,LONG pheight,LONG pStride,GpPixelFormat pFormat,LONG pScan0,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromScan0'),DLL
+      gp::CreateBitmapFromStreamICM(LONG pStream,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromStreamICM'),DLL
+      gp::CreateBitmapFromGraphics(LONG pWidth,LONG pHeight,LONG pTarget,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromGraphics'),DLL
+      gp::CreateBitmapFromGdiDib(LONG pgdiBitmapInfo,LONG gdiBitmapData,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromGdiDib'),DLL
+      gp::CreateBitmapFromHBITMAP(HBITMAP phbm,HANDLE phpal,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromHBITMAP'),DLL
+      gp::CreateHBITMAPFromBitmap(LONG pBitmap, *HBITMAP pHbmReturn, ULONG pBackground),GpStatus,PASCAL,NAME('fptr_GdipCreateHBITMAPFromBitmap'),DLL
+      gp::CreateBitmapFromHICON(HICON pHicon,*LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipCreateBitmapFromHICON'),DLL
+      gp::CreateHICONFromBitmap(LONG pBitmap, *HICON pHicon),GpStatus,PASCAL,NAME('fptr_GdipCreateHICONFromBitmap'),DLL
+      gp::CreateBitmapFromResource(HINSTANCE phInstance,LONG pBitmapName,*LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipCreateBitmapFromResource'),DLL
+      gp::CloneBitmapArea(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat,LONG pSrcBitmap,*LONG pDstBitmap),GpStatus,PASCAL,NAME('fptr_GdipCloneBitmapArea'),DLL
 
       gp::GetImageGraphicsContext(LONG pImage,*LONG pGraphics),GpStatus,PASCAL,NAME('fptr_GdipGetImageGraphicsContext'),DLL
       gp::DeleteGraphics(LONG pGraphics),GpStatus,PASCAL,NAME('fptr_GdipDeleteGraphics'),DLL
@@ -232,8 +290,24 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipGetImageEncodersSize          = winapi::GetProcAddress(SELF.hDll, szGdipGetImageEncodersSize)
       paGdipGetImageEncoders              = winapi::GetProcAddress(SELF.hDll, szGdipGetImageEncoders)
       paGdipImageRotateFlip               = winapi::GetProcAddress(SELF.hDll, szGdipImageRotateFlip)
+      paGdipGetImagePaletteSize           = winapi::GetProcAddress(SELF.hDll, szGdipGetImagePaletteSize)
+      paGdipGetImagePalette               = winapi::GetProcAddress(SELF.hDll, szGdipGetImagePalette)
+      paGdipSetImagePalette               = winapi::GetProcAddress(SELF.hDll, szGdipSetImagePalette)
       
+      paGdipCreateBitmapFromFile          = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromFile)
+      paGdipCreateBitmapFromFileICM       = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromFileICM)
+      paGdipCreateBitmapFromStream        = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromStream)
+      paGdipCreateBitmapFromStreamICM     = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromStreamICM)
+      paGdipCreateBitmapFromScan0         = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromScan0)
+      paGdipCreateBitmapFromGraphics      = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromGraphics)
+      paGdipCreateBitmapFromGdiDib        = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromGdiDib)
+      paGdipCreateBitmapFromHBITMAP       = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromHBITMAP)
       paGdipCreateHBITMAPFromBitmap       = winapi::GetProcAddress(SELF.hDll, szGdipCreateHBITMAPFromBitmap)
+      paGdipCreateBitmapFromHICON         = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromHICON)
+      paGdipCreateHICONFromBitmap         = winapi::GetProcAddress(SELF.hDll, szGdipCreateHICONFromBitmap)
+      paGdipCreateBitmapFromResource      = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromResource)
+      paGdipCloneBitmapArea               = winapi::GetProcAddress(SELF.hDll, szGdipCloneBitmapArea)
+      
       paGdipGetImageGraphicsContext       = winapi::GetProcAddress(SELF.hDll, szGdipGetImageGraphicsContext)
       paGdipDeleteGraphics                = winapi::GetProcAddress(SELF.hDll, szGdipDeleteGraphics)
 
@@ -514,7 +588,10 @@ TGdiPlusImage.Clone           PROCEDURE()
 cloneImage                      &TGdiPlusImage
   CODE
   cloneImage &= NEW TGdiPlusImage
-  SELF.Clone(cloneImage)
+  IF SELF.Clone(cloneImage) <> GpStatus:Ok
+    DISPOSE(cloneImage)
+    cloneImage &= NULL
+  END
   RETURN cloneImage
 
 TGdiPlusImage.Clone           PROCEDURE(*TGdiPlusImage pCloneImage)
@@ -632,39 +709,23 @@ TGdiPlusImage.GetPropertyIdList   PROCEDURE(ULONG pNumOfProperty, *ULONG[] pList
   SELF.lastResult = gp::GetPropertyIdList(SELF.nativeImage, pNumOfProperty, ADDRESS(pList))
   GdipReportError(printf('TGdiPlusImage.GetPropertyIdList(%i)', pNumOfProperty), SELF.lastResult)
   RETURN SELF.lastResult
-  
-TGdiPlusImage.GetPropertyItemSize PROCEDURE(ULONG pPropId)
-itemSize                            ULONG(0)
-  CODE
-  SELF.lastResult = gp::GetPropertyItemSize(SELF.nativeImage, pPropId, itemSize)
-  GdipReportError(printf('TGdiPlusImage.GetPropertyItemSize(%x)', pPropId), SELF.lastResult)
-  RETURN itemSize
-  
-TGdiPlusImage.GetPropertyItem PROCEDURE(ULONG pPropId, ULONG pItemSize, *TGdiPlusPropertyItem pItem)
-buf                             STRING(pItemSize), AUTO
+    
+TGdiPlusImage.GetPropertyItem PROCEDURE(ULONG pPropId, *TGdiPlusPropertyItem pItem)
+propSize                        ULONG, AUTO
+buf                             &STRING, AUTO
 itm                             LIKE(GpPropertyItem)
   CODE
-  IF pItemSize
-    CLEAR(buf, -1)
-    SELF.lastResult = gp::GetPropertyItem(SELF.nativeImage, pPropId, pItemSize, ADDRESS(buf))
+  SELF.lastResult = gp::GetPropertyItemSize(SELF.nativeImage, pPropId, propSize)
+  GdipReportError(printf('TGdiPlusImage.GetPropertyItemSize(%x)', pPropId), SELF.lastResult)
+  IF SELF.lastResult = GpStatus:Ok
+    buf &= NEW STRING(propSize)
+    SELF.lastResult = gp::GetPropertyItem(SELF.nativeImage, pPropId, propSize, ADDRESS(buf))
     GdipReportError(printf('TGdiPlusImage.GetPropertyItem(%x)', pPropId), SELF.lastResult)
     IF SELF.lastResult = GpStatus:Ok
       itm = buf
       pItem.Assign(itm)
     END
-  ELSE
-    SELF.lastResult = GpStatus:InvalidParameter
-    GdipReportError(printf('TGdiPlusImage.GetPropertyItem(%x)', pPropId), SELF.lastResult)
-  END
-  
-  RETURN SELF.lastResult
-    
-TGdiPlusImage.GetPropertyItem PROCEDURE(ULONG pPropId, *TGdiPlusPropertyItem pItem)
-propSize                        ULONG, AUTO
-  CODE
-  propSize = SELF.GetPropertyItemSize(pPropId)
-  IF SELF.lastResult = GpStatus:Ok
-    SELF.GetPropertyItem(pPropId, propSize, pItem)
+    DISPOSE(buf)
   END
   RETURN SELF.lastResult
 
@@ -775,13 +836,75 @@ v                                   LONG, AUTO
   RETURN v
 
 TGdiPlusPropertyItem.GetRealValue PROCEDURE()
-v                                   REAL, AUTO
+v                                   SREAL, AUTO
   CODE
-  winapi::memcpy(ADDRESS(v), ADDRESS(SELF.value), 8)
+  winapi::memcpy(ADDRESS(v), ADDRESS(SELF.value), 4)
   RETURN v
 !!!endregion
   
 !!!region TGdiPlusBitmap
+TGdiPlusBitmap.FromFile       PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE)
+enc                             TStringEncoding
+wstr                            STRING(FILE:MaxFilePath*2+2)
+  CODE
+  SELF.nativeImage = 0
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
+  IF pUseICM
+    SELF.lastResult = gp::CreateBitmapFromFileICM(ADDRESS(wstr), SELF.nativeImage)
+  ELSE
+    SELF.lastResult = gp::CreateBitmapFromFile(ADDRESS(wstr), SELF.nativeImage)
+  END
+  GdipReportError(printf('TGdiPlusBitmap.FromFile(%S, %b)', pFileName, pUseICM), SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusBitmap.FromString     PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
+lpStream                        LONG, AUTO
+stream                          &IStream, AUTO
+  CODE
+  SELF.nativeImage = 0
+  lpStream = ToStream(pImageData)
+  IF lpStream
+    stream &= (lpStream)
+    IF pUseICM
+      SELF.lastResult = gp::CreateBitmapFromStreamICM(lpStream, SELF.nativeImage)
+    ELSE
+      SELF.lastResult = gp::CreateBitmapFromStream(lpStream, SELF.nativeImage)
+    END
+    stream.Release()
+    GdipReportError('TGdiPlusBitmap.FromString', SELF.lastResult)
+  END
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.FromScan0      PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, BYTE[] pScan0)
+  CODE
+  SELF.lastResult = gp::CreateBitmapFromScan0(pWidth, pHeight, pStride, pFormat, ADDRESS(pScan0), SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromScan0'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.CreateBitmap   PROCEDURE(LONG pWidth, LONG pHeight, GpPixelFormat pFormat)
+  CODE
+  SELF.lastResult = gp::CreateBitmapFromScan0(pWidth, pHeight, 0, pFormat, 0, SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromScan0'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.FromGraphics   PROCEDURE(LONG pWidth, LONG pHeight, TGdiPlusGraphics pTarget)
+  CODE
+  SELF.lastResult = gp::CreateBitmapFromGraphics(pWidth, pHeight, pTarget.nativeGraphics, SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromGraphics'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.FromBITMAPINFO PROCEDURE(CONST *STRING pBitmapInfo, BYTE[] pBitmapData)
+  CODE
+  SELF.lastResult = gp::CreateBitmapFromGdiDib(ADDRESS(pBitmapInfo), ADDRESS(pBitmapData), SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromBITMAPINFO'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.FromHBITMAP    PROCEDURE(HBITMAP pHbm, HANDLE pHpal)
+  CODE
+  SELF.lastResult = gp::CreateBitmapFromHBITMAP(pHbm, pHpal, SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromHBITMAP'), SELF.lastResult)
+  RETURN SELF.lastResult
+
 TGdiPlusBitmap.GetHBITMAP     PROCEDURE(ULONG pBackground)
 hbmReturn                       HBITMAP(0)
   CODE
@@ -789,6 +912,44 @@ hbmReturn                       HBITMAP(0)
   GdipReportError(printf('TGdiPlusBitmap.GetHBITMAP(%x)', pBackground), SELF.lastResult)
   RETURN hbmReturn
 
+TGdiPlusBitmap.FromHICON      PROCEDURE(HICON pHicon)
+  CODE
+  SELF.lastResult = gp::CreateBitmapFromHICON(pHicon, SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromHICON'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.GetHICON       PROCEDURE()
+hiconReturn                     HICON(0)
+  CODE
+  SELF.lastResult = gp::CreateHICONFromBitmap(SELF.nativeImage, hiconReturn)
+  GdipReportError(printf('TGdiPlusBitmap.GetHICON'), SELF.lastResult)
+  RETURN hiconReturn
+  
+TGdiPlusBitmap.FromResource   PROCEDURE(HINSTANCE pHInstance, STRING pBitmapName)
+enc                             TStringEncoding
+wstr                            STRING(FILE:MaxFilePath*2+2)
+  CODE
+  wstr = enc.ToCWStr(LONGPATH(pBitmapName))
+  SELF.lastResult = gp::CreateBitmapFromResource(pHInstance, ADDRESS(wstr), SELF.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.FromResource(%x, %S)', pHInstance, pBitmapName), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.Clone          PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
+  CODE
+  SELF.lastResult = gp::CloneBitmapArea(pX, pY, pWidth, pHeight, pFormat, SELF.nativeImage, pDstBitmap.nativeImage)
+  GdipReportError(printf('TGdiPlusBitmap.Clone'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.Clone          PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat)
+dstBitmap                       &TGdiPlusBitmap
+  CODE
+  dstBitmap &= NEW TGdiPlusBitmap
+  IF SELF.Clone(pX, pY, pWidth, pHeight, pFormat, dstBitmap) <> GpStatus:Ok
+    DISPOSE(dstBitmap)
+    dstBitmap &= NULL
+  END
+  RETURN dstBitmap
+  
 !!!endregion
 
 !!!region TGdiPlusGraphics
@@ -810,4 +971,33 @@ TGdiPlusGraphics.DisposeGraphics  PROCEDURE()
   SELF.lastResult = gp::DeleteGraphics(SELF.nativeGraphics)
   GdipReportError('TGdiPlusGraphics.DisposeGraphics', SELF.lastResult)
   RETURN SELF.lastResult
+!!!endregion
+  
+!!!region TGdiPlusPixelFormat
+TGdiPlusPixelFormat.PixelFormat   PROCEDURE(<GpPixelFormat pPixfmt>)
+  CODE
+  IF NOT OMITTED(pPixfmt)
+    SELF.pixfmt = pPixfmt
+  END
+  RETURN SELF.pixfmt
+  
+TGdiPlusPixelFormat.GetSize   PROCEDURE()
+  CODE
+  RETURN BAND(BSHIFT(SELF.pixfmt, -8), 0ffh)
+  
+TGdiPlusPixelFormat.IsIndexed PROCEDURE()
+  CODE
+  RETURN CHOOSE(BAND(SELF.pixfmt, GpPixelFormatIndexed) <> 0)
+  
+TGdiPlusPixelFormat.IsAlpha   PROCEDURE()
+  CODE
+  RETURN CHOOSE(BAND(SELF.pixfmt, GpPixelFormatAlpha) <> 0)
+  
+TGdiPlusPixelFormat.IsExtended    PROCEDURE()
+  CODE
+  RETURN CHOOSE(BAND(SELF.pixfmt, GpPixelFormatExtended) <> 0)
+
+TGdiPlusPixelFormat.IsCanonical   PROCEDURE()
+  CODE
+  RETURN CHOOSE(BAND(SELF.pixfmt, GpPixelFormatCanonical) <> 0)
 !!!endregion
