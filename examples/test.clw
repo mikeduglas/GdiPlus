@@ -9,6 +9,9 @@
     GetThumbnail()
     RotateFlip()
     ChangeProperties()
+    ApplyEffect()
+    CreateApplyEffect()
+    GetHistogram()
 
     INCLUDE('printf.inc'), ONCE
   END
@@ -70,8 +73,90 @@
 ![TGdiPlus] TGdiPlusImage.GetPropertyItemSize(010e) failed, error code 19
 !    Image Image_without_description.png: Value[ImageDescription]=''
 
+  ApplyEffect()
+  CreateApplyEffect()
+  GetHistogram()
   
+ 
+GetHistogram                  PROCEDURE()
+myBitmap                        TGdiPlusBitmap
+ch0                             ULONG,DIM(256)
+ch1                             ULONG,DIM(256)
+ch2                             ULONG,DIM(256)
+numEntries                      UNSIGNED(0)
+i                               LONG, AUTO
+  CODE
+  printd('GetHistogram...')
   
+  myBitmap.FromFile('c:\Clarion\Clarion11.1\Images\green.bmp')
+  numEntries = myBitmap.GetHistogramSize(HistogramFormatRGB)
+  IF numEntries
+    printd('    Histogram size %i', numEntries)
+
+    IF myBitmap.GetHistogram(HistogramFormatRGB, numEntries, ch0, ch1, ch2) = GpStatus:Ok
+      !- Print the histogram values for the three channels: red, green, blue.
+      LOOP i=1 TO numEntries
+        printd('    %i<9>%i<9>%i<9>%i', i, ch0[i], ch1[i], ch2[i])
+      END
+    END
+  END
+  
+  printd('%|')
+  
+
+CreateApplyEffect             PROCEDURE()
+inputBitmap                     TGdiPlusBitmap
+outputBitmap                    TGdiPlusBitmap
+w                               UNSIGNED, AUTO
+h                               UNSIGNED, AUTO
+briConParams                    LIKE(typBrightnessContrastParams)
+briCon                          TGdiPlusBrightnessContrastEffect
+rectOfInterest                  LIKE(_RECT_)
+  CODE
+  inputBitmap .FromFile('c:\Clarion\Clarion11.1\Images\cwwall.bmp')
+    
+  rectOfInterest.left = 10
+  rectOfInterest.top = 12
+  rectOfInterest.right = 100
+  rectOfInterest.bottom = 80
+
+  w = inputBitmap.GetWidth()
+  h = inputBitmap.GetHeight()
+  
+  briConParams.brightnessLevel = 0
+  briConParams.contrastLevel = 25
+  briCon.SetParameters(briConParams)
+
+  !- Draw the original image.
+  inputBitmap.Save('cwwall_original.bmp')
+
+  !- Apply the change in contrast.
+  inputBitmap.ApplyEffect(briCon, rectOfInterest, , outputBitmap)
+  outputBitmap.Save('cwwall_contrast.bmp')
+  
+ApplyEffect                   PROCEDURE()
+myBitmap                        TGdiPlusBitmap
+briConParams                    LIKE(typBrightnessContrastParams)
+briCon                          TGdiPlusBrightnessContrastEffect
+rectOfInterest                  LIKE(_RECT_)
+  CODE
+  myBitmap.FromFile('c:\Clarion\Clarion11.1\Images\cwwall.bmp')
+  
+  briConParams.brightnessLevel = 50
+  briConParams.contrastLevel = 0
+  briCon.SetParameters(briConParams)
+  
+  rectOfInterest.left = 20
+  rectOfInterest.top = 15
+  rectOfInterest.right = 80
+  rectOfInterest.bottom = 50
+
+  !- Draw the original image.
+  myBitmap.Save('cwwall_original.bmp')
+
+  !- Increase the brightness in a portion of the image.
+  myBitmap.ApplyEffect(briCon, rectOfInterest)
+  myBitmap.Save('cwwall_bright.bmp')
   
 ChangeProperties              PROCEDURE()
 image                           TGdiPlusImage

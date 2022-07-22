@@ -6,6 +6,9 @@
   INCLUDE('svapi.inc'), ONCE
   INCLUDE('svcomdef.inc'), ONCE
   INCLUDE('gdiplustypes.inc'), ONCE
+  INCLUDE('gdipluspropertyitem.inc'), ONCE
+  INCLUDE('gdipluspixelformat.inc'), ONCE
+  INCLUDE('gdipluseffects.inc'), ONCE
 
 TGdiPlusImage                 CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 nativeImage                     LONG, PROTECTED   !- GpImage*
@@ -37,15 +40,15 @@ Clone                           PROCEDURE(), *TGdiPlusImage
 !!!<summary>Creates a new Image object and initializes it with the contents of this Image object.</summary>
 Clone                           PROCEDURE(*TGdiPlusImage pCloneImage), GpStatus, PROC
 !!!<summary>Gets a thumbnail image from this Image object.</summary>
-GetThumbnailImage               PROCEDURE(ULONG pThumbWidth, ULONG pThumbHeight), *TGdiPlusImage
+GetThumbnailImage               PROCEDURE(UNSIGNED pThumbWidth, UNSIGNED pThumbHeight), *TGdiPlusImage
 !!!<summary>Gets a thumbnail image from this Image object.</summary>
-GetThumbnailImage               PROCEDURE(ULONG pThumbWidth, ULONG pThumbHeight, *TGdiPlusImage pThumbImage), GpStatus, PROC
+GetThumbnailImage               PROCEDURE(UNSIGNED pThumbWidth, UNSIGNED pThumbHeight, *TGdiPlusImage pThumbImage), GpStatus, PROC
 !!!<summary>Releases resources used by the Image object.</summary>
 DisposeImage                    PROCEDURE(), GpStatus, PROC
 !!!<summary>Gets the width, in pixels, of this image.</summary>
-GetWidth                        PROCEDURE(), ULONG
+GetWidth                        PROCEDURE(), UNSIGNED
 !!!<summary>Gets the height, in pixels, of this image.</summary>
-GetHeight                       PROCEDURE(), ULONG
+GetHeight                       PROCEDURE(), UNSIGNED
 !!!<summary>Gets the horizontal resolution, in dots per inch, of this image.</summary>
 GetHorizontalResolution         PROCEDURE(), SREAL
 !!!<summary>Gets the vertical resolution, in dots per inch, of this image.</summary>
@@ -63,9 +66,9 @@ GetRawFormat                    PROCEDURE(*GUID pGuid), GpStatus, PROC
 !!!<summary>Gets the pixel format of this Image object.</summary>
 GetPixelFormat                  PROCEDURE(), GpPixelFormat
 !!!<summary>Gets the number of properties (pieces of metadata) stored in this Image object.</summary>
-GetPropertyCount                PROCEDURE(), ULONG
+GetPropertyCount                PROCEDURE(), UNSIGNED
 !!!<summary>Gets a list of the property identifiers used in the metadata of this Image object.</summary>
-GetPropertyIdList               PROCEDURE(ULONG pNumOfProperty, *ULONG[] pList), GpStatus, PROC
+GetPropertyIdList               PROCEDURE(UNSIGNED pNumOfProperty, *ULONG[] pList), GpStatus, PROC
 !!!<summary>Gets a specified property item (piece of metadata) from this Image object.</summary>
 GetPropertyItem                 PROCEDURE(ULONG pPropId, *TGdiPlusPropertyItem pItem), GpStatus, PROC
 !!!<summary>Sets a property item (piece of metadata) for this Image object. If the item already exists, then its contents are updated; otherwise, a new item is added.</summary>
@@ -83,28 +86,6 @@ RotateFlip                      PROCEDURE(GpRotateFlipType pRfType), GpStatus, P
 !FindFirstImageItem
 !FindNextImageItem
 !GetImageItemData
-                              END
-
-TGdiPlusPropertyItem          CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
-id                              ULONG, PRIVATE       !- ID of this property
-length                          ULONG, PRIVATE       !- Length of the property value, in bytes
-type                            USHORT, PRIVATE      !- Type of the value, as one of GpPropertyTagType enum
-value                           &CSTRING, PRIVATE     !- property value
-
-Destruct                        PROCEDURE()
-Assign                          PROCEDURE(GpPropertyItem pItem), PRIVATE
-!!!<summary>Releases resources used by the property item.</summary>
-Free                            PROCEDURE()
-GetId                           PROCEDURE(), ULONG
-GetLength                       PROCEDURE(), ULONG
-GetType                         PROCEDURE(), GpPropertyTagType
-GetArraySize                    PROCEDURE(), ULONG
-GetValueAddress                 PROCEDURE(), LONG
-GetStringValue                  PROCEDURE(), STRING
-GetByteValue                    PROCEDURE(), BYTE
-GetShortValue                   PROCEDURE(), SHORT
-GetLongValue                    PROCEDURE(), LONG
-GetRealValue                    PROCEDURE(), SREAL
                               END
 
 
@@ -136,10 +117,33 @@ GetHICON                        PROCEDURE(), HICON
 !!!<summary>Creates a Bitmap object based on an application or DLL instance handle and the name of a bitmap resource.</summary>
 FromResource                    PROCEDURE(HINSTANCE pHInstance, STRING pBitmapName), GpStatus, PROC
 !!!<summary>Creates a new Bitmap object by copying a portion of this bitmap.</summary>
-Clone                           PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap), GpStatus, PROC
+Clone                           PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap), GpStatus, PROC
 !!!<summary>Creates a new Bitmap object by copying a portion of this bitmap.</summary>
-Clone                           PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat), *TGdiPlusBitmap
+Clone                           PROCEDURE(GpRect pRect, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap), GpStatus, PROC
+!!!<summary>Creates a new Bitmap object by copying a portion of this bitmap.</summary>
+Clone                           PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat), *TGdiPlusBitmap
+!!!<summary>Locks a rectangular portion of this bitmap and provides a temporary buffer that you can use to read or write pixel data in a specified format. Any pixel data that you write to the buffer is copied to the Bitmap object when you call UnlockBits.</summary>
+LockBits                        PROCEDURE(GpRect pRect, ULONG pFlags, GpPixelFormat pFormat, *GpBitmapData pLockedBitmapData), GpStatus, PROC
+!!!<summary>Unlocks a portion of this bitmap that was previously locked by a call to LockBits.</summary>
+UnlockBits                      PROCEDURE(GpBitmapData pLockedBitmapData), GpStatus, PROC
+!!!<summary>Gets the color of a specified pixel in this bitmap.</summary>
+GetPixel                        PROCEDURE(LONG pX, LONG pY), GrARGB
+!!!<summary>Sets the color of a specified pixel in this bitmap.</summary>
+SetPixel                        PROCEDURE(LONG pX, LONG pY, GrARGB pColor), GpStatus, PROC
+!!!<summary>Sets the resolution of this bitmap object.</summary>
+SetResolution                   PROCEDURE(SREAL pXDpi, SREAL pYDpi), GpStatus, PROC
+!!!<summary>Converts a bitmap to a specified pixel format. The original pixel data in the bitmap is replaced by the new pixel data.</summary>
+ConvertFormat                   PROCEDURE(GpPixelFormat pFormat, GpDitherType pDithertype, GpPaletteType pPalettetype, CONST *STRING pPalette, SREAL pAlphaThresholdPercent), GpStatus, PROC
+!!!<summary>Alters this Bitmap object by applying a specified effect.</summary>
+ApplyEffect                     PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>), GpStatus, PROC
+!!!<summary>Creates a new Bitmap object by applying a specified effect to an existing Bitmap object.</summary>
+ApplyEffect                     PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>, <*_RECT_ pOutputRect>, *TGdiPlusBitmap pOutputBitmap), GpStatus, PROC
+!!!<summary>Returns the number of elements (in an array of UINTs) that you must allocate before you call the GetHistogram method of a Bitmap object.</summary>
+GetHistogramSize                PROCEDURE(GpHistogramFormat pFormat), UNSIGNED
+!!!<summary>Returns one or more histograms for specified color channels of this Bitmap object.</summary>
+GetHistogram                    PROCEDURE(GpHistogramFormat pFormat, UNSIGNED pNumberOfEntries, *ULONG[] pChannel0, <*ULONG[] pChannel1>, <*ULONG[] pChannel2>, <*ULONG[] pChannel3>), GpStatus, PROC
 
+!InitializePalette
                               END
 
 TGdiPlusGraphics              CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
@@ -157,17 +161,3 @@ DisposeGraphics                 PROCEDURE(), GpStatus, PROC
 !ConvertToEmfPlusToString
                               END
 
-TGdiPlusPixelFormat           CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
-pixfmt                          GpPixelFormat, PRIVATE
-
-!!!<summary>Getter and Setter</summary>
-PixelFormat                     PROCEDURE(<GpPixelFormat pPixfmt>), GpPixelFormat, PROC
-GetSize                         PROCEDURE(), ULONG
-IsIndexed                       PROCEDURE(), BOOL
-IsAlpha                         PROCEDURE(), BOOL
-IsExtended                      PROCEDURE(), BOOL
-!!!<summary>Determine if the Pixel Format is Canonical format: 
-!!!PixelFormat32bppARGB, PixelFormat32bppPARGB, PixelFormat64bppARGB, PixelFormat64bppPARGB
-!!!</summary>
-IsCanonical                     PROCEDURE(), BOOL
-                              END

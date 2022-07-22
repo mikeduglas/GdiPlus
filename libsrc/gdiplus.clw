@@ -6,16 +6,10 @@
                               MEMBER
 
   INCLUDE('svcomdef.inc'), ONCE
-  INCLUDE('gdiplus.inc'), ONCE
   INCLUDE('winapi.inc'), ONCE
+  INCLUDE('gdiplus.inc'), ONCE
 
-tagGdiplusStartupInput        GROUP, TYPE
-GdiplusVersion                  ULONG
-DebugEventCallback              LONG  !- void* 
-SuppressBackgroundThread        BOOL
-SuppressExternalCodecs          BOOL
-                              END
-
+!- GDI+ function names
 szGdiplusStartup              CSTRING('GdiplusStartup'), STATIC
 szGdiplusShutdown             CSTRING('GdiplusShutdown'), STATIC
 szGdipLoadImageFromFile       CSTRING('GdipLoadImageFromFile'), STATIC
@@ -68,11 +62,29 @@ szGdipCreateBitmapFromHICON   CSTRING('GdipCreateBitmapFromHICON'), STATIC
 szGdipCreateHICONFromBitmap   CSTRING('GdipCreateHICONFromBitmap'), STATIC
 szGdipCreateBitmapFromResource    CSTRING('GdipCreateBitmapFromResource'), STATIC
 szGdipCloneBitmapArea         CSTRING('GdipCloneBitmapArea'), STATIC
+szGdipCloneBitmapAreaI        CSTRING('GdipCloneBitmapAreaI'), STATIC
+szGdipBitmapLockBits          CSTRING('GdipBitmapLockBits'), STATIC
+szGdipBitmapUnlockBits        CSTRING('GdipBitmapUnlockBits'), STATIC
+szGdipBitmapGetPixel          CSTRING('GdipBitmapGetPixel'), STATIC
+szGdipBitmapSetPixel          CSTRING('GdipBitmapSetPixel'), STATIC
+szGdipBitmapSetResolution     CSTRING('GdipBitmapSetResolution'), STATIC
+szGdipBitmapConvertFormat     CSTRING('GdipBitmapConvertFormat'), STATIC
+szGdipBitmapApplyEffect       CSTRING('GdipBitmapApplyEffect'), STATIC
+szGdipBitmapCreateApplyEffect CSTRING('GdipBitmapCreateApplyEffect'), STATIC
+szGdipBitmapGetHistogramSize  CSTRING('GdipBitmapGetHistogramSize'), STATIC
+szGdipBitmapGetHistogram      CSTRING('GdipBitmapGetHistogram'), STATIC
 
 szGdipGetImageGraphicsContext CSTRING('GdipGetImageGraphicsContext'), STATIC
 szGdipDeleteGraphics          CSTRING('GdipDeleteGraphics'), STATIC
 
+szGdipCreateEffect            CSTRING('GdipCreateEffect'), STATIC
+szGdipDeleteEffect            CSTRING('GdipDeleteEffect'), STATIC
+szGdipGetEffectParameterSize  CSTRING('GdipGetEffectParameterSize'), STATIC
+szGdipSetEffectParameters     CSTRING('GdipSetEffectParameters'), STATIC
+szGdipGetEffectParameters     CSTRING('GdipGetEffectParameters'), STATIC
 
+
+!- GDI+ function pointers
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
 paGdiplusShutdown             LONG, NAME('fptr_GdiplusShutdown')
 paGdipLoadImageFromFile       LONG, NAME('fptr_GdipLoadImageFromFile')
@@ -125,9 +137,27 @@ paGdipCreateBitmapFromHICON   LONG, NAME('fptr_GdipCreateBitmapFromHICON')
 paGdipCreateHICONFromBitmap   LONG, NAME('fptr_GdipCreateHICONFromBitmap')
 paGdipCreateBitmapFromResource    LONG, NAME('fptr_GdipCreateBitmapFromResource')
 paGdipCloneBitmapArea         LONG, NAME('fptr_GdipCloneBitmapArea')
+paGdipCloneBitmapAreaI        LONG, NAME('fptr_GdipCloneBitmapAreaI')
+paGdipBitmapLockBits          LONG, NAME('fptr_GdipBitmapLockBits')
+paGdipBitmapUnlockBits        LONG, NAME('fptr_GdipBitmapUnlockBits')
+paGdipBitmapGetPixel          LONG, NAME('fptr_GdipBitmapGetPixel')
+paGdipBitmapSetPixel          LONG, NAME('fptr_GdipBitmapSetPixel')
+paGdipBitmapSetResolution     LONG, NAME('fptr_GdipBitmapSetResolution')
+paGdipBitmapConvertFormat     LONG, NAME('fptr_GdipBitmapConvertFormat')
+paGdipBitmapApplyEffect       LONG, NAME('fptr_GdipBitmapApplyEffect')
+paGdipBitmapCreateApplyEffect LONG, NAME('fptr_GdipBitmapCreateApplyEffect')
+paGdipBitmapGetHistogramSize  LONG, NAME('fptr_GdipBitmapGetHistogramSize')
+paGdipBitmapGetHistogram      LONG, NAME('fptr_GdipBitmapGetHistogram')
 
 paGdipGetImageGraphicsContext LONG, NAME('fptr_GdipGetImageGraphicsContext')
 paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
+
+paGdipCreateEffect            LONG, NAME('fptr_GdipCreateEffect')
+paGdipDeleteEffect            LONG, NAME('fptr_GdipDeleteEffect')
+paGdipGetEffectParameterSize  LONG, NAME('fptr_GdipGetEffectParameterSize')
+paGdipSetEffectParameters     LONG, NAME('fptr_GdipSetEffectParameters')
+paGdipGetEffectParameters     LONG, NAME('fptr_GdipGetEffectParameters')
+
 
   MAP
     MODULE('win api')
@@ -147,12 +177,12 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
       gp::LoadImageFromStream(LONG pStream, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStream'),DLL
       gp::LoadImageFromStreamICM(LONG pStream, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromStreamICM'),DLL
       gp::CloneImage(LONG pImage,*LONG pCLoneImage),GpStatus,PASCAL,NAME('fptr_GdipCloneImage'),DLL
-      gp::GetImageThumbnail(LONG pImage,ULONG pThumbWidth,ULONG pThumbHeight,*LONG pThumbImage,LONG pCallback,LONG pCallbackData),GpStatus,PASCAL,NAME('fptr_GdipGetImageThumbnail'),DLL
+      gp::GetImageThumbnail(LONG pImage,UNSIGNED pThumbWidth,UNSIGNED pThumbHeight,*LONG pThumbImage,LONG pCallback,LONG pCallbackData),GpStatus,PASCAL,NAME('fptr_GdipGetImageThumbnail'),DLL
       gp::SaveImageToFile(LONG pImage,LONG pFileName,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToFile'),DLL
       gp::SaveImageToStream(LONG pImage,LONG pStream,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToStream'),DLL
       gp::DisposeImage(LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipDisposeImage'),DLL
-      gp::GetImageWidth(LONG pImage, *ULONG pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetImageWidth'),DLL
-      gp::GetImageHeight(LONG pImage, *ULONG pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetImageHeight'),DLL
+      gp::GetImageWidth(LONG pImage, *UNSIGNED pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetImageWidth'),DLL
+      gp::GetImageHeight(LONG pImage, *UNSIGNED pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetImageHeight'),DLL
       gp::GetImageHorizontalResolution(LONG pImage, *SREAL pResolution),GpStatus,PASCAL,NAME('fptr_GdipGetImageHorizontalResolution'),DLL
       gp::GetImageVerticalResolution(LONG pImage, *SREAL pResolution),GpStatus,PASCAL,NAME('fptr_GdipGetImageVerticalResolution'),DLL
       gp::GetImageBounds(LONG pImage,LONG pRect,LONG pUnit),GpStatus,PASCAL,NAME('fptr_GdipGetImageBounds'),DLL
@@ -161,14 +191,14 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
       gp::GetImageFlags(LONG pImage,*ULONG pFlags),GpStatus,PASCAL,NAME('fptr_GdipGetImageFlags'),DLL
       gp::GetImageRawFormat(LONG pImage,LONG pGuid),GpStatus,PASCAL,NAME('fptr_GdipGetImageRawFormat'),DLL
       gp::GetImagePixelFormat(LONG pImage,*GpPixelFormat pFmt),GpStatus,PASCAL,NAME('fptr_GdipGetImagePixelFormat'),DLL
-      gp::GetPropertyCount(LONG pImage,*ULONG pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyCount'),DLL
-      gp::GetPropertyIdList(LONG pImage,ULONG pCount,LONG pList),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyIdList'),DLL
-      gp::GetPropertyItemSize(LONG pImage,ULONG pPropId,*ULONG pSize),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyItemSize'),DLL
-      gp::GetPropertyItem(LONG pImage,ULONG pPropId,ULONG pSize,LONG pBuffer),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyItem'),DLL
+      gp::GetPropertyCount(LONG pImage,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyCount'),DLL
+      gp::GetPropertyIdList(LONG pImage,UNSIGNED pCount,LONG pList),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyIdList'),DLL
+      gp::GetPropertyItemSize(LONG pImage,ULONG pPropId,*UNSIGNED pSize),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyItemSize'),DLL
+      gp::GetPropertyItem(LONG pImage,ULONG pPropId,UNSIGNED pSize,LONG pBuffer),GpStatus,PASCAL,NAME('fptr_GdipGetPropertyItem'),DLL
       gp::SetPropertyItem(LONG pImage,LONG pItem),GpStatus,PASCAL,NAME('fptr_GdipSetPropertyItem'),DLL
       gp::RemovePropertyItem(LONG pImage,ULONG pPropId),GpStatus,PASCAL,NAME('fptr_GdipRemovePropertyItem'),DLL
-      gp::GetImageEncodersSize(*ULONG pNumEncoders,*ULONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncodersSize'),DLL
-      gp::GetImageEncoders(ULONG pNumEncoders,ULONG pSize,LONG pEncoders),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncoders'),DLL
+      gp::GetImageEncodersSize(*UNSIGNED pNumEncoders,*UNSIGNED pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncodersSize'),DLL
+      gp::GetImageEncoders(UNSIGNED pNumEncoders,UNSIGNED pSize,LONG pEncoders),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageEncoders'),DLL
       gp::ImageRotateFlip(LONG pImage,GpRotateFlipType pRfType),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageRotateFlip'),DLL
       gp::GetImagePaletteSize(LONG pImage,*LONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImagePaletteSize'),DLL
       gp::GetImagePalette(LONG pImage,LONG pPalette,LONG pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImagePalette'),DLL
@@ -185,14 +215,32 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
       gp::CreateBitmapFromGraphics(LONG pWidth,LONG pHeight,LONG pTarget,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromGraphics'),DLL
       gp::CreateBitmapFromGdiDib(LONG pgdiBitmapInfo,LONG gdiBitmapData,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromGdiDib'),DLL
       gp::CreateBitmapFromHBITMAP(HBITMAP phbm,HANDLE phpal,*LONG pBitmap),GpStatus,PROC,PASCAL,NAME('fptr_GdipCreateBitmapFromHBITMAP'),DLL
-      gp::CreateHBITMAPFromBitmap(LONG pBitmap, *HBITMAP pHbmReturn, ULONG pBackground),GpStatus,PASCAL,NAME('fptr_GdipCreateHBITMAPFromBitmap'),DLL
+      gp::CreateHBITMAPFromBitmap(LONG pBitmap,*HBITMAP pHbmReturn, ULONG pBackground),GpStatus,PASCAL,NAME('fptr_GdipCreateHBITMAPFromBitmap'),DLL
       gp::CreateBitmapFromHICON(HICON pHicon,*LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipCreateBitmapFromHICON'),DLL
-      gp::CreateHICONFromBitmap(LONG pBitmap, *HICON pHicon),GpStatus,PASCAL,NAME('fptr_GdipCreateHICONFromBitmap'),DLL
+      gp::CreateHICONFromBitmap(LONG pBitmap,*HICON pHicon),GpStatus,PASCAL,NAME('fptr_GdipCreateHICONFromBitmap'),DLL
       gp::CreateBitmapFromResource(HINSTANCE phInstance,LONG pBitmapName,*LONG pBitmap),GpStatus,PASCAL,NAME('fptr_GdipCreateBitmapFromResource'),DLL
-      gp::CloneBitmapArea(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat,LONG pSrcBitmap,*LONG pDstBitmap),GpStatus,PASCAL,NAME('fptr_GdipCloneBitmapArea'),DLL
+      gp::CloneBitmapArea(SREAL pX,SREAL pY,SREAL pWidth,SREAL pHeight,GpPixelFormat pFormat,LONG pSrcBitmap,*LONG pDstBitmap),GpStatus,PASCAL,NAME('fptr_GdipCloneBitmapArea'),DLL
+      gp::CloneBitmapAreaI(LONG pX,LONG pY,LONG pWidth,LONG pHeight,GpPixelFormat pFormat,LONG pSrcBitmap,*LONG pDstBitmap),GpStatus,PASCAL,NAME('fptr_GdipCloneBitmapAreaI'),DLL
+      gp::BitmapLockBits(LONG pBitmap,LONG pRect,ULONG pFlags,GpPixelFormat pFormat,LONG pLockedBitmapData),GpStatus,PASCAL,NAME('fptr_GdipBitmapLockBits'),DLL
+      gp::BitmapUnlockBits(LONG pBitmap,LONG pLockedBitmapData),GpStatus,PASCAL,NAME('fptr_GdipBitmapUnlockBits'),DLL
+      gp::BitmapGetPixel(LONG pBitmap,LONG pX,LONG pY,*GrARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetPixel'),DLL
+      gp::BitmapSetPixel(LONG pBitmap,LONG pX,LONG pY,GrARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetPixel'),DLL
+      gp::BitmapSetResolution(LONG pBitmap,SREAL pXDpi,SREAL pYDpi),GpStatus,PASCAL,NAME('fptr_GdipBitmapSetResolution'),DLL
+      gp::BitmapConvertFormat(LONG pBitmap,GpPixelFormat pFormat,GpDitherType pDithertype,GpPaletteType pPalettetype,LONG pPalette,SREAL pAlphaThresholdPercent),GpStatus,PASCAL,NAME('fptr_GdipBitmapConvertFormat'),DLL
+      gp::BitmapApplyEffect(LONG pBitmap,LONG pEffect,LONG pRect,BOOL pUseAuxData,LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapApplyEffect'),DLL
+      gp::BitmapCreateApplyEffect(LONG pBitmaps,UNSIGNED pNumInputs,LONG pEffect,LONG pRect,LONG pOutRect,*LONG pOutputBitmap,BOOL pUseAuxData,LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapCreateApplyEffect'),DLL
+      gp::BitmapGetHistogramSize(GpHistogramFormat pFormat,*UNSIGNED pNumberOfEntries),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetHistogramSize'),DLL
+      gp::BitmapGetHistogram(LONG pBitmaps,GpHistogramFormat pFormat,UNSIGNED pNumberOfEntries,LONG pChannel0,LONG pChannel1,LONG pChannel2,LONG pChannel3),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetHistogram'),DLL
 
       gp::GetImageGraphicsContext(LONG pImage,*LONG pGraphics),GpStatus,PASCAL,NAME('fptr_GdipGetImageGraphicsContext'),DLL
       gp::DeleteGraphics(LONG pGraphics),GpStatus,PASCAL,NAME('fptr_GdipDeleteGraphics'),DLL
+
+      gp::CreateEffect(_GUID pGuid,*LONG pEffect),GpStatus,RAW,PASCAL,NAME('fptr_GdipCreateEffect'),DLL
+      gp::DeleteEffect(LONG pEffect),GpStatus,PASCAL,NAME('fptr_GdipDeleteEffect'),DLL
+      gp::GetEffectParameterSize(LONG pEffect,*UNSIGNED pSize),GpStatus,PASCAL,NAME('fptr_GdipGetEffectParameterSize'),DLL
+      gp::SetEffectParameters(LONG pEffect,LONG pParams,UNSIGNED pSize),GpStatus,PASCAL,NAME('fptr_GdipSetEffectParameters'),DLL
+      gp::GetEffectParameters(LONG pEffect,*UNSIGNED pSize,LONG pParams),GpStatus,PASCAL,NAME('fptr_GdipGetEffectParameters'),DLL
+
     END
     MODULE('Global memory api')
       winapi::GlobalAlloc(LONG uFlags,LONG dwBytes),HGLOBAL,PASCAL,NAME('GlobalAlloc')
@@ -201,6 +249,7 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
       winapi::GlobalFree(HGLOBAL hMem),BOOL,PASCAL,PROC,NAME('GlobalUnlock')
       winapi::memcpy(LONG lpDest,LONG lpSource,LONG nCount),LONG,PROC,NAME('_memcpy')
       winapi::CreateStreamOnHGlobal(LONG hGlobal,BOOL fDeleteOnRelease,LONG ppstm),LONG,PASCAL,PROC,NAME('CreateStreamOnHGlobal')
+      winapi::IIDFromString(LONG lpsz, LONG lpiid),HRESULT,PASCAL,NAME('IIDFromString')
     END
     MODULE('C++')
       lstrlenW(LONG lpWString),SIGNED,PROC,PASCAL
@@ -210,6 +259,7 @@ paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
     ToStream(STRING pData),LONG,PRIVATE
     GetEncoderClsid(STRING pFormat, *_CLSID pClsId),BOOL,PROC,PRIVATE
     GetFileMimeType(STRING pFileName),STRING,PRIVATE
+    IIDFromString(STRING pStr, *_GUID pGuid),BOOL,PROC,PRIVATE
 
     INCLUDE('printf.inc'), ONCE
   END
@@ -247,7 +297,16 @@ Startup                         PROCEDURE(), GpStatus, PROC, PRIVATE
 Shutdown                        PROCEDURE(), PRIVATE
                               END
 
+!- static instance
 gpInitializer                 TGdiPlusInitializer
+
+!- TGdiPlusInitializer.Startup parameter
+tagGdiplusStartupInput        GROUP, TYPE
+GdiplusVersion                  ULONG
+DebugEventCallback              LONG  !- void* 
+SuppressBackgroundThread        BOOL
+SuppressExternalCodecs          BOOL
+                              END
 
 TGdiPlusInitializer.Construct PROCEDURE()
 GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
@@ -307,9 +366,26 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipCreateHICONFromBitmap         = winapi::GetProcAddress(SELF.hDll, szGdipCreateHICONFromBitmap)
       paGdipCreateBitmapFromResource      = winapi::GetProcAddress(SELF.hDll, szGdipCreateBitmapFromResource)
       paGdipCloneBitmapArea               = winapi::GetProcAddress(SELF.hDll, szGdipCloneBitmapArea)
+      paGdipCloneBitmapAreaI              = winapi::GetProcAddress(SELF.hDll, szGdipCloneBitmapAreaI)
+      paGdipBitmapLockBits                = winapi::GetProcAddress(SELF.hDll, szGdipBitmapLockBits)
+      paGdipBitmapUnlockBits              = winapi::GetProcAddress(SELF.hDll, szGdipBitmapUnlockBits)
+      paGdipBitmapGetPixel                = winapi::GetProcAddress(SELF.hDll, szGdipBitmapGetPixel)
+      paGdipBitmapSetPixel                = winapi::GetProcAddress(SELF.hDll, szGdipBitmapSetPixel)
+      paGdipBitmapSetResolution           = winapi::GetProcAddress(SELF.hDll, szGdipBitmapSetResolution)
+      paGdipBitmapConvertFormat           = winapi::GetProcAddress(SELF.hDll, szGdipBitmapConvertFormat)
+      paGdipBitmapApplyEffect             = winapi::GetProcAddress(SELF.hDll, szGdipBitmapApplyEffect)
+      paGdipBitmapCreateApplyEffect       = winapi::GetProcAddress(SELF.hDll, szGdipBitmapCreateApplyEffect)
+      paGdipBitmapGetHistogramSize        = winapi::GetProcAddress(SELF.hDll, szGdipBitmapGetHistogramSize)
+      paGdipBitmapGetHistogram            = winapi::GetProcAddress(SELF.hDll, szGdipBitmapGetHistogram)
       
       paGdipGetImageGraphicsContext       = winapi::GetProcAddress(SELF.hDll, szGdipGetImageGraphicsContext)
       paGdipDeleteGraphics                = winapi::GetProcAddress(SELF.hDll, szGdipDeleteGraphics)
+      
+      paGdipCreateEffect                  = winapi::GetProcAddress(SELF.hDll, szGdipCreateEffect)
+      paGdipDeleteEffect                  = winapi::GetProcAddress(SELF.hDll, szGdipDeleteEffect)
+      paGdipGetEffectParameterSize        = winapi::GetProcAddress(SELF.hDll, szGdipGetEffectParameterSize)
+      paGdipSetEffectParameters           = winapi::GetProcAddress(SELF.hDll, szGdipSetEffectParameters)
+      paGdipGetEffectParameters           = winapi::GetProcAddress(SELF.hDll, szGdipGetEffectParameters)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -389,10 +465,10 @@ hr                              HRESULT, AUTO
   RETURN lpStream
   
 GetEncoderClsid               PROCEDURE(STRING pFormat, *_CLSID pClsId)
-num                             ULONG(0)
-bytes                           ULONG(0)
+num                             UNSIGNED(0)
+bytes                           UNSIGNED(0)
 codecInfo                       LIKE(GpImageCodecInfo)
-codecInfoSize                   ULONG, AUTO
+codecInfoSize                   UNSIGNED, AUTO
 buf                             &STRING, AUTO
 i                               LONG, AUTO
 enc                             TStringEncoding
@@ -461,6 +537,25 @@ sExtension                      STRING(256), AUTO
     RETURN 'image/png'
   END
   RETURN ''
+
+IIDFromString                 PROCEDURE(STRING pStr, *_GUID pGuid)
+enc                             TStringEncoding
+oleStr                          STRING(LEN(pStr)*2+6)
+hr                              HRESULT, AUTO
+  CODE
+  CLEAR(pGuid)
+  IF SUB(pStr, 1, 1) = '{{'
+    oleStr = enc.ToCWStr(pStr)
+  ELSE
+    oleStr = enc.ToCWStr(printf('{{%s}', pStr))
+  END
+  
+  hr = winapi::IIDFromString(ADDRESS(oleStr), ADDRESS(pGuid))
+  IF hr <> S_OK
+    printd('IIDFromString(%s) error %x', pStr, hr)
+    RETURN FALSE
+  END
+  RETURN TRUE
 !!!endregion
   
 !!!region TGdiPlusImage
@@ -536,7 +631,7 @@ stream                          &IStream, AUTO
 clsid                           LIKE(_CLSID), AUTO
 hr                              HRESULT, AUTO
 statstg                         LIKE(tagSTATSTG), AUTO
-nDataLen                        ULONG, AUTO
+nDataLen                        UNSIGNED, AUTO
 nBytesRead                      LONG, AUTO
 sImageData                      &STRING
   CODE
@@ -601,14 +696,14 @@ TGdiPlusImage.Clone           PROCEDURE(*TGdiPlusImage pCloneImage)
   pCloneImage.lastResult = SELF.lastResult
   RETURN SELF.lastResult
 
-TGdiPlusImage.GetThumbnailImage   PROCEDURE(ULONG pThumbWidth, ULONG pThumbHeight)
+TGdiPlusImage.GetThumbnailImage   PROCEDURE(UNSIGNED pThumbWidth, UNSIGNED pThumbHeight)
 thumbImage                          &TGdiPlusImage
   CODE
   thumbImage &= NEW TGdiPlusImage
   SELF.GetThumbnailImage(pThumbWidth, pThumbHeight, thumbImage)
   RETURN thumbImage
   
-TGdiPlusImage.GetThumbnailImage   PROCEDURE(ULONG pThumbWidth, ULONG pThumbHeight, *TGdiPlusImage pThumbImage)
+TGdiPlusImage.GetThumbnailImage   PROCEDURE(UNSIGNED pThumbWidth, UNSIGNED pThumbHeight, *TGdiPlusImage pThumbImage)
   CODE
   SELF.lastResult = gp::GetImageThumbnail(SELF.nativeImage, pThumbWidth, pThumbHeight, pThumbImage.nativeImage, 0, 0)
   GdipReportError('TGdiPlusImage.GetThumbnailImage', SELF.lastResult)
@@ -625,14 +720,14 @@ TGdiPlusImage.DisposeImage    PROCEDURE()
   RETURN SELF.lastResult
  
 TGdiPlusImage.GetWidth        PROCEDURE()
-w                               ULONG(0)
+w                               UNSIGNED(0)
   CODE
   SELF.lastResult = gp::GetImageWidth(SELF.nativeImage, w)
   GdipReportError('TGdiPlusImage.GetWidth', SELF.lastResult)
   RETURN w
 
 TGdiPlusImage.GetHeight       PROCEDURE()
-h                               ULONG(0)
+h                               UNSIGNED(0)
   CODE
   SELF.lastResult = gp::GetImageHeight(SELF.nativeImage, h)
   GdipReportError('TGdiPlusImage.GetHeight', SELF.lastResult)
@@ -669,7 +764,7 @@ h                                       SREAL, AUTO
   RETURN SELF.lastResult
   
 TGdiPlusImage.GetType         PROCEDURE()
-imgType                         GpImageType(GpImageType:Unknown)
+imgType                         GpImageType(ImageTypeUnknown)
   CODE
   SELF.lastResult = gp::GetImageType(SELF.nativeImage, imgType)
   GdipReportError('TGdiPlusImage.GetType', SELF.lastResult)
@@ -697,13 +792,13 @@ fmt                             GpPixelFormat(0)
   RETURN fmt
   
 TGdiPlusImage.GetPropertyCount    PROCEDURE()
-nCount                              ULONG(0)
+nCount                              UNSIGNED(0)
   CODE
   SELF.lastResult = gp::GetPropertyCount(SELF.nativeImage, nCount)
   GdipReportError('TGdiPlusImage.GetPropertyCount', SELF.lastResult)
   RETURN nCOunt
 
-TGdiPlusImage.GetPropertyIdList   PROCEDURE(ULONG pNumOfProperty, *ULONG[] pList)
+TGdiPlusImage.GetPropertyIdList   PROCEDURE(UNSIGNED pNumOfProperty, *ULONG[] pList)
   CODE
   CLEAR(pList)
   SELF.lastResult = gp::GetPropertyIdList(SELF.nativeImage, pNumOfProperty, ADDRESS(pList))
@@ -711,7 +806,7 @@ TGdiPlusImage.GetPropertyIdList   PROCEDURE(ULONG pNumOfProperty, *ULONG[] pList
   RETURN SELF.lastResult
     
 TGdiPlusImage.GetPropertyItem PROCEDURE(ULONG pPropId, *TGdiPlusPropertyItem pItem)
-propSize                        ULONG, AUTO
+propSize                        UNSIGNED, AUTO
 buf                             &STRING, AUTO
 itm                             LIKE(GpPropertyItem)
   CODE
@@ -790,7 +885,7 @@ TGdiPlusPropertyItem.GetType  PROCEDURE()
   RETURN SELF.type
   
 TGdiPlusPropertyItem.GetArraySize PROCEDURE()
-elSize                              ULONG, AUTO
+elSize                              UNSIGNED, AUTO
   CODE
   CASE SELF.type
   OF GpPropertyTagType:ASCII
@@ -934,13 +1029,17 @@ wstr                            STRING(FILE:MaxFilePath*2+2)
   GdipReportError(printf('TGdiPlusBitmap.FromResource(%x, %S)', pHInstance, pBitmapName), SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusBitmap.Clone          PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
+TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
   CODE
-  SELF.lastResult = gp::CloneBitmapArea(pX, pY, pWidth, pHeight, pFormat, SELF.nativeImage, pDstBitmap.nativeImage)
+  SELF.lastResult = gp::CloneBitmapAreaI(pX, pY, pWidth, pHeight, pFormat, SELF.nativeImage, pDstBitmap.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusBitmap.Clone          PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, GpPixelFormat pFormat)
+TGdiPlusBitmap.Clone          PROCEDURE(GpRect pRect, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
+  CODE
+  RETURN SELF.Clone(pRect.left, pRect.top, pRect.right-pRect.left, pRect.bottom-pRect.top, pFormat, pDstBitmap)
+  
+TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat)
 dstBitmap                       &TGdiPlusBitmap
   CODE
   dstBitmap &= NEW TGdiPlusBitmap
@@ -950,6 +1049,104 @@ dstBitmap                       &TGdiPlusBitmap
   END
   RETURN dstBitmap
   
+TGdiPlusBitmap.LockBits       PROCEDURE(GpRect pRect, ULONG pFlags, GpPixelFormat pFormat, *GpBitmapData pLockedBitmapData)
+  CODE
+  SELF.lastResult = gp::BitmapLockBits(SELF.nativeImage, ADDRESS(pRect), pFlags, pFormat, ADDRESS(pLockedBitmapData))
+  GdipReportError(printf('TGdiPlusBitmap.LockBits'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.UnlockBits     PROCEDURE(GpBitmapData pLockedBitmapData)
+  CODE
+  SELF.lastResult = gp::BitmapUnlockBits(SELF.nativeImage, ADDRESS(pLockedBitmapData))
+  GdipReportError(printf('TGdiPlusBitmap.UnlockBits'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.GetPixel       PROCEDURE(LONG pX, LONG pY)
+clr                             GrARGB(COLOR:NONE)
+  CODE
+  SELF.lastResult = gp::BitmapGetPixel(SELF.nativeImage, pX, pY, clr)
+  GdipReportError(printf('TGdiPlusBitmap.GetPixel(%i, %i)', pX, pY), SELF.lastResult)
+  RETURN clr
+
+TGdiPlusBitmap.SetPixel       PROCEDURE(LONG pX, LONG pY, GrARGB pColor)
+  CODE
+  SELF.lastResult = gp::BitmapSetPixel(SELF.nativeImage, pX, pY, pColor)
+  GdipReportError(printf('TGdiPlusBitmap.SetPixel(%i, %i)', pX, pY), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.SetResolution  PROCEDURE(SREAL pXDpi, SREAL pYDpi)
+  CODE
+  SELF.lastResult = gp::BitmapSetResolution(SELF.nativeImage, pXDpi, pYDpi)
+  GdipReportError(printf('TGdiPlusBitmap.SetResolution(%f, %f)', pXDpi, pYDpi), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.ConvertFormat  PROCEDURE(GpPixelFormat pFormat, GpDitherType pDithertype, GpPaletteType pPalettetype, CONST *STRING pPalette, SREAL pAlphaThresholdPercent)
+  CODE
+  SELF.lastResult = gp::BitmapConvertFormat(SELF.nativeImage, pFormat, pDithertype, pPalettetype, ADDRESS(pPalette), pAlphaThresholdPercent)
+  GdipReportError(printf('TGdiPlusBitmap.ConvertFormat'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>)
+lpRect                          LONG, AUTO
+  CODE
+  IF OMITTED(pRect)
+    lpRect = 0
+  ELSE
+    lpRect = ADDRESS(pRect)
+  END
+  
+  SELF.lastResult =   gp::BitmapApplyEffect(SELF.nativeImage, pEffect.nativeEffect, lpRect, pEffect.bUseAuxData, ADDRESS(pEffect.auxData), pEffect.auxDataSize)
+  GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>, <*_RECT_ pOutputRect>, *TGdiPlusBitmap pOutputBitmap)
+lpRect                          LONG, AUTO
+lpOutRect                       LONG, AUTO
+  CODE
+  IF OMITTED(pRect)
+    lpRect = 0
+  ELSE
+    lpRect = ADDRESS(pRect)
+  END
+  IF OMITTED(pOutputRect)
+    lpOutRect = 0
+  ELSE
+    lpOutRect = ADDRESS(pOutputRect)
+  END
+
+  SELF.lastResult = gp::BitmapCreateApplyEffect(ADDRESS(SELF.nativeImage), 1, pEffect.nativeEffect, lpRect, lpOutRect, pOutputBitmap.nativeImage, pEffect.bUseAuxData, ADDRESS(pEffect.auxData), pEffect.auxDataSize)
+  GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusBitmap.GetHistogramSize   PROCEDURE(GpHistogramFormat pFormat)
+numberOfEntries                     UNSIGNED(0)
+  CODE
+  SELF.lastResult = gp::BitmapGetHistogramSize(pFormat, numberOfEntries)
+  GdipReportError(printf('TGdiPlusBitmap.GetHistogramSize'), SELF.lastResult)
+  RETURN numberOfEntries
+
+TGdiPlusBitmap.GetHistogram   PROCEDURE(GpHistogramFormat pFormat, UNSIGNED pNumberOfEntries, *ULONG[] pChannel0, <*ULONG[] pChannel1>, <*ULONG[] pChannel2>, <*ULONG[] pChannel3>)
+ch0Addr                         LONG, AUTO
+ch1Addr                         LONG(0)
+ch2Addr                         LONG(0)
+ch3Addr                         LONG(0)
+  CODE
+  ch0Addr = ADDRESS(pChannel0)
+  
+  IF NOT OMITTED(pChannel1)
+    ch1Addr = ADDRESS(pChannel1)
+  END
+  IF NOT OMITTED(pChannel2)
+    ch2Addr = ADDRESS(pChannel2)
+  END
+  IF NOT OMITTED(pChannel3)
+    ch3Addr = ADDRESS(pChannel3)
+  END
+  
+  SELF.lastResult = gp::BitmapGetHistogram(SELF.nativeImage, pFormat, pNumberOfEntries, ch0Addr, ch1Addr, ch2Addr, ch3Addr)
+  GdipReportError(printf('GetHistogram.GetHistogram'), SELF.lastResult)
+  RETURN SELF.lastResult
+
 !!!endregion
 
 !!!region TGdiPlusGraphics
@@ -1000,4 +1197,301 @@ TGdiPlusPixelFormat.IsExtended    PROCEDURE()
 TGdiPlusPixelFormat.IsCanonical   PROCEDURE()
   CODE
   RETURN CHOOSE(BAND(SELF.pixfmt, GpPixelFormatCanonical) <> 0)
+!!!endregion
+
+!!!region TGdiPlusEffect
+TGdiPlusEffect.Destruct       PROCEDURE()
+  CODE
+  IF NOT SELF.auxData &= NULL
+    DISPOSE(SELF.auxData)
+  END
+  SELF.lastResult = gp::DeleteEffect(SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusEffect.Destruct'), SELF.lastResult)
+
+TGdiPlusEffect.GetAuxDataSize PROCEDURE()
+  CODE
+  RETURN SELF.auxDataSize
+  
+TGdiPlusEffect.GetAuxData     PROCEDURE()
+  CODE
+  RETURN SELF.auxData
+  
+TGdiPlusEffect.UseAuxData     PROCEDURE(<BOOL pUseAuxData>)
+  CODE
+  IF NOT OMITTED(pUseAuxData)
+    SELF.bUseAuxData = pUseAuxData
+  END
+  RETURN SELF.bUseAuxData
+  
+TGdiPlusEffect.GetParameterSize   PROCEDURE()
+paramSize                           UNSIGNED(0)
+  CODE
+  SELF.lastResult = gp::GetEffectParameterSize(SELF.nativeEffect, paramSize)
+  GdipReportError(printf('TGdiPlusEffect.GetParameterSize'), SELF.lastResult)
+  RETURN paramSize
+  
+TGdiPlusEffect.SetParameters  PROCEDURE(STRING pParams, UNSIGNED pSize)
+  CODE
+  SELF.lastResult = gp::SetEffectParameters(SELF.nativeEffect, ADDRESS(pParams), pSize)
+  GdipReportError(printf('TGdiPlusEffect.SetParameters'), SELF.lastResult)
+  RETURN SELF.lastResult
+
+TGdiPlusEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *STRING pParams)
+  CODE
+  SELF.lastResult = gp::GetEffectParameters(SELF.nativeEffect, pSize, ADDRESS(pParams))
+  GdipReportError(printf('TGdiPlusEffect.GetParameters'), SELF.lastResult)
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusBlurEffect
+TGdiPlusBlurEffect.Construct  PROCEDURE()
+effId                           LIKE(_GUID)
+  CODE
+  IIDFromString(BlurEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusBlurEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusBlurEffect.SetParameters  PROCEDURE(typBlurParams pParams)
+paramSize                           UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusBlurEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typBlurParams pParams)
+buf                                 STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+  
+!!!region TGdiPlusSharpenEffect
+TGdiPlusSharpenEffect.Construct   PROCEDURE()
+effId                               LIKE(_GUID)
+  CODE
+  IIDFromString(SharpenEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusSharpenEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusSharpenEffect.SetParameters   PROCEDURE(typSharpenParams pParams)
+paramSize                               UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusSharpenEffect.GetParameters   PROCEDURE(*UNSIGNED pSize, *typSharpenParams pParams)
+buf                                     STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+    
+!!!region TGdiPlusRedEyeCorrectionEffect
+TGdiPlusRedEyeCorrectionEffect.Construct  PROCEDURE()
+effId                                       LIKE(_GUID)
+  CODE
+  IIDFromString(RedEyeCorrectionEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusRedEyeCorrectionEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusRedEyeCorrectionEffect.SetParameters  PROCEDURE(typRedEyeCorrectionParams pParams)
+paramSize                                       UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams) + pParams.numberOfAreas * SIZE(_RECT_)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusRedEyeCorrectionEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typRedEyeCorrectionParams pParams)
+buf                                             STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+  
+!!!region TGdiPlusBrightnessContrastEffect
+TGdiPlusBrightnessContrastEffect.Construct    PROCEDURE()
+effId                                           LIKE(_GUID)
+  CODE
+  IIDFromString(BrightnessContrastEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusBrightnessContrastEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusBrightnessContrastEffect.SetParameters    PROCEDURE(typBrightnessContrastParams pParams)
+paramSize                                           UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusBrightnessContrastEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typBrightnessContrastParams pParams)
+buf                                                 STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusHueSaturationLightnessEffect
+TGdiPlusHueSaturationLightnessEffect.Construct    PROCEDURE()
+effId                                               LIKE(_GUID)
+  CODE
+  IIDFromString(HueSaturationLightnessEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusHueSaturationLightnessEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusHueSaturationLightnessEffect.SetParameters    PROCEDURE(typHueSaturationLightnessParams pParams)
+paramSize                                               UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusHueSaturationLightnessEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typHueSaturationLightnessParams pParams)
+buf                                                     STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusLevelsEffect
+TGdiPlusLevelsEffect.Construct    PROCEDURE()
+effId                               LIKE(_GUID)
+  CODE
+  IIDFromString(LevelsEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusLevelsEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusLevelsEffect.SetParameters    PROCEDURE(typLevelsParams pParams)
+paramSize                               UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusLevelsEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typLevelsParams pParams)
+buf                                     STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusTintEffect
+TGdiPlusTintEffect.Construct  PROCEDURE()
+effId                           LIKE(_GUID)
+  CODE
+  IIDFromString(TintEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusTintEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusTintEffect.SetParameters  PROCEDURE(typTintParams pParams)
+paramSize                           UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusTintEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typTintParams pParams)
+buf                                 STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusColorBalanceEffect
+TGdiPlusColorBalanceEffect.Construct  PROCEDURE()
+effId                                   LIKE(_GUID)
+  CODE
+  IIDFromString(ColorBalanceEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusColorBalanceEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusColorBalanceEffect.SetParameters  PROCEDURE(typColorBalanceParams pParams)
+paramSize                                   UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusColorBalanceEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typColorBalanceParams pParams)
+buf                                         STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusColorMatrixEffect
+TGdiPlusColorMatrixEffect.Construct   PROCEDURE()
+effId                                   LIKE(_GUID)
+  CODE
+  IIDFromString(ColorMatrixEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusColorMatrixEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusColorMatrixEffect.SetParameters   PROCEDURE(typColorMatrix pMatrix)
+paramSize                                   UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pMatrix)
+  RETURN PARENT.SetParameters(pMatrix, paramSize)
+  
+TGdiPlusColorMatrixEffect.GetParameters   PROCEDURE(*UNSIGNED pSize, *typColorMatrix pMatrix)
+buf                                         STRING(SIZE(pMatrix))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pMatrix = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusColorLUTEffect
+TGdiPlusColorLUTEffect.Construct  PROCEDURE()
+effId                               LIKE(_GUID)
+  CODE
+  IIDFromString(ColorLUTEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusColorLUTEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusColorLUTEffect.SetParameters  PROCEDURE(typColorLUTParams pParams)
+paramSize                               UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusColorLUTEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typColorLUTParams pParams)
+buf                                     STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusColorCurveEffect
+TGdiPlusColorCurveEffect.Construct    PROCEDURE()
+effId                                   LIKE(_GUID)
+  CODE
+  IIDFromString(ColorCurveEffectGuidString, effId)
+  SELF.lastResult = gp::CreateEffect(effId, SELF.nativeEffect)
+  GdipReportError(printf('TGdiPlusColorCurveEffect.Construct'), SELF.lastResult)
+  
+TGdiPlusColorCurveEffect.SetParameters    PROCEDURE(typColorCurveParams pParams)
+paramSize                                   UNSIGNED, AUTO
+  CODE
+  paramSize = SIZE(pParams)
+  RETURN PARENT.SetParameters(pParams, paramSize)
+  
+TGdiPlusColorCurveEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typColorCurveParams pParams)
+buf                                         STRING(SIZE(pParams))
+  CODE
+  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
+    pParams = buf
+  END
+  RETURN SELF.lastResult
 !!!endregion
