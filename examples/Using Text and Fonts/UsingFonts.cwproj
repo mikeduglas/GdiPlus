@@ -1,12 +1,12 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{F6F7F3E5-C8DA-4758-86B2-64911DA4FB3D}</ProjectGuid>
+    <ProjectGuid>{EEC802D4-DB15-42E9-8296-CEDD5B62DA3E}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>test</RootNamespace>
-    <AssemblyName>test</AssemblyName>
-    <OutputName>test</OutputName>
+    <RootNamespace>UsingFonts</RootNamespace>
+    <AssemblyName>UsingFonts</AssemblyName>
+    <OutputName>UsingFonts</OutputName>
     <Model>Lib</Model>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -24,7 +24,7 @@
     <check_index>False</check_index>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="test.clw" />
+    <Compile Include="UsingFonts.clw" />
   </ItemGroup>
   <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
 </Project>
