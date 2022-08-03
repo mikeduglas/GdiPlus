@@ -515,6 +515,13 @@ StringFormatFlagsNoClip               EQUATE(00004000h)
 StringFormatFlagsBypassGDI            EQUATE(80000000h)
 
 
+!---------------------------------------------------------------------------
+! StringFormatFlags
+!---------------------------------------------------------------------------
+
+
+
+
 
 
 GpPoint                       GROUP, TYPE
@@ -571,5 +578,75 @@ DescSize                        UNSIGNED  !- size memory pointed by Desc
 PtrData                         LONG      !- VOID*. pointer to the data that is to be saved in the file, could be anything saved directly.
 DataSize                        UNSIGNED  !- size memory pointed by PtrData.
 Cookie                          ULONG     !- opaque for the apps data member used during enumeration of image data items.
+                              END
+
+
+!----------------------------------------------------------------------------
+! Color matrix
+!----------------------------------------------------------------------------
+typColorMatrix                GROUP, TYPE
+m                               SREAL,DIM(5,5)
+                              END
+
+
+!----------------------------------------------------------------------------
+! Color Matrix flags
+!----------------------------------------------------------------------------
+GpColorMatrixFlags            EQUATE(LONG)
+ColorMatrixFlagsDefault       EQUATE(0)
+ColorMatrixFlagsSkipGrays     EQUATE(1)
+ColorMatrixFlagsAltGray       EQUATE(2)
+
+
+
+!----------------------------------------------------------------------------
+! Color Adjust Type
+!----------------------------------------------------------------------------
+GpColorAdjustType             EQUATE(LONG)
+ColorAdjustTypeDefault        EQUATE(0)
+ColorAdjustTypeBitmap         EQUATE(1)
+ColorAdjustTypeBrush          EQUATE(2)
+ColorAdjustTypePen            EQUATE(3)
+ColorAdjustTypeText           EQUATE(4)
+ColorAdjustTypeCount          EQUATE(5)
+ColorAdjustTypeAny            EQUATE(6)     ! Reserved
+
+
+
+!----------------------------------------------------------------------------
+! Color Map
+!----------------------------------------------------------------------------
+typColorMap                   GROUP, TYPE
+oldColor                        GpARGB
+newColor                        GpARGB
+                              END
+
+
+!----------------------------------------------------------------------------
+! Color mode
+!----------------------------------------------------------------------------
+GpColorMode                   EQUATE(LONG)
+ColorModeARGB32               EQUATE(0)
+ColorModeARGB64               EQUATE(1)
+
+
+!----------------------------------------------------------------------------
+! Color Channel flags
+!----------------------------------------------------------------------------
+GpColorChannelFlags           EQUATE(LONG)
+ColorChannelFlagsC            EQUATE(0)
+ColorChannelFlagsM            EQUATE(1)
+ColorChannelFlagsY            EQUATE(2)
+ColorChannelFlagsK            EQUATE(3)
+ColorChannelFlagsLast         EQUATE(4)
+
+
+!----------------------------------------------------------------------------
+! Color Palette
+!----------------------------------------------------------------------------
+typColorPalette               GROUP, TYPE
+Flags                           UNSIGNED             ! Palette flags
+Count                           UNSIGNED             ! Number of color entries
+Entries                         GpARGB,DIM(1)        ! Palette color entries
                               END
 

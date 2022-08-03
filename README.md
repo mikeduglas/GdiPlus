@@ -13,6 +13,7 @@ GDI+ support
     - TGdiPlusTextureBrush
     - TGdiPlusLinearGradientBrush
     - TGdiPlusHatchBrush
+- TGdiPlusImageAttributes
 - TGdiPlusFont
 - TGdiPlusFontFamily
 - TGdiPlusFontCollection

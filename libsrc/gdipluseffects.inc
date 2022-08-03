@@ -100,10 +100,6 @@ channel                         GpCurveChannel
 adjustValue                     SIGNED
                               END
 
-typColorMatrix                GROUP, TYPE
-m                               SREAL,DIM(5,5)
-                              END
-
 !-----------------------------------------------------------------------------
 
 TGdiPlusEffect                CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')

@@ -476,6 +476,21 @@ szGdipSetStringFormatMeasurableCharacterRanges    CSTRING('GdipSetStringFormatMe
 szGdipGetStringFormatMeasurableCharacterRangeCount    CSTRING('GdipGetStringFormatMeasurableCharacterRangeCount'), STATIC
 szGdipStringFormatGetGenericDefault   CSTRING('GdipStringFormatGetGenericDefault'), STATIC
 szGdipStringFormatGetGenericTypographic   CSTRING('GdipStringFormatGetGenericTypographic'), STATIC
+szGdipCreateImageAttributes   CSTRING('GdipCreateImageAttributes'), STATIC
+szGdipDisposeImageAttributes  CSTRING('GdipDisposeImageAttributes'), STATIC
+szGdipCloneImageAttributes    CSTRING('GdipCloneImageAttributes'), STATIC
+szGdipSetImageAttributesToIdentity    CSTRING('GdipSetImageAttributesToIdentity'), STATIC
+szGdipResetImageAttributes    CSTRING('GdipResetImageAttributes'), STATIC
+szGdipSetImageAttributesColorMatrix   CSTRING('GdipSetImageAttributesColorMatrix'), STATIC
+szGdipSetImageAttributesThreshold CSTRING('GdipSetImageAttributesThreshold'), STATIC
+szGdipSetImageAttributesGamma CSTRING('GdipSetImageAttributesGamma'), STATIC
+szGdipSetImageAttributesNoOp  CSTRING('GdipSetImageAttributesNoOp'), STATIC
+szGdipSetImageAttributesColorKeys CSTRING('GdipSetImageAttributesColorKeys'), STATIC
+szGdipSetImageAttributesOutputChannel CSTRING('GdipSetImageAttributesOutputChannel'), STATIC
+szGdipSetImageAttributesOutputChannelColorProfile CSTRING('GdipSetImageAttributesOutputChannelColorProfile'), STATIC
+szGdipSetImageAttributesRemapTable    CSTRING('GdipSetImageAttributesRemapTable'), STATIC
+szGdipSetImageAttributesWrapMode  CSTRING('GdipSetImageAttributesWrapMode'), STATIC
+szGdipGetImageAttributesAdjustedPalette   CSTRING('GdipGetImageAttributesAdjustedPalette'), STATIC
 
 
 !- GDI+ function pointers
@@ -500,14 +515,12 @@ paGdipGetImageType            LONG, NAME('fptr_GdipGetImageType')
 paGdipGetImageFlags           LONG, NAME('fptr_GdipGetImageFlags')
 paGdipGetImageRawFormat       LONG, NAME('fptr_GdipGetImageRawFormat')
 paGdipGetImagePixelFormat     LONG, NAME('fptr_GdipGetImagePixelFormat')
-
 paGdipGetPropertyCount        LONG, NAME('fptr_GdipGetPropertyCount')
 paGdipGetPropertyIdList       LONG, NAME('fptr_GdipGetPropertyIdList')
 paGdipGetPropertyItemSize     LONG, NAME('fptr_GdipGetPropertyItemSize')
 paGdipGetPropertyItem         LONG, NAME('fptr_GdipGetPropertyItem')
 paGdipSetPropertyItem         LONG, NAME('fptr_GdipSetPropertyItem')
 paGdipRemovePropertyItem      LONG, NAME('fptr_GdipRemovePropertyItem')
-
 paGdipGetImageEncodersSize    LONG, NAME('fptr_GdipGetImageEncodersSize')
 paGdipGetImageEncoders        LONG, NAME('fptr_GdipGetImageEncoders')
 paGdipImageRotateFlip         LONG, NAME('fptr_GdipImageRotateFlip')
@@ -517,7 +530,6 @@ paGdipSetImagePalette         LONG, NAME('fptr_GdipSetImagePalette')
 paGdipFindFirstImageItem      LONG, NAME('fptr_GdipFindFirstImageItem')
 paGdipFindNextImageItem       LONG, NAME('fptr_GdipFindNextImageItem')
 paGdipGetImageItemData        LONG, NAME('fptr_GdipGetImageItemData')
-
 paGdipCreateBitmapFromFile    LONG, NAME('fptr_GdipCreateBitmapFromFile')
 paGdipCreateBitmapFromFileICM LONG, NAME('fptr_GdipCreateBitmapFromFileICM')
 paGdipCreateBitmapFromStream  LONG, NAME('fptr_GdipCreateBitmapFromStream')
@@ -542,7 +554,6 @@ paGdipBitmapApplyEffect       LONG, NAME('fptr_GdipBitmapApplyEffect')
 paGdipBitmapCreateApplyEffect LONG, NAME('fptr_GdipBitmapCreateApplyEffect')
 paGdipBitmapGetHistogramSize  LONG, NAME('fptr_GdipBitmapGetHistogramSize')
 paGdipBitmapGetHistogram      LONG, NAME('fptr_GdipBitmapGetHistogram')
-
 paGdipGetImageGraphicsContext LONG, NAME('fptr_GdipGetImageGraphicsContext')
 paGdipDeleteGraphics          LONG, NAME('fptr_GdipDeleteGraphics')
 paGdipCreateFromHDC           LONG, NAME('fptr_GdipCreateFromHDC')
@@ -633,15 +644,12 @@ paGdipFillClosedCurve2        LONG, NAME('fptr_GdipFillClosedCurve2')
 paGdipFillClosedCurveI        LONG, NAME('fptr_GdipFillClosedCurveI')
 paGdipFillClosedCurve2I       LONG, NAME('fptr_GdipFillClosedCurve2I')
 paGdipFillRegion              LONG, NAME('fptr_GdipFillRegion')
-
 paGdipCreateEffect            LONG, NAME('fptr_GdipCreateEffect')
 paGdipDeleteEffect            LONG, NAME('fptr_GdipDeleteEffect')
 paGdipGetEffectParameterSize  LONG, NAME('fptr_GdipGetEffectParameterSize')
 paGdipSetEffectParameters     LONG, NAME('fptr_GdipSetEffectParameters')
 paGdipGetEffectParameters     LONG, NAME('fptr_GdipGetEffectParameters')
-
 paGdipInitializePalette       LONG, NAME('fptr_GdipInitializePalette')
-
 paGdipCreateMatrix            LONG, NAME('fptr_GdipCreateMatrix')
 paGdipCreateMatrix2           LONG, NAME('fptr_GdipCreateMatrix2')
 paGdipCreateMatrix3           LONG, NAME('fptr_GdipCreateMatrix3')
@@ -663,7 +671,6 @@ paGdipVectorTransformMatrixPointsI    LONG, NAME('fptr_GdipVectorTransformMatrix
 paGdipIsMatrixInvertible      LONG, NAME('fptr_GdipIsMatrixInvertible')
 paGdipIsMatrixIdentity        LONG, NAME('fptr_GdipIsMatrixIdentity')
 paGdipIsMatrixEqual           LONG, NAME('fptr_GdipIsMatrixEqual')
-
 paGdipCreateFontFromDC        LONG, NAME('fptr_GdipCreateFontFromDC')
 paGdipCreateFontFromLogfontA  LONG, NAME('fptr_GdipCreateFontFromLogfontA')
 paGdipCreateFont              LONG, NAME('fptr_GdipCreateFont')
@@ -676,7 +683,6 @@ paGdipGetFontSize             LONG, NAME('fptr_GdipGetFontSize')
 paGdipGetFontUnit             LONG, NAME('fptr_GdipGetFontUnit')
 paGdipGetFontHeight           LONG, NAME('fptr_GdipGetFontHeight')
 paGdipGetFontHeightGivenDPI   LONG, NAME('fptr_GdipGetFontHeightGivenDPI')
-
 paGdipCreateFontFamilyFromName    LONG, NAME('fptr_GdipCreateFontFamilyFromName')
 paGdipGetGenericFontFamilySansSerif   LONG, NAME('fptr_GdipGetGenericFontFamilySansSerif')
 paGdipGetGenericFontFamilySerif   LONG, NAME('fptr_GdipGetGenericFontFamilySerif')
@@ -689,14 +695,12 @@ paGdipGetEmHeight             LONG, NAME('fptr_GdipGetEmHeight')
 paGdipGetCellAscent           LONG, NAME('fptr_GdipGetCellAscent')
 paGdipGetCellDescent          LONG, NAME('fptr_GdipGetCellDescent')
 paGdipGetLineSpacing          LONG, NAME('fptr_GdipGetLineSpacing')
-
 paGdipGetFontCollectionFamilyCount    LONG, NAME('fptr_GdipGetFontCollectionFamilyCount')
 paGdipGetFontCollectionFamilyList LONG, NAME('fptr_GdipGetFontCollectionFamilyList')
 paGdipNewInstalledFontCollection  LONG, NAME('fptr_GdipNewInstalledFontCollection')
 paGdipNewPrivateFontCollection    LONG, NAME('fptr_GdipNewPrivateFontCollection')
 paGdipDeletePrivateFontCollection LONG, NAME('fptr_GdipDeletePrivateFontCollection')
 paGdipPrivateAddFontFile      LONG, NAME('fptr_GdipPrivateAddFontFile')
-
 paGdipCreatePath              LONG, NAME('fptr_GdipCreatePath')
 paGdipCreatePath2             LONG, NAME('fptr_GdipCreatePath2')
 paGdipCreatePath2I            LONG, NAME('fptr_GdipCreatePath2I')
@@ -761,7 +765,6 @@ paGdipIsVisiblePathPoint      LONG, NAME('fptr_GdipIsVisiblePathPoint')
 paGdipIsVisiblePathPointI     LONG, NAME('fptr_GdipIsVisiblePathPointI')
 paGdipIsOutlineVisiblePathPoint   LONG, NAME('fptr_GdipIsOutlineVisiblePathPoint')
 paGdipIsOutlineVisiblePathPointI  LONG, NAME('fptr_GdipIsOutlineVisiblePathPointI')
-
 paGdipCreatePen1              LONG, NAME('fptr_GdipCreatePen1')
 paGdipCreatePen2              LONG, NAME('fptr_GdipCreatePen2')
 paGdipDeletePen               LONG, NAME('fptr_GdipDeletePen')
@@ -807,14 +810,12 @@ paGdipGetPenDashArray         LONG, NAME('fptr_GdipGetPenDashArray')
 paGdipSetPenCompoundArray     LONG, NAME('fptr_GdipSetPenCompoundArray')
 paGdipGetPenCompoundCount     LONG, NAME('fptr_GdipGetPenCompoundCount')
 paGdipGetPenCompoundArray     LONG, NAME('fptr_GdipGetPenCompoundArray')
-
 paGdipDeleteBrush             LONG, NAME('fptr_GdipDeleteBrush')
 paGdipCloneBrush              LONG, NAME('fptr_GdipCloneBrush')
 paGdipGetBrushType            LONG, NAME('fptr_GdipGetBrushType')
 paGdipCreateSolidFill         LONG, NAME('fptr_GdipCreateSolidFill')
 paGdipGetSolidFillColor       LONG, NAME('fptr_GdipGetSolidFillColor')
 paGdipSetSolidFillColor       LONG, NAME('fptr_GdipSetSolidFillColor')
-
 paGdipCreateTexture           LONG, NAME('fptr_GdipCreateTexture')
 paGdipCreateTexture2          LONG, NAME('fptr_GdipCreateTexture2')
 paGdipCreateTexture2I         LONG, NAME('fptr_GdipCreateTexture2I')
@@ -830,7 +831,6 @@ paGdipRotateTextureTransform   LONG, NAME('fptr_GdipRotateTextureTransform')
 paGdipSetTextureWrapMode      LONG, NAME('fptr_GdipSetTextureWrapMode')
 paGdipGetTextureWrapMode      LONG, NAME('fptr_GdipGetTextureWrapMode')
 paGdipGetTextureImage         LONG, NAME('fptr_GdipGetTextureImage')
-
 paGdipCreateLineBrush         LONG, NAME('fptr_GdipCreateLineBrush')
 paGdipCreateLineBrushI        LONG, NAME('fptr_GdipCreateLineBrushI')
 paGdipCreateLineBrushFromRect LONG, NAME('fptr_GdipCreateLineBrushFromRect')
@@ -864,7 +864,6 @@ paGdipCreateHatchBrush        LONG, NAME('fptr_GdipCreateHatchBrush')
 paGdipGetHatchStyle           LONG, NAME('fptr_GdipGetHatchStyle')
 paGdipGetHatchForegroundColor LONG, NAME('fptr_GdipGetHatchForegroundColor')
 paGdipGetHatchBackgroundColor LONG, NAME('fptr_GdipGetHatchBackgroundColor')
-
 paGdipCreateRegion            LONG, NAME('fptr_GdipCreateRegion')
 paGdipCreateRegionRect        LONG, NAME('fptr_GdipCreateRegionRect')
 paGdipCreateRegionRectI       LONG, NAME('fptr_GdipCreateRegionRectI')
@@ -897,7 +896,6 @@ paGdipIsVisibleRegionRectI    LONG, NAME('fptr_GdipIsVisibleRegionRectI')
 paGdipGetRegionScansCount     LONG, NAME('fptr_GdipGetRegionScansCount')
 paGdipGetRegionScans          LONG, NAME('fptr_GdipGetRegionScans')
 paGdipGetRegionScansI         LONG, NAME('fptr_GdipGetRegionScansI')
-
 paGdipFlush                   LONG, NAME('fptr_GdipFlush')
 paGdipDrawString              LONG, NAME('fptr_GdipDrawString')
 paGdipMeasureString           LONG, NAME('fptr_GdipMeasureString')
@@ -939,7 +937,6 @@ paGdipSaveGraphics            LONG, NAME('fptr_GdipSaveGraphics')
 paGdipRestoreGraphics         LONG, NAME('fptr_GdipRestoreGraphics')
 paGdipCreateCachedBitmap      LONG, NAME('fptr_GdipCreateCachedBitmap')
 paGdipDeleteCachedBitmap      LONG, NAME('fptr_GdipDeleteCachedBitmap')
-
 paGdipCreateStringFormat      LONG, NAME('fptr_GdipCreateStringFormat')
 paGdipDeleteStringFormat      LONG, NAME('fptr_GdipDeleteStringFormat')
 paGdipCloneStringFormat       LONG, NAME('fptr_GdipCloneStringFormat')
@@ -962,6 +959,21 @@ paGdipSetStringFormatMeasurableCharacterRanges    LONG, NAME('fptr_GdipSetString
 paGdipGetStringFormatMeasurableCharacterRangeCount    LONG, NAME('fptr_GdipGetStringFormatMeasurableCharacterRangeCount')
 paGdipStringFormatGetGenericDefault   LONG, NAME('fptr_GdipStringFormatGetGenericDefault')
 paGdipStringFormatGetGenericTypographic   LONG, NAME('fptr_GdipStringFormatGetGenericTypographic')
+paGdipCreateImageAttributes   LONG, NAME('fptr_GdipCreateImageAttributes')
+paGdipDisposeImageAttributes  LONG, NAME('fptr_GdipDisposeImageAttributes')
+paGdipCloneImageAttributes    LONG, NAME('fptr_GdipCloneImageAttributes')
+paGdipSetImageAttributesToIdentity    LONG, NAME('fptr_GdipSetImageAttributesToIdentity')
+paGdipResetImageAttributes    LONG, NAME('fptr_GdipResetImageAttributes')
+paGdipSetImageAttributesColorMatrix   LONG, NAME('fptr_GdipSetImageAttributesColorMatrix')
+paGdipSetImageAttributesThreshold LONG, NAME('fptr_GdipSetImageAttributesThreshold')
+paGdipSetImageAttributesGamma LONG, NAME('fptr_GdipSetImageAttributesGamma')
+paGdipSetImageAttributesNoOp  LONG, NAME('fptr_GdipSetImageAttributesNoOp')
+paGdipSetImageAttributesColorKeys LONG, NAME('fptr_GdipSetImageAttributesColorKeys')
+paGdipSetImageAttributesOutputChannel LONG, NAME('fptr_GdipSetImageAttributesOutputChannel')
+paGdipSetImageAttributesOutputChannelColorProfile LONG, NAME('fptr_GdipSetImageAttributesOutputChannelColorProfile')
+paGdipSetImageAttributesRemapTable    LONG, NAME('fptr_GdipSetImageAttributesRemapTable')
+paGdipSetImageAttributesWrapMode  LONG, NAME('fptr_GdipSetImageAttributesWrapMode')
+paGdipGetImageAttributesAdjustedPalette   LONG, NAME('fptr_GdipGetImageAttributesAdjustedPalette')
 
 
 
@@ -1420,7 +1432,6 @@ paGdipStringFormatGetGenericTypographic   LONG, NAME('fptr_GdipStringFormatGetGe
       GdipGetRegionScansI(LONG pRegion,LONG pRects,*UNSIGNED pCount,LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipGetRegionScansI'),DLL
       GdipCreateCachedBitmap(LONG pBitmap,LONG pGraphics,*LONG pCachedBitmap),GpStatus,PASCAL,NAME('fptr_GdipCreateCachedBitmap'),DLL
       GdipDeleteCachedBitmap(LONG pCachedBitmap),GpStatus,PASCAL,NAME('fptr_GdipDeleteCachedBitmap'),DLL
-
       GdipCreateStringFormat(UNSIGNED pFlags,USHORT pLang,*LONG pFormat),GpStatus,PASCAL,NAME('fptr_GdipCreateStringFormat'),DLL
       GdipDeleteStringFormat(LONG pFormat),GpStatus,PASCAL,NAME('fptr_GdipDeleteStringFormat'),DLL
       GdipCloneStringFormat(LONG pFormat,*LONG pCloneFormat),GpStatus,PASCAL,NAME('fptr_GdipCloneStringFormat'),DLL
@@ -1443,6 +1454,21 @@ paGdipStringFormatGetGenericTypographic   LONG, NAME('fptr_GdipStringFormatGetGe
       GdipGetStringFormatMeasurableCharacterRangeCount(LONG pFormat,*LONG pRanges),GpStatus,PASCAL,NAME('fptr_GdipGetStringFormatMeasurableCharacterRangeCount'),DLL
       GdipStringFormatGetGenericDefault(*LONG pFormat),GpStatus,PASCAL,NAME('fptr_GdipStringFormatGetGenericDefault'),DLL
       GdipStringFormatGetGenericTypographic(*LONG pFormat),GpStatus,PASCAL,NAME('fptr_GdipStringFormatGetGenericTypographic'),DLL
+      GdipCreateImageAttributes(*LONG pImageAttr),GpStatus,PASCAL,NAME('fptr_GdipCreateImageAttributes'),DLL
+      GdipDisposeImageAttributes(LONG pImageAttr),GpStatus,PASCAL,NAME('fptr_GdipDisposeImageAttributes'),DLL
+      GdipCloneImageAttributes(LONG pImageAttr,*LONG pCloneAttr),GpStatus,PASCAL,NAME('fptr_GdipCloneImageAttributes'),DLL
+      GdipSetImageAttributesToIdentity(LONG pImageAttr,GpColorAdjustType pType),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesToIdentity'),DLL
+      GdipResetImageAttributes(LONG pImageAttr,GpColorAdjustType pType),GpStatus,PASCAL,NAME('fptr_GdipResetImageAttributes'),DLL
+      GdipSetImageAttributesColorMatrix(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,LONG pColorMatrix,LONG pGrayMatrix,GpColorMatrixFlags pMode),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesColorMatrix'),DLL
+      GdipSetImageAttributesThreshold(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,SREAL pThreshold),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesThreshold'),DLL
+      GdipSetImageAttributesGamma(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,SREAL pGamma),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesGamma'),DLL
+      GdipSetImageAttributesNoOp(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesNoOp'),DLL
+      GdipSetImageAttributesColorKeys(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,GpARGB pColorLow,GpARGB pColorHigh),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesColorKeys'),DLL
+      GdipSetImageAttributesOutputChannel(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,GpColorChannelFlags pFlags),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesOutputChannel'),DLL
+      GdipSetImageAttributesOutputChannelColorProfile(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,LONG pProfileName),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesOutputChannelColorProfile'),DLL
+      GdipSetImageAttributesRemapTable(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,UNSIGNED pMapSize,LONG pMap),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesRemapTable'),DLL
+      GdipSetImageAttributesWrapMode(LONG pImageAttr,GpWrapMode pWrap,GpARGB pColor,BOOL pClamp),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesWrapMode'),DLL
+      GdipGetImageAttributesAdjustedPalette(LONG pImageAttr,LONG pPalette,GpColorAdjustType pType),GpStatus,PASCAL,NAME('fptr_GdipGetImageAttributesAdjustedPalette'),DLL
 
     END
     MODULE('Global memory api')
@@ -1961,7 +1987,6 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipGetRegionScansI               = winapi::GetProcAddress(SELF.hDll, szGdipGetRegionScansI)
       paGdipCreateCachedBitmap            = winapi::GetProcAddress(SELF.hDll, szGdipCreateCachedBitmap)
       paGdipDeleteCachedBitmap            = winapi::GetProcAddress(SELF.hDll, szGdipDeleteCachedBitmap)
-
       paGdipCreateStringFormat            = winapi::GetProcAddress(SELF.hDll, szGdipCreateStringFormat)
       paGdipDeleteStringFormat            = winapi::GetProcAddress(SELF.hDll, szGdipDeleteStringFormat)
       paGdipCloneStringFormat             = winapi::GetProcAddress(SELF.hDll, szGdipCloneStringFormat)
@@ -1984,6 +2009,21 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipGetStringFormatMeasurableCharacterRangeCount    = winapi::GetProcAddress(SELF.hDll, szGdipGetStringFormatMeasurableCharacterRangeCount)
       paGdipStringFormatGetGenericDefault   = winapi::GetProcAddress(SELF.hDll, szGdipStringFormatGetGenericDefault)
       paGdipStringFormatGetGenericTypographic   = winapi::GetProcAddress(SELF.hDll, szGdipStringFormatGetGenericTypographic)
+      paGdipCreateImageAttributes         = winapi::GetProcAddress(SELF.hDll, szGdipCreateImageAttributes)
+      paGdipDisposeImageAttributes        = winapi::GetProcAddress(SELF.hDll, szGdipDisposeImageAttributes)
+      paGdipCloneImageAttributes          = winapi::GetProcAddress(SELF.hDll, szGdipCloneImageAttributes)
+      paGdipSetImageAttributesToIdentity  = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesToIdentity)
+      paGdipResetImageAttributes          = winapi::GetProcAddress(SELF.hDll, szGdipResetImageAttributes)
+      paGdipSetImageAttributesColorMatrix = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesColorMatrix)
+      paGdipSetImageAttributesThreshold   = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesThreshold)
+      paGdipSetImageAttributesGamma       = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesGamma)
+      paGdipSetImageAttributesNoOp        = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesNoOp)
+      paGdipSetImageAttributesColorKeys   = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesColorKeys)
+      paGdipSetImageAttributesOutputChannel = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesOutputChannel)
+      paGdipSetImageAttributesOutputChannelColorProfile = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesOutputChannelColorProfile)
+      paGdipSetImageAttributesRemapTable  = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesRemapTable)
+      paGdipSetImageAttributesWrapMode    = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesWrapMode)
+      paGdipGetImageAttributesAdjustedPalette   = winapi::GetProcAddress(SELF.hDll, szGdipGetImageAttributesAdjustedPalette)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -3607,23 +3647,45 @@ TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, SREAL pDstX, SREAL
   SELF.lastResult = GdipDrawImageRectRect(SELF.nativeGraphics, pImage.nativeImage, pDstX, pDstY, pDstWidth, pDstHeight, pSrcX, pSrcY, pSrcWidth, pSrcHeight, pSrcUnit, 0, 0, 0)
   GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
   RETURN SELF.lastResult
+  
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, SREAL pDstX, SREAL pDstY, SREAL pDstWidth, SREAL pDstHeight, SREAL pSrcX, SREAL pSrcY, SREAL pSrcWidth, SREAL pSrcHeight, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+  CODE
+  SELF.lastResult = GdipDrawImageRectRect(SELF.nativeGraphics, pImage.nativeImage, pDstX, pDstY, pDstWidth, pDstHeight, pSrcX, pSrcY, pSrcWidth, pSrcHeight, pSrcUnit, pImageAttr.nativeImageAttr, 0, 0)
+  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
+  RETURN SELF.lastResult
 
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pDestRect, CONST *GpRectF pSrcRect, GpUnit pSrcUnit)
   CODE
   RETURN SELF.DrawImage(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
     pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit)
        
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pDestRect, CONST *GpRectF pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+  CODE
+  RETURN SELF.DrawImage(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
+    pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr)
+
 TGdiPlusGraphics.DrawImageI   PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SIGNED pDstY, SIGNED pDstWidth, SIGNED pDstHeight, SIGNED pSrcX, SIGNED pSrcY, SIGNED pSrcWidth, SIGNED pSrcHeight, GpUnit pSrcUnit)
   CODE
   SELF.lastResult = GdipDrawImageRectRectI(SELF.nativeGraphics, pImage.nativeImage, pDstX, pDstY, pDstWidth, pDstHeight, pSrcX, pSrcY, pSrcWidth, pSrcHeight, pSrcUnit, 0, 0, 0)
   GdipReportError('TGdiPlusGraphics.DrawImageI', SELF.lastResult)
   RETURN SELF.lastResult
  
+TGdiPlusGraphics.DrawImageI   PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SIGNED pDstY, SIGNED pDstWidth, SIGNED pDstHeight, SIGNED pSrcX, SIGNED pSrcY, SIGNED pSrcWidth, SIGNED pSrcHeight, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+  CODE
+  SELF.lastResult = GdipDrawImageRectRectI(SELF.nativeGraphics, pImage.nativeImage, pDstX, pDstY, pDstWidth, pDstHeight, pSrcX, pSrcY, pSrcWidth, pSrcHeight, pSrcUnit, pImageAttr.nativeImageAttr, 0, 0)
+  GdipReportError('TGdiPlusGraphics.DrawImageI', SELF.lastResult)
+  RETURN SELF.lastResult
+
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit)
   CODE
   RETURN SELF.DrawImage(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
     pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit)
          
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+  CODE
+  RETURN SELF.DrawImage(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
+    pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr)
+
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
                                 CONST *GpRectF pSrcRect, GpUnit pSrcUnit)
 pts                             GROUP(GpPointF), DIM(3).
@@ -3635,6 +3697,17 @@ pts                             GROUP(GpPointF), DIM(3).
   GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
   RETURN SELF.lastResult
          
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
+                                CONST *GpRectF pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+pts                             GROUP(GpPointF), DIM(3).
+  CODE
+  pts[1] = pUpperLeftPoint
+  pts[2] = pUpperRightPoint
+  pts[3] = pLowerLeftPoint
+  SELF.lastResult = GdipDrawImagePointsRect(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr.nativeImageAttr, 0, 0)
+  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
+  RETURN SELF.lastResult
+
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
                                 CONST *GpRect pSrcRect, GpUnit pSrcUnit)
 pts                             GROUP(GpPoint), DIM(3).
@@ -3646,12 +3719,29 @@ pts                             GROUP(GpPoint), DIM(3).
   GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
   RETURN SELF.lastResult
   
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
+                                CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+pts                             GROUP(GpPoint), DIM(3).
+  CODE
+  pts[1] = pUpperLeftPoint
+  pts[2] = pUpperRightPoint
+  pts[3] = pLowerLeftPoint
+  SELF.lastResult = GdipDrawImagePointsRectI(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr.nativeImageAttr, 0, 0)
+  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
+  RETURN SELF.lastResult
+
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pSrcRect, TGdiPlusMatrix pXform, TGdiPlusEffect pEffect, GpUnit pSrcUnit)
   CODE
   SELF.lastResult = GdipDrawImageFX(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pSrcRect), pXform.nativeMatrix, pEffect.nativeEffect, 0, pSrcUnit)
   GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
   RETURN SELF.lastResult
     
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pSrcRect, TGdiPlusMatrix pXform, TGdiPlusEffect pEffect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+  CODE
+  SELF.lastResult = GdipDrawImageFX(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pSrcRect), pXform.nativeMatrix, pEffect.nativeEffect, pImageAttr.nativeImageAttr, pSrcUnit)
+  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
+  RETURN SELF.lastResult
+
 TGdiPlusGraphics.SetClip      PROCEDURE(TGdiPlusGraphics pSrcGraphics, GpCombineMode pCombineMode=CombineModeReplace)
   CODE
   SELF.lastResult = GdipSetClipGraphics(SELF.nativeGraphics, pSrcGraphics.nativeGraphics, pCombineMode)
@@ -6348,4 +6438,171 @@ count                                                   UNSIGNED
   SELF.lastResult = GdipGetStringFormatMeasurableCharacterRangeCount(SELF.nativeFormat, count)
   GdipReportError(printf('TGdiPlusStringFormat.GetMeasurableCharacterRangeCount'), SELF.lastResult)
   RETURN count
+!!!endregion
+
+!!!region TGdiPlusImageAttributes
+TGdiPlusImageAttributes.Destruct  PROCEDURE()
+  CODE
+  SELF.DeleteImageAttributes()
+  
+TGdiPlusImageAttributes.CreateImageAttributes PROCEDURE()
+  CODE
+  SELF.lastResult = GdipCreateImageAttributes(SELF.nativeImageAttr)
+  GdipReportError(printf('TGdiPlusImageAttributes.CreateImageAttributes'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.DeleteImageAttributes PROCEDURE()
+  CODE
+  SELF.lastResult = GdipDisposeImageAttributes(SELF.nativeImageAttr)
+  GdipReportError(printf('TGdiPlusImageAttributes.DeleteImageAttributes'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.Clone PROCEDURE(*TGdiPlusImageAttributes pCloneImageAttr)
+  CODE
+  SELF.lastResult = GdipCloneImageAttributes(SELF.nativeImageAttr, pCloneImageAttr.nativeImageAttr)
+  GdipReportError(printf('TGdiPlusImageAttributes.Clone'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetToIdentity PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesToIdentity(SELF.nativeImageAttr, pType)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetToIdentity'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.Reset PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipResetImageAttributes(SELF.nativeImageAttr, pType)
+  GdipReportError(printf('TGdiPlusImageAttributes.Reset'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetColorMatrix    PROCEDURE(typColorMatrix pColorMatrix, GpColorMatrixFlags pMode=ColorMatrixFlagsDefault, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesColorMatrix(SELF.nativeImageAttr, pType, TRUE, ADDRESS(pColorMatrix), 0, pMode)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetColorMatrix'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearColorMatrix  PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesColorMatrix(SELF.nativeImageAttr, pType, FALSE, 0, 0, ColorMatrixFlagsDefault)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearColorMatrix'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetColorMatrices  PROCEDURE(typColorMatrix pColorMatrix, typColorMatrix pGrayMatrix, GpColorMatrixFlags pMode=ColorMatrixFlagsDefault, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesColorMatrix(SELF.nativeImageAttr, pType, TRUE, ADDRESS(pColorMatrix), ADDRESS(pGrayMatrix), pMode)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetColorMatrices'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearColorMatrices    PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesColorMatrix(SELF.nativeImageAttr, pType, FALSE, 0, 0, ColorMatrixFlagsDefault)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearColorMatrices'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetThreshold  PROCEDURE(SREAL pThreshold, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesThreshold(SELF.nativeImageAttr, pType, TRUE, pThreshold)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetThreshold'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearThreshold    PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesThreshold(SELF.nativeImageAttr, pType, FALSE, 0.0)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearThreshold'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetGamma  PROCEDURE(SREAL pGamma, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesGamma(SELF.nativeImageAttr, pType, TRUE, pGamma)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetGamma'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearGamma    PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesGamma(SELF.nativeImageAttr, pType, FALSE, 0.0)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearGamma'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetNoOp   PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesNoOp(SELF.nativeImageAttr, pType, TRUE)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetNoOp'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearNoOp PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesNoOp(SELF.nativeImageAttr, pType, FALSE)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearNoOp'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetColorKey   PROCEDURE(GpARGB pColorLow, GpARGB pColorHigh, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesColorKeys(SELF.nativeImageAttr, pType, TRUE, pColorLow, pColorHigh)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetColorKey'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearColorKey PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesColorKeys(SELF.nativeImageAttr, pType, FALSE, 0, 0)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearColorKey'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetOutputChannel  PROCEDURE(GpColorChannelFlags pChannelFlags, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesOutputChannel(SELF.nativeImageAttr, pType, TRUE, pChannelFlags)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetOutputChannel'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearOutputChannel    PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesOutputChannel(SELF.nativeImageAttr, pType, FALSE, ColorChannelFlagsLast)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearOutputChannel'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetOutputChannelColorProfile  PROCEDURE(STRING pColorProfileFilename, GpColorAdjustType pType=ColorAdjustTypeDefault)
+enc                                                     TStringEncoding
+wstr                                                    STRING(FILE:MaxFilePath*2+2)
+  CODE
+  wstr = enc.ToCWStr(CLIP(pColorProfileFilename))
+  SELF.lastResult = GdipSetImageAttributesOutputChannelColorProfile(SELF.nativeImageAttr, pType, TRUE, ADDRESS(wstr))
+  GdipReportError(printf('TGdiPlusImageAttributes.SetOutputChannelColorProfile'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearOutputChannelColorProfile    PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesOutputChannelColorProfile(SELF.nativeImageAttr, pType, FALSE, 0)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearOutputChannelColorProfile'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetRemapTable PROCEDURE(UNSIGNED pMapSize, LONG pMap, GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesRemapTable(SELF.nativeImageAttr, pType, TRUE, pMapSize, pMap)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetRemapTable'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.ClearRemapTable   PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesRemapTable(SELF.nativeImageAttr, pType, FALSE, 0, 0)
+  GdipReportError(printf('TGdiPlusImageAttributes.ClearRemapTable'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.SetBrushRemapTable    PROCEDURE(UNSIGNED pMapSize, LONG pMap)
+  CODE
+  RETURN SELF.SetRemapTable(pMapSize, pMap, ColorAdjustTypeBrush)
+    
+TGdiPlusImageAttributes.ClearBrushRemapTable  PROCEDURE()
+  CODE
+  RETURN SELF.ClearRemapTable(ColorAdjustTypeBrush)
+    
+TGdiPlusImageAttributes.SetWrapMode   PROCEDURE(GpWrapMode pWrap, GpARGB pColor=0FF000000h, BOOL pClamp=FALSE)
+  CODE
+  SELF.lastResult = GdipSetImageAttributesWrapMode(SELF.nativeImageAttr, pWrap, pColor, pClamp)
+  GdipReportError(printf('TGdiPlusImageAttributes.SetWrapMode'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImageAttributes.GetAdjustedPalette    PROCEDURE(*typColorPalette pColorPalette, GpColorAdjustType pType)
+  CODE
+  SELF.lastResult = GdipGetImageAttributesAdjustedPalette(SELF.nativeImageAttr, ADDRESS(pColorPalette), pType)
+  GdipReportError(printf('TGdiPlusImageAttributes.GetAdjustedPalette'), SELF.lastResult)
+  RETURN SELF.lastResult
 !!!endregion

@@ -173,5 +173,60 @@ TGdiPlusImageAttributes       CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.
 nativeImageAttr                 LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
-! Not implemented yet.
+Destruct                        PROCEDURE(), VIRTUAL
+!!!<summary>Creates an ImageAttributes object.</summary>
+CreateImageAttributes           PROCEDURE(), GpStatus, PROC
+!!!<summary>Releases resources used by the ImageAttributes object.</summary>
+DeleteImageAttributes           PROCEDURE(), GpStatus, PROC
+!!!<summary>Makes a copy of this ImageAttributes object.</summary>
+Clone                           PROCEDURE(*TGdiPlusImageAttributes pCloneImageAttr), GpStatus, PROC
+!!!<summary>Sets the color-adjustment matrix of a specified category to identity matrix.</summary>
+SetToIdentity                   PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears all color- and grayscale-adjustment settings for a specified category.</summary>
+Reset                           PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the color-adjustment matrix for a specified category.</summary>
+SetColorMatrix                  PROCEDURE(typColorMatrix pColorMatrix, GpColorMatrixFlags pMode=ColorMatrixFlagsDefault, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the color-adjustment matrix for a specified category.</summary>
+ClearColorMatrix                PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the color- and grayscale-adjustment matrices for a specified category.</summary>
+SetColorMatrices                PROCEDURE(typColorMatrix pColorMatrix, typColorMatrix pGrayMatrix, GpColorMatrixFlags pMode=ColorMatrixFlagsDefault, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the color- and grayscale-adjustment matrices for a specified category.</summary>
+ClearColorMatrices              PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the threshold (transparency range) for a specified category.</summary>
+SetThreshold                    PROCEDURE(SREAL pThreshold, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the threshold (transparency range) for a specified category.</summary>
+ClearThreshold                  PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the gamma value for a specified category.</summary>
+SetGamma                        PROCEDURE(SREAL pGamma, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the gamma value for a specified category.</summary>
+ClearGamma                      PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Turns off color adjustment for a specified category. You can call the ClearNoOp method to reinstate the color-adjustment settings that were in place before the call to SetNoOp method.</summary>
+SetNoOp                         PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Turns onn color adjustment for a specified category.</summary>
+ClearNoOp                       PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the color key (transparency range) for a specified category.</summary>
+SetColorKey                     PROCEDURE(GpARGB pColorLow, GpARGB pColorHigh, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the color key (transparency range) for a specified category.</summary>
+ClearColorKey                   PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the cyan-magenta-yellow-black (CMYK) output channel for a specified category.</summary>
+SetOutputChannel                PROCEDURE(GpColorChannelFlags pChannelFlags, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the cyan-magenta-yellow-black (CMYK) output channel for a specified category.</summary>
+ClearOutputChannel              PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the output channel color-profile file for a specified category.</summary>
+SetOutputChannelColorProfile    PROCEDURE(STRING pColorProfileFilename, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the output channel color-profile file for a specified category.</summary>
+ClearOutputChannelColorProfile  PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the color-remap table for a specified category.</summary>
+SetRemapTable                   PROCEDURE(UNSIGNED pMapSize, LONG pMap, GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Clears the color-remap table for a specified category.</summary>
+ClearRemapTable                 PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault), GpStatus, PROC
+!!!<summary>Sets the color-remap table for a brush category.</summary>
+SetBrushRemapTable              PROCEDURE(UNSIGNED pMapSize, LONG pMap), GpStatus, PROC
+!!!<summary>Clears the color-remap table for a brush category.</summary>
+ClearBrushRemapTable            PROCEDURE(), GpStatus, PROC
+!!!<summary>Sets the wrap mode of this ImageAttributes object.</summary>
+SetWrapMode                     PROCEDURE(GpWrapMode pWrap, GpARGB pColor=0FF000000h, BOOL pClamp=FALSE), GpStatus, PROC
+!!!<summary>Adjusts the colors in a palette according to the adjustment settings of a specified category.</summary>
+GetAdjustedPalette              PROCEDURE(*typColorPalette pColorPalette, GpColorAdjustType pType), GpStatus, PROC
+
                               END

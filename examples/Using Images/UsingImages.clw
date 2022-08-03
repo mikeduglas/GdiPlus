@@ -11,11 +11,13 @@
 
     ScaleCropImage(HDC phdc)
     MappedToParallelogram(HDC phdc)
+    ColorProfile(HDC phdc)
     CachedBitmap(HDC phdc)
   END
 
-Window                        WINDOW('GDI+ Using images'),AT(,,418,215),CENTER,SYSTEM,FONT('Segoe UI',9),RESIZE
-                                BUTTON('Close'),AT(366,195,45),USE(?btnClose),STD(STD:Close)
+Window                        WINDOW('GDI+ Using images'),AT(,,418,243),CENTER,SYSTEM,FONT('Segoe UI',9), |
+                                RESIZE
+                                BUTTON('Close'),AT(365,221,45),USE(?btnClose),STD(STD:Close)
                               END
 
 TSimpleWindow                 CLASS(TCWnd), TYPE
@@ -63,6 +65,7 @@ dc                              TPaintDC
   
   ScaleCropImage(dc.GetHandle())
   MappedToParallelogram(dc.GetHandle())
+  ColorProfile(dc.GetHandle())
 !  CachedBitmap(dc.GetHandle())
   
 ScaleCropImage                PROCEDURE(HDC phdc)
@@ -124,7 +127,55 @@ pt3                             LIKE(GpPointF)
   pt3.y = 80
   
   g.DrawImage(img, pt1, pt2, pt3)
+    
+ColorProfile                  PROCEDURE(HDC phdc)
+g                               TGdiPlusGraphics
+img                             TGdiPlusImage
+imAtt                           TGdiPlusImageAttributes
+w                               UNSIGNED, AUTO
+h                               UNSIGNED, AUTO
+  CODE
+  !https://docs.microsoft.com/en-us/windows/win32/api/gdiplusimageattributes/nf-gdiplusimageattributes-imageattributes-setoutputchannelcolorprofile
   
+  !The following example creates an Image object and calls the DrawImage method to draw the image. 
+  !Then the code creates an ImageAttributes object and calls its ImageAttributes::SetOutputChannelColorProfile method to specify a profile file for the bitmap category. 
+  !The call to ImageAttributes::SetOutputChannel sets the output channel (for the bitmap category) to cyan. 
+  !The code calls DrawImage a second time, passing the address of the Image object and the address of the ImageAttributes object. 
+  !The cyan channel of each pixel is calculated, and the rendered image shows the intensities of the cyan channel as shades of gray. 
+  !The code calls DrawImage three more times to show the intensities of the magenta, yellow, and black channels.
+  
+  g.FromHDC(phdc)
+  
+  img.FromFile('mosaic.bmp')
+  imAtt.CreateImageAttributes()
+  
+  w = img.GetWidth()
+  h = img.GetHeight()
+  
+  !Draw the image unaltered.
+  g.DrawImage(img, 20, 250, w, h)
+  
+!  imAtt.SetOutputChannelColorProfile('TEKPH600.ICM', ColorAdjustTypeBitmap)  !- I have no such file in c:\windows\System32\Spool\Drivers\Color\
+  imAtt.SetOutputChannelColorProfile('RSWOP.icm', ColorAdjustTypeBitmap)      !- I do have such file in c:\windows\System32\Spool\Drivers\Color\, so lets using it!
+
+  !Draw the image, showing the intensity of the cyan channel.
+  imAtt.SetOutputChannel(ColorChannelFlagsC, ColorAdjustTypeBitmap)
+  g.DrawImage(img, 120, 250, w, h, 0, 0, w, h, UnitPixel, imAtt)
+
+  !Draw the image, showing the intensity of the magenta channel.
+  imAtt.SetOutputChannel(ColorChannelFlagsM, ColorAdjustTypeBitmap)
+  g.DrawImage(img, 220, 250, w, h, 0, 0, w, h, UnitPixel, imAtt)
+
+  !Draw the image, showing the intensity of the yellow channel.
+  imAtt.SetOutputChannel(ColorChannelFlagsY, ColorAdjustTypeBitmap)
+  g.DrawImage(img, 20, 350, w, h, 0, 0, w, h, UnitPixel, imAtt)
+
+  !Draw the image, showing the intensity of the black channel.
+  imAtt.SetOutputChannel(ColorChannelFlagsK, ColorAdjustTypeBitmap)
+  g.DrawImage(img, 120, 350, w, h, 0, 0, w, h, UnitPixel, imAtt)
+
+  
+
 CachedBitmap                  PROCEDURE(HDC phdc)
 g                               TGdiPlusGraphics
 bmp                             TGdiPlusBitmap

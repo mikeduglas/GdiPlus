@@ -275,19 +275,35 @@ DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint p
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, SREAL pDstX, SREAL pDstY, SREAL pDstWidth, SREAL pDstHeight, SREAL pSrcX, SREAL pSrcY, SREAL pSrcWidth, SREAL pSrcHeight, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, SREAL pDstX, SREAL pDstY, SREAL pDstWidth, SREAL pDstHeight, SREAL pSrcX, SREAL pSrcY, SREAL pSrcWidth, SREAL pSrcHeight, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pDestRect, CONST *GpRectF pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pDestRect, CONST *GpRectF pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImageI                      PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SIGNED pDstY, SIGNED pDstWidth, SIGNED pDstHeight, SIGNED pSrcX, SIGNED pSrcY, SIGNED pSrcWidth, SIGNED pSrcHeight, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
+DrawImageI                      PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SIGNED pDstY, SIGNED pDstWidth, SIGNED pDstHeight, SIGNED pSrcX, SIGNED pSrcY, SIGNED pSrcWidth, SIGNED pSrcHeight, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
                                   CONST *GpRectF pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
+                                  CONST *GpRectF pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
                                   CONST *GpRect pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
+                                  CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pSrcRect, TGdiPlusMatrix pXform, TGdiPlusEffect pEffect, GpUnit pSrcUnit), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pSrcRect, TGdiPlusMatrix pXform, TGdiPlusEffect pEffect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
 !!!<summary>Updates the clipping region of this Graphics object to a region that is the combination of itself and the clipping region of another Graphics object.</summary>
 SetClip                         PROCEDURE(TGdiPlusGraphics pSrcGraphics, GpCombineMode pCombineMode=CombineModeReplace), GpStatus, PROC
 !!!<summary>Updates the clipping region of this Graphics object to a region that is the combination of itself and a rectangle.</summary>
