@@ -7,12 +7,14 @@ GDI+ support
     - TGdiPlusBitmap
 - TGdiPlusCachedBitmap
 - TGdiPlusGraphics
+- TGdiPlusGraphicsPath
 - TGdiPlusPen
 - TGdiPlusBrush
     - TGdiPlusSolidBrush
     - TGdiPlusTextureBrush
     - TGdiPlusLinearGradientBrush
     - TGdiPlusHatchBrush
+    - TGdiPlusPathGradientBrush
 - TGdiPlusImageAttributes
 - TGdiPlusFont
 - TGdiPlusFontFamily

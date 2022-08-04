@@ -193,12 +193,114 @@ TGdiPlusGraphisPathIterator   CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.
 nativeIterator                  LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
-! Not implemented yet.
+Destruct                        PROCEDURE(), VIRTUAL
+!!!<summary>Creates a new GraphicsPathIterator object and associates it with a GraphicsPath object.</summary>
+CreatePathIter                  PROCEDURE(TGdiPlusGraphicsPath pPath), GpStatus, PROC
+!!!<summary>Releases resources used by the GraphicsPathIterator object.</summary>
+DeletePathIter                  PROCEDURE(), GpStatus, PROC
+!!!<summary>Gets the starting index and the ending index of the next subpath (figure) in this iterator's associated path.</summary>
+NextSubpath                     PROCEDURE(*UNSIGNED pStartIndex, *UNSIGNED pEndIndex, *BOOL pIsClosed), UNSIGNED
+!!!<summary>Gets the next figure (subpath) from this iterator's associated path.</summary>
+NextSubpath                     PROCEDURE(*TGdiPlusGraphicsPath pPath, *BOOL pIsClosed), UNSIGNED
+!!!<summary>Gets the starting index and the ending index of the next group of data points that all have the same type.</summary>
+NextPathType                    PROCEDURE(*BYTE pPathType, *UNSIGNED pStartIndex, *UNSIGNED pEndIndex), UNSIGNED
+!!!<summary>Gets the starting index and the ending index of the next marker-delimited section in this iterator's associated path.</summary>
+NextMarker                      PROCEDURE(*UNSIGNED pStartIndex, *UNSIGNED pEndIndex), UNSIGNED
+!!!<summary>Gets the next marker-delimited section of this iterator's associated path.</summary>
+NextMarker                      PROCEDURE(*TGdiPlusGraphicsPath pPath), UNSIGNED
+!!!<summary>Returns the number of data points in the path.</summary>
+GetCount                        PROCEDURE(), UNSIGNED
+!!!<summary>Returns the number of subpaths (also called figures) in the path.</summary>
+GetSubpathCount                 PROCEDURE(), UNSIGNED
+!!!<summary>Determines whether the path has any curves.</summary>
+HasCurve                        PROCEDURE(), BOOL
+!!!<summary>Rewinds this iterator to the beginning of its associated path.</summary>
+Rewind                          PROCEDURE(), GpStatus, PROC
+!!!<summary>Copies the path's data points to a PointF array and copies the path's point types to a BYTE array.</summary>
+Enumerate                       PROCEDURE(LONG pPoints, *BYTE[] pTypes), UNSIGNED
+!!!<summary>Copies a subset of the path's data points to a PointF array and copies a subset of the path's point types to a BYTE array.</summary>
+CopyData                        PROCEDURE(UNSIGNED pStartIndex, UNSIGNED pEndIndex, LONG pPoints, *BYTE[] pTypes), UNSIGNED
                               END
+
 
 !--------------------------------------------------------------------------
 ! GDI+ Path Gradient Brush
 !--------------------------------------------------------------------------
-!TGdiPlusPathGradientBrush     CLASS(TGdiPlusBrush), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
-!! Not implemented yet.
-!                              END
+TGdiPlusPathGradientBrush     CLASS(TGdiPlusBrush), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
+!!!<summary>Creates a PathGradientBrush object based on an array of points. Initializes the wrap mode of the path gradient brush.</summary>
+CreatePathGradient              PROCEDURE(LONG pPoints, UNSIGNED pCount, GpWrapMode pWrapMode=WrapModeClamp), GpStatus, PROC
+!!!<summary>Creates a PathGradientBrush object based on an array of points. Initializes the wrap mode of the path gradient brush.</summary>
+CreatePathGradientI             PROCEDURE(LONG pPoints, UNSIGNED pCount, GpWrapMode pWrapMode=WrapModeClamp), GpStatus, PROC
+!!!<summary>Creates a PathGradientBrush object based on a GraphicsPath object.</summary>
+CreatePathGradient              PROCEDURE(TGdiPlusGraphicsPath pPath), GpStatus, PROC
+!!!<summary>Gets the color of the center point of this path gradient brush.</summary>
+GetCenterColor                  PROCEDURE(), GpARGB
+!!!<summary>Sets the center color of this path gradient brush. The center color is the color that appears at the brush's center point.</summary>
+SetCenterColor                  PROCEDURE(GpARGB pColor), GpStatus, PROC
+!!!<summary>Gets the number of points in the array of points that defines this brush's boundary path.</summary>
+GetPointCount                   PROCEDURE(), UNSIGNED
+!!!<summary>Gets the number of colors that have been specified for the boundary path of this path gradient brush.</summary>
+GetSurroundColorCount           PROCEDURE(), UNSIGNED
+!!!<summary>Gets the surround colors currently specified for this path gradient brush.</summary>
+GetSurroundColors               PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount), GpStatus, PROC
+!!!<summary>Sets the surround colors of this path gradient brush. The surround colors are colors specified for discrete points on the brush's boundary path.</summary>
+SetSurroundColors               PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount), GpStatus, PROC
+!!!<summary>No summary.</summary>
+GetGraphicsPath                 PROCEDURE(*TGdiPlusGraphicsPath pPath), GpStatus, PROC
+!!!<summary>No summary.</summary>
+SetGraphicsPath                 PROCEDURE(TGdiPlusGraphicsPath pPath), GpStatus, PROC
+!!!<summary>Gets the center point of this path gradient brush.</summary>
+GetCenterPoint                  PROCEDURE(*GpPointF pPoint), GpStatus, PROC
+!!!<summary>Gets the center point of this path gradient brush.</summary>
+GetCenterPoint                  PROCEDURE(*GpPoint pPoint), GpStatus, PROC
+!!!<summary>Sets the center point of this path gradient brush. By default, the center point is at the centroid of the brush's boundary path, but you can set the center point to any location inside or outside the path.</summary>
+SetCenterPoint                  PROCEDURE(CONST *GpPointF pPoint), GpStatus, PROC
+!!!<summary>Sets the center point of this path gradient brush. By default, the center point is at the centroid of the brush's boundary path, but you can set the center point to any location inside or outside the path.</summary>
+SetCenterPoint                  PROCEDURE(CONST *GpPoint pPoint), GpStatus, PROC
+!!!<summary>Gets the smallest rectangle that encloses the boundary path of this path gradient brush.</summary>
+GetRectangle                    PROCEDURE(*GpRectF pRect), GpStatus, PROC
+!!!<summary>Gets the smallest rectangle that encloses the boundary path of this path gradient brush.</summary>
+GetRectangle                    PROCEDURE(*GpRect pRect), GpStatus, PROC
+!!!<summary>Specifies whether gamma correction is enabled for this path gradient brush.</summary>
+SetGammaCorrection              PROCEDURE(BOOL pUseGammaCorrection), GpStatus, PROC
+!!!<summary>Determines whether gamma correction is enabled for this path gradient brush.</summary>
+GetGammaCorrection              PROCEDURE(), BOOL
+!!!<summary>Gets the number of blend factors currently set for this path gradient brush.</summary>
+GetBlendCount                   PROCEDURE(), UNSIGNED
+!!!<summary>Gets the blend factors and the corresponding blend positions currently set for this path gradient brush.</summary>
+GetBlend                        PROCEDURE(*SREAL[] pBlendFactors, *SREAL[] pBlendPositions), GpStatus, PROC
+!!!<summary>Sets the blend factors and the blend positions of this path gradient brush.</summary>
+SetBlend                        PROCEDURE(*SREAL[] pBlendFactors, *SREAL[] pBlendPositions), GpStatus, PROC
+!!!<summary>Gets the number of preset colors currently specified for this path gradient brush.</summary>
+GetInterpolationColorCount      PROCEDURE(), UNSIGNED
+!!!<summary>Sets the preset colors and the blend positions of this path gradient brush.</summary>
+SetInterpolationColors          PROCEDURE(*GpARGB[] pPresetColors, *SREAL[] pBlendPositions), GpStatus, PROC
+!!!<summary>Gets the preset colors and blend positions currently specified for this path gradient brush.</summary>
+GetInterpolationColors          PROCEDURE(*GpARGB[] pPresetColors, *SREAL[] pBlendPositions), GpStatus, PROC
+!!!<summary>Sets the blend shape of this path gradient brush.</summary>
+SetBlendBellShape               PROCEDURE(SREAL pFocus, SREAL pScale=1.0), GpStatus, PROC
+!!!<summary>Sets the blend shape of this path gradient brush.</summary>
+SetBlendTriangularShape         PROCEDURE(SREAL pFocus, SREAL pScale=1.0), GpStatus, PROC
+!!!<summary>Gets transformation matrix of this path gradient brush.</summary>
+GetTransform                    PROCEDURE(*TGdiplusMatrix pMatrix), GpStatus, PROC
+!!!<summary>Sets the transformation matrix of this path gradient brush.</summary>
+SetTransform                    PROCEDURE(TGdiplusMatrix pMatrix), GpStatus, PROC
+!!!<summary>Resets the transformation matrix of this path gradient brush to the identity matrix. This means that no transformation will take place.</summary>
+ResetTransform                  PROCEDURE(), GpStatus, PROC
+!!!<summary>Updates the brush's transformation matrix with the product of itself and another matrix.</summary>
+MultiplyTransform               PROCEDURE(TGdiplusMatrix pMatrix, GpMatrixOrder pOrder=MatrixOrderPrepend), GpStatus, PROC
+!!!<summary>Updates this brush's current transformation matrix with the product of itself and a translation matrix.</summary>
+TranslateTransform              PROCEDURE(SREAL pDx, SREAL pDy, GpMatrixOrder pOrder=MatrixOrderPrepend), GpStatus, PROC
+!!!<summary>Updates this brush's current transformation matrix with the product of itself and a scaling matrix.</summary>
+ScaleTransform                  PROCEDURE(SREAL pSx, SREAL pSy, GpMatrixOrder pOrder=MatrixOrderPrepend), GpStatus, PROC
+!!!<summary>Updates this brush's current transformation matrix with the product of itself and a rotation matrix.</summary>
+RotateTransform                 PROCEDURE(SREAL pAngle, GpMatrixOrder pOrder=MatrixOrderPrepend), GpStatus, PROC
+!!!<summary>Gets the focus scales of this path gradient brush.</summary>
+GetFocusScales                  PROCEDURE(*SREAL pXScale, *SREAL pYScale), GpStatus, PROC
+!!!<summary>Sets the focus scales of this path gradient brush</summary>
+SetFocusScales                  PROCEDURE(SREAL pXScale, SREAL pYScale), GpStatus, PROC
+!!!<summary>Gets the wrap mode currently set for this path gradient brush./summary>
+GetWrapMode                     PROCEDURE(), GpWrapMode
+!!!<summary>Sets the wrap mode of this path gradient brush./summary>
+SetWrapMode                     PROCEDURE(GpWrapMode pWrapMode), GpStatus, PROC
+                              END

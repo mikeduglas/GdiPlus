@@ -453,7 +453,6 @@ szGdipSaveGraphics            CSTRING('GdipSaveGraphics'), STATIC
 szGdipRestoreGraphics         CSTRING('GdipRestoreGraphics'), STATIC
 szGdipCreateCachedBitmap      CSTRING('GdipCreateCachedBitmap'), STATIC
 szGdipDeleteCachedBitmap      CSTRING('GdipDeleteCachedBitmap'), STATIC
-
 szGdipCreateStringFormat      CSTRING('GdipCreateStringFormat'), STATIC
 szGdipDeleteStringFormat      CSTRING('GdipDeleteStringFormat'), STATIC
 szGdipCloneStringFormat       CSTRING('GdipCloneStringFormat'), STATIC
@@ -491,6 +490,57 @@ szGdipSetImageAttributesOutputChannelColorProfile CSTRING('GdipSetImageAttribute
 szGdipSetImageAttributesRemapTable    CSTRING('GdipSetImageAttributesRemapTable'), STATIC
 szGdipSetImageAttributesWrapMode  CSTRING('GdipSetImageAttributesWrapMode'), STATIC
 szGdipGetImageAttributesAdjustedPalette   CSTRING('GdipGetImageAttributesAdjustedPalette'), STATIC
+szGdipCreatePathIter          CSTRING('GdipCreatePathIter'), STATIC
+szGdipDeletePathIter          CSTRING('GdipDeletePathIter'), STATIC
+szGdipPathIterNextSubpath     CSTRING('GdipPathIterNextSubpath'), STATIC
+szGdipPathIterNextSubpathPath CSTRING('GdipPathIterNextSubpathPath'), STATIC
+szGdipPathIterNextPathType    CSTRING('GdipPathIterNextPathType'), STATIC
+szGdipPathIterNextMarker      CSTRING('GdipPathIterNextMarker'), STATIC
+szGdipPathIterNextMarkerPath  CSTRING('GdipPathIterNextMarkerPath'), STATIC
+szGdipPathIterGetCount        CSTRING('GdipPathIterGetCount'), STATIC
+szGdipPathIterGetSubpathCount CSTRING('GdipPathIterGetSubpathCount'), STATIC
+szGdipPathIterHasCurve        CSTRING('GdipPathIterHasCurve'), STATIC
+szGdipPathIterRewind          CSTRING('GdipPathIterRewind'), STATIC
+szGdipPathIterEnumerate       CSTRING('GdipPathIterEnumerate'), STATIC
+szGdipPathIterCopyData        CSTRING('GdipPathIterCopyData'), STATIC
+szGdipCreatePathGradient      CSTRING('GdipCreatePathGradient'), STATIC
+szGdipCreatePathGradientI     CSTRING('GdipCreatePathGradientI'), STATIC
+szGdipCreatePathGradientFromPath  CSTRING('GdipCreatePathGradientFromPath'), STATIC
+szGdipGetPathGradientCenterColor  CSTRING('GdipGetPathGradientCenterColor'), STATIC
+szGdipSetPathGradientCenterColor  CSTRING('GdipSetPathGradientCenterColor'), STATIC
+szGdipGetPathGradientPointCount   CSTRING('GdipGetPathGradientPointCount'), STATIC
+szGdipGetPathGradientSurroundColorCount   CSTRING('GdipGetPathGradientSurroundColorCount'), STATIC
+szGdipGetPathGradientSurroundColorsWithCount  CSTRING('GdipGetPathGradientSurroundColorsWithCount'), STATIC
+szGdipSetPathGradientSurroundColorsWithCount  CSTRING('GdipSetPathGradientSurroundColorsWithCount'), STATIC
+szGdipGetPathGradientPath     CSTRING('GdipGetPathGradientPath'), STATIC
+szGdipSetPathGradientPath     CSTRING('GdipSetPathGradientPath'), STATIC
+szGdipGetPathGradientCenterPoint  CSTRING('GdipGetPathGradientCenterPoint'), STATIC
+szGdipGetPathGradientCenterPointI CSTRING('GdipGetPathGradientCenterPointI'), STATIC
+szGdipSetPathGradientCenterPoint  CSTRING('GdipSetPathGradientCenterPoint'), STATIC
+szGdipSetPathGradientCenterPointI CSTRING('GdipSetPathGradientCenterPointI'), STATIC
+szGdipGetPathGradientRect     CSTRING('GdipGetPathGradientRect'), STATIC
+szGdipGetPathGradientRectI    CSTRING('GdipGetPathGradientRectI'), STATIC
+szGdipSetPathGradientGammaCorrection  CSTRING('GdipSetPathGradientGammaCorrection'), STATIC
+szGdipGetPathGradientGammaCorrection  CSTRING('GdipGetPathGradientGammaCorrection'), STATIC
+szGdipGetPathGradientBlendCount   CSTRING('GdipGetPathGradientBlendCount'), STATIC
+szGdipGetPathGradientBlend    CSTRING('GdipGetPathGradientBlend'), STATIC
+szGdipSetPathGradientBlend    CSTRING('GdipSetPathGradientBlend'), STATIC
+szGdipGetPathGradientPresetBlendCount CSTRING('GdipGetPathGradientPresetBlendCount'), STATIC
+szGdipSetPathGradientPresetBlend  CSTRING('GdipSetPathGradientPresetBlend'), STATIC
+szGdipGetPathGradientPresetBlend  CSTRING('GdipGetPathGradientPresetBlend'), STATIC
+szGdipSetPathGradientSigmaBlend   CSTRING('GdipSetPathGradientSigmaBlend'), STATIC
+szGdipSetPathGradientLinearBlend  CSTRING('GdipSetPathGradientLinearBlend'), STATIC
+szGdipGetPathGradientTransform    CSTRING('GdipGetPathGradientTransform'), STATIC
+szGdipSetPathGradientTransform    CSTRING('GdipSetPathGradientTransform'), STATIC
+szGdipResetPathGradientTransform  CSTRING('GdipResetPathGradientTransform'), STATIC
+szGdipMultiplyPathGradientTransform   CSTRING('GdipMultiplyPathGradientTransform'), STATIC
+szGdipTranslatePathGradientTransform  CSTRING('GdipTranslatePathGradientTransform'), STATIC
+szGdipScalePathGradientTransform  CSTRING('GdipScalePathGradientTransform'), STATIC
+szGdipRotatePathGradientTransform CSTRING('GdipRotatePathGradientTransform'), STATIC
+szGdipGetPathGradientFocusScales  CSTRING('GdipGetPathGradientFocusScales'), STATIC
+szGdipSetPathGradientFocusScales  CSTRING('GdipSetPathGradientFocusScales'), STATIC
+szGdipGetPathGradientWrapMode CSTRING('GdipGetPathGradientWrapMode'), STATIC
+szGdipSetPathGradientWrapMode CSTRING('GdipSetPathGradientWrapMode'), STATIC
 
 
 !- GDI+ function pointers
@@ -974,6 +1024,57 @@ paGdipSetImageAttributesOutputChannelColorProfile LONG, NAME('fptr_GdipSetImageA
 paGdipSetImageAttributesRemapTable    LONG, NAME('fptr_GdipSetImageAttributesRemapTable')
 paGdipSetImageAttributesWrapMode  LONG, NAME('fptr_GdipSetImageAttributesWrapMode')
 paGdipGetImageAttributesAdjustedPalette   LONG, NAME('fptr_GdipGetImageAttributesAdjustedPalette')
+paGdipCreatePathIter          LONG, NAME('fptr_GdipCreatePathIter')
+paGdipDeletePathIter          LONG, NAME('fptr_GdipDeletePathIter')
+paGdipPathIterNextSubpath     LONG, NAME('fptr_GdipPathIterNextSubpath')
+paGdipPathIterNextSubpathPath LONG, NAME('fptr_GdipPathIterNextSubpathPath')
+paGdipPathIterNextPathType    LONG, NAME('fptr_GdipPathIterNextPathType')
+paGdipPathIterNextMarker      LONG, NAME('fptr_GdipPathIterNextMarker')
+paGdipPathIterNextMarkerPath  LONG, NAME('fptr_GdipPathIterNextMarkerPath')
+paGdipPathIterGetCount        LONG, NAME('fptr_GdipPathIterGetCount')
+paGdipPathIterGetSubpathCount LONG, NAME('fptr_GdipPathIterGetSubpathCount')
+paGdipPathIterHasCurve        LONG, NAME('fptr_GdipPathIterHasCurve')
+paGdipPathIterRewind          LONG, NAME('fptr_GdipPathIterRewind')
+paGdipPathIterEnumerate       LONG, NAME('fptr_GdipPathIterEnumerate')
+paGdipPathIterCopyData        LONG, NAME('fptr_GdipPathIterCopyData')
+paGdipCreatePathGradient      LONG, NAME('fptr_GdipCreatePathGradient')
+paGdipCreatePathGradientI     LONG, NAME('fptr_GdipCreatePathGradientI')
+paGdipCreatePathGradientFromPath  LONG, NAME('fptr_GdipCreatePathGradientFromPath')
+paGdipGetPathGradientCenterColor  LONG, NAME('fptr_GdipGetPathGradientCenterColor')
+paGdipSetPathGradientCenterColor  LONG, NAME('fptr_GdipSetPathGradientCenterColor')
+paGdipGetPathGradientPointCount   LONG, NAME('fptr_GdipGetPathGradientPointCount')
+paGdipGetPathGradientSurroundColorCount   LONG, NAME('fptr_GdipGetPathGradientSurroundColorCount')
+paGdipGetPathGradientSurroundColorsWithCount  LONG, NAME('fptr_GdipGetPathGradientSurroundColorsWithCount')
+paGdipSetPathGradientSurroundColorsWithCount  LONG, NAME('fptr_GdipSetPathGradientSurroundColorsWithCount')
+paGdipGetPathGradientPath     LONG, NAME('fptr_GdipGetPathGradientPath')
+paGdipSetPathGradientPath     LONG, NAME('fptr_GdipSetPathGradientPath')
+paGdipGetPathGradientCenterPoint  LONG, NAME('fptr_GdipGetPathGradientCenterPoint')
+paGdipGetPathGradientCenterPointI LONG, NAME('fptr_GdipGetPathGradientCenterPointI')
+paGdipSetPathGradientCenterPoint  LONG, NAME('fptr_GdipSetPathGradientCenterPoint')
+paGdipSetPathGradientCenterPointI LONG, NAME('fptr_GdipSetPathGradientCenterPointI')
+paGdipGetPathGradientRect     LONG, NAME('fptr_GdipGetPathGradientRect')
+paGdipGetPathGradientRectI    LONG, NAME('fptr_GdipGetPathGradientRectI')
+paGdipSetPathGradientGammaCorrection  LONG, NAME('fptr_GdipSetPathGradientGammaCorrection')
+paGdipGetPathGradientGammaCorrection  LONG, NAME('fptr_GdipGetPathGradientGammaCorrection')
+paGdipGetPathGradientBlendCount   LONG, NAME('fptr_GdipGetPathGradientBlendCount')
+paGdipGetPathGradientBlend    LONG, NAME('fptr_GdipGetPathGradientBlend')
+paGdipSetPathGradientBlend    LONG, NAME('fptr_GdipSetPathGradientBlend')
+paGdipGetPathGradientPresetBlendCount LONG, NAME('fptr_GdipGetPathGradientPresetBlendCount')
+paGdipSetPathGradientPresetBlend  LONG, NAME('fptr_GdipSetPathGradientPresetBlend')
+paGdipGetPathGradientPresetBlend  LONG, NAME('fptr_GdipGetPathGradientPresetBlend')
+paGdipSetPathGradientSigmaBlend   LONG, NAME('fptr_GdipSetPathGradientSigmaBlend')
+paGdipSetPathGradientLinearBlend  LONG, NAME('fptr_GdipSetPathGradientLinearBlend')
+paGdipGetPathGradientTransform    LONG, NAME('fptr_GdipGetPathGradientTransform')
+paGdipSetPathGradientTransform    LONG, NAME('fptr_GdipSetPathGradientTransform')
+paGdipResetPathGradientTransform  LONG, NAME('fptr_GdipResetPathGradientTransform')
+paGdipMultiplyPathGradientTransform   LONG, NAME('fptr_GdipMultiplyPathGradientTransform')
+paGdipTranslatePathGradientTransform  LONG, NAME('fptr_GdipTranslatePathGradientTransform')
+paGdipScalePathGradientTransform  LONG, NAME('fptr_GdipScalePathGradientTransform')
+paGdipRotatePathGradientTransform LONG, NAME('fptr_GdipRotatePathGradientTransform')
+paGdipGetPathGradientFocusScales  LONG, NAME('fptr_GdipGetPathGradientFocusScales')
+paGdipSetPathGradientFocusScales  LONG, NAME('fptr_GdipSetPathGradientFocusScales')
+paGdipGetPathGradientWrapMode LONG, NAME('fptr_GdipGetPathGradientWrapMode')
+paGdipSetPathGradientWrapMode LONG, NAME('fptr_GdipSetPathGradientWrapMode')
 
 
 
@@ -1469,6 +1570,57 @@ paGdipGetImageAttributesAdjustedPalette   LONG, NAME('fptr_GdipGetImageAttribute
       GdipSetImageAttributesRemapTable(LONG pImageAttr,GpColorAdjustType pType,BOOL pEnableFlag,UNSIGNED pMapSize,LONG pMap),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesRemapTable'),DLL
       GdipSetImageAttributesWrapMode(LONG pImageAttr,GpWrapMode pWrap,GpARGB pColor,BOOL pClamp),GpStatus,PASCAL,NAME('fptr_GdipSetImageAttributesWrapMode'),DLL
       GdipGetImageAttributesAdjustedPalette(LONG pImageAttr,LONG pPalette,GpColorAdjustType pType),GpStatus,PASCAL,NAME('fptr_GdipGetImageAttributesAdjustedPalette'),DLL
+      GdipCreatePathIter(*LONG pIter,LONG pPath),GpStatus,PASCAL,NAME('fptr_GdipCreatePathIter'),DLL
+      GdipDeletePathIter(LONG pIter),GpStatus,PASCAL,NAME('fptr_GdipDeletePathIter'),DLL
+      GdipPathIterNextSubpath(LONG pIter,*UNSIGNED pResultCount,*UNSIGNED pStartIndex,*UNSIGNED pEndIndex,*BOOL pIsClosed),GpStatus,PASCAL,NAME('fptr_GdipPathIterNextSubpath'),DLL
+      GdipPathIterNextSubpathPath(LONG pIter,*UNSIGNED pResultCount,*LONG pPath,*BOOL pIsClosed),GpStatus,PASCAL,NAME('fptr_GdipPathIterNextSubpathPath'),DLL
+      GdipPathIterNextPathType(LONG pIter,*UNSIGNED pResultCount,*BYTE pType,*UNSIGNED pStartIndex,*UNSIGNED pEndIndex),GpStatus,PASCAL,NAME('fptr_GdipPathIterNextPathType'),DLL
+      GdipPathIterNextMarker(LONG pIter,*UNSIGNED pResultCount,*UNSIGNED pStartIndex,*UNSIGNED pEndIndex),GpStatus,PASCAL,NAME('fptr_GdipPathIterNextMarker'),DLL
+      GdipPathIterNextMarkerPath(LONG pIter,*UNSIGNED pResultCount,*LONG pPath),GpStatus,PASCAL,NAME('fptr_GdipPathIterNextMarkerPath'),DLL
+      GdipPathIterGetCount(LONG pIter,*UNSIGNED pResultCount),GpStatus,PASCAL,NAME('fptr_GdipPathIterGetCount'),DLL
+      GdipPathIterGetSubpathCount(LONG pIter,*UNSIGNED pResultCount),GpStatus,PASCAL,NAME('fptr_GdipPathIterGetSubpathCount'),DLL
+      GdipPathIterHasCurve(LONG pIter,*BOOL pHasCurve),GpStatus,PASCAL,NAME('fptr_GdipPathIterHasCurve'),DLL
+      GdipPathIterRewind(LONG pIter),GpStatus,PASCAL,NAME('fptr_GdipPathIterRewind'),DLL
+      GdipPathIterEnumerate(LONG pIter,*UNSIGNED pResultCount,LONG pPoints,LONG pTypes,UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipPathIterEnumerate'),DLL
+      GdipPathIterCopyData(LONG pIter,*UNSIGNED pResultCount,LONG pPoints,LONG pTypes,UNSIGNED pStartIndex,UNSIGNED pEndIndex),GpStatus,PASCAL,NAME('fptr_GdipPathIterCopyData'),DLL
+      GdipCreatePathGradient(LONG pPoints,UNSIGNED pCount,GpWrapMode pMode,*LONG pBrush),GpStatus,PASCAL,NAME('fptr_GdipCreatePathGradient'),DLL
+      GdipCreatePathGradientI(LONG pPoints,UNSIGNED pCount,GpWrapMode pMode,*LONG pBrush),GpStatus,PASCAL,NAME('fptr_GdipCreatePathGradientI'),DLL
+      GdipCreatePathGradientFromPath(LONG pPath,*LONG pBrush),GpStatus,PASCAL,NAME('fptr_GdipCreatePathGradientFromPath'),DLL
+      GdipGetPathGradientCenterColor(LONG pBrush,*GpARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientCenterColor'),DLL
+      GdipSetPathGradientCenterColor(LONG pBrush,GpARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientCenterColor'),DLL
+      GdipGetPathGradientPointCount(LONG pBrush,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientPointCount'),DLL
+      GdipGetPathGradientSurroundColorCount(LONG pBrush,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientSurroundColorCount'),DLL
+      GdipGetPathGradientSurroundColorsWithCount(LONG pBrush,LONG pColors,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientSurroundColorsWithCount'),DLL
+      GdipSetPathGradientSurroundColorsWithCount(LONG pBrush,LONG pColors,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientSurroundColorsWithCount'),DLL
+      GdipGetPathGradientPath(LONG pBrush,*LONG pPath),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientPath'),DLL
+      GdipSetPathGradientPath(LONG pBrush,LONG pPath),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientPath'),DLL
+      GdipGetPathGradientCenterPoint(LONG pBrush,LONG pPoint),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientCenterPoint'),DLL
+      GdipGetPathGradientCenterPointI(LONG pBrush,LONG pPoint),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientCenterPointI'),DLL
+      GdipSetPathGradientCenterPoint(LONG pBrush,LONG pPoint),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientCenterPoint'),DLL
+      GdipSetPathGradientCenterPointI(LONG pBrush,LONG pPoint),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientCenterPointI'),DLL
+      GdipGetPathGradientRect(LONG pBrush,LONG pRect),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientRect'),DLL
+      GdipGetPathGradientRectI(LONG pBrush,LONG pRect),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientRectI'),DLL
+      GdipSetPathGradientGammaCorrection(LONG pBrush,BOOL pUseGammaCorrection),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientGammaCorrection'),DLL
+      GdipGetPathGradientGammaCorrection(LONG pBrush,*BOOL pUseGammaCorrection),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientGammaCorrection'),DLL
+      GdipGetPathGradientBlendCount(LONG pBrush,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientBlendCount'),DLL
+      GdipGetPathGradientBlend(LONG pBrush,LONG pFactors,LONG pPositions,UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientBlend'),DLL
+      GdipSetPathGradientBlend(LONG pBrush,LONG pFactors,LONG pPositions,UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientBlend'),DLL
+      GdipGetPathGradientPresetBlendCount(LONG pBrush,*UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientPresetBlendCount'),DLL
+      GdipSetPathGradientPresetBlend(LONG pBrush,LONG pColors,LONG pPositions,UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientPresetBlend'),DLL
+      GdipGetPathGradientPresetBlend(LONG pBrush,LONG pColors,LONG pPositions,UNSIGNED pCount),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientPresetBlend'),DLL
+      GdipSetPathGradientSigmaBlend(LONG pBrush,SREAL pFocus,SREAL pScale),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientSigmaBlend'),DLL
+      GdipSetPathGradientLinearBlend(LONG pBrush,SREAL pFocus,SREAL pScale),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientLinearBlend'),DLL
+      GdipGetPathGradientTransform(LONG pBrush,*LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientTransform'),DLL
+      GdipSetPathGradientTransform(LONG pBrush,LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientTransform'),DLL
+      GdipResetPathGradientTransform(LONG pBrush),GpStatus,PASCAL,NAME('fptr_GdipResetPathGradientTransform'),DLL
+      GdipMultiplyPathGradientTransform(LONG pBrush,LONG pMatrix,GpMatrixOrder pOrder),GpStatus,PASCAL,NAME('fptr_GdipMultiplyPathGradientTransform'),DLL
+      GdipTranslatePathGradientTransform(LONG pBrush,SREAL pDx,SREAL pDy,GpMatrixOrder pOrder),GpStatus,PASCAL,NAME('fptr_GdipTranslatePathGradientTransform'),DLL
+      GdipScalePathGradientTransform(LONG pBrush,SREAL pSx,SREAL pSy,GpMatrixOrder pOrder),GpStatus,PASCAL,NAME('fptr_GdipScalePathGradientTransform'),DLL
+      GdipRotatePathGradientTransform(LONG pBrush,SREAL pAngle,GpMatrixOrder pOrder),GpStatus,PASCAL,NAME('fptr_GdipRotatePathGradientTransform'),DLL
+      GdipGetPathGradientFocusScales(LONG pBrush,*SREAL pXScale,*SREAL pYScale),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientFocusScales'),DLL
+      GdipSetPathGradientFocusScales(LONG pBrush,SREAL pXScale,SREAL pYScale),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientFocusScales'),DLL
+      GdipGetPathGradientWrapMode(LONG pBrush,*GpWrapMode pMode),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientWrapMode'),DLL
+      GdipSetPathGradientWrapMode(LONG pBrush,GpWrapMode pMode),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientWrapMode'),DLL
 
     END
     MODULE('Global memory api')
@@ -2024,6 +2176,57 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipSetImageAttributesRemapTable  = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesRemapTable)
       paGdipSetImageAttributesWrapMode    = winapi::GetProcAddress(SELF.hDll, szGdipSetImageAttributesWrapMode)
       paGdipGetImageAttributesAdjustedPalette   = winapi::GetProcAddress(SELF.hDll, szGdipGetImageAttributesAdjustedPalette)
+      paGdipCreatePathIter                = winapi::GetProcAddress(SELF.hDll, szGdipCreatePathIter)
+      paGdipDeletePathIter                = winapi::GetProcAddress(SELF.hDll, szGdipDeletePathIter)
+      paGdipPathIterNextSubpath           = winapi::GetProcAddress(SELF.hDll, szGdipPathIterNextSubpath)
+      paGdipPathIterNextSubpathPath       = winapi::GetProcAddress(SELF.hDll, szGdipPathIterNextSubpathPath)
+      paGdipPathIterNextPathType          = winapi::GetProcAddress(SELF.hDll, szGdipPathIterNextPathType)
+      paGdipPathIterNextMarker            = winapi::GetProcAddress(SELF.hDll, szGdipPathIterNextMarker)
+      paGdipPathIterNextMarkerPath        = winapi::GetProcAddress(SELF.hDll, szGdipPathIterNextMarkerPath)
+      paGdipPathIterGetCount              = winapi::GetProcAddress(SELF.hDll, szGdipPathIterGetCount)
+      paGdipPathIterGetSubpathCount       = winapi::GetProcAddress(SELF.hDll, szGdipPathIterGetSubpathCount)
+      paGdipPathIterHasCurve              = winapi::GetProcAddress(SELF.hDll, szGdipPathIterHasCurve)
+      paGdipPathIterRewind                = winapi::GetProcAddress(SELF.hDll, szGdipPathIterRewind)
+      paGdipPathIterEnumerate             = winapi::GetProcAddress(SELF.hDll, szGdipPathIterEnumerate)
+      paGdipPathIterCopyData              = winapi::GetProcAddress(SELF.hDll, szGdipPathIterCopyData)
+      paGdipCreatePathGradient            = winapi::GetProcAddress(SELF.hDll, szGdipCreatePathGradient)
+      paGdipCreatePathGradientI           = winapi::GetProcAddress(SELF.hDll, szGdipCreatePathGradientI)
+      paGdipCreatePathGradientFromPath    = winapi::GetProcAddress(SELF.hDll, szGdipCreatePathGradientFromPath)
+      paGdipGetPathGradientCenterColor    = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientCenterColor)
+      paGdipSetPathGradientCenterColor    = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientCenterColor)
+      paGdipGetPathGradientPointCount     = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientPointCount)
+      paGdipGetPathGradientSurroundColorCount   = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientSurroundColorCount)
+      paGdipGetPathGradientSurroundColorsWithCount  = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientSurroundColorsWithCount)
+      paGdipSetPathGradientSurroundColorsWithCount  = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientSurroundColorsWithCount)
+      paGdipGetPathGradientPath           = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientPath)
+      paGdipSetPathGradientPath           = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientPath)
+      paGdipGetPathGradientCenterPoint    = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientCenterPoint)
+      paGdipGetPathGradientCenterPointI   = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientCenterPointI)
+      paGdipSetPathGradientCenterPoint    = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientCenterPoint)
+      paGdipSetPathGradientCenterPointI   = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientCenterPointI)
+      paGdipGetPathGradientRect           = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientRect)
+      paGdipGetPathGradientRectI          = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientRectI)
+      paGdipSetPathGradientGammaCorrection  = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientGammaCorrection)
+      paGdipGetPathGradientGammaCorrection  = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientGammaCorrection)
+      paGdipGetPathGradientBlendCount     = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientBlendCount)
+      paGdipGetPathGradientBlend          = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientBlend)
+      paGdipSetPathGradientBlend          = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientBlend)
+      paGdipGetPathGradientPresetBlendCount = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientPresetBlendCount)
+      paGdipSetPathGradientPresetBlend    = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientPresetBlend)
+      paGdipGetPathGradientPresetBlend    = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientPresetBlend)
+      paGdipSetPathGradientSigmaBlend     = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientSigmaBlend)
+      paGdipSetPathGradientLinearBlend    = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientLinearBlend)
+      paGdipGetPathGradientTransform      = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientTransform)
+      paGdipSetPathGradientTransform      = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientTransform)
+      paGdipResetPathGradientTransform    = winapi::GetProcAddress(SELF.hDll, szGdipResetPathGradientTransform)
+      paGdipMultiplyPathGradientTransform = winapi::GetProcAddress(SELF.hDll, szGdipMultiplyPathGradientTransform)
+      paGdipTranslatePathGradientTransform  = winapi::GetProcAddress(SELF.hDll, szGdipTranslatePathGradientTransform)
+      paGdipScalePathGradientTransform    = winapi::GetProcAddress(SELF.hDll, szGdipScalePathGradientTransform)
+      paGdipRotatePathGradientTransform   = winapi::GetProcAddress(SELF.hDll, szGdipRotatePathGradientTransform)
+      paGdipGetPathGradientFocusScales    = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientFocusScales)
+      paGdipSetPathGradientFocusScales    = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientFocusScales)
+      paGdipGetPathGradientWrapMode       = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientWrapMode)
+      paGdipSetPathGradientWrapMode       = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientWrapMode)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -6604,5 +6807,338 @@ TGdiPlusImageAttributes.GetAdjustedPalette    PROCEDURE(*typColorPalette pColorP
   CODE
   SELF.lastResult = GdipGetImageAttributesAdjustedPalette(SELF.nativeImageAttr, ADDRESS(pColorPalette), pType)
   GdipReportError(printf('TGdiPlusImageAttributes.GetAdjustedPalette'), SELF.lastResult)
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusGraphisPathIterator
+TGdiPlusGraphisPathIterator.Destruct  PROCEDURE()
+  CODE
+  SELF.DeletePathIter()
+  
+TGdiPlusGraphisPathIterator.CreatePathIter    PROCEDURE(TGdiPlusGraphicsPath pPath)
+  CODE
+  SELF.lastResult = GdipCreatePathIter(SELF.nativeIterator, pPath.nativePath)
+  GdipReportError('TGdiPlusGraphisPathIterator.CreatePathIter', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusGraphisPathIterator.DeletePathIter                  PROCEDURE()
+  CODE
+  SELF.lastResult = GdipDeletePathIter(SELF.nativeIterator)
+  GdipReportError('TGdiPlusGraphisPathIterator.DeletePathIter', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusGraphisPathIterator.NextSubpath   PROCEDURE(*UNSIGNED pStartIndex, *UNSIGNED pEndIndex, *BOOL pIsClosed)
+resultCount                                 UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterNextSubpath(SELF.nativeIterator, resultCount, pStartIndex, pEndIndex, pIsClosed)
+  GdipReportError('TGdiPlusGraphisPathIterator.NextSubpath', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.NextSubpath   PROCEDURE(*TGdiPlusGraphicsPath pPath, *BOOL pIsClosed)
+resultCount                                 UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterNextSubpathPath(SELF.nativeIterator, resultCount, pPath.nativePath, pIsClosed)
+  GdipReportError('TGdiPlusGraphisPathIterator.NextSubpath', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.NextPathType  PROCEDURE(*BYTE pPathType, *UNSIGNED pStartIndex, *UNSIGNED pEndIndex)
+resultCount                                 UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterNextPathType(SELF.nativeIterator, resultCount, pPathType, pStartIndex, pEndIndex)
+  GdipReportError('TGdiPlusGraphisPathIterator.NextPathType', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.NextMarker    PROCEDURE(*UNSIGNED pStartIndex, *UNSIGNED pEndIndex)
+resultCount                                 UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterNextMarker(SELF.nativeIterator, resultCount, pStartIndex, pEndIndex)
+  GdipReportError('TGdiPlusGraphisPathIterator.NextMarker', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.NextMarker    PROCEDURE(*TGdiPlusGraphicsPath pPath)
+resultCount                                 UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterNextMarkerPath(SELF.nativeIterator, resultCount, pPath.nativePath)
+  GdipReportError('TGdiPlusGraphisPathIterator.NextMarker', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.GetCount  PROCEDURE()
+resultCount                             UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterGetCount(SELF.nativeIterator, resultCount)
+  GdipReportError('TGdiPlusGraphisPathIterator.GetCount', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.GetSubpathCount   PROCEDURE()
+resultCount                                     UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterGetSubpathCount(SELF.nativeIterator, resultCount)
+  GdipReportError('TGdiPlusGraphisPathIterator.GetSubpathCount', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.HasCurve  PROCEDURE()
+bHasCurve                               BOOL
+  CODE
+  SELF.lastResult = GdipPathIterHasCurve(SELF.nativeIterator, bHasCurve)
+  GdipReportError('TGdiPlusGraphisPathIterator.HasCurve', SELF.lastResult)
+  RETURN bHasCurve
+  
+TGdiPlusGraphisPathIterator.Rewind    PROCEDURE()
+  CODE
+  SELF.lastResult = GdipPathIterRewind(SELF.nativeIterator)
+  GdipReportError('TGdiPlusGraphisPathIterator.Rewind', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusGraphisPathIterator.Enumerate PROCEDURE(LONG pPoints, *BYTE[] pTypes)
+resultCount                             UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterEnumerate(SELF.nativeIterator, resultCount, pPoints, ADDRESS(pTypes), MAXIMUM(pTypes, 1))
+  GdipReportError('TGdiPlusGraphisPathIterator.Enumerate', SELF.lastResult)
+  RETURN resultCount
+  
+TGdiPlusGraphisPathIterator.CopyData  PROCEDURE(UNSIGNED pStartIndex, UNSIGNED pEndIndex, LONG pPoints, *BYTE[] pTypes)
+resultCount                             UNSIGNED
+  CODE
+  SELF.lastResult = GdipPathIterCopyData(SELF.nativeIterator, resultCount, pPoints, ADDRESS(pTypes), pStartIndex, pEndIndex)
+  GdipReportError('TGdiPlusGraphisPathIterator.CopyData', SELF.lastResult)
+  RETURN resultCount
+!!!endregion
+  
+!!!region TGdiPlusPathGradientBrush
+TGdiPlusPathGradientBrush.CreatePathGradient  PROCEDURE(LONG pPoints, UNSIGNED pCount, GpWrapMode pWrapMode=WrapModeClamp)
+  CODE
+  SELF.lastResult = GdipCreatePathGradient(pPoints, pCount, pWrapMode, SELF.nativeBrush)
+  GdipReportError('TGdiPlusPathGradientBrush.CreatePathGradient', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusPathGradientBrush.CreatePathGradientI PROCEDURE(LONG pPoints, UNSIGNED pCount, GpWrapMode pWrapMode=WrapModeClamp)
+  CODE
+  SELF.lastResult = GdipCreatePathGradientI(pPoints, pCount, pWrapMode, SELF.nativeBrush)
+  GdipReportError('TGdiPlusPathGradientBrush.CreatePathGradientI', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.CreatePathGradient  PROCEDURE(TGdiPlusGraphicsPath pPath)
+  CODE
+  SELF.lastResult = GdipCreatePathGradientFromPath(pPath.nativePath, SELF.nativeBrush)
+  GdipReportError('TGdiPlusPathGradientBrush.CreatePathGradient', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetCenterColor  PROCEDURE()
+clr                                         GpARGB
+  CODE
+  SELF.lastResult = GdipGetPathGradientCenterColor(SELF.nativeBrush, clr)
+  GdipReportError('TGdiPlusPathGradientBrush.GetCenterColor', SELF.lastResult)
+  RETURN clr
+    
+TGdiPlusPathGradientBrush.SetCenterColor  PROCEDURE(GpARGB pColor)
+  CODE
+  SELF.lastResult = GdipSetPathGradientCenterColor(SELF.nativeBrush, pColor)
+  GdipReportError('TGdiPlusPathGradientBrush.SetCenterColor', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetPointCount   PROCEDURE()
+count                                       UNSIGNED
+  CODE
+  SELF.lastResult = GdipGetPathGradientPointCount(SELF.nativeBrush, count)
+  GdipReportError('TGdiPlusPathGradientBrush.GetPointCount', SELF.lastResult)
+  RETURN count
+    
+TGdiPlusPathGradientBrush.GetSurroundColorCount   PROCEDURE()
+count                                               UNSIGNED
+  CODE
+  SELF.lastResult = GdipGetPathGradientSurroundColorCount(SELF.nativeBrush, count)
+  GdipReportError('TGdiPlusPathGradientBrush.GetSurroundColorCount', SELF.lastResult)
+  RETURN count
+    
+TGdiPlusPathGradientBrush.GetSurroundColors   PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount)
+  CODE
+  pCount = MAXIMUM(pColors, 1)
+  SELF.lastResult = GdipGetPathGradientSurroundColorsWithCount(SELF.nativeBrush, ADDRESS(pColors), pCount)
+  GdipReportError('TGdiPlusPathGradientBrush.GetSurroundColors', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetSurroundColors   PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount)
+  CODE
+  pCount = MAXIMUM(pColors, 1)
+  SELF.lastResult = GdipSetPathGradientSurroundColorsWithCount(SELF.nativeBrush, ADDRESS(pColors), pCount)
+  GdipReportError('TGdiPlusPathGradientBrush.SetSurroundColors', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetGraphicsPath PROCEDURE(*TGdiPlusGraphicsPath pPath)
+  CODE
+  SELF.lastResult = GdipGetPathGradientPath(SELF.nativeBrush, pPath.nativePath)
+  GdipReportError('TGdiPlusPathGradientBrush.GetGraphicsPath', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetGraphicsPath PROCEDURE(TGdiPlusGraphicsPath pPath)
+  CODE
+  SELF.lastResult = GdipSetPathGradientPath(SELF.nativeBrush, pPath.nativePath)
+  GdipReportError('TGdiPlusPathGradientBrush.SetGraphicsPath', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetCenterPoint  PROCEDURE(*GpPointF pPoint)
+  CODE
+  SELF.lastResult = GdipGetPathGradientCenterPoint(SELF.nativeBrush, ADDRESS(pPoint))
+  GdipReportError('TGdiPlusPathGradientBrush.GetCenterPoint', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetCenterPoint  PROCEDURE(*GpPoint pPoint)
+  CODE
+  SELF.lastResult = GdipGetPathGradientCenterPointI(SELF.nativeBrush, ADDRESS(pPoint))
+  GdipReportError('TGdiPlusPathGradientBrush.GetCenterPoint', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetCenterPoint  PROCEDURE(CONST *GpPointF pPoint)
+  CODE
+  SELF.lastResult = GdipSetPathGradientCenterPoint(SELF.nativeBrush, ADDRESS(pPoint))
+  GdipReportError('TGdiPlusPathGradientBrush.SetCenterPoint', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetCenterPoint  PROCEDURE(CONST *GpPoint pPoint)
+  CODE
+  SELF.lastResult = GdipSetPathGradientCenterPointI(SELF.nativeBrush, ADDRESS(pPoint))
+  GdipReportError('TGdiPlusPathGradientBrush.SetCenterPoint', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetRectangle    PROCEDURE(*GpRectF pRect)
+  CODE
+  SELF.lastResult = GdipGetPathGradientRect(SELF.nativeBrush, ADDRESS(pRect))
+  GdipReportError('TGdiPlusPathGradientBrush.GetRectangle', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetRectangle    PROCEDURE(*GpRect pRect)
+  CODE
+  SELF.lastResult = GdipGetPathGradientRectI(SELF.nativeBrush, ADDRESS(pRect))
+  GdipReportError('TGdiPlusPathGradientBrush.GetRectangle', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetGammaCorrection  PROCEDURE(BOOL pUseGammaCorrection)
+  CODE
+  SELF.lastResult = GdipSetPathGradientGammaCorrection(SELF.nativeBrush, pUseGammaCorrection)
+  GdipReportError('TGdiPlusPathGradientBrush.SetGammaCorrection', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetGammaCorrection  PROCEDURE()
+bUseGammaCorrection                             BOOL
+  CODE
+  SELF.lastResult = GdipGetPathGradientGammaCorrection(SELF.nativeBrush, bUseGammaCorrection)
+  GdipReportError('TGdiPlusPathGradientBrush.GetGammaCorrection', SELF.lastResult)
+  RETURN bUseGammaCorrection
+    
+TGdiPlusPathGradientBrush.GetBlendCount   PROCEDURE()
+count                                       UNSIGNED
+  CODE
+  SELF.lastResult = GdipGetPathGradientBlendCount(SELF.nativeBrush, count)
+  GdipReportError('TGdiPlusPathGradientBrush.GetBlendCount', SELF.lastResult)
+  RETURN count
+    
+TGdiPlusPathGradientBrush.GetBlend    PROCEDURE(*SREAL[] pBlendFactors, *SREAL[] pBlendPositions)
+  CODE
+  SELF.lastResult = GdipGetPathGradientBlend(SELF.nativeBrush, ADDRESS(pBlendFactors), ADDRESS(pBlendPositions), MAXIMUM(pBlendPositions, 1))
+  GdipReportError('TGdiPlusPathGradientBrush.GetBlend', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetBlend    PROCEDURE(*SREAL[] pBlendFactors, *SREAL[] pBlendPositions)
+  CODE
+  SELF.lastResult = GdipSetPathGradientBlend(SELF.nativeBrush, ADDRESS(pBlendFactors), ADDRESS(pBlendPositions), MAXIMUM(pBlendPositions, 1))
+  GdipReportError('TGdiPlusPathGradientBrush.SetBlend', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetInterpolationColorCount  PROCEDURE()
+count                                                   UNSIGNED
+  CODE
+  SELF.lastResult = GdipGetPathGradientPresetBlendCount(SELF.nativeBrush, count)
+  GdipReportError('TGdiPlusPathGradientBrush.GetInterpolationColorCount', SELF.lastResult)
+  RETURN count
+    
+TGdiPlusPathGradientBrush.SetInterpolationColors  PROCEDURE(*GpARGB[] pPresetColors, *SREAL[] pBlendPositions)
+  CODE
+  SELF.lastResult = GdipSetPathGradientPresetBlend(SELF.nativeBrush, ADDRESS(pPresetColors), ADDRESS(pBlendPositions), MAXIMUM(pBlendPositions, 1))
+  GdipReportError('TGdiPlusPathGradientBrush.SetInterpolationColors', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetInterpolationColors  PROCEDURE(*GpARGB[] pPresetColors, *SREAL[] pBlendPositions)
+  CODE
+  SELF.lastResult = GdipGetPathGradientPresetBlend(SELF.nativeBrush, ADDRESS(pPresetColors), ADDRESS(pBlendPositions), MAXIMUM(pBlendPositions, 1))
+  GdipReportError('TGdiPlusPathGradientBrush.GetInterpolationColors', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetBlendBellShape   PROCEDURE(SREAL pFocus, SREAL pScale=1.0)
+  CODE
+  SELF.lastResult = GdipSetPathGradientSigmaBlend(SELF.nativeBrush, pFocus, pScale)
+  GdipReportError('TGdiPlusPathGradientBrush.SetBlendBellShape', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetBlendTriangularShape PROCEDURE(SREAL pFocus, SREAL pScale=1.0)
+  CODE
+  SELF.lastResult = GdipSetPathGradientLinearBlend(SELF.nativeBrush, pFocus, pScale)
+  GdipReportError('TGdiPlusPathGradientBrush.SetBlendTriangularShape', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetTransform    PROCEDURE(*TGdiplusMatrix pMatrix)
+  CODE
+  SELF.lastResult = GdipGetPathGradientTransform(SELF.nativeBrush, pMatrix.nativeMatrix)
+  GdipReportError('TGdiPlusPathGradientBrush.GetTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetTransform    PROCEDURE(TGdiplusMatrix pMatrix)
+  CODE
+  SELF.lastResult = GdipSetPathGradientTransform(SELF.nativeBrush, pMatrix.nativeMatrix)
+  GdipReportError('TGdiPlusPathGradientBrush.SetTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.ResetTransform  PROCEDURE()
+  CODE
+  SELF.lastResult = GdipResetPathGradientTransform(SELF.nativeBrush)
+  GdipReportError('TGdiPlusPathGradientBrush.ResetTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.MultiplyTransform   PROCEDURE(TGdiplusMatrix pMatrix, GpMatrixOrder pOrder=MatrixOrderPrepend)
+  CODE
+  SELF.lastResult = GdipMultiplyPathGradientTransform(SELF.nativeBrush, pMatrix.nativeMatrix, pOrder)
+  GdipReportError('TGdiPlusPathGradientBrush.MultiplyTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.TranslateTransform  PROCEDURE(SREAL pDx, SREAL pDy, GpMatrixOrder pOrder=MatrixOrderPrepend)
+  CODE
+  SELF.lastResult = GdipTranslatePathGradientTransform(SELF.nativeBrush, pDx, pDy, pOrder)
+  GdipReportError('TGdiPlusPathGradientBrush.TranslateTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.ScaleTransform  PROCEDURE(SREAL pSx, SREAL pSy, GpMatrixOrder pOrder=MatrixOrderPrepend)
+  CODE
+  SELF.lastResult = GdipScalePathGradientTransform(SELF.nativeBrush, pSx, pSy, pOrder)
+  GdipReportError('TGdiPlusPathGradientBrush.ScaleTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.RotateTransform PROCEDURE(SREAL pAngle, GpMatrixOrder pOrder=MatrixOrderPrepend)
+  CODE
+  SELF.lastResult = GdipRotatePathGradientTransform(SELF.nativeBrush, pAngle, pOrder)
+  GdipReportError('TGdiPlusPathGradientBrush.RotateTransform', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetFocusScales  PROCEDURE(*SREAL pXScale, *SREAL pYScale)
+  CODE
+  SELF.lastResult = GdipGetPathGradientFocusScales(SELF.nativeBrush, pXScale, pYScale)
+  GdipReportError('TGdiPlusPathGradientBrush.GetFocusScales', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.SetFocusScales  PROCEDURE(SREAL pXScale, SREAL pYScale)
+  CODE
+  SELF.lastResult = GdipSetPathGradientFocusScales(SELF.nativeBrush, pXScale, pYScale)
+  GdipReportError('TGdiPlusPathGradientBrush.SetFocusScales', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusPathGradientBrush.GetWrapMode PROCEDURE()
+mode                                    GpWrapMode
+  CODE
+  SELF.lastResult = GdipGetPathGradientWrapMode(SELF.nativeBrush, mode)
+  GdipReportError('TGdiPlusPathGradientBrush.GetWrapMode', SELF.lastResult)
+  RETURN mode
+    
+TGdiPlusPathGradientBrush.SetWrapMode PROCEDURE(GpWrapMode pWrapMode)
+  CODE
+  SELF.lastResult = GdipSetPathGradientWrapMode(SELF.nativeBrush, pWrapMode)
+  GdipReportError('TGdiPlusPathGradientBrush.SetWrapMode', SELF.lastResult)
   RETURN SELF.lastResult
 !!!endregion
