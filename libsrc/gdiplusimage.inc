@@ -87,6 +87,10 @@ SetPropertyItem                 PROCEDURE(GpPropertyItem pItem), GpStatus, PROC
 SetPropertyItem                 PROCEDURE(TGdiPlusPropertyItem pItem), GpStatus, PROC
 !!!<summary>Removes a property item (piece of metadata) from this Image object.</summary>
 RemovePropertyItem              PROCEDURE(ULONG pPropId), GpStatus, PROC
+!!!<summary>Gets the total size, in bytes, of all the property items stored in this Image object. This method also gets the number of property items stored in this Image object.</summary>
+GetPropertySize                 PROCEDURE(*UNSIGNED pTotalBufferSize, *UNSIGNED pNumProperties), GpStatus, PROC
+!!!<summary>Gets all the property items (metadata) stored in this Image object.</summary>
+GetAllPropertyItems             PROCEDURE(UNSIGNED pTotalBufferSize, UNSIGNED pNumProperties, LONG pAllItems), GpStatus, PROC
 !!!<summary>Rotates and flips this image.</summary>
 RotateFlip                      PROCEDURE(GpRotateFlipType pRfType), GpStatus, PROC
 !!!<summary>Gets the size, in bytes, of the color palette of this Image object.</summary>
@@ -95,10 +99,28 @@ GetPaletteSize                  PROCEDURE(), UNSIGNED
 GetPalette                      PROCEDURE(CONST *STRING pPalette, UNSIGNED pSize), GpStatus, PROC
 !!!<summary>Sets the ColorPalette of this Image object.</summary>
 SetPalette                      PROCEDURE(CONST *STRING pPalette), GpStatus, PROC
-
-!FindFirstImageItem
-!FindNextImageItem
-!GetImageItemData
+!!!<summary>Gets the size, in bytes, of the parameter list for a specified image encoder.</summary>
+GetEncoderParameterListSize     PROCEDURE(_CLSID pEncoder), UNSIGNED
+!!!<summary>Gets a list of the parameters supported by a specified image encoder.</summary>
+GetEncoderParameterList         PROCEDURE(_CLSID pEncoder, UNSIGNED pSize, CONST *STRING pEncoderParams), GpStatus, PROC
+!!!<summary>Adds a frame to a file or stream specified in a previous call to the Save method. Use this method to save selected frames from a multiple-frame image to another multiple-frame image.</summary>
+SaveAdd                         PROCEDURE(CONST *STRING pEncoderParams), GpStatus, PROC
+!!!<summary>Adds a frame to a file or stream specified in a previous call to the Save method.</summary>
+SaveAdd                         PROCEDURE(TGdiPlusImage pNewImage, CONST *STRING pEncoderParams), GpStatus, PROC
+!!!<summary>Gets the number of frame dimensions in this Image object.</summary>
+GetFrameDimensionsCount         PROCEDURE(), UNSIGNED
+!!!<summary>Gets the identifiers for the frame dimensions of this Image object.</summary>
+GetFrameDimensionsList          PROCEDURE(LONG pDimensionIDs, UNSIGNED pCount), GpStatus, PROC
+!!!<summary>Gets the number of frames in a specified dimension of this Image object.</summary>
+GetFrameCount                   PROCEDURE(GUID pDimensionID), UNSIGNED
+!!!<summary>Selects the frame in this Image object specified by a dimension and an index.</summary>
+SelectActiveFrame               PROCEDURE(GUID pDimensionID, UNSIGNED pFrameIndex), GpStatus, PROC
+!!!<summary>Retrieves the description and the data size of the first metadata item in this Image object.</summary>
+FindFirstItem                   PROCEDURE(*GpImageItemData pItem), GpStatus, PROC
+!!!<summary>Retrieves the description and the data size of the next metadata item in this Image object. This method is used along with the Image::FindFirstItem method to enumerate the metadata items stored in this ImImageage object.</summary>
+FindNextImageItem               PROCEDURE(*GpImageItemData pItem), GpStatus, PROC
+!!!<summary>Gets one piece of metadata from this Image object.</summary>
+GetImageItemData                PROCEDURE(*GpImageItemData pItem), GpStatus, PROC
                               END
 
 

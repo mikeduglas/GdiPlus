@@ -45,7 +45,7 @@ szGdipGetImagePalette         CSTRING('GdipGetImagePalette'), STATIC
 szGdipSetImagePalette         CSTRING('GdipSetImagePalette'), STATIC
 szGdipFindFirstImageItem      CSTRING('GdipFindFirstImageItem'), STATIC
 szGdipFindNextImageItem       CSTRING('GdipFindNextImageItem'), STATIC
-szGGdipGetImageItemData       CSTRING('GdipGetImageItemData'), STATIC
+szGdipGetImageItemData        CSTRING('GdipGetImageItemData'), STATIC
 szGdipCreateBitmapFromFile    CSTRING('GdipCreateBitmapFromFile'), STATIC
 szGdipCreateBitmapFromFileICM CSTRING('GdipCreateBitmapFromFileICM'), STATIC
 szGdipCreateBitmapFromStream  CSTRING('GdipCreateBitmapFromStream'), STATIC
@@ -541,7 +541,16 @@ szGdipGetPathGradientFocusScales  CSTRING('GdipGetPathGradientFocusScales'), STA
 szGdipSetPathGradientFocusScales  CSTRING('GdipSetPathGradientFocusScales'), STATIC
 szGdipGetPathGradientWrapMode CSTRING('GdipGetPathGradientWrapMode'), STATIC
 szGdipSetPathGradientWrapMode CSTRING('GdipSetPathGradientWrapMode'), STATIC
-
+szGdipGetEncoderParameterListSize CSTRING('GdipGetEncoderParameterListSize'), STATIC
+szGdipGetEncoderParameterList CSTRING('GdipGetEncoderParameterList'), STATIC
+szGdipSaveAdd                 CSTRING('GdipSaveAdd'), STATIC
+szGdipSaveAddImage            CSTRING('GdipSaveAddImage'), STATIC
+szGdipImageGetFrameDimensionsCount    CSTRING('GdipImageGetFrameDimensionsCount'), STATIC
+szGdipImageGetFrameDimensionsList CSTRING('GdipImageGetFrameDimensionsList'), STATIC
+szGdipImageGetFrameCount      CSTRING('GdipImageGetFrameCount'), STATIC
+szGdipImageSelectActiveFrame  CSTRING('GdipImageSelectActiveFrame'), STATIC
+szGdipGetPropertySize         CSTRING('GdipGetPropertySize'), STATIC
+szGdipGetAllPropertyItems     CSTRING('GdipGetAllPropertyItems'), STATIC
 
 !- GDI+ function pointers
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
@@ -1075,7 +1084,16 @@ paGdipGetPathGradientFocusScales  LONG, NAME('fptr_GdipGetPathGradientFocusScale
 paGdipSetPathGradientFocusScales  LONG, NAME('fptr_GdipSetPathGradientFocusScales')
 paGdipGetPathGradientWrapMode LONG, NAME('fptr_GdipGetPathGradientWrapMode')
 paGdipSetPathGradientWrapMode LONG, NAME('fptr_GdipSetPathGradientWrapMode')
-
+paGdipGetEncoderParameterListSize LONG, NAME('fptr_GdipGetEncoderParameterListSize')
+paGdipGetEncoderParameterList LONG, NAME('fptr_GdipGetEncoderParameterList')
+paGdipSaveAdd                 LONG, NAME('fptr_GdipSaveAdd')
+paGdipSaveAddImage            LONG, NAME('fptr_GdipSaveAddImage')
+paGdipImageGetFrameDimensionsCount    LONG, NAME('fptr_GdipImageGetFrameDimensionsCount')
+paGdipImageGetFrameDimensionsList LONG, NAME('fptr_GdipImageGetFrameDimensionsList')
+paGdipImageGetFrameCount      LONG, NAME('fptr_GdipImageGetFrameCount')
+paGdipImageSelectActiveFrame  LONG, NAME('fptr_GdipImageSelectActiveFrame')
+paGdipGetPropertySize         LONG, NAME('fptr_GdipGetPropertySize')
+paGdipGetAllPropertyItems     LONG, NAME('fptr_GdipGetAllPropertyItems')
 
 
 
@@ -1123,6 +1141,16 @@ paGdipSetPathGradientWrapMode LONG, NAME('fptr_GdipSetPathGradientWrapMode')
       GdipGetImagePaletteSize(LONG pImage,*UNSIGNED pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImagePaletteSize'),DLL
       GdipGetImagePalette(LONG pImage,LONG pPalette,UNSIGNED pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImagePalette'),DLL
       GdipSetImagePalette(LONG pImage,LONG pPalette),GpStatus,PROC,PASCAL,NAME('fptr_GdipSetImagePalette'),DLL
+      GdipGetEncoderParameterListSize(LONG pImage,LONG pEncoder,*UNSIGNED pSize),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetEncoderParameterListSize'),DLL
+      GdipGetEncoderParameterList(LONG pImage,LONG pEncoder,UNSIGNED pSize,LONG pBuffer),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetEncoderParameterList'),DLL
+      GdipSaveAdd(LONG pImage,LONG pEncoderParams),GpStatus,PROC,PASCAL,NAME('fptr_GdipSaveAdd'),DLL
+      GdipSaveAddImage(LONG pImage,LONG pNewImage,LONG pEncoderParams),GpStatus,PROC,PASCAL,NAME('fptr_GdipSaveAddImage'),DLL
+      GdipImageGetFrameDimensionsCount(LONG pImage,*UNSIGNED pCount),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageGetFrameDimensionsCount'),DLL
+      GdipImageGetFrameDimensionsList(LONG pImage,LONG pDimensionIds,UNSIGNED pCount),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageGetFrameDimensionsList'),DLL
+      GdipImageGetFrameCount(LONG pImage,LONG pDimensionId,*UNSIGNED pCount),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageGetFrameCount'),DLL
+      GdipImageSelectActiveFrame(LONG pImage,LONG pDimensionId,UNSIGNED pFrameIndex),GpStatus,PROC,PASCAL,NAME('fptr_GdipImageSelectActiveFrame'),DLL
+      GdipGetPropertySize(LONG pImage,*UNSIGNED pTotalSize,*UNSIGNED pNumProps),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetPropertySize'),DLL
+      GdipGetAllPropertyItems(LONG pImage,UNSIGNED pTotalSize,UNSIGNED pNumProps,LONG pAllItems),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetAllPropertyItems'),DLL
       GdipFindFirstImageItem(LONG pImage,LONG pItem),GpStatus,PROC,PASCAL,NAME('fptr_GdipFindFirstImageItem'),DLL
       GdipFindNextImageItem(LONG pImage,LONG pItem),GpStatus,PROC,PASCAL,NAME('fptr_GdipFindNextImageItem'),DLL
       GdipGetImageItemData(LONG pImage,LONG pItem),GpStatus,PROC,PASCAL,NAME('fptr_GdipGetImageItemData'),DLL
@@ -2227,7 +2255,21 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipSetPathGradientFocusScales    = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientFocusScales)
       paGdipGetPathGradientWrapMode       = winapi::GetProcAddress(SELF.hDll, szGdipGetPathGradientWrapMode)
       paGdipSetPathGradientWrapMode       = winapi::GetProcAddress(SELF.hDll, szGdipSetPathGradientWrapMode)
+      paGdipGetEncoderParameterListSize   = winapi::GetProcAddress(SELF.hDll, szGdipGetEncoderParameterListSize)
+      paGdipGetEncoderParameterList       = winapi::GetProcAddress(SELF.hDll, szGdipGetEncoderParameterList)
+      paGdipSaveAdd                       = winapi::GetProcAddress(SELF.hDll, szGdipSaveAdd)
+      paGdipSaveAddImage                  = winapi::GetProcAddress(SELF.hDll, szGdipSaveAddImage)
+      paGdipImageGetFrameDimensionsCount  = winapi::GetProcAddress(SELF.hDll, szGdipImageGetFrameDimensionsCount)
+      paGdipImageGetFrameDimensionsList   = winapi::GetProcAddress(SELF.hDll, szGdipImageGetFrameDimensionsList)
+      paGdipImageGetFrameCount            = winapi::GetProcAddress(SELF.hDll, szGdipImageGetFrameCount)
+      paGdipImageSelectActiveFrame        = winapi::GetProcAddress(SELF.hDll, szGdipImageSelectActiveFrame)
+      paGdipGetPropertySize               = winapi::GetProcAddress(SELF.hDll, szGdipGetPropertySize)
+      paGdipGetAllPropertyItems           = winapi::GetProcAddress(SELF.hDll, szGdipGetAllPropertyItems)
+      paGdipFindFirstImageItem            = winapi::GetProcAddress(SELF.hDll, szGdipFindFirstImageItem)
+      paGdipFindNextImageItem             = winapi::GetProcAddress(SELF.hDll, szGdipFindNextImageItem)
+      paGdipGetImageItemData              = winapi::GetProcAddress(SELF.hDll, szGdipGetImageItemData)
 
+      
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
     END
@@ -2718,7 +2760,87 @@ TGdiPlusImage.SetPalette      PROCEDURE(CONST *STRING pPalette)
   SELF.lastResult = GdipSetImagePalette(SELF.nativeImage, ADDRESS(pPalette))
   GdipReportError(printf('TGdiPlusImage.SetPalette'), SELF.lastResult)
   RETURN SELF.lastResult
-
+    
+TGdiPlusImage.GetEncoderParameterListSize PROCEDURE(_CLSID pEncoder)
+encSize                                     UNSIGNED
+  CODE
+  SELF.lastResult = GdipGetEncoderParameterListSize(SELF.nativeImage, ADDRESS(pEncoder), encSize)
+  GdipReportError(printf('TGdiPlusImage.GetEncoderParameterListSize'), SELF.lastResult)
+  RETURN encSize
+    
+TGdiPlusImage.GetEncoderParameterList PROCEDURE(_CLSID pEncoder, UNSIGNED pSize, CONST *STRING pEncoderParams)
+  CODE
+  SELF.lastResult = GdipGetEncoderParameterList(SELF.nativeImage, ADDRESS(pEncoder), pSize, ADDRESS(pEncoderParams))
+  GdipReportError(printf('TGdiPlusImage.GetEncoderParameterList'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.SaveAdd         PROCEDURE(CONST *STRING pEncoderParams)
+  CODE
+  SELF.lastResult = GdipSaveAdd(SELF.nativeImage, ADDRESS(pEncoderParams))
+  GdipReportError(printf('TGdiPlusImage.SaveAdd'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.SaveAdd         PROCEDURE(TGdiPlusImage pNewImage, CONST *STRING pEncoderParams)
+  CODE
+  SELF.lastResult = GdipSaveAddImage(SELF.nativeImage, pNewImage.nativeImage, ADDRESS(pEncoderParams))
+  GdipReportError(printf('TGdiPlusImage.SaveAdd'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.GetFrameDimensionsCount PROCEDURE()
+count                                   UNSIGNED
+  CODE
+  SELF.lastResult = GdipImageGetFrameDimensionsCount(SELF.nativeImage, count)
+  GdipReportError(printf('TGdiPlusImage.GetFrameDimensionsCount'), SELF.lastResult)
+  RETURN count
+    
+TGdiPlusImage.GetFrameDimensionsList  PROCEDURE(LONG pDimensionIDs, UNSIGNED pCount)
+  CODE
+  SELF.lastResult = GdipImageGetFrameDimensionsList(SELF.nativeImage, ADDRESS(pDimensionIDs), pCount)
+  GdipReportError(printf('TGdiPlusImage.GetFrameDimensionsList'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.GetFrameCount   PROCEDURE(GUID pDimensionID)
+count                           UNSIGNED
+  CODE
+  SELF.lastResult = GdipImageGetFrameCount(SELF.nativeImage, ADDRESS(pDimensionID), count)
+  GdipReportError(printf('TGdiPlusImage.GetFrameCount'), SELF.lastResult)
+  RETURN count
+    
+TGdiPlusImage.SelectActiveFrame   PROCEDURE(GUID pDimensionID, UNSIGNED pFrameIndex)
+  CODE
+  SELF.lastResult = GdipImageSelectActiveFrame(SELF.nativeImage, ADDRESS(pDimensionID), pFrameIndex)
+  GdipReportError(printf('TGdiPlusImage.SelectActiveFrame'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.GetPropertySize PROCEDURE(*UNSIGNED pTotalBufferSize, *UNSIGNED pNumProperties)
+  CODE
+  SELF.lastResult = GdipGetPropertySize(SELF.nativeImage, pTotalBufferSize, pNumProperties)
+  GdipReportError(printf('TGdiPlusImage.GetPropertySize'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.GetAllPropertyItems PROCEDURE(UNSIGNED pTotalBufferSize, UNSIGNED pNumProperties, LONG pAllItems)
+  CODE
+  SELF.lastResult = GdipGetAllPropertyItems(SELF.nativeImage, pTotalBufferSize, pNumProperties, pAllItems)
+  GdipReportError(printf('TGdiPlusImage.GetAllPropertyItems'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.FindFirstItem   PROCEDURE(*GpImageItemData pItem)
+  CODE
+  SELF.lastResult = GdipFindFirstImageItem(SELF.nativeImage, ADDRESS(pItem))
+  GdipReportError(printf('TGdiPlusImage.FindFirstItem'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.FindNextImageItem   PROCEDURE(*GpImageItemData pItem)
+  CODE
+  SELF.lastResult = GdipFindNextImageItem(SELF.nativeImage, ADDRESS(pItem))
+  GdipReportError(printf('TGdiPlusImage.FindNextImageItem'), SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusImage.GetImageItemData    PROCEDURE(*GpImageItemData pItem)
+  CODE
+  SELF.lastResult = GdipGetImageItemData(SELF.nativeImage, ADDRESS(pItem))
+  GdipReportError(printf('TGdiPlusImage.GetImageItemData'), SELF.lastResult)
+  RETURN SELF.lastResult
 !!!endregion
   
 !!!region TGdiPlusPropertyItem

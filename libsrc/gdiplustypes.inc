@@ -650,3 +650,21 @@ Count                           UNSIGNED             ! Number of color entries
 Entries                         GpARGB,DIM(1)        ! Palette color entries
                               END
 
+!---------------------------------------------------------------------------
+! Encoder Parameter structure
+!---------------------------------------------------------------------------
+typEncoderParameter           GROUP, TYPE
+Guid                            LIKE(GUID)  ! GUID of the parameter
+NumberOfValues                  ULONG       ! Number of the parameter values
+Type                            ULONG       ! Value type, like ValueTypeLONG  etc.
+Value                           LONG        ! VOID*, A pointer to the parameter values
+                              END
+!---------------------------------------------------------------------------
+! Encoder Parameters structure
+!---------------------------------------------------------------------------
+!class EncoderParameters
+!{
+!public:
+!    UINT Count;                      // Number of parameters in this structure
+!    EncoderParameter Parameter[1];   // Parameter values
+!};
