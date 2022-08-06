@@ -551,6 +551,27 @@ szGdipImageGetFrameCount      CSTRING('GdipImageGetFrameCount'), STATIC
 szGdipImageSelectActiveFrame  CSTRING('GdipImageSelectActiveFrame'), STATIC
 szGdipGetPropertySize         CSTRING('GdipGetPropertySize'), STATIC
 szGdipGetAllPropertyItems     CSTRING('GdipGetAllPropertyItems'), STATIC
+szGdipCreateMetafileFromWmf   CSTRING('GdipCreateMetafileFromWmf'), STATIC
+szGdipCreateMetafileFromEmf   CSTRING('GdipCreateMetafileFromEmf'), STATIC
+szGdipCreateMetafileFromFile  CSTRING('GdipCreateMetafileFromFile'), STATIC
+szGdipCreateMetafileFromWmfFile   CSTRING('GdipCreateMetafileFromWmfFile'), STATIC
+szGdipCreateMetafileFromStream    CSTRING('GdipCreateMetafileFromStream'), STATIC
+szGdipRecordMetafile          CSTRING('GdipRecordMetafile'), STATIC
+szGdipRecordMetafileI         CSTRING('GdipRecordMetafileI'), STATIC
+szGdipRecordMetafileFileName  CSTRING('GdipRecordMetafileFileName'), STATIC
+szGdipRecordMetafileFileNameI CSTRING('GdipRecordMetafileFileNameI'), STATIC
+szGdipGetMetafileHeaderFromWmf    CSTRING('GdipGetMetafileHeaderFromWmf'), STATIC
+szGdipGetMetafileHeaderFromEmf    CSTRING('GdipGetMetafileHeaderFromEmf'), STATIC
+szGdipGetMetafileHeaderFromFile   CSTRING('GdipGetMetafileHeaderFromFile'), STATIC
+szGdipGetMetafileHeaderFromStream CSTRING('GdipGetMetafileHeaderFromStream'), STATIC
+szGdipGetMetafileHeaderFromMetafile   CSTRING('GdipGetMetafileHeaderFromMetafile'), STATIC
+szGdipGetHemfFromMetafile     CSTRING('GdipGetHemfFromMetafile'), STATIC
+szGdipPlayMetafileRecord      CSTRING('GdipPlayMetafileRecord'), STATIC
+szGdipSetMetafileDownLevelRasterizationLimit  CSTRING('GdipSetMetafileDownLevelRasterizationLimit'), STATIC
+szGdipGetMetafileDownLevelRasterizationLimit  CSTRING('GdipGetMetafileDownLevelRasterizationLimit'), STATIC
+szGdipEmfToWmfBits            CSTRING('GdipEmfToWmfBits'), STATIC
+szGdipConvertToEmfPlus        CSTRING('GdipConvertToEmfPlus'), STATIC
+szGdipConvertToEmfPlusToFile  CSTRING('GdipConvertToEmfPlusToFile'), STATIC
 
 !- GDI+ function pointers
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
@@ -1094,6 +1115,27 @@ paGdipImageGetFrameCount      LONG, NAME('fptr_GdipImageGetFrameCount')
 paGdipImageSelectActiveFrame  LONG, NAME('fptr_GdipImageSelectActiveFrame')
 paGdipGetPropertySize         LONG, NAME('fptr_GdipGetPropertySize')
 paGdipGetAllPropertyItems     LONG, NAME('fptr_GdipGetAllPropertyItems')
+paGdipCreateMetafileFromWmf   LONG, NAME('fptr_GdipCreateMetafileFromWmf')
+paGdipCreateMetafileFromEmf   LONG, NAME('fptr_GdipCreateMetafileFromEmf')
+paGdipCreateMetafileFromFile  LONG, NAME('fptr_GdipCreateMetafileFromFile')
+paGdipCreateMetafileFromWmfFile   LONG, NAME('fptr_GdipCreateMetafileFromWmfFile')
+paGdipCreateMetafileFromStream    LONG, NAME('fptr_GdipCreateMetafileFromStream')
+paGdipRecordMetafile          LONG, NAME('fptr_GdipRecordMetafile')
+paGdipRecordMetafileI         LONG, NAME('fptr_GdipRecordMetafileI')
+paGdipRecordMetafileFileName  LONG, NAME('fptr_GdipRecordMetafileFileName')
+paGdipRecordMetafileFileNameI LONG, NAME('fptr_GdipRecordMetafileFileNameI')
+paGdipGetMetafileHeaderFromWmf    LONG, NAME('fptr_GdipGetMetafileHeaderFromWmf')
+paGdipGetMetafileHeaderFromEmf    LONG, NAME('fptr_GdipGetMetafileHeaderFromEmf')
+paGdipGetMetafileHeaderFromFile   LONG, NAME('fptr_GdipGetMetafileHeaderFromFile')
+paGdipGetMetafileHeaderFromStream LONG, NAME('fptr_GdipGetMetafileHeaderFromStream')
+paGdipGetMetafileHeaderFromMetafile   LONG, NAME('fptr_GdipGetMetafileHeaderFromMetafile')
+paGdipGetHemfFromMetafile     LONG, NAME('fptr_GdipGetHemfFromMetafile')
+paGdipPlayMetafileRecord      LONG, NAME('fptr_GdipPlayMetafileRecord')
+paGdipSetMetafileDownLevelRasterizationLimit  LONG, NAME('fptr_GdipSetMetafileDownLevelRasterizationLimit')
+paGdipGetMetafileDownLevelRasterizationLimit  LONG, NAME('fptr_GdipGetMetafileDownLevelRasterizationLimit')
+paGdipEmfToWmfBits            LONG, NAME('fptr_GdipEmfToWmfBits')
+paGdipConvertToEmfPlus        LONG, NAME('fptr_GdipConvertToEmfPlus')
+paGdipConvertToEmfPlusToFile  LONG, NAME('fptr_GdipConvertToEmfPlusToFile')
 
 
 
@@ -1118,7 +1160,7 @@ paGdipGetAllPropertyItems     LONG, NAME('fptr_GdipGetAllPropertyItems')
       GdipGetImageThumbnail(LONG pImage,UNSIGNED pThumbWidth,UNSIGNED pThumbHeight,*LONG pThumbImage,LONG pCallback,LONG pCallbackData),GpStatus,PASCAL,NAME('fptr_GdipGetImageThumbnail'),DLL
       GdipSaveImageToFile(LONG pImage,LONG pFileName,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToFile'),DLL
       GdipSaveImageToStream(LONG pImage,LONG pStream,LONG pClsidEncoder,LONG pEncoderParams),GpStatus,PASCAL,NAME('fptr_GdipSaveImageToStream'),DLL
-      GdipDisposeImage(LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipDisposeImage'),DLL
+      GdipDisposeImage(LONG pImage),GpStatus,PROC,PASCAL,NAME('fptr_GdipDisposeImage'),DLL
       GdipGetImageWidth(LONG pImage, *UNSIGNED pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetImageWidth'),DLL
       GdipGetImageHeight(LONG pImage, *UNSIGNED pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetImageHeight'),DLL
       GdipGetImageHorizontalResolution(LONG pImage, *SREAL pResolution),GpStatus,PASCAL,NAME('fptr_GdipGetImageHorizontalResolution'),DLL
@@ -1649,6 +1691,28 @@ paGdipGetAllPropertyItems     LONG, NAME('fptr_GdipGetAllPropertyItems')
       GdipSetPathGradientFocusScales(LONG pBrush,SREAL pXScale,SREAL pYScale),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientFocusScales'),DLL
       GdipGetPathGradientWrapMode(LONG pBrush,*GpWrapMode pMode),GpStatus,PASCAL,NAME('fptr_GdipGetPathGradientWrapMode'),DLL
       GdipSetPathGradientWrapMode(LONG pBrush,GpWrapMode pMode),GpStatus,PASCAL,NAME('fptr_GdipSetPathGradientWrapMode'),DLL
+      GdipCreateMetafileFromWmf(HMETAFILE phWmf,LONG pFileHeader,BOOL pDeleteWmf,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipCreateMetafileFromWmf'),DLL
+      GdipCreateMetafileFromEmf(HMETAFILE phEmf,BOOL pDeleteEmf,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipCreateMetafileFromEmf'),DLL
+      GdipCreateMetafileFromFile(LONG pFileName,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipCreateMetafileFromFile'),DLL
+      GdipCreateMetafileFromWmfFile(LONG pFileName,LONG pFileHeader,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipCreateMetafileFromWmfFile'),DLL
+      GdipCreateMetafileFromStream(LONG pStream,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipCreateMetafileFromStream'),DLL
+      GdipRecordMetafile(HDC pReferenceHdc,GpEmfType pType,LONG pFrameRect,GpMetafileFrameUnit pFrameUnit,LONG pDescription,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipRecordMetafile'),DLL
+      GdipRecordMetafileI(HDC pReferenceHdc,GpEmfType pType,LONG pFrameRect,GpMetafileFrameUnit pFrameUnit,LONG pDescription,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipRecordMetafileI'),DLL
+      GdipRecordMetafileFileName(LONG pFileName,HDC pReferenceHdc,GpEmfType pType,LONG pFrameRect,GpMetafileFrameUnit pFrameUnit,LONG pDescription,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipRecordMetafileFileName'),DLL
+      GdipRecordMetafileFileNameI(LONG pFileName,HDC pReferenceHdc,GpEmfType pType,LONG pFrameRect,GpMetafileFrameUnit pFrameUnit,LONG pDescription,*LONG pMetafile),GpStatus,PASCAL,NAME('fptr_GdipRecordMetafileFileNameI'),DLL
+      GdipGetMetafileHeaderFromWmf(HMETAFILE phWmf,LONG pFileHeader,LONG pHeader),GpStatus,PASCAL,NAME('fptr_GdipGetMetafileHeaderFromWmf'),DLL
+      GdipGetMetafileHeaderFromEmf(HMETAFILE phWmf,LONG pHeader),GpStatus,PASCAL,NAME('fptr_GdipGetMetafileHeaderFromEmf'),DLL
+      GdipGetMetafileHeaderFromFile(LONG pFileName,LONG pHeader),GpStatus,PASCAL,NAME('fptr_GdipGetMetafileHeaderFromFile'),DLL
+      GdipGetMetafileHeaderFromStream(LONG pStream,LONG pHeader),GpStatus,PASCAL,NAME('fptr_GdipGetMetafileHeaderFromStream'),DLL
+      GdipGetMetafileHeaderFromMetafile(LONG pMetafile,LONG pHeader),GpStatus,PASCAL,NAME('fptr_GdipGetMetafileHeaderFromMetafile'),DLL
+      GdipGetHemfFromMetafile(LONG pMetafile,*HENHMETAFILE phemf),GpStatus,PASCAL,NAME('fptr_GdipGetHemfFromMetafile'),DLL
+      GdipPlayMetafileRecord(LONG pMetafile,GpEmfPlusRecordType pRecordType,ULONG pFlags,ULONG pDataSize,LONG pData),GpStatus,PASCAL,NAME('fptr_GdipPlayMetafileRecord'),DLL
+      GdipSetMetafileDownLevelRasterizationLimit(LONG pMetafile,ULONG pDpi),GpStatus,PASCAL,NAME('fptr_GdipSetMetafileDownLevelRasterizationLimit'),DLL
+      GdipGetMetafileDownLevelRasterizationLimit(LONG pMetafile,*ULONG pDpi),GpStatus,PASCAL,NAME('fptr_GdipGetMetafileDownLevelRasterizationLimit'),DLL
+      GdipEmfToWmfBits(HENHMETAFILE phemf,ULONG pDataSize,LONG pData,LONG pMapMode,LONG pFlags),ULONG,PASCAL,NAME('fptr_GdipEmfToWmfBits'),DLL
+      GdipConvertToEmfPlus(LONG pGraphics,LONG pMetafile,*LONG pFlag,GpEmfType pEmfType,LONG pDescription,*LONG pOutMetafile),GpStatus,PASCAL,NAME('fptr_GdipConvertToEmfPlus'),DLL
+      GdipConvertToEmfPlusToFile(LONG pGraphics,LONG pMetafile,*LONG pFlag,LONG pFileName,GpEmfType pEmfType,LONG pDescription,*LONG pOutMetafile),GpStatus,PASCAL,NAME('fptr_GdipConvertToEmfPlusToFile'),DLL
+
 
     END
     MODULE('Global memory api')
@@ -2269,7 +2333,28 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipFindNextImageItem             = winapi::GetProcAddress(SELF.hDll, szGdipFindNextImageItem)
       paGdipGetImageItemData              = winapi::GetProcAddress(SELF.hDll, szGdipGetImageItemData)
 
-      
+      paGdipCreateMetafileFromWmf         = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromWmf)
+      paGdipCreateMetafileFromEmf         = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromEmf)
+      paGdipCreateMetafileFromFile        = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromFile)
+      paGdipCreateMetafileFromWmfFile     = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromWmfFile)
+      paGdipCreateMetafileFromStream      = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromStream)
+      paGdipRecordMetafile                = winapi::GetProcAddress(SELF.hDll, szGdipRecordMetafile)
+      paGdipRecordMetafileI               = winapi::GetProcAddress(SELF.hDll, szGdipRecordMetafileI)
+      paGdipRecordMetafileFileName        = winapi::GetProcAddress(SELF.hDll, szGdipRecordMetafileFileName)
+      paGdipRecordMetafileFileNameI       = winapi::GetProcAddress(SELF.hDll, szGdipRecordMetafileFileNameI)
+      paGdipGetMetafileHeaderFromWmf      = winapi::GetProcAddress(SELF.hDll, szGdipGetMetafileHeaderFromWmf)
+      paGdipGetMetafileHeaderFromEmf      = winapi::GetProcAddress(SELF.hDll, szGdipGetMetafileHeaderFromEmf)
+      paGdipGetMetafileHeaderFromFile     = winapi::GetProcAddress(SELF.hDll, szGdipGetMetafileHeaderFromFile)
+      paGdipGetMetafileHeaderFromStream   = winapi::GetProcAddress(SELF.hDll, szGdipGetMetafileHeaderFromStream)
+      paGdipGetMetafileHeaderFromMetafile = winapi::GetProcAddress(SELF.hDll, szGdipGetMetafileHeaderFromMetafile)
+      paGdipGetHemfFromMetafile           = winapi::GetProcAddress(SELF.hDll, szGdipGetHemfFromMetafile)
+      paGdipPlayMetafileRecord            = winapi::GetProcAddress(SELF.hDll, szGdipPlayMetafileRecord)
+      paGdipSetMetafileDownLevelRasterizationLimit  = winapi::GetProcAddress(SELF.hDll, szGdipSetMetafileDownLevelRasterizationLimit)
+      paGdipGetMetafileDownLevelRasterizationLimit  = winapi::GetProcAddress(SELF.hDll, szGdipGetMetafileDownLevelRasterizationLimit)
+      paGdipEmfToWmfBits                  = winapi::GetProcAddress(SELF.hDll, szGdipEmfToWmfBits)
+      paGdipConvertToEmfPlus              = winapi::GetProcAddress(SELF.hDll, szGdipConvertToEmfPlus)
+      paGdipConvertToEmfPlusToFile        = winapi::GetProcAddress(SELF.hDll, szGdipConvertToEmfPlusToFile)
+
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
     END
@@ -7262,5 +7347,222 @@ TGdiPlusPathGradientBrush.SetWrapMode PROCEDURE(GpWrapMode pWrapMode)
   CODE
   SELF.lastResult = GdipSetPathGradientWrapMode(SELF.nativeBrush, pWrapMode)
   GdipReportError('TGdiPlusPathGradientBrush.SetWrapMode', SELF.lastResult)
+  RETURN SELF.lastResult
+!!!endregion
+
+!!!region TGdiPlusMetafile
+TGdiPlusMetafile.CreateFromWmf    PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, BOOL pDeleteWmf)
+  CODE
+  SELF.lastResult = GdipCreateMetafileFromWmf(phWmf, pDeleteWmf, ADDRESS(pFileHeader), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.CreateFromWmf', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.CreateFromEmf    PROCEDURE(HENHMETAFILE phEmf, BOOL pDeleteEmf)
+  CODE
+  SELF.lastResult = GdipCreateMetafileFromEmf(phEmf, pDeleteEmf, SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.CreateFromEmf', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.CreateFromFile   PROCEDURE(STRING pFileName)
+enc                                 TStringEncoding
+wstr                                STRING(FILE:MaxFilePath*2+2)
+  CODE
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
+  SELF.lastResult = GdipCreateMetafileFromFile(ADDRESS(wstr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.CreateFromFile', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.CreateFromFile   PROCEDURE(STRING pFileName, typWmfPlaceableFileHeader pFileHeader)
+enc                                 TStringEncoding
+wstr                                STRING(FILE:MaxFilePath*2+2)
+  CODE
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
+  SELF.lastResult = GdipCreateMetafileFromWmfFile(ADDRESS(wstr), ADDRESS(pFileHeader), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.CreateFromFile', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.CreateFromString PROCEDURE(STRING pData)
+lpStream                            LONG, AUTO
+stream                              &IStream, AUTO
+  CODE
+  lpStream = ToStream(pData)
+  SELF.lastResult = GdipCreateMetafileFromStream(lpStream, SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.CreateFromString', SELF.lastResult)
+  IF lpStream
+    stream &= (lpStream)
+    stream.Release()
+  END
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, GpEmfType pType, STRING pDescription)
+enc                                 TStringEncoding
+wstr                                STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipRecordMetafile(pReferenceHdc, pType, 0, MetafileFrameUnitGdi, ADDRESS(wstr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+enc                                 TStringEncoding
+wstr                                STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipRecordMetafile(pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+enc                                 TStringEncoding
+wstr                                STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipRecordMetafileI(pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, GpEmfType pType, STRING pDescription)
+enc                                 TStringEncoding
+wstrFile                            STRING(FILE:MaxFilePath*2+2)
+wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstrFile = enc.ToCWStr(LONGPATH(pFileName))
+  wstrDescr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipRecordMetafileFileName(ADDRESS(wstrFile), pReferenceHdc, pType, 0, MetafileFrameUnitGdi, ADDRESS(wstrDescr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.RecordFileName', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+enc                                 TStringEncoding
+wstrFile                            STRING(FILE:MaxFilePath*2+2)
+wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstrFile = enc.ToCWStr(LONGPATH(pFileName))
+  wstrDescr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipRecordMetafileFileName(ADDRESS(wstrFile), pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstrDescr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.RecordFileName', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+enc                                 TStringEncoding
+wstrFile                            STRING(FILE:MaxFilePath*2+2)
+wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstrFile = enc.ToCWStr(LONGPATH(pFileName))
+  wstrDescr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipRecordMetafileFileNameI(ADDRESS(wstrFile), pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstrDescr), SELF.nativeImage)
+  GdipReportError('TGdiPlusMetafile.RecordFileName', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetHeaderFromWmf PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, *typMetafileHeader pHeader)
+  CODE
+  SELF.lastResult = GdipGetMetafileHeaderFromWmf(phWmf, ADDRESS(pFileHeader), ADDRESS(pHeader))
+  GdipReportError('TGdiPlusMetafile.GetHeaderFromWmf', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetHeaderFromEmf PROCEDURE(HENHMETAFILE phEmf, *typMetafileHeader pHeader)
+  CODE
+  SELF.lastResult = GdipGetMetafileHeaderFromEmf(phEmf, ADDRESS(pHeader))
+  GdipReportError('TGdiPlusMetafile.GetHeaderFromEmf', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetHeaderFromFile    PROCEDURE(STRING pFileName, *typMetafileHeader pHeader)
+enc                                     TStringEncoding
+wstr                                    STRING(FILE:MaxFilePath*2+2)
+  CODE
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
+  SELF.lastResult = GdipGetMetafileHeaderFromFile(ADDRESS(wstr), ADDRESS(pHeader))
+  GdipReportError('TGdiPlusMetafile.GetHeaderFromFile', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetHeaderFromString  PROCEDURE(STRING pData, *typMetafileHeader pHeader)
+lpStream                                LONG, AUTO
+stream                                  &IStream, AUTO
+  CODE
+  lpStream = ToStream(pData)
+  SELF.lastResult = GdipGetMetafileHeaderFromStream(lpStream, ADDRESS(pHeader))
+  GdipReportError('TGdiPlusMetafile.GetHeaderFromString', SELF.lastResult)
+  IF lpStream
+    stream &= (lpStream)
+    stream.Release()
+  END
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetHeader    PROCEDURE(*typMetafileHeader pHeader)
+  CODE
+  SELF.lastResult = GdipGetMetafileHeaderFromMetafile(SELF.nativeImage, ADDRESS(pHeader))
+  GdipReportError('TGdiPlusMetafile.GetHeader', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetHENHMETAFILE  PROCEDURE()
+hemf                                HENHMETAFILE
+  CODE
+  SELF.lastResult = GdipGetHemfFromMetafile(SELF.nativeImage, hemf)
+  GdipReportError('TGdiPlusMetafile.GetHENHMETAFILE', SELF.lastResult)
+  RETURN hemf
+  
+TGdiPlusMetafile.PlayRecord   PROCEDURE(GpEmfPlusRecordType pRecordType, ULONG pFlags, ULONG pDataSize, *BYTE[] pData)
+  CODE
+  SELF.lastResult = GdipPlayMetafileRecord(SELF.nativeImage, pRecordType, pFlags, pDataSize, ADDRESS(pDataSize))
+  GdipReportError('TGdiPlusMetafile.PlayRecord', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.SetDownLevelRasterizationLimit   PROCEDURE(ULONG pMetafileRasterizationLimitDpi)
+  CODE
+  SELF.lastResult = GdipSetMetafileDownLevelRasterizationLimit(SELF.nativeImage, pMetafileRasterizationLimitDpi)
+  GdipReportError('TGdiPlusMetafile.SetDownLevelRasterizationLimit', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.GetDownLevelRasterizationLimit   PROCEDURE()
+dpi                                                 ULONG
+  CODE
+  SELF.lastResult = GdipGetMetafileDownLevelRasterizationLimit(SELF.nativeImage, dpi)
+  GdipReportError('TGdiPlusMetafile.GetDownLevelRasterizationLimit', SELF.lastResult)
+  RETURN dpi
+  
+TGdiPlusMetafile.EmfToWmfBits PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LONG pData, LONG pMapMode, LONG pFlags)
+  CODE
+  RETURN GdipEmfToWmfBits(phemf, pDataSize, pData, pMapMode, pFlags)
+  
+TGdiPlusMetafile.ConvertToEmfPlus PROCEDURE(TGdiPlusGraphics pGraphics, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription)
+nativeMetafile                      LONG
+enc                                 TStringEncoding
+wstr                                STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipConvertToEmfPlus(pGraphics.nativeGraphics, SELF.nativeImage, pConversionFailureFlag, pEmfType, ADDRESS(wstr), nativeMetafile)
+  GdipReportError('TGdiPlusMetafile.ConvertToEmfPlus', SELF.lastResult)
+  
+  IF nativeMetafile <> 0
+    IF SELF.lastResult = GpStatus:Ok
+      GdipDisposeImage(SELF.nativeImage)
+      SELF.nativeImage = nativeMetafile
+    ELSE
+      GdipDisposeImage(nativeMetafile)
+    END
+  END
+  
+  RETURN SELF.lastResult
+  
+TGdiPlusMetafile.ConvertToEmfPlusFromFile PROCEDURE(TGdiPlusGraphics pGraphics, STRING pFileName, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription)
+nativeMetafile                              LONG
+enc                                         TStringEncoding
+wstrFile                                    STRING(FILE:MaxFilePath*2+2)
+wstrDescr                                   STRING(LEN(CLIP(pDescription))*2+2)
+  CODE
+  wstrFile = enc.ToCWStr(LONGPATH(pFileName))
+  wstrDescr = enc.ToCWStr(CLIP(pDescription))
+  SELF.lastResult = GdipConvertToEmfPlusToFile(pGraphics.nativeGraphics, SELF.nativeImage, pConversionFailureFlag, ADDRESS(wstrFile), pEmfType, ADDRESS(wstrDescr), nativeMetafile)
+  GdipReportError('TGdiPlusMetafile.ConvertToEmfPlusFromFile', SELF.lastResult)
+  
+  IF nativeMetafile <> 0
+    IF SELF.lastResult = GpStatus:Ok
+      GdipDisposeImage(SELF.nativeImage)
+      SELF.nativeImage = nativeMetafile
+    ELSE
+      GdipDisposeImage(nativeMetafile)
+    END
+  END
+  
   RETURN SELF.lastResult
 !!!endregion

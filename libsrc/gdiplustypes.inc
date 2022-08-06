@@ -7,6 +7,9 @@
 
 
 HPALETTE                      EQUATE(HANDLE)
+HMETAFILE                     EQUATE(HANDLE)
+HENHMETAFILE                  EQUATE(HANDLE)
+
 GpARGB                        EQUATE(ULONG)
 GpGraphicsState               EQUATE(ULONG)
 
@@ -668,3 +671,120 @@ Value                           LONG        ! VOID*, A pointer to the parameter 
 !    UINT Count;                      // Number of parameters in this structure
 !    EncoderParameter Parameter[1];   // Parameter values
 !};
+
+
+!---------------------------------------------------------------------------
+! Metafile structs
+!---------------------------------------------------------------------------
+GpMetafileType                EQUATE(LONG)
+MetafileTypeInvalid           EQUATE(0)            ! Invalid metafile
+MetafileTypeWmf               EQUATE(1)                ! Standard WMF
+MetafileTypeWmfPlaceable      EQUATE(2)       ! Placeable WMF
+MetafileTypeEmf               EQUATE(3)               ! EMF (not EMF+)
+MetafileTypeEmfPlusOnly       EQUATE(4)        ! EMF+ without dual, down-level records
+MetafileTypeEmfPlusDual       EQUATE(5)         ! EMF+ with dual, down-level records
+
+!---------------------------------------------------------------------------
+! Specifies the type of EMF to record
+!---------------------------------------------------------------------------
+GpEmfType                     EQUATE(LONG)
+EmfTypeEmfOnly                EQUATE(MetafileTypeEmf)          ! no EMF+, only EMF
+EmfTypeEmfPlusOnly            EQUATE(MetafileTypeEmfPlusOnly)  ! no EMF, only EMF+
+EmfTypeEmfPlusDual            EQUATE(MetafileTypeEmfPlusDual)   ! both EMF+ and EMF
+
+
+typPWMFRect16                 GROUP, TYPE
+Left                            SHORT
+Top                             SHORT
+Right                           SHORT
+Bottom                          SHORT
+                              END
+
+typWmfPlaceableFileHeader     GROUP, TYPE
+Key                             ULONG               ! GDIP_WMF_PLACEABLEKEY
+Hmf                             SHORT               ! Metafile HANDLE number (always 0)
+BoundingBox                     LIKE(typPWMFRect16) ! Coordinates in metafile units
+Inch                            SHORT               ! Number of metafile units per inch
+Reserved                        ULONG               ! Reserved (always 0)
+Checksum                        SHORT               ! Checksum value for previous 10 WORDs
+                              END
+
+
+GDIP_EMFPLUSFLAGS_DISPLAY     EQUATE(00000001h)
+
+tagMETAHEADER                 GROUP, TYPE
+mtType                          USHORT
+mtHeaderSize                    USHORT
+mtVersion                       USHORT
+mtSize                          ULONG
+mtNoObjects                     USHORT
+mtMaxRecord                     ULONG
+mtNoParameters                  USHORT
+                              END
+
+tagENHMETAHEADER3             GROUP, TYPE
+iType                           ULONG             ! Record type EMR_HEADER
+nSize                           ULONG             ! Record size in bytes.  This may be greater
+                                                  ! than the sizeof(ENHMETAHEADER).
+rclBounds                       LIKE(_RECT_)      ! Inclusive-inclusive bounds in device units
+rclFrame                        LIKE(_RECT_)      ! Inclusive-inclusive Picture Frame .01mm unit
+dSignature                      ULONG             ! Signature.  Must be ENHMETA_SIGNATURE.
+nVersion                        ULONG             ! Version number
+nBytes                          ULONG             ! Size of the metafile in bytes
+nRecords                        ULONG             ! Number of records in the metafile
+nHandles                        USHORT            ! Number of handles in the handle table
+                                                  ! Handle index zero is reserved.
+sReserved                       USHORT            ! Reserved.  Must be zero.
+nDescription                    ULONG             ! Number of chars in the unicode desc string
+                                                  ! This is 0 if there is no description string
+offDescription                  ULONG             ! Offset to the metafile description record.
+                                                  ! This is 0 if there is no description string
+nPalEntries                     ULONG             ! Number of entries in the metafile palette.
+szlDevice                       LIKE(SIZEL)       ! Size of the reference device in pels
+szlMillimeters                  LIKE(SIZEL)       ! Size of the reference device in millimeters
+                              END
+
+
+
+
+typMetafileHeader             GROUP, TYPE
+Type                            GpMetafileType
+Size                            ULONG                            ! Size of the metafile (in bytes)
+Version                         ULONG                            ! EMF+, EMF, or WMF version
+EmfPlusFlags                    ULONG
+DpiX                            SREAL
+DpiY                            SREAL
+X                               LONG                  ! Bounds in device units
+Y                               LONG
+Width                           LONG
+Height                          LONG
+
+EmfHeader                       LIKE(tagENHMETAHEADER3)
+WmfHeader                       LIKE(tagMETAHEADER), OVER(EmfHeader)
+
+EmfPlusHeaderSize               LONG  ! size of the EMF+ header in file
+LogicalDpiX                     LONG        ! Logical Dpi of reference Hdc
+LogicalDpiY                     LONG        ! usually valid only for EMF+
+                              END
+
+
+GpEmfPlusRecordType           EQUATE(LONG)
+! See possible types in c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusenums.h
+
+
+!--------------------------------------------------------------------------
+! MetafileFrameUnit
+!
+! The frameRect for creating a metafile can be specified in any of these
+! units.  There is an extra frame unit value (MetafileFrameUnitGdi) so
+! that units can be supplied in the same units that GDI expects for
+! frame rects -- these units are in .01 (1/100ths) millimeter units
+! as defined by GDI.
+!--------------------------------------------------------------------------
+GpMetafileFrameUnit           EQUATE(LONG)
+MetafileFrameUnitPixel        EQUATE(UnitPixel)  
+MetafileFrameUnitPoint        EQUATE(UnitPoint)  
+MetafileFrameUnitInch         EQUATE(UnitInch)  
+MetafileFrameUnitDocument     EQUATE(UnitDocument)  
+MetafileFrameUnitMillimeter   EQUATE(UnitMillimeter)  
+MetafileFrameUnitGdi          EQUATE(UnitMillimeter+1)   ! GDI compatible .01 MM units

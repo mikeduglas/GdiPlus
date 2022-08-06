@@ -368,4 +368,13 @@ IsVisibleI                      PROCEDURE(SIGNED pX, SIGNED pY, SIGNED pWidth, S
 Save                            PROCEDURE(), GpGraphicsState
 !!!<summary>Sets the state of this Graphics object to the state stored by a previous call to the Save method of this Graphics object.</summary>
 Restore                         PROCEDURE(GpGraphicsState pState), GpStatus, PROC
+
+! The following methods are for playing an EMF+ to a graphics
+! via the enumeration interface.  Each record of the EMF+ is
+! sent to the callback (along with the callbackData).  Then
+! the callback can invoke the Metafile::PlayRecord method
+! to play the particular record.
+
+!EnumerateMetafile               PROCEDURE(...), GpStatus, PROC
+
                               END

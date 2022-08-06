@@ -5,6 +5,7 @@ GDI+ support
 ### Available GDI+ classes
 - TGdiPlusImage
     - TGdiPlusBitmap
+    - TGdiPlusMetafile
 - TGdiPlusCachedBitmap
 - TGdiPlusGraphics
 - TGdiPlusGraphicsPath
