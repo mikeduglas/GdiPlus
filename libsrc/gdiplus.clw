@@ -572,6 +572,19 @@ szGdipGetMetafileDownLevelRasterizationLimit  CSTRING('GdipGetMetafileDownLevelR
 szGdipEmfToWmfBits            CSTRING('GdipEmfToWmfBits'), STATIC
 szGdipConvertToEmfPlus        CSTRING('GdipConvertToEmfPlus'), STATIC
 szGdipConvertToEmfPlusToFile  CSTRING('GdipConvertToEmfPlusToFile'), STATIC
+szGdipEnumerateMetafileDestPoint  CSTRING('GdipEnumerateMetafileDestPoint'), STATIC
+szGdipEnumerateMetafileDestPointI CSTRING('GdipEnumerateMetafileDestPointI'), STATIC
+szGdipEnumerateMetafileDestRect   CSTRING('GdipEnumerateMetafileDestRect'), STATIC
+szGdipEnumerateMetafileDestRectI  CSTRING('GdipEnumerateMetafileDestRectI'), STATIC
+szGdipEnumerateMetafileDestPoints CSTRING('GdipEnumerateMetafileDestPoints'), STATIC
+szGdipEnumerateMetafileDestPointsI    CSTRING('GdipEnumerateMetafileDestPointsI'), STATIC
+szGdipEnumerateMetafileSrcRectDestPoint   CSTRING('GdipEnumerateMetafileSrcRectDestPoint'), STATIC
+szGdipEnumerateMetafileSrcRectDestPointI  CSTRING('GdipEnumerateMetafileSrcRectDestPointI'), STATIC
+szGdipEnumerateMetafileSrcRectDestRect    CSTRING('GdipEnumerateMetafileSrcRectDestRect'), STATIC
+szGdipEnumerateMetafileSrcRectDestRectI   CSTRING('GdipEnumerateMetafileSrcRectDestRectI'), STATIC
+szGdipEnumerateMetafileSrcRectDestPoints  CSTRING('GdipEnumerateMetafileSrcRectDestPoints'), STATIC
+szGdipEnumerateMetafileSrcRectDestPointsI CSTRING('GdipEnumerateMetafileSrcRectDestPointsI'), STATIC
+
 
 !- GDI+ function pointers
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
@@ -1136,6 +1149,18 @@ paGdipGetMetafileDownLevelRasterizationLimit  LONG, NAME('fptr_GdipGetMetafileDo
 paGdipEmfToWmfBits            LONG, NAME('fptr_GdipEmfToWmfBits')
 paGdipConvertToEmfPlus        LONG, NAME('fptr_GdipConvertToEmfPlus')
 paGdipConvertToEmfPlusToFile  LONG, NAME('fptr_GdipConvertToEmfPlusToFile')
+paGdipEnumerateMetafileDestPoint  LONG, NAME('fptr_GdipEnumerateMetafileDestPoint')
+paGdipEnumerateMetafileDestPointI LONG, NAME('fptr_GdipEnumerateMetafileDestPointI')
+paGdipEnumerateMetafileDestRect   LONG, NAME('fptr_GdipEnumerateMetafileDestRect')
+paGdipEnumerateMetafileDestRectI  LONG, NAME('fptr_GdipEnumerateMetafileDestRectI')
+paGdipEnumerateMetafileDestPoints LONG, NAME('fptr_GdipEnumerateMetafileDestPoints')
+paGdipEnumerateMetafileDestPointsI    LONG, NAME('fptr_GdipEnumerateMetafileDestPointsI')
+paGdipEnumerateMetafileSrcRectDestPoint   LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestPoint')
+paGdipEnumerateMetafileSrcRectDestPointI  LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestPointI')
+paGdipEnumerateMetafileSrcRectDestRect    LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestRect')
+paGdipEnumerateMetafileSrcRectDestRectI   LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestRectI')
+paGdipEnumerateMetafileSrcRectDestPoints  LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestPoints')
+paGdipEnumerateMetafileSrcRectDestPointsI LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestPointsI')
 
 
 
@@ -1712,6 +1737,19 @@ paGdipConvertToEmfPlusToFile  LONG, NAME('fptr_GdipConvertToEmfPlusToFile')
       GdipEmfToWmfBits(HENHMETAFILE phemf,ULONG pDataSize,LONG pData,LONG pMapMode,LONG pFlags),ULONG,PASCAL,NAME('fptr_GdipEmfToWmfBits'),DLL
       GdipConvertToEmfPlus(LONG pGraphics,LONG pMetafile,*LONG pFlag,GpEmfType pEmfType,LONG pDescription,*LONG pOutMetafile),GpStatus,PASCAL,NAME('fptr_GdipConvertToEmfPlus'),DLL
       GdipConvertToEmfPlusToFile(LONG pGraphics,LONG pMetafile,*LONG pFlag,LONG pFileName,GpEmfType pEmfType,LONG pDescription,*LONG pOutMetafile),GpStatus,PASCAL,NAME('fptr_GdipConvertToEmfPlusToFile'),DLL
+
+      GdipEnumerateMetafileDestPoint(LONG pGraphics,LONG pMetafile,LONG pDestPoint,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestPoint'),DLL
+      GdipEnumerateMetafileDestPointI(LONG pGraphics,LONG pMetafile,LONG pDestPoint,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestPointI'),DLL
+      GdipEnumerateMetafileDestRect(LONG pGraphics,LONG pMetafile,LONG pDestRect,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestRect'),DLL
+      GdipEnumerateMetafileDestRectI(LONG pGraphics,LONG pMetafile,LONG pDestRect,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestRectI'),DLL
+      GdipEnumerateMetafileDestPoints(LONG pGraphics,LONG pMetafile,LONG pDestPoints,UNSIGNED pCount,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestPoints'),DLL
+      GdipEnumerateMetafileDestPointsI(LONG pGraphics,LONG pMetafile,LONG pDestPoints,UNSIGNED pCount,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestPointsI'),DLL
+      GdipEnumerateMetafileSrcRectDestPoint(LONG pGraphics,LONG pMetafile,LONG pDestPoint,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestPoint'),DLL
+      GdipEnumerateMetafileSrcRectDestPointI(LONG pGraphics,LONG pMetafile,LONG pDestPoint,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestPointI'),DLL
+      GdipEnumerateMetafileSrcRectDestRect(LONG pGraphics,LONG pMetafile,LONG pDestRect,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestRect'),DLL
+      GdipEnumerateMetafileSrcRectDestRectI(LONG pGraphics,LONG pMetafile,LONG pDestRect,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestRectI'),DLL
+      GdipEnumerateMetafileSrcRectDestPoints(LONG pGraphics,LONG pMetafile,LONG pDestPoints,UNSIGNED pCount,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestPoints'),DLL
+      GdipEnumerateMetafileSrcRectDestPointsI(LONG pGraphics,LONG pMetafile,LONG pDestPoints,UNSIGNED pCount,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestPointsI'),DLL
 
 
     END
@@ -2354,6 +2392,19 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipEmfToWmfBits                  = winapi::GetProcAddress(SELF.hDll, szGdipEmfToWmfBits)
       paGdipConvertToEmfPlus              = winapi::GetProcAddress(SELF.hDll, szGdipConvertToEmfPlus)
       paGdipConvertToEmfPlusToFile        = winapi::GetProcAddress(SELF.hDll, szGdipConvertToEmfPlusToFile)
+
+      paGdipEnumerateMetafileDestPoint    = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestPoint)
+      paGdipEnumerateMetafileDestPointI   = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestPointI)
+      paGdipEnumerateMetafileDestRect     = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestRect)
+      paGdipEnumerateMetafileDestRectI    = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestRectI)
+      paGdipEnumerateMetafileDestPoints   = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestPoints)
+      paGdipEnumerateMetafileDestPointsI  = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestPointsI)
+      paGdipEnumerateMetafileSrcRectDestPoint   = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestPoint)
+      paGdipEnumerateMetafileSrcRectDestPointI  = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestPointI)
+      paGdipEnumerateMetafileSrcRectDestRect    = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestRect)
+      paGdipEnumerateMetafileSrcRectDestRectI   = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestRectI)
+      paGdipEnumerateMetafileSrcRectDestPoints  = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestPoints)
+      paGdipEnumerateMetafileSrcRectDestPointsI = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestPointsI)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -4330,6 +4381,104 @@ TGdiPlusGraphics.Restore      PROCEDURE(GpGraphicsState pState)
   SELF.lastResult = GdipRestoreGraphics(SELF.nativeGraphics, pState)
   GdipReportError('TGdiPlusGraphics.Restore', SELF.lastResult)
   RETURN SELF.lastResult
+  
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPointF pDestPoint, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileDestPoint(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestPoint), pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPoint pDestPoint, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileDestPointI(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestPoint), pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRectF pDestRect, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileDestRect(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestRect), pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRect pDestRect, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileDestRectI(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestRect), pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileDestPoints(SELF.nativeGraphics, pMetafile.nativeImage, pDestPoints, pCount, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafileI   PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileDestPoints(SELF.nativeGraphics, pMetafile.nativeImage, pDestPoints, pCount, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafileI', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPointF pDestPoint, CONST *GpRectF pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileSrcRectDestPoint(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestPoint), ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPoint pDestPoint, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileSrcRectDestPointI(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestPoint), ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRectF pDestRect, CONST *GpRectF pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileSrcRectDestRect(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestRect), ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileSrcRectDestRectI(SELF.nativeGraphics, pMetafile.nativeImage, ADDRESS(pDestRect), ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, CONST *GpRectF pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileSrcRectDestPoints(SELF.nativeGraphics, pMetafile.nativeImage, pDestPoints, pCount, ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.EnumerateMetafile    PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>)
+nativeImageAttr                         LONG, AUTO
+  CODE
+  nativeImageAttr = CHOOSE(NOT OMITTED(pImageAttrs), pImageAttrs.nativeImageAttr, 0)
+  SELF.lastResult = GdipEnumerateMetafileSrcRectDestPointsI(SELF.nativeGraphics, pMetafile.nativeImage, pDestPoints, pCount, ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
+  GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
+  RETURN SELF.lastResult
+
 !!!endregion
   
 !!!region TGdiPlusPixelFormat
@@ -7351,13 +7500,13 @@ TGdiPlusPathGradientBrush.SetWrapMode PROCEDURE(GpWrapMode pWrapMode)
 !!!endregion
 
 !!!region TGdiPlusMetafile
-TGdiPlusMetafile.CreateFromWmf    PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, BOOL pDeleteWmf)
+TGdiPlusMetafile.CreateFromWmf    PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, BOOL pDeleteWmf=FALSE)
   CODE
   SELF.lastResult = GdipCreateMetafileFromWmf(phWmf, pDeleteWmf, ADDRESS(pFileHeader), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromWmf', SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.CreateFromEmf    PROCEDURE(HENHMETAFILE phEmf, BOOL pDeleteEmf)
+TGdiPlusMetafile.CreateFromEmf    PROCEDURE(HENHMETAFILE phEmf, BOOL pDeleteEmf=FALSE)
   CODE
   SELF.lastResult = GdipCreateMetafileFromEmf(phEmf, pDeleteEmf, SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromEmf', SELF.lastResult)
@@ -7394,7 +7543,7 @@ stream                              &IStream, AUTO
   END
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, GpEmfType pType, STRING pDescription)
+TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   CODE
@@ -7403,7 +7552,7 @@ wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   CODE
@@ -7412,7 +7561,7 @@ wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   CODE
@@ -7421,7 +7570,7 @@ wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, GpEmfType pType, STRING pDescription)
+TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>)
 enc                                 TStringEncoding
 wstrFile                            STRING(FILE:MaxFilePath*2+2)
 wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
@@ -7432,7 +7581,7 @@ wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
   GdipReportError('TGdiPlusMetafile.RecordFileName', SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>)
 enc                                 TStringEncoding
 wstrFile                            STRING(FILE:MaxFilePath*2+2)
 wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
@@ -7443,7 +7592,7 @@ wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
   GdipReportError('TGdiPlusMetafile.RecordFileName', SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription)
+TGdiPlusMetafile.RecordFileName   PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>)
 enc                                 TStringEncoding
 wstrFile                            STRING(FILE:MaxFilePath*2+2)
 wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
@@ -7501,9 +7650,9 @@ hemf                                HENHMETAFILE
   GdipReportError('TGdiPlusMetafile.GetHENHMETAFILE', SELF.lastResult)
   RETURN hemf
   
-TGdiPlusMetafile.PlayRecord   PROCEDURE(GpEmfPlusRecordType pRecordType, ULONG pFlags, ULONG pDataSize, *BYTE[] pData)
+TGdiPlusMetafile.PlayRecord   PROCEDURE(GpEmfPlusRecordType pRecordType, ULONG pFlags, ULONG pDataSize, LONG pData)
   CODE
-  SELF.lastResult = GdipPlayMetafileRecord(SELF.nativeImage, pRecordType, pFlags, pDataSize, ADDRESS(pDataSize))
+  SELF.lastResult = GdipPlayMetafileRecord(SELF.nativeImage, pRecordType, pFlags, pDataSize, pData)
   GdipReportError('TGdiPlusMetafile.PlayRecord', SELF.lastResult)
   RETURN SELF.lastResult
   
@@ -7520,7 +7669,7 @@ dpi                                                 ULONG
   GdipReportError('TGdiPlusMetafile.GetDownLevelRasterizationLimit', SELF.lastResult)
   RETURN dpi
   
-TGdiPlusMetafile.EmfToWmfBits PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LONG pData, LONG pMapMode, LONG pFlags)
+TGdiPlusMetafile.EmfToWmfBits PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LONG pData, LONG pMapMode=MM_ANISOTROPIC, LONG pFlags=EmfToWmfBitsFlagsDefault)
   CODE
   RETURN GdipEmfToWmfBits(phemf, pDataSize, pData, pMapMode, pFlags)
   

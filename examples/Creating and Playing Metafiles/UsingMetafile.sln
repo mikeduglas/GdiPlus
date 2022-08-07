@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+# Clarion 2.1.0.2447
+Project("{12B76EC0-1D7B-4FA7-A7D0-C524288B48A1}") = "UsingMetafile", "UsingMetafile.cwproj", "{BD618A66-A6B4-40B4-BAA1-EB760E2F2009}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD618A66-A6B4-40B4-BAA1-EB760E2F2009}.Debug|Win32.Build.0 = Debug|Win32
+		{BD618A66-A6B4-40B4-BAA1-EB760E2F2009}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BD618A66-A6B4-40B4-BAA1-EB760E2F2009}.Release|Win32.Build.0 = Release|Win32
+		{BD618A66-A6B4-40B4-BAA1-EB760E2F2009}.Release|Win32.ActiveCfg = Release|Win32
+	EndGlobalSection
+EndGlobal

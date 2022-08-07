@@ -375,6 +375,37 @@ Restore                         PROCEDURE(GpGraphicsState pState), GpStatus, PRO
 ! the callback can invoke the Metafile::PlayRecord method
 ! to play the particular record.
 
-!EnumerateMetafile               PROCEDURE(...), GpStatus, PROC
+!Example:
+!https://docs.microsoft.com/en-us/previous-versions//ms535989(v=vs.85)
+
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPointF pDestPoint, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPoint pDestPoint, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRectF pDestRect, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRect pDestRect, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafileI              PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPointF pDestPoint, CONST *GpRectF pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpPoint pDestPoint, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRectF pDestRect, CONST *GpRectF pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, CONST *GpRectF pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+!!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
+EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
+
+
+!BeginContainer
+!EndContainer
+!AddMetafileComment
 
                               END

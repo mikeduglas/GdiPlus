@@ -212,9 +212,9 @@ DeleteCachedBitmap              PROCEDURE(), GpStatus, PROC
 !--------------------------------------------------------------------------
 TGdiPlusMetafile              CLASS(TGdiPlusImage), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 !!!<summary>Creates a Windows GDI+ Metafile object for recording. The format will be placeable metafile.</summary>
-CreateFromWmf                   PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, BOOL pDeleteWmf), GpStatus, PROC
+CreateFromWmf                   PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, BOOL pDeleteWmf=FALSE), GpStatus, PROC
 !!!<summary>Creates a Windows GDI+ Metafile object for playback based on a Windows Graphics Device Interface (GDI) Enhanced Metafile (EMF) file.</summary>
-CreateFromEmf                   PROCEDURE(HENHMETAFILE phEmf, BOOL pDeleteEmf), GpStatus, PROC
+CreateFromEmf                   PROCEDURE(HENHMETAFILE phEmf, BOOL pDeleteEmf=FALSE), GpStatus, PROC
 !!!<summary>Creates a Metafile object for playback.</summary>
 CreateFromFile                  PROCEDURE(STRING pFileName), GpStatus, PROC
 !!!<summary>Creates a Metafile object for playback.</summary>
@@ -222,17 +222,17 @@ CreateFromFile                  PROCEDURE(STRING pFileName, typWmfPlaceableFileH
 !!!<summary>Creates a Metafile object for playback.</summary>
 CreateFromString                PROCEDURE(STRING pData), GpStatus, PROC
 !!!<summary>Creates a Metafile object for recording.</summary>
-RecordMetafile                  PROCEDURE(HDC pReferenceHdc, GpEmfType pType, STRING pDescription), GpStatus, PROC
+RecordMetafile                  PROCEDURE(HDC pReferenceHdc, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>), GpStatus, PROC
 !!!<summary>Creates a Metafile object for recording.</summary>
-RecordMetafile                  PROCEDURE(HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription), GpStatus, PROC
+RecordMetafile                  PROCEDURE(HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>), GpStatus, PROC
 !!!<summary>Creates a Metafile object for recording.</summary>
-RecordMetafile                  PROCEDURE(HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription), GpStatus, PROC
+RecordMetafile                  PROCEDURE(HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>), GpStatus, PROC
 !!!<summary>Creates a Metafile object for recording.</summary>
-RecordFileName                  PROCEDURE(STRING pFileName, HDC pReferenceHdc, GpEmfType pType, STRING pDescription), GpStatus, PROC
+RecordFileName                  PROCEDURE(STRING pFileName, HDC pReferenceHdc, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>), GpStatus, PROC
 !!!<summary>Creates a Metafile object for recording.</summary>
-RecordFileName                  PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription), GpStatus, PROC
+RecordFileName                  PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRectF pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>), GpStatus, PROC
 !!!<summary>Creates a Metafile object for recording.</summary>
-RecordFileName                  PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit, GpEmfType pType, STRING pDescription), GpStatus, PROC
+RecordFileName                  PROCEDURE(STRING pFileName, HDC pReferenceHdc, CONST *GpRect pFrameRect, GpMetafileFrameUnit pFrameUnit=MetafileFrameUnitGdi, GpEmfType pType=EmfTypeEmfPlusDual, <STRING pDescription>), GpStatus, PROC
 
 !!!<summary>Gets the header.</summary>
 GetHeaderFromWmf                PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, *typMetafileHeader pHeader), GpStatus, PROC
@@ -249,7 +249,7 @@ GetHeader                       PROCEDURE(*typMetafileHeader pHeader), GpStatus,
 GetHENHMETAFILE                 PROCEDURE(), HENHMETAFILE
 
 !!!<summary>Plays a metafile record.</summary>
-PlayRecord                      PROCEDURE(GpEmfPlusRecordType pRecordType, ULONG pFlags, ULONG pDataSize, *BYTE[] pData), GpStatus, PROC
+PlayRecord                      PROCEDURE(GpEmfPlusRecordType pRecordType, ULONG pFlags, ULONG pDataSize, LONG pData), GpStatus, PROC
 
 !!!<summary>Sets the resolution for certain brush bitmaps that are stored in this metafile.</summary>
 SetDownLevelRasterizationLimit  PROCEDURE(ULONG pMetafileRasterizationLimitDpi), GpStatus, PROC
@@ -257,7 +257,7 @@ SetDownLevelRasterizationLimit  PROCEDURE(ULONG pMetafileRasterizationLimitDpi),
 GetDownLevelRasterizationLimit  PROCEDURE(), ULONG
 
 !!!<summary>Converts an enhanced-format metafile to a Windows Metafile Format (WMF) metafile and stores the converted records in a specified buffer.</summary>
-EmfToWmfBits                    PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LONG pData, LONG pMapMode, LONG pFlags), ULONG
+EmfToWmfBits                    PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LONG pData, LONG pMapMode=MM_ANISOTROPIC, LONG pFlags=EmfToWmfBitsFlagsDefault), ULONG
 
 !!!<summary>Converts this Metafile object to the EMF+ format.</summary>
 ConvertToEmfPlus                PROCEDURE(TGdiPlusGraphics pGraphics, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription), GpStatus, PROC

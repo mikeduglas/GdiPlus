@@ -788,3 +788,24 @@ MetafileFrameUnitInch         EQUATE(UnitInch)
 MetafileFrameUnitDocument     EQUATE(UnitDocument)  
 MetafileFrameUnitMillimeter   EQUATE(UnitMillimeter)  
 MetafileFrameUnitGdi          EQUATE(UnitMillimeter+1)   ! GDI compatible .01 MM units
+
+
+!---------------------------------------------------------------------------
+! Conversion of Emf To WMF Bits flags
+!---------------------------------------------------------------------------
+GpEmfToWmfBitsFlags               EQUATE(LONG)
+EmfToWmfBitsFlagsDefault          EQUATE(00000000h)
+EmfToWmfBitsFlagsEmbedEmf         EQUATE(00000001h)
+EmfToWmfBitsFlagsIncludePlaceable EQUATE(00000002h)
+EmfToWmfBitsFlagsNoXORClip        EQUATE(00000004h)
+
+
+! Mapping Modes
+MM_TEXT                       EQUATE(1)
+MM_LOMETRIC                   EQUATE(2)
+MM_HIMETRIC                   EQUATE(3)
+MM_LOENGLISH                  EQUATE(4)
+MM_HIENGLISH                  EQUATE(5)
+MM_TWIPS                      EQUATE(6)
+MM_ISOTROPIC                  EQUATE(7)
+MM_ANISOTROPIC                EQUATE(8)
