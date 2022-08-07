@@ -7673,13 +7673,14 @@ TGdiPlusMetafile.EmfToWmfBits PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LON
   CODE
   RETURN GdipEmfToWmfBits(phemf, pDataSize, pData, pMapMode, pFlags)
   
-TGdiPlusMetafile.ConvertToEmfPlus PROCEDURE(TGdiPlusGraphics pGraphics, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription)
+TGdiPlusMetafile.ConvertToEmfPlus PROCEDURE(TGdiPlusGraphics pGraphics, GpEmfType pEmfType=EmfTypeEmfPlusOnly, <STRING pDescription>)
 nativeMetafile                      LONG
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
+bConversionFailureFlag              BOOL
   CODE
   wstr = enc.ToCWStr(CLIP(pDescription))
-  SELF.lastResult = GdipConvertToEmfPlus(pGraphics.nativeGraphics, SELF.nativeImage, pConversionFailureFlag, pEmfType, ADDRESS(wstr), nativeMetafile)
+  SELF.lastResult = GdipConvertToEmfPlus(pGraphics.nativeGraphics, SELF.nativeImage, bConversionFailureFlag, pEmfType, ADDRESS(wstr), nativeMetafile)
   GdipReportError('TGdiPlusMetafile.ConvertToEmfPlus', SELF.lastResult)
   
   IF nativeMetafile <> 0
@@ -7691,18 +7692,19 @@ wstr                                STRING(LEN(CLIP(pDescription))*2+2)
     END
   END
   
-  RETURN SELF.lastResult
+  RETURN bConversionFailureFlag
   
-TGdiPlusMetafile.ConvertToEmfPlusFromFile PROCEDURE(TGdiPlusGraphics pGraphics, STRING pFileName, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription)
-nativeMetafile                              LONG
-enc                                         TStringEncoding
-wstrFile                                    STRING(FILE:MaxFilePath*2+2)
-wstrDescr                                   STRING(LEN(CLIP(pDescription))*2+2)
+TGdiPlusMetafile.ConvertToEmfPlusFile PROCEDURE(TGdiPlusGraphics pGraphics, STRING pFileName, GpEmfType pEmfType=EmfTypeEmfPlusOnly, <STRING pDescription>)
+nativeMetafile                          LONG
+enc                                     TStringEncoding
+wstrFile                                STRING(FILE:MaxFilePath*2+2)
+wstrDescr                               STRING(LEN(CLIP(pDescription))*2+2)
+bConversionFailureFlag                  BOOL
   CODE
   wstrFile = enc.ToCWStr(LONGPATH(pFileName))
   wstrDescr = enc.ToCWStr(CLIP(pDescription))
-  SELF.lastResult = GdipConvertToEmfPlusToFile(pGraphics.nativeGraphics, SELF.nativeImage, pConversionFailureFlag, ADDRESS(wstrFile), pEmfType, ADDRESS(wstrDescr), nativeMetafile)
-  GdipReportError('TGdiPlusMetafile.ConvertToEmfPlusFromFile', SELF.lastResult)
+  SELF.lastResult = GdipConvertToEmfPlusToFile(pGraphics.nativeGraphics, SELF.nativeImage, bConversionFailureFlag, ADDRESS(wstrFile), pEmfType, ADDRESS(wstrDescr), nativeMetafile)
+  GdipReportError('TGdiPlusMetafile.ConvertToEmfPlusFile', SELF.lastResult)
   
   IF nativeMetafile <> 0
     IF SELF.lastResult = GpStatus:Ok
@@ -7713,5 +7715,5 @@ wstrDescr                                   STRING(LEN(CLIP(pDescription))*2+2)
     END
   END
   
-  RETURN SELF.lastResult
+  RETURN bConversionFailureFlag
 !!!endregion

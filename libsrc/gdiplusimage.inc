@@ -260,7 +260,7 @@ GetDownLevelRasterizationLimit  PROCEDURE(), ULONG
 EmfToWmfBits                    PROCEDURE(HENHMETAFILE phemf, ULONG pDataSize, LONG pData, LONG pMapMode=MM_ANISOTROPIC, LONG pFlags=EmfToWmfBitsFlagsDefault), ULONG
 
 !!!<summary>Converts this Metafile object to the EMF+ format.</summary>
-ConvertToEmfPlus                PROCEDURE(TGdiPlusGraphics pGraphics, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription), GpStatus, PROC
+ConvertToEmfPlus                PROCEDURE(TGdiPlusGraphics pGraphics, GpEmfType pEmfType=EmfTypeEmfPlusOnly, <STRING pDescription>), BOOL, PROC
 !!!<summary>Converts this Metafile object to the EMF+ format.</summary>
-ConvertToEmfPlusFromFile        PROCEDURE(TGdiPlusGraphics pGraphics, STRING pFileName, *LONG pConversionFailureFlag, GpEmfType pEmfType, STRING pDescription), GpStatus, PROC
+ConvertToEmfPlusFile            PROCEDURE(TGdiPlusGraphics pGraphics, STRING pFileName, GpEmfType pEmfType=EmfTypeEmfPlusOnly, <STRING pDescription>), BOOL, PROC
                               END
