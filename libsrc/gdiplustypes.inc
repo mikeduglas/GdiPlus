@@ -809,3 +809,11 @@ MM_HIENGLISH                  EQUATE(5)
 MM_TWIPS                      EQUATE(6)
 MM_ISOTROPIC                  EQUATE(7)
 MM_ANISOTROPIC                EQUATE(8)
+
+
+!--------------------------------------------------------------------------
+! Graphics and Container State cookies
+!--------------------------------------------------------------------------
+GpGraphicsState               EQUATE(ULONG)
+GpGraphicsContainer           EQUATE(ULONG)
+

@@ -364,10 +364,6 @@ IsVisible                       PROCEDURE(CONST *GpRect pRect), BOOL
 IsVisible                       PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight), BOOL
 !!!<summary>Determines whether the specified rectangle intersects the visible clipping region of this Graphics object.</summary>
 IsVisibleI                      PROCEDURE(SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), BOOL
-!!!<summary>Saves the current state (transformations, clipping region, and quality settings) of this Graphics object. You can restore the state later by calling the Restore method.</summary>
-Save                            PROCEDURE(), GpGraphicsState
-!!!<summary>Sets the state of this Graphics object to the state stored by a previous call to the Save method of this Graphics object.</summary>
-Restore                         PROCEDURE(GpGraphicsState pState), GpStatus, PROC
 
 ! The following methods are for playing an EMF+ to a graphics
 ! via the enumeration interface.  Each record of the EMF+ is
@@ -403,9 +399,20 @@ EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDest
 !!!<summary>Calls an application-defined callback function for each record in a specified metafile. You can use this method to display a metafile by calling PlayRecord in the callback function.</summary>
 EnumerateMetafile               PROCEDURE(TGdiPlusMetafile pMetafile, LONG pDestPoints, UNSIGNED pCount, CONST *GpRect pSrcRect, GpUnit pScrUnit, LONG pCallback, LONG pCallbackData=0, <TGdiPlusImageAttributes pImageAttrs>), GpStatus, PROC
 
+!!!<summary>Adds a text comment to an existing metafile.</summary>
+AddMetafileComment              PROCEDURE(STRING pComment), GpStatus, PROC
 
-!BeginContainer
-!EndContainer
-!AddMetafileComment
+!!!<summary>Saves the current state (transformations, clipping region, and quality settings) of this Graphics object. You can restore the state later by calling the Restore method.</summary>
+Save                            PROCEDURE(), GpGraphicsState
+!!!<summary>Sets the state of this Graphics object to the state stored by a previous call to the Save method of this Graphics object.</summary>
+Restore                         PROCEDURE(GpGraphicsState pState), GpStatus, PROC
 
+!!!<summary>Begins a new graphics container.</summary>
+BeginContainer                  PROCEDURE(CONST *GpRectF pDstRect,CONST *GpRectF pSrcRect, GpUnit pSrcUnit), GpGraphicsContainer
+!!!<summary>Begins a new graphics container.</summary>
+BeginContainer                  PROCEDURE(CONST *GpRect pDstRect,CONST *GpRect pSrcRect, GpUnit pSrcUnit), GpGraphicsContainer
+!!!<summary>Begins a new graphics container.</summary>
+BeginContainer                  PROCEDURE(), GpGraphicsContainer
+!!!<summary>Closes a graphics container that was previously opened by the BeginContainer method.</summary>
+EndContainer                    PROCEDURE(GpGraphicsContainer pState), GpStatus, PROC
                               END

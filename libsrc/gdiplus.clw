@@ -584,6 +584,11 @@ szGdipEnumerateMetafileSrcRectDestRect    CSTRING('GdipEnumerateMetafileSrcRectD
 szGdipEnumerateMetafileSrcRectDestRectI   CSTRING('GdipEnumerateMetafileSrcRectDestRectI'), STATIC
 szGdipEnumerateMetafileSrcRectDestPoints  CSTRING('GdipEnumerateMetafileSrcRectDestPoints'), STATIC
 szGdipEnumerateMetafileSrcRectDestPointsI CSTRING('GdipEnumerateMetafileSrcRectDestPointsI'), STATIC
+szGdipComment                 CSTRING('GdipComment'), STATIC
+szGdipBeginContainer          CSTRING('GdipBeginContainer'), STATIC
+szGdipBeginContainerI         CSTRING('GdipBeginContainerI'), STATIC
+szGdipBeginContainer2         CSTRING('GdipBeginContainer2'), STATIC
+szGdipEndContainer            CSTRING('GdipEndContainer'), STATIC
 
 
 !- GDI+ function pointers
@@ -1161,6 +1166,11 @@ paGdipEnumerateMetafileSrcRectDestRect    LONG, NAME('fptr_GdipEnumerateMetafile
 paGdipEnumerateMetafileSrcRectDestRectI   LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestRectI')
 paGdipEnumerateMetafileSrcRectDestPoints  LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestPoints')
 paGdipEnumerateMetafileSrcRectDestPointsI LONG, NAME('fptr_GdipEnumerateMetafileSrcRectDestPointsI')
+paGdipComment                 LONG, NAME('fptr_GdipComment')
+paGdipBeginContainer          LONG, NAME('fptr_GdipBeginContainer')
+paGdipBeginContainerI         LONG, NAME('fptr_GdipBeginContainerI')
+paGdipBeginContainer2         LONG, NAME('fptr_GdipBeginContainer2')
+paGdipEndContainer            LONG, NAME('fptr_GdipEndContainer')
 
 
 
@@ -1737,7 +1747,6 @@ paGdipEnumerateMetafileSrcRectDestPointsI LONG, NAME('fptr_GdipEnumerateMetafile
       GdipEmfToWmfBits(HENHMETAFILE phemf,ULONG pDataSize,LONG pData,LONG pMapMode,LONG pFlags),ULONG,PASCAL,NAME('fptr_GdipEmfToWmfBits'),DLL
       GdipConvertToEmfPlus(LONG pGraphics,LONG pMetafile,*LONG pFlag,GpEmfType pEmfType,LONG pDescription,*LONG pOutMetafile),GpStatus,PASCAL,NAME('fptr_GdipConvertToEmfPlus'),DLL
       GdipConvertToEmfPlusToFile(LONG pGraphics,LONG pMetafile,*LONG pFlag,LONG pFileName,GpEmfType pEmfType,LONG pDescription,*LONG pOutMetafile),GpStatus,PASCAL,NAME('fptr_GdipConvertToEmfPlusToFile'),DLL
-
       GdipEnumerateMetafileDestPoint(LONG pGraphics,LONG pMetafile,LONG pDestPoint,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestPoint'),DLL
       GdipEnumerateMetafileDestPointI(LONG pGraphics,LONG pMetafile,LONG pDestPoint,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestPointI'),DLL
       GdipEnumerateMetafileDestRect(LONG pGraphics,LONG pMetafile,LONG pDestRect,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileDestRect'),DLL
@@ -1750,8 +1759,11 @@ paGdipEnumerateMetafileSrcRectDestPointsI LONG, NAME('fptr_GdipEnumerateMetafile
       GdipEnumerateMetafileSrcRectDestRectI(LONG pGraphics,LONG pMetafile,LONG pDestRect,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestRectI'),DLL
       GdipEnumerateMetafileSrcRectDestPoints(LONG pGraphics,LONG pMetafile,LONG pDestPoints,UNSIGNED pCount,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestPoints'),DLL
       GdipEnumerateMetafileSrcRectDestPointsI(LONG pGraphics,LONG pMetafile,LONG pDestPoints,UNSIGNED pCount,LONG pSrcRect,GpUnit pSrcUnit,LONG pCallback,LONG pCallbackData,LONG pImageAttributes),GpStatus,PASCAL,NAME('fptr_GdipEnumerateMetafileSrcRectDestPointsI'),DLL
-
-
+      GdipComment(LONG pGraphics,LONG pData,UNSIGNED pdataSize),GpStatus,PASCAL,NAME('fptr_GdipComment'),DLL
+      GdipBeginContainer(LONG pGraphics,LONG pDstRect,LONG pSrcRect,GpUnit pSrcUnit,*GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipBeginContainer'),DLL
+      GdipBeginContainerI(LONG pGraphics,LONG pDstRect,LONG pSrcRect,GpUnit pSrcUnit,*GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipBeginContainerI'),DLL
+      GdipBeginContainer2(LONG pGraphics,*GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipBeginContainer2'),DLL
+      GdipEndContainer(LONG pGraphics,GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipEndContainer'),DLL
     END
     MODULE('Global memory api')
       winapi::GlobalAlloc(LONG uFlags,LONG dwBytes),HGLOBAL,PASCAL,NAME('GlobalAlloc')
@@ -2370,7 +2382,6 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipFindFirstImageItem            = winapi::GetProcAddress(SELF.hDll, szGdipFindFirstImageItem)
       paGdipFindNextImageItem             = winapi::GetProcAddress(SELF.hDll, szGdipFindNextImageItem)
       paGdipGetImageItemData              = winapi::GetProcAddress(SELF.hDll, szGdipGetImageItemData)
-
       paGdipCreateMetafileFromWmf         = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromWmf)
       paGdipCreateMetafileFromEmf         = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromEmf)
       paGdipCreateMetafileFromFile        = winapi::GetProcAddress(SELF.hDll, szGdipCreateMetafileFromFile)
@@ -2392,7 +2403,6 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipEmfToWmfBits                  = winapi::GetProcAddress(SELF.hDll, szGdipEmfToWmfBits)
       paGdipConvertToEmfPlus              = winapi::GetProcAddress(SELF.hDll, szGdipConvertToEmfPlus)
       paGdipConvertToEmfPlusToFile        = winapi::GetProcAddress(SELF.hDll, szGdipConvertToEmfPlusToFile)
-
       paGdipEnumerateMetafileDestPoint    = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestPoint)
       paGdipEnumerateMetafileDestPointI   = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestPointI)
       paGdipEnumerateMetafileDestRect     = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileDestRect)
@@ -2405,6 +2415,11 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipEnumerateMetafileSrcRectDestRectI   = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestRectI)
       paGdipEnumerateMetafileSrcRectDestPoints  = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestPoints)
       paGdipEnumerateMetafileSrcRectDestPointsI = winapi::GetProcAddress(SELF.hDll, szGdipEnumerateMetafileSrcRectDestPointsI)
+      paGdipComment                       = winapi::GetProcAddress(SELF.hDll, szGdipComment)
+      paGdipBeginContainer                = winapi::GetProcAddress(SELF.hDll, szGdipBeginContainer)
+      paGdipBeginContainerI               = winapi::GetProcAddress(SELF.hDll, szGdipBeginContainerI)
+      paGdipBeginContainer2               = winapi::GetProcAddress(SELF.hDll, szGdipBeginContainer2)
+      paGdipEndContainer                  = winapi::GetProcAddress(SELF.hDll, szGdipEndContainer)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -4478,7 +4493,39 @@ nativeImageAttr                         LONG, AUTO
   SELF.lastResult = GdipEnumerateMetafileSrcRectDestPointsI(SELF.nativeGraphics, pMetafile.nativeImage, pDestPoints, pCount, ADDRESS(pSrcRect), pScrUnit, pCallback, pCallbackData, nativeImageAttr)
   GdipReportError('TGdiPlusGraphics.EnumerateMetafile', SELF.lastResult)
   RETURN SELF.lastResult
-
+      
+TGdiPlusGraphics.AddMetafileComment   PROCEDURE(STRING pComment)
+  CODE
+  SELF.lastResult = GdipComment(SELF.nativeGraphics, SIZE(pComment), ADDRESS(pComment))
+  GdipReportError('TGdiPlusGraphics.AddMetafileComment', SELF.lastResult)
+  RETURN SELF.lastResult
+      
+TGdiPlusGraphics.BeginContainer   PROCEDURE(CONST *GpRectF pDstRect,CONST *GpRectF pSrcRect, GpUnit pSrcUnit)
+state                               GpGraphicsContainer
+  CODE
+  SELF.lastResult = GdipBeginContainer(SELF.nativeGraphics, ADDRESS(pDstRect), ADDRESS(pSrcRect), pSrcUnit, state)
+  GdipReportError('TGdiPlusGraphics.BeginContainer', SELF.lastResult)
+  RETURN state
+      
+TGdiPlusGraphics.BeginContainer   PROCEDURE(CONST *GpRect pDstRect,CONST *GpRect pSrcRect, GpUnit pSrcUnit)
+state                               GpGraphicsContainer
+  CODE
+  SELF.lastResult = GdipBeginContainerI(SELF.nativeGraphics, ADDRESS(pDstRect), ADDRESS(pSrcRect), pSrcUnit, state)
+  GdipReportError('TGdiPlusGraphics.BeginContainer', SELF.lastResult)
+  RETURN state
+      
+TGdiPlusGraphics.BeginContainer   PROCEDURE()
+state                               GpGraphicsContainer
+  CODE
+  SELF.lastResult = GdipBeginContainer2(SELF.nativeGraphics, state)
+  GdipReportError('TGdiPlusGraphics.BeginContainer', SELF.lastResult)
+  RETURN state
+      
+TGdiPlusGraphics.EndContainer PROCEDURE(GpGraphicsContainer pState)
+  CODE
+  SELF.lastResult = GdipEndContainer(SELF.nativeGraphics, pState)
+  GdipReportError('TGdiPlusGraphics.EndContainer', SELF.lastResult)
+  RETURN SELF.lastResult
 !!!endregion
   
 !!!region TGdiPlusPixelFormat
