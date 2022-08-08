@@ -589,6 +589,28 @@ szGdipBeginContainer          CSTRING('GdipBeginContainer'), STATIC
 szGdipBeginContainerI         CSTRING('GdipBeginContainerI'), STATIC
 szGdipBeginContainer2         CSTRING('GdipBeginContainer2'), STATIC
 szGdipEndContainer            CSTRING('GdipEndContainer'), STATIC
+szGdipCreateCustomLineCap     CSTRING('GdipCreateCustomLineCap'), STATIC
+szGdipDeleteCustomLineCap     CSTRING('GdipDeleteCustomLineCap'), STATIC
+szGdipSetCustomLineCapStrokeCaps  CSTRING('GdipSetCustomLineCapStrokeCaps'), STATIC
+szGdipGetCustomLineCapStrokeCaps  CSTRING('GdipGetCustomLineCapStrokeCaps'), STATIC
+szGdipSetCustomLineCapStrokeJoin  CSTRING('GdipSetCustomLineCapStrokeJoin'), STATIC
+szGdipGetCustomLineCapStrokeJoin  CSTRING('GdipGetCustomLineCapStrokeJoin'), STATIC
+szGdipSetCustomLineCapBaseCap CSTRING('GdipSetCustomLineCapBaseCap'), STATIC
+szGdipGetCustomLineCapBaseCap CSTRING('GdipGetCustomLineCapBaseCap'), STATIC
+szGdipSetCustomLineCapBaseInset   CSTRING('GdipSetCustomLineCapBaseInset'), STATIC
+szGdipGetCustomLineCapBaseInset   CSTRING('GdipGetCustomLineCapBaseInset'), STATIC
+szGdipSetCustomLineCapWidthScale  CSTRING('GdipSetCustomLineCapWidthScale'), STATIC
+szGdipGetCustomLineCapWidthScale  CSTRING('GdipGetCustomLineCapWidthScale'), STATIC
+szGdipCloneCustomLineCap      CSTRING('GdipCloneCustomLineCap'), STATIC
+szGdipCreateAdjustableArrowCap    CSTRING('GdipCreateAdjustableArrowCap'), STATIC
+szGdipSetAdjustableArrowCapHeight CSTRING('GdipSetAdjustableArrowCapHeight'), STATIC
+szGdipGetAdjustableArrowCapHeight CSTRING('GdipGetAdjustableArrowCapHeight'), STATIC
+szGdipSetAdjustableArrowCapWidth  CSTRING('GdipSetAdjustableArrowCapWidth'), STATIC
+szGdipGetAdjustableArrowCapWidth  CSTRING('GdipGetAdjustableArrowCapWidth'), STATIC
+szGdipSetAdjustableArrowCapMiddleInset    CSTRING('GdipSetAdjustableArrowCapMiddleInset'), STATIC
+szGdipGetAdjustableArrowCapMiddleInset    CSTRING('GdipGetAdjustableArrowCapMiddleInset'), STATIC
+szGdipSetAdjustableArrowCapFillState  CSTRING('GdipSetAdjustableArrowCapFillState'), STATIC
+szGdipGetAdjustableArrowCapFillState  CSTRING('GdipGetAdjustableArrowCapFillState'), STATIC
 
 
 !- GDI+ function pointers
@@ -1171,6 +1193,28 @@ paGdipBeginContainer          LONG, NAME('fptr_GdipBeginContainer')
 paGdipBeginContainerI         LONG, NAME('fptr_GdipBeginContainerI')
 paGdipBeginContainer2         LONG, NAME('fptr_GdipBeginContainer2')
 paGdipEndContainer            LONG, NAME('fptr_GdipEndContainer')
+paGdipCreateCustomLineCap     LONG, NAME('fptr_GdipCreateCustomLineCap')
+paGdipDeleteCustomLineCap     LONG, NAME('fptr_GdipDeleteCustomLineCap')
+paGdipSetCustomLineCapStrokeCaps  LONG, NAME('fptr_GdipSetCustomLineCapStrokeCaps')
+paGdipGetCustomLineCapStrokeCaps  LONG, NAME('fptr_GdipGetCustomLineCapStrokeCaps')
+paGdipSetCustomLineCapStrokeJoin  LONG, NAME('fptr_GdipSetCustomLineCapStrokeJoin')
+paGdipGetCustomLineCapStrokeJoin  LONG, NAME('fptr_GdipGetCustomLineCapStrokeJoin')
+paGdipSetCustomLineCapBaseCap LONG, NAME('fptr_GdipSetCustomLineCapBaseCap')
+paGdipGetCustomLineCapBaseCap LONG, NAME('fptr_GdipGetCustomLineCapBaseCap')
+paGdipSetCustomLineCapBaseInset   LONG, NAME('fptr_GdipSetCustomLineCapBaseInset')
+paGdipGetCustomLineCapBaseInset   LONG, NAME('fptr_GdipGetCustomLineCapBaseInset')
+paGdipSetCustomLineCapWidthScale  LONG, NAME('fptr_GdipSetCustomLineCapWidthScale')
+paGdipGetCustomLineCapWidthScale  LONG, NAME('fptr_GdipGetCustomLineCapWidthScale')
+paGdipCloneCustomLineCap      LONG, NAME('fptr_GdipCloneCustomLineCap')
+paGdipCreateAdjustableArrowCap    LONG, NAME('fptr_GdipCreateAdjustableArrowCap')
+paGdipSetAdjustableArrowCapHeight LONG, NAME('fptr_GdipSetAdjustableArrowCapHeight')
+paGdipGetAdjustableArrowCapHeight LONG, NAME('fptr_GdipGetAdjustableArrowCapHeight')
+paGdipSetAdjustableArrowCapWidth  LONG, NAME('fptr_GdipSetAdjustableArrowCapWidth')
+paGdipGetAdjustableArrowCapWidth  LONG, NAME('fptr_GdipGetAdjustableArrowCapWidth')
+paGdipSetAdjustableArrowCapMiddleInset    LONG, NAME('fptr_GdipSetAdjustableArrowCapMiddleInset')
+paGdipGetAdjustableArrowCapMiddleInset    LONG, NAME('fptr_GdipGetAdjustableArrowCapMiddleInset')
+paGdipSetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipSetAdjustableArrowCapFillState')
+paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCapFillState')
 
 
 
@@ -1764,6 +1808,28 @@ paGdipEndContainer            LONG, NAME('fptr_GdipEndContainer')
       GdipBeginContainerI(LONG pGraphics,LONG pDstRect,LONG pSrcRect,GpUnit pSrcUnit,*GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipBeginContainerI'),DLL
       GdipBeginContainer2(LONG pGraphics,*GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipBeginContainer2'),DLL
       GdipEndContainer(LONG pGraphics,GpGraphicsContainer pState),GpStatus,PASCAL,NAME('fptr_GdipEndContainer'),DLL
+      GdipCreateCustomLineCap(LONG pFillPath,LONG pStrokePath,GpLineCap pBaseCap,SREAL pBaseInset,*LONG pCap),GpStatus,PASCAL,NAME('fptr_GdipCreateCustomLineCap'),DLL
+      GdipDeleteCustomLineCap(LONG pCap),GpStatus,PASCAL,NAME('fptr_GdipDeleteCustomLineCap'),DLL
+      GdipSetCustomLineCapStrokeCaps(LONG pCap,GpLineCap pStartCap,GpLineCap pEndCap),GpStatus,PASCAL,NAME('fptr_GdipSetCustomLineCapStrokeCaps'),DLL
+      GdipGetCustomLineCapStrokeCaps(LONG pCap,*GpLineCap pStartCap,*GpLineCap pEndCap),GpStatus,PASCAL,NAME('fptr_GdipGetCustomLineCapStrokeCaps'),DLL
+      GdipSetCustomLineCapStrokeJoin(LONG pCap,GpLineJoin pLineJoin),GpStatus,PASCAL,NAME('fptr_GdipSetCustomLineCapStrokeJoin'),DLL
+      GdipGetCustomLineCapStrokeJoin(LONG pCap,*GpLineJoin pLineJoin),GpStatus,PASCAL,NAME('fptr_GdipGetCustomLineCapStrokeJoin'),DLL
+      GdipSetCustomLineCapBaseCap(LONG pCap,GpLineCap pBaseCap),GpStatus,PASCAL,NAME('fptr_GdipSetCustomLineCapBaseCap'),DLL
+      GdipGetCustomLineCapBaseCap(LONG pCap,*GpLineCap pBaseCap),GpStatus,PASCAL,NAME('fptr_GdipGetCustomLineCapBaseCap'),DLL
+      GdipSetCustomLineCapBaseInset(LONG pCap,SREAL pInset),GpStatus,PASCAL,NAME('fptr_GdipSetCustomLineCapBaseInset'),DLL
+      GdipGetCustomLineCapBaseInset(LONG pCap,*SREAL pInset),GpStatus,PASCAL,NAME('fptr_GdipGetCustomLineCapBaseInset'),DLL
+      GdipSetCustomLineCapWidthScale(LONG pCap,SREAL pWidthScale),GpStatus,PASCAL,NAME('fptr_GdipSetCustomLineCapWidthScale'),DLL
+      GdipGetCustomLineCapWidthScale(LONG pCap,*SREAL pWidthScale),GpStatus,PASCAL,NAME('fptr_GdipGetCustomLineCapWidthScale'),DLL
+      GdipCloneCustomLineCap(LONG pCap,*LONG pCloneCap),GpStatus,PASCAL,NAME('fptr_GdipCloneCustomLineCap'),DLL
+      GdipCreateAdjustableArrowCap(SREAL pHeight,SREAL pWidth,BOOL pIsFilled,*LONG pCap),GpStatus,PASCAL,NAME('fptr_GdipCreateAdjustableArrowCap'),DLL
+      GdipSetAdjustableArrowCapHeight(LONG pCap,SREAL pHeight),GpStatus,PASCAL,NAME('fptr_GdipSetAdjustableArrowCapHeight'),DLL
+      GdipGetAdjustableArrowCapHeight(LONG pCap,*SREAL pHeight),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapHeight'),DLL
+      GdipSetAdjustableArrowCapWidth(LONG pCap,SREAL pWidth),GpStatus,PASCAL,NAME('fptr_GdipSetAdjustableArrowCapWidth'),DLL
+      GdipGetAdjustableArrowCapWidth(LONG pCap,*SREAL pWidth),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapWidth'),DLL
+      GdipSetAdjustableArrowCapMiddleInset(LONG pCap,SREAL pInset),GpStatus,PASCAL,NAME('fptr_GdipSetAdjustableArrowCapMiddleInset'),DLL
+      GdipGetAdjustableArrowCapMiddleInset(LONG pCap,*SREAL pInset),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapMiddleInset'),DLL
+      GdipSetAdjustableArrowCapFillState(LONG pCap,BOOL pIsFilled),GpStatus,PASCAL,NAME('fptr_GdipSetAdjustableArrowCapFillState'),DLL
+      GdipGetAdjustableArrowCapFillState(LONG pCap,*BOOL pIsFilled),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapFillState'),DLL
     END
     MODULE('Global memory api')
       winapi::GlobalAlloc(LONG uFlags,LONG dwBytes),HGLOBAL,PASCAL,NAME('GlobalAlloc')
@@ -2420,6 +2486,28 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipBeginContainerI               = winapi::GetProcAddress(SELF.hDll, szGdipBeginContainerI)
       paGdipBeginContainer2               = winapi::GetProcAddress(SELF.hDll, szGdipBeginContainer2)
       paGdipEndContainer                  = winapi::GetProcAddress(SELF.hDll, szGdipEndContainer)
+      paGdipCreateCustomLineCap           = winapi::GetProcAddress(SELF.hDll, szGdipCreateCustomLineCap)
+      paGdipDeleteCustomLineCap           = winapi::GetProcAddress(SELF.hDll, szGdipDeleteCustomLineCap)
+      paGdipSetCustomLineCapStrokeCaps    = winapi::GetProcAddress(SELF.hDll, szGdipSetCustomLineCapStrokeCaps)
+      paGdipGetCustomLineCapStrokeCaps    = winapi::GetProcAddress(SELF.hDll, szGdipGetCustomLineCapStrokeCaps)
+      paGdipSetCustomLineCapStrokeJoin    = winapi::GetProcAddress(SELF.hDll, szGdipSetCustomLineCapStrokeJoin)
+      paGdipGetCustomLineCapStrokeJoin    = winapi::GetProcAddress(SELF.hDll, szGdipGetCustomLineCapStrokeJoin)
+      paGdipSetCustomLineCapBaseCap       = winapi::GetProcAddress(SELF.hDll, szGdipSetCustomLineCapBaseCap)
+      paGdipGetCustomLineCapBaseCap       = winapi::GetProcAddress(SELF.hDll, szGdipGetCustomLineCapBaseCap)
+      paGdipSetCustomLineCapBaseInset     = winapi::GetProcAddress(SELF.hDll, szGdipSetCustomLineCapBaseInset)
+      paGdipGetCustomLineCapBaseInset     = winapi::GetProcAddress(SELF.hDll, szGdipGetCustomLineCapBaseInset)
+      paGdipSetCustomLineCapWidthScale    = winapi::GetProcAddress(SELF.hDll, szGdipSetCustomLineCapWidthScale)
+      paGdipGetCustomLineCapWidthScale    = winapi::GetProcAddress(SELF.hDll, szGdipGetCustomLineCapWidthScale)
+      paGdipCloneCustomLineCap            = winapi::GetProcAddress(SELF.hDll, szGdipCloneCustomLineCap)
+      paGdipCreateAdjustableArrowCap      = winapi::GetProcAddress(SELF.hDll, szGdipCreateAdjustableArrowCap)
+      paGdipSetAdjustableArrowCapHeight   = winapi::GetProcAddress(SELF.hDll, szGdipSetAdjustableArrowCapHeight)
+      paGdipGetAdjustableArrowCapHeight   = winapi::GetProcAddress(SELF.hDll, szGdipGetAdjustableArrowCapHeight)
+      paGdipSetAdjustableArrowCapWidth    = winapi::GetProcAddress(SELF.hDll, szGdipSetAdjustableArrowCapWidth)
+      paGdipGetAdjustableArrowCapWidth    = winapi::GetProcAddress(SELF.hDll, szGdipGetAdjustableArrowCapWidth)
+      paGdipSetAdjustableArrowCapMiddleInset    = winapi::GetProcAddress(SELF.hDll, szGdipSetAdjustableArrowCapMiddleInset)
+      paGdipGetAdjustableArrowCapMiddleInset    = winapi::GetProcAddress(SELF.hDll, szGdipGetAdjustableArrowCapMiddleInset)
+      paGdipSetAdjustableArrowCapFillState  = winapi::GetProcAddress(SELF.hDll, szGdipSetAdjustableArrowCapFillState)
+      paGdipGetAdjustableArrowCapFillState  = winapi::GetProcAddress(SELF.hDll, szGdipGetAdjustableArrowCapFillState)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -2733,6 +2821,7 @@ cloneImage                      &TGdiPlusImage
 
 TGdiPlusImage.Clone           PROCEDURE(*TGdiPlusImage pCloneImage)
   CODE
+  pCloneImage.DisposeImage()
   SELF.lastResult = GdipCloneImage(SELF.nativeImage, pCloneImage.nativeImage)
   GdipReportError('TGdiPlusImage.Clone', SELF.lastResult)
   pCloneImage.lastResult = SELF.lastResult
@@ -3173,6 +3262,7 @@ wstr                            STRING(FILE:MaxFilePath*2+2)
 
 TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
   CODE
+  pDstBitmap.DisposeImage()
   SELF.lastResult = GdipCloneBitmapAreaI(pX, pY, pWidth, pHeight, pFormat, SELF.nativeImage, pDstBitmap.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -4905,6 +4995,7 @@ mx                              &TGdiPlusMatrix
   
 TGdiPlusMatrix.Clone          PROCEDURE(*TGdiPlusMatrix pClonedMatrix)
   CODE
+  pClonedMatrix.DeleteMatrix()
   SELF.lastResult = GdipCloneMatrix(SELF.nativeMatrix, pClonedMatrix.nativeMatrix)
   GdipReportError(printf('TGdiPlusMatrix.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5125,6 +5216,7 @@ TGdiPlusFont.GetLogFontA      PROCEDURE(TGdiPlusGraphics pGraphics, *GpLOGFONTA 
 
 TGdiPlusFont.Clone            PROCEDURE(*TGdiPlusFont cloneFont)
   CODE
+  cloneFont.DeleteFont()
   SELF.lastResult = GdipCloneFont(SELF.nativeFont, cloneFont.nativeFont)
   GdipReportError(printf('TGdiPlusFont.Clone'), SELF.lastResult)
   cloneFont.lastResult = SELF.lastResult
@@ -5244,6 +5336,7 @@ TGdiPlusFontFamily.DeleteFontFamily   PROCEDURE()
 
 TGdiPlusFontFamily.Clone      PROCEDURE(*TGdiPlusFontFamily pCloneFamily)
   CODE
+  pCloneFamily.DeleteFontFamily()
   SELF.lastResult = GdipCloneFontFamily(SELF.nativeFamily, pCloneFamily.nativeFamily)
   GdipReportError(printf('TGdiPlusFontFamily.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5415,6 +5508,7 @@ TGdiPlusGraphicsPath.DeletePath   PROCEDURE()
 
 TGdiPlusGraphicsPath.Clone    PROCEDURE(*TGdiPlusGraphicsPath pClonePath)
   CODE
+  pClonePath.DeletePath()
   SELF.lastResult = GdipClonePath(SELF.nativePath, pClonePath.nativePath)
   GdipReportError(printf('TGdiPlusGraphicsPath.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5923,6 +6017,7 @@ TGdiPlusPen.DeletePen         PROCEDURE()
   
 TGdiPlusPen.Clone             PROCEDURE(*TGdiPlusPen pClonePen)
   CODE
+  pClonePen.DeletePen()
   SELF.lastResult = GdipClonePen(SELF.nativePen, pClonePen.nativePen)
   GdipReportError(printf('TGdiPlusPen.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6218,6 +6313,7 @@ TGdiPlusBrush.DeleteBrush     PROCEDURE()
 
 TGdiPlusBrush.Clone           PROCEDURE(*TGdiPlusBrush pCloneBrush)
   CODE
+  pCloneBrush.DeleteBrush()
   SELF.lastResult = GdipCloneBrush(SELF.nativeBrush, pCloneBrush.nativeBrush)
   GdipReportError(printf('TGdiPlusBrush.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6624,6 +6720,7 @@ TGdiPlusRegion.DeleteRegion   PROCEDURE()
   
 TGdiPlusRegion.Clone          PROCEDURE(*TGdiPlusRegion cloneRegion)
   CODE
+  cloneRegion.DeleteRegion()
   SELF.lastResult = GdipCloneRegion(SELF.nativeRegion, cloneRegion.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6913,6 +7010,7 @@ TGdiPlusStringFormat.CreateGenericTypographic PROCEDURE()
   
 TGdiPlusStringFormat.Clone    PROCEDURE(TGdiPlusStringFormat pClonedStringFormat)
   CODE
+  pClonedStringFormat.DeleteStringFormat()
   SELF.lastResult = GdipCloneStringFormat(SELF.nativeFormat, pClonedStringFormat.nativeFormat)
   GdipReportError(printf('TGdiPlusStringFormat.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -7059,12 +7157,16 @@ TGdiPlusImageAttributes.CreateImageAttributes PROCEDURE()
     
 TGdiPlusImageAttributes.DeleteImageAttributes PROCEDURE()
   CODE
-  SELF.lastResult = GdipDisposeImageAttributes(SELF.nativeImageAttr)
-  GdipReportError(printf('TGdiPlusImageAttributes.DeleteImageAttributes'), SELF.lastResult)
+  IF SELF.nativeImageAttr
+    SELF.lastResult = GdipDisposeImageAttributes(SELF.nativeImageAttr)
+    SELF.nativeImageAttr = 0
+    GdipReportError(printf('TGdiPlusImageAttributes.DeleteImageAttributes'), SELF.lastResult)
+  END
   RETURN SELF.lastResult
     
 TGdiPlusImageAttributes.Clone PROCEDURE(*TGdiPlusImageAttributes pCloneImageAttr)
   CODE
+  pCloneImageAttr.DeleteImageAttributes()
   SELF.lastResult = GdipCloneImageAttributes(SELF.nativeImageAttr, pCloneImageAttr.nativeImageAttr)
   GdipReportError(printf('TGdiPlusImageAttributes.Clone'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -7226,8 +7328,11 @@ TGdiPlusGraphisPathIterator.CreatePathIter    PROCEDURE(TGdiPlusGraphicsPath pPa
   
 TGdiPlusGraphisPathIterator.DeletePathIter                  PROCEDURE()
   CODE
-  SELF.lastResult = GdipDeletePathIter(SELF.nativeIterator)
-  GdipReportError('TGdiPlusGraphisPathIterator.DeletePathIter', SELF.lastResult)
+  IF SELF.nativeIterator
+    SELF.lastResult = GdipDeletePathIter(SELF.nativeIterator)
+    SELF.nativeIterator = 0
+    GdipReportError('TGdiPlusGraphisPathIterator.DeletePathIter', SELF.lastResult)
+  END
   RETURN SELF.lastResult
   
 TGdiPlusGraphisPathIterator.NextSubpath   PROCEDURE(*UNSIGNED pStartIndex, *UNSIGNED pEndIndex, *BOOL pIsClosed)
@@ -7763,4 +7868,160 @@ bConversionFailureFlag                  BOOL
   END
   
   RETURN bConversionFailureFlag
+!!!endregion
+
+!!!region TGdiPlusCustomLineCap
+TGdiPlusCustomLineCap.Destruct    PROCEDURE()
+  CODE
+  SELF.DeleteCustomLineCap()
+  
+TGdiPlusCustomLineCap.CreateCustomLineCap PROCEDURE(TGdiPlusGraphicsPath pFillPath, TGdiPlusGraphicsPath pStrokePath, GpLineCap pBaseCap=LineCapFlat, SREAL pBaseInset=0)
+  CODE
+  SELF.lastResult = GdipCreateCustomLineCap(pFillPath.nativePath, pStrokePath.nativePath, pBaseCap, pBaseInset, SELF.nativeCap)
+  GdipReportError('TGdiPlusCustomLineCap.CreateCustomLineCap', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.DeleteCustomLineCap PROCEDURE()
+  CODE
+  IF SELF.nativeCap
+    SELF.lastResult = GdipDeleteCustomLineCap(SELF.nativeCap)
+    SELF.nativeCap = 0
+    GdipReportError('TGdiPlusCustomLineCap.DeleteCustomLineCap', SELF.lastResult)
+  END
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.Clone   PROCEDURE(*TGdiPlusCustomLineCap pCloneCap)
+  CODE
+  pCloneCap.DeleteCustomLineCap()
+  SELF.lastResult = GdipCloneCustomLineCap(SELF.nativeCap, pCloneCap.nativeCap)
+  GdipReportError('TGdiPlusCustomLineCap.Clone', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.SetStrokeCap    PROCEDURE(GpLineCap pStrokeCap)
+  CODE
+  RETURN SELF.SetStrokeCaps(pStrokeCap, pStrokeCap)
+  
+TGdiPlusCustomLineCap.SetStrokeCaps   PROCEDURE(GpLineCap pStartCap, GpLineCap pEndCap)
+  CODE
+  SELF.lastResult = GdipSetCustomLineCapStrokeCaps(SELF.nativeCap, pStartCap, pEndCap)
+  GdipReportError('TGdiPlusCustomLineCap.SetStrokeCaps', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.GetStrokeCaps   PROCEDURE(*GpLineCap pStartCap, *GpLineCap pEndCap)
+  CODE
+  SELF.lastResult = GdipGetCustomLineCapStrokeCaps(SELF.nativeCap, pStartCap, pEndCap)
+  GdipReportError('TGdiPlusCustomLineCap.GetStrokeCaps', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.SetStrokeJoin   PROCEDURE(GpLineJoin pLineJoin)
+  CODE
+  SELF.lastResult = GdipSetCustomLineCapStrokeJoin(SELF.nativeCap, pLineJoin)
+  GdipReportError('TGdiPlusCustomLineCap.SetStrokeJoin', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.GetStrokeJoin   PROCEDURE()
+lineJoin                                GpLineJoin
+  CODE
+  SELF.lastResult = GdipGetCustomLineCapStrokeJoin(SELF.nativeCap, lineJoin)
+  GdipReportError('TGdiPlusCustomLineCap.GetStrokeJoin', SELF.lastResult)
+  RETURN lineJoin
+  
+TGdiPlusCustomLineCap.SetBaseCap  PROCEDURE(GpLineCap pBaseCap)
+  CODE
+  SELF.lastResult = GdipSetCustomLineCapBaseCap(SELF.nativeCap, pBaseCap)
+  GdipReportError('TGdiPlusCustomLineCap.SetBaseCap', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.GetBaseCap  PROCEDURE()
+baseCap                             GpLineCap
+  CODE
+  SELF.lastResult = GdipGetCustomLineCapBaseCap(SELF.nativeCap, baseCap)
+  GdipReportError('TGdiPlusCustomLineCap.GetBaseCap', SELF.lastResult)
+  RETURN baseCap
+  
+TGdiPlusCustomLineCap.SetBaseInset    PROCEDURE(SREAL pInset)
+  CODE
+  SELF.lastResult = GdipSetCustomLineCapBaseInset(SELF.nativeCap, pInset)
+  GdipReportError('TGdiPlusCustomLineCap.SetBaseInset', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.GetBaseInset    PROCEDURE()
+inset                                   SREAL
+  CODE
+  SELF.lastResult = GdipGetCustomLineCapBaseInset(SELF.nativeCap, inset)
+  GdipReportError('TGdiPlusCustomLineCap.GetBaseInset', SELF.lastResult)
+  RETURN inset
+  
+TGdiPlusCustomLineCap.SetWidthScale   PROCEDURE(SREAL pWidthScale)
+  CODE
+  SELF.lastResult = GdipSetCustomLineCapWidthScale(SELF.nativeCap, pWidthScale)
+  GdipReportError('TGdiPlusCustomLineCap.SetWidthScale', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusCustomLineCap.GetWidthScale   PROCEDURE()
+scale                                   SREAL
+  CODE
+  SELF.lastResult = GdipGetCustomLineCapWidthScale(SELF.nativeCap, scale)
+  GdipReportError('TGdiPlusCustomLineCap.GetWidthScale', SELF.lastResult)
+  RETURN scale
+!!!endregion
+  
+!!!region TGdiPlusAdjustableArrowCap
+TGdiPlusAdjustableArrowCap.CreateAdjustableArrowCap   PROCEDURE(SREAL pHeight, SREAL pWidth, BOOL pIsFilled=TRUE)
+  CODE
+  SELF.lastResult = GdipCreateAdjustableArrowCap(pHeight, pWidth, pIsFilled, SELF.nativeCap)
+  GdipReportError('TGdiPlusAdjustableArrowCap.CreateAdjustableArrowCap', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusAdjustableArrowCap.SetHeight  PROCEDURE(SREAL pHeight)
+  CODE
+  SELF.lastResult = GdipSetAdjustableArrowCapHeight(SELF.nativeCap, pHeight)
+  GdipReportError('TGdiPlusAdjustableArrowCap.SetHeight', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusAdjustableArrowCap.GetHeight  PROCEDURE()
+h                                       SREAL
+  CODE
+  SELF.lastResult = GdipGetAdjustableArrowCapHeight(SELF.nativeCap, h)
+  GdipReportError('TGdiPlusAdjustableArrowCap.GetHeight', SELF.lastResult)
+  RETURN h
+  
+TGdiPlusAdjustableArrowCap.SetWidth   PROCEDURE(SREAL pWidth)
+  CODE
+  SELF.lastResult = GdipSetAdjustableArrowCapWidth(SELF.nativeCap, pWidth)
+  GdipReportError('TGdiPlusAdjustableArrowCap.SetWidth', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusAdjustableArrowCap.GetWidth   PROCEDURE()
+w                                       SREAL
+  CODE
+  SELF.lastResult = GdipGetAdjustableArrowCapWidth(SELF.nativeCap, w)
+  GdipReportError('TGdiPlusAdjustableArrowCap.GetWidth', SELF.lastResult)
+  RETURN w
+  
+TGdiPlusAdjustableArrowCap.SetMiddleInset PROCEDURE(SREAL pMiddleInset)
+  CODE
+  SELF.lastResult = GdipSetAdjustableArrowCapMiddleInset(SELF.nativeCap, pMiddleInset)
+  GdipReportError('TGdiPlusAdjustableArrowCap.SetMiddleInset', SELF.lastResult)
+  RETURN SELF.lastResult
+    
+TGdiPlusAdjustableArrowCap.GetMiddleInset PROCEDURE()
+inset                                       SREAL
+  CODE
+  SELF.lastResult = GdipGetAdjustableArrowCapMiddleInset(SELF.nativeCap, inset)
+  GdipReportError('TGdiPlusAdjustableArrowCap.GetMiddleInset', SELF.lastResult)
+  RETURN inset
+  
+TGdiPlusAdjustableArrowCap.SetFillState   PROCEDURE(BOOL pIsFilled)
+  CODE
+  SELF.lastResult = GdipSetAdjustableArrowCapFillState(SELF.nativeCap, pIsFilled)
+  GdipReportError('TGdiPlusAdjustableArrowCap.SetFillState', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusAdjustableArrowCap.IsFilled   PROCEDURE()
+isFilled                                BOOL
+  CODE
+  SELF.lastResult = GdipGetAdjustableArrowCapFillState(SELF.nativeCap, isFilled)
+  GdipReportError('TGdiPlusAdjustableArrowCap.IsFilled', SELF.lastResult)
+  RETURN isFilled
 !!!endregion

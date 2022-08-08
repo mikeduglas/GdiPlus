@@ -40,7 +40,8 @@ GDI+ support
     - TGdiPlusColorLUTEffect
     - TGdiPlusColorCurveEffect
 - TGdiPlusPropertyItem
-
+- TGdiPlusCustomLineCap
+    - TGdiPlusAdjustableArrowCap
 
 ### Usage  
 include gdiplus.inc in global data section:

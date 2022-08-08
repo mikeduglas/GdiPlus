@@ -105,8 +105,64 @@ GetCompoundArray                PROCEDURE(*SREAL[] pArray), GpStatus, PROC
                               END
 
 
+!--------------------------------------------------------------------------
+! CustomLineCap class
+!--------------------------------------------------------------------------
 TGdiPlusCustomLineCap         CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 nativeCap                       LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
+Destruct                        PROCEDURE(), VIRTUAL
+!!!<summary>Creates a CustomLineCap object.</summary>
+CreateCustomLineCap             PROCEDURE(TGdiPlusGraphicsPath pFillPath, TGdiPlusGraphicsPath pStrokePath, GpLineCap pBaseCap=LineCapFlat, SREAL pBaseInset=0), GpStatus, PROC
+!!!<summary>Cleans up resources used by a CustomLineCap object.</summary>
+DeleteCustomLineCap             PROCEDURE(), GpStatus, PROC
+!!!<summary>Copies the contents of the existing object into a new CustomLineCap object.</summary>
+Clone                           PROCEDURE(*TGdiPlusCustomLineCap pCloneCap), GpStatus, PROC
+!!!<summary>Sets the LineCap object used to start and end lines within the GraphicsPath object that defines this CustomLineCap object.</summary>
+SetStrokeCap                    PROCEDURE(GpLineCap pStrokeCap), GpStatus, PROC
+!!!<summary>Sets the end cap styles for both the start line cap and the end line cap.</summary>
+SetStrokeCaps                   PROCEDURE(GpLineCap pStartCap, GpLineCap pEndCap), GpStatus, PROC
+!!!<summary>Gets the end cap styles for both the start line cap and the end line cap.</summary>
+GetStrokeCaps                   PROCEDURE(*GpLineCap pStartCap, *GpLineCap pEndCap), GpStatus, PROC
+!!!<summary>Sets the style of line join for the stroke. The line join specifies how two lines that intersect within the GraphicsPath object that makes up the custom line cap are joined.</summary>
+SetStrokeJoin                   PROCEDURE(GpLineJoin pLineJoin), GpStatus, PROC
+!!!<summary>Returns the style of LineJoin used to join multiple lines in the same GraphicsPath object.</summary>
+GetStrokeJoin                   PROCEDURE(), GpLineJoin
+!!!<summary>Sets the LineCap that appears as part of this CustomLineCap at the end of a line.</summary>
+SetBaseCap                      PROCEDURE(GpLineCap pBaseCap), GpStatus, PROC
+!!!<summary>Gets the style of the base cap. The base cap is a LineCap object used as a cap at the end of a line along with this CustomLineCap object.</summary>
+GetBaseCap                      PROCEDURE(), GpLineCap
+!!!<summary>Sets the base inset value of this custom line cap. This is the distance between the end of a line and the base cap.</summary>
+SetBaseInset                    PROCEDURE(SREAL pInset), GpStatus, PROC
+!!!<summary>Gets the distance between the base cap to the start of the line.</summary>
+GetBaseInset                    PROCEDURE(), SREAL
+!!!<summary>Sets the value of the scale width. This is the amount to scale the custom line cap relative to the width of the Pen used to draw lines. The default value of 1.0 does not scale the line cap.</summary>
+SetWidthScale                   PROCEDURE(SREAL pWidthScale), GpStatus, PROC
+!!!<summary>Gets the value of the scale width.</summary>
+GetWidthScale                   PROCEDURE(), SREAL
+                              END
+
+!--------------------------------------------------------------------------
+! AdjustableArrowCap class
+!--------------------------------------------------------------------------
+TGdiPlusAdjustableArrowCap    CLASS(TGdiPlusCustomLineCap), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
+!!!<summary>Creates an adjustable arrow line cap with the specified height and width. The arrow line cap can be filled or nonfilled. The middle inset defaults to zero.</summary>
+CreateAdjustableArrowCap        PROCEDURE(SREAL pHeight, SREAL pWidth, BOOL pIsFilled=TRUE), GpStatus, PROC
+!!!<summary>Sets the height of the arrow cap. This is the distance from the base of the arrow to its vertex.</summary>
+SetHeight                       PROCEDURE(SREAL pHeight), GpStatus, PROC
+!!!<summary>Gets the height of the arrow cap. This is the distance from the base of the arrow to its vertex.</summary>
+GetHeight                       PROCEDURE(), SREAL
+!!!<summary>Sets the width of the arrow cap. The width is the distance between the endpoints of the base of the arrow.</summary>
+SetWidth                        PROCEDURE(SREAL pWidth), GpStatus, PROC
+!!!<summary>Gets the width of the arrow cap. The width is the distance between the endpoints of the base of the arrow.</summary>
+GetWidth                        PROCEDURE(), SREAL
+!!!<summary>Sets the number of units that the midpoint of the base shifts towards the vertex.</summary>
+SetMiddleInset                  PROCEDURE(SREAL pMiddleInset), GpStatus, PROC
+!!!<summary>Gets the value of the inset. The middle inset is the number of units that the midpoint of the base shifts towards the vertex.</summary>
+GetMiddleInset                  PROCEDURE(), SREAL
+!!!<summary>Sets the fill state of the arrow cap. If the arrow cap is not filled, only the outline is drawn.</summary>
+SetFillState                    PROCEDURE(BOOL pIsFilled), GpStatus, PROC
+!!!<summary>Determines whether the arrow cap is filled.</summary>
+IsFilled                        PROCEDURE(), BOOL
                               END
