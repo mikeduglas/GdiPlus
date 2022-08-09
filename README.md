@@ -1,4 +1,4 @@
-# Gdi+ support
+# GDI+
 Over 600 functions that provide two-dimensional vector graphics, imaging, and typography. The services of GDI+ are exposed through a set of classes.
 
 
