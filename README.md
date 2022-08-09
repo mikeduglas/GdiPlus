@@ -3,8 +3,8 @@ Over 600 functions that provide two-dimensional vector graphics, imaging, and ty
 
 
 ### Available GDI+ classes
-- TGdiPlusImage
-    - TGdiPlusBitmap
+- [TGdiPlusImage](https://docs.microsoft.com/en-us/windows/win32/api/gdiplusheaders/nl-gdiplusheaders-image)
+    - [TGdiPlusBitmap](https://docs.microsoft.com/en-us/windows/win32/api/gdiplusheaders/nl-gdiplusheaders-bitmap)
     - TGdiPlusMetafile
 - TGdiPlusCachedBitmap
 - TGdiPlusGraphics
