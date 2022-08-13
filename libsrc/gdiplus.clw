@@ -4244,12 +4244,12 @@ TGdiPlusGraphics.DrawImageI   PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SIGN
 
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit)
   CODE
-  RETURN SELF.DrawImage(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
+  RETURN SELF.DrawImageI(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
     pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit)
          
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
   CODE
-  RETURN SELF.DrawImage(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
+  RETURN SELF.DrawImageI(pImage, pDestRect.x, pDestRect.y, pDestRect.width, pDestRect.height, | 
     pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr)
 
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
