@@ -3669,7 +3669,7 @@ TGdiPlusGraphics.DrawLine     PROCEDURE(TGdiPlusPen pPen, SREAL pX1, SREAL pY1, 
   GdipReportError('TGdiPlusGraphics.DrawLine', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawLine     PROCEDURE(TGdiPlusPen pPen, GpPointF pPoint1, GpPointF pPoint2)
+TGdiPlusGraphics.DrawLine     PROCEDURE(TGdiPlusPen pPen, CONST *GpPointF pPoint1, GpPointF pPoint2)
   CODE
   RETURN SELF.DrawLine(pPen, pPoint1.x, pPoint1.y, pPoint2.x, pPoint2.y)
 
@@ -3679,7 +3679,7 @@ TGdiPlusGraphics.DrawLineI    PROCEDURE(TGdiPlusPen pPen, SIGNED pX1, SIGNED pY1
   GdipReportError('TGdiPlusGraphics.DrawLineI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawLineI    PROCEDURE(TGdiPlusPen pPen, GpPoint pPoint1, GpPoint pPoint2)
+TGdiPlusGraphics.DrawLine     PROCEDURE(TGdiPlusPen pPen, CONST *GpPoint pPoint1, GpPoint pPoint2)
   CODE
   RETURN SELF.DrawLineI(pPen, pPoint1.x, pPoint1.y, pPoint2.x, pPoint2.y)
 
@@ -3701,7 +3701,7 @@ TGdiPlusGraphics.DrawArc      PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SR
   GdipReportError('TGdiPlusGraphics.DrawArc', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawArc      PROCEDURE(TGdiPlusPen pPen, GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
+TGdiPlusGraphics.DrawArc      PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.DrawArc(pPen, pRect.x, pRect.y, pRect.width, pRect.height, pStartAngle, pSweepAngle)
 
@@ -3711,7 +3711,7 @@ TGdiPlusGraphics.DrawArcI     PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, 
   GdipReportError('TGdiPlusGraphics.DrawArcI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawArcI     PROCEDURE(TGdiPlusPen pPen, GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
+TGdiPlusGraphics.DrawArc      PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.DrawArcI(pPen, pRect.x, pRect.y, pRect.width, pRect.height, pStartAngle, pSweepAngle)
 
@@ -3721,7 +3721,7 @@ TGdiPlusGraphics.DrawBezier   PROCEDURE(TGdiPlusPen pPen, SREAL pX1, SREAL pY1, 
   GdipReportError('TGdiPlusGraphics.DrawBezier', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawBezier   PROCEDURE(TGdiPlusPen pPen, GpPointF pPoint1, GpPointF pPoint2, GpPointF pPoint3, GpPointF pPoint4)
+TGdiPlusGraphics.DrawBezier   PROCEDURE(TGdiPlusPen pPen, CONST *GpPointF pPoint1, CONST *GpPointF pPoint2, CONST *GpPointF pPoint3, CONST *GpPointF pPoint4)
   CODE
   RETURN SELF.DrawBezier(pPen, pPoint1.x, pPoint1.y, pPoint2.x, pPoint2.y, pPoint3.x, pPoint3.y, pPoint4.x, pPoint4.y)
 
@@ -3731,7 +3731,7 @@ TGdiPlusGraphics.DrawBezierI  PROCEDURE(TGdiPlusPen pPen, SIGNED pX1, SIGNED pY1
   GdipReportError('TGdiPlusGraphics.DrawBezierI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawBezierI  PROCEDURE(TGdiPlusPen pPen, GpPoint pPoint1, GpPoint pPoint2, GpPoint pPoint3, GpPoint pPoint4)
+TGdiPlusGraphics.DrawBezier  PROCEDURE(TGdiPlusPen pPen, CONST *GpPoint pPoint1, CONST *GpPoint pPoint2, CONST *GpPoint pPoint3, CONST *GpPoint pPoint4)
   CODE
   RETURN SELF.DrawBezierI(pPen, pPoint1.x, pPoint1.y, pPoint2.x, pPoint2.y, pPoint3.x, pPoint3.y, pPoint4.x, pPoint4.y)
 
@@ -3753,7 +3753,7 @@ TGdiPlusGraphics.DrawRectangle    PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY
   GdipReportError('TGdiPlusGraphics.DrawRectangle', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawRectangle    PROCEDURE(TGdiPlusPen pPen, GpRectF pRect)
+TGdiPlusGraphics.DrawRectangle    PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect)
   CODE
   RETURN SELF.DrawRectangle(pPen, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3763,7 +3763,7 @@ TGdiPlusGraphics.DrawRectangleI   PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED 
   GdipReportError('TGdiPlusGraphics.DrawRectangleI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawRectangleI   PROCEDURE(TGdiPlusPen pPen, GpRect pRect)
+TGdiPlusGraphics.DrawRectangle    PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect)
   CODE
   RETURN SELF.DrawRectangleI(pPen, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3785,7 +3785,7 @@ TGdiPlusGraphics.DrawEllipse  PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SR
   GdipReportError('TGdiPlusGraphics.DrawEllipse', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawEllipse  PROCEDURE(TGdiPlusPen pPen, GpRectF pRect)
+TGdiPlusGraphics.DrawEllipse  PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect)
   CODE
   RETURN SELF.DrawEllipse(pPen, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3795,7 +3795,7 @@ TGdiPlusGraphics.DrawEllipseI PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, 
   GdipReportError('TGdiPlusGraphics.DrawEllipseI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawEllipseI PROCEDURE(TGdiPlusPen pPen, GpRect pRect)
+TGdiPlusGraphics.DrawEllipse  PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect)
   CODE
   RETURN SELF.DrawEllipseI(pPen, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3805,7 +3805,7 @@ TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SR
   GdipReportError('TGdiPlusGraphics.DrawPie', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
+TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.DrawPie(pPen, pRect.x, pRect.y, pRect.width, pRect.height, pStartAngle, pSweepAngle)
 
@@ -3815,7 +3815,7 @@ TGdiPlusGraphics.DrawPieI     PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, 
   GdipReportError('TGdiPlusGraphics.DrawPieI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawPieI     PROCEDURE(TGdiPlusPen pPen, GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
+TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.DrawPieI(pPen, pRect.x, pRect.y, pRect.width, pRect.height, pStartAngle, pSweepAngle)
 
@@ -3909,7 +3909,7 @@ TGdiPlusGraphics.FillRectangle    PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREA
   GdipReportError('TGdiPlusGraphics.FillRectangle', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.FillRectangle    PROCEDURE(TGdiPlusBrush pBrush, GpRectF pRect)
+TGdiPlusGraphics.FillRectangle    PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF pRect)
   CODE
   RETURN SELF.FillRectangle(pBrush, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3919,7 +3919,7 @@ TGdiPlusGraphics.FillRectangleI   PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIG
   GdipReportError('TGdiPlusGraphics.FillRectangleI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.FillRectangleI   PROCEDURE(TGdiPlusBrush pBrush, GpRect pRect)
+TGdiPlusGraphics.FillRectangle    PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect)
   CODE
   RETURN SELF.FillRectangleI(pBrush, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3953,7 +3953,7 @@ TGdiPlusGraphics.FillEllipse  PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY
   GdipReportError('TGdiPlusGraphics.FillEllipse', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.FillEllipse  PROCEDURE(TGdiPlusBrush pBrush, GpRectF pRect)
+TGdiPlusGraphics.FillEllipse  PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF pRect)
   CODE
   RETURN SELF.FillEllipse(pBrush, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3963,7 +3963,7 @@ TGdiPlusGraphics.FillEllipseI PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED 
   GdipReportError('TGdiPlusGraphics.FillEllipseI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.FillEllipseI PROCEDURE(TGdiPlusBrush pBrush, GpRect pRect)
+TGdiPlusGraphics.FillEllipse  PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect)
   CODE
   RETURN SELF.FillEllipseI(pBrush, pRect.x, pRect.y, pRect.width, pRect.height)
 
@@ -3973,7 +3973,7 @@ TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY
   GdipReportError('TGdiPlusGraphics.FillPie', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
+TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.FillPie(pBrush, pRect.x, pRect.y, pRect.width, pRect.height, pStartAngle, pSweepAngle)
 
@@ -3983,7 +3983,7 @@ TGdiPlusGraphics.FillPieI     PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED 
   GdipReportError('TGdiPlusGraphics.FillPieI', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.FillPieI     PROCEDURE(TGdiPlusBrush pBrush, GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
+TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.FillPieI(pBrush, pRect.x, pRect.y, pRect.width, pRect.height, pStartAngle, pSweepAngle)
 

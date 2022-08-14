@@ -99,11 +99,11 @@ GetHalftonePalette              PROCEDURE(), HPALETTE
 !!!<summary>Draws a line that connects two points.</summary>
 DrawLine                        PROCEDURE(TGdiPlusPen pPen, SREAL pX1, SREAL pY1, SREAL pX2, SREAL pY2), GpStatus, PROC
 !!!<summary>Draws a line that connects two points.</summary>
-DrawLine                        PROCEDURE(TGdiPlusPen pPen, GpPointF pPoint1, GpPointF pPoint2), GpStatus, PROC
+DrawLine                        PROCEDURE(TGdiPlusPen pPen, CONST *GpPointF pPoint1, GpPointF pPoint2), GpStatus, PROC
 !!!<summary>Draws a line that connects two points.</summary>
 DrawLineI                       PROCEDURE(TGdiPlusPen pPen, SIGNED pX1, SIGNED pY1, SIGNED pX2, SIGNED pY2), GpStatus, PROC
 !!!<summary>Draws a line that connects two points.</summary>
-DrawLineI                       PROCEDURE(TGdiPlusPen pPen, GpPoint pPoint1, GpPoint pPoint2), GpStatus, PROC
+DrawLine                        PROCEDURE(TGdiPlusPen pPen, CONST *GpPoint pPoint1, GpPoint pPoint2), GpStatus, PROC
 !!!<summary>Draws a sequence of connected lines.</summary>
 DrawLines                       PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Draws a sequence of connected lines.</summary>
@@ -111,19 +111,19 @@ DrawLinesI                      PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGN
 !!!<summary>Draws an arc. The arc is part of an ellipse.</summary>
 DrawArc                         PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an arc. The arc is part of an ellipse.</summary>
-DrawArc                         PROCEDURE(TGdiPlusPen pPen, GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+DrawArc                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an arc. The arc is part of an ellipse.</summary>
 DrawArcI                        PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an arc. The arc is part of an ellipse.</summary>
-DrawArcI                        PROCEDURE(TGdiPlusPen pPen, GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+DrawArc                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws a Bezier spline.</summary>
 DrawBezier                      PROCEDURE(TGdiPlusPen pPen, SREAL pX1, SREAL pY1, SREAL pX2, SREAL pY2, SREAL pX3, SREAL pY3, SREAL pX4, SREAL pY4), GpStatus, PROC
 !!!<summary>Draws a Bezier spline.</summary>
-DrawBezier                      PROCEDURE(TGdiPlusPen pPen, GpPointF pPoint1, GpPointF pPoint2, GpPointF pPoint3, GpPointF pPoint4), GpStatus, PROC
+DrawBezier                      PROCEDURE(TGdiPlusPen pPen, CONST *GpPointF pPoint1, CONST *GpPointF pPoint2, CONST *GpPointF pPoint3, CONST *GpPointF pPoint4), GpStatus, PROC
 !!!<summary>Draws a Bezier spline.</summary>
 DrawBezierI                     PROCEDURE(TGdiPlusPen pPen, SIGNED pX1, SIGNED pY1, SIGNED pX2, SIGNED pY2, SIGNED pX3, SIGNED pY3, SIGNED pX4, SIGNED pY4), GpStatus, PROC
 !!!<summary>Draws a Bezier spline.</summary>
-DrawBezierI                     PROCEDURE(TGdiPlusPen pPen, GpPoint pPoint1, GpPoint pPoint2, GpPoint pPoint3, GpPoint pPoint4), GpStatus, PROC
+DrawBezier                      PROCEDURE(TGdiPlusPen pPen, CONST *GpPoint pPoint1, CONST *GpPoint pPoint2, CONST *GpPoint pPoint3, CONST *GpPoint pPoint4), GpStatus, PROC
 !!!<summary>Draws a sequence of connected Bezier splines.</summary>
 DrawBeziers                     PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Draws a sequence of connected Bezier splines.</summary>
@@ -131,11 +131,11 @@ DrawBeziersI                    PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGN
 !!!<summary>Draws a rectangle.</summary>
 DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight), GpStatus, PROC
 !!!<summary>Draws a rectangle.</summary>
-DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, GpRectF pRect), GpStatus, PROC
+DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Draws a rectangle.</summary>
 DrawRectangleI                  PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Draws a rectangle.</summary>
-DrawRectangleI                  PROCEDURE(TGdiPlusPen pPen, GpRect pRect), GpStatus, PROC
+DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Draws a sequence of rectangles.</summary>
 DrawRectangles                  PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Draws a sequence of rectangles.</summary>
@@ -143,19 +143,19 @@ DrawRectanglesI                 PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGN
 !!!<summary>Draws an ellipse.</summary>
 DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight), GpStatus, PROC
 !!!<summary>Draws an ellipse.</summary>
-DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, GpRectF pRect), GpStatus, PROC
+DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Draws an ellipse.</summary>
 DrawEllipseI                    PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Draws an ellipse.</summary>
-DrawEllipseI                    PROCEDURE(TGdiPlusPen pPen, GpRect pRect), GpStatus, PROC
+DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
 DrawPie                         PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
-DrawPie                         PROCEDURE(TGdiPlusPen pPen, GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+DrawPie                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
 DrawPieI                        PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
-DrawPieI                        PROCEDURE(TGdiPlusPen pPen, GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+DrawPie                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws a polygon.</summary>
 DrawPolygon                     PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Draws a polygon.</summary>
@@ -187,13 +187,13 @@ GraphicsClear                   PROCEDURE(GpARGB pColor), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
 FillRectangle                   PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
-FillRectangle                   PROCEDURE(TGdiPlusBrush pBrush, GpRectF pRect), GpStatus, PROC
+FillRectangle                   PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
 FillRectangles                  PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
 FillRectangleI                  PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
-FillRectangleI                  PROCEDURE(TGdiPlusBrush pBrush, GpRect pRect), GpStatus, PROC
+FillRectangle                   PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
 FillRectanglesI                 PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a polygon.</summary>
@@ -203,19 +203,19 @@ FillPolygonI                    PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UN
 !!!<summary>Uses a brush to fill the interior of an ellipse that is specified by coordinates and dimensions.</summary>
 FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of an ellipse that is specified by coordinates and dimensions.</summary>
-FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, GpRectF pRect), GpStatus, PROC
+FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of an ellipse that is specified by coordinates and dimensions.</summary>
 FillEllipseI                    PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of an ellipse that is specified by coordinates and dimensions.</summary>
-FillEllipseI                    PROCEDURE(TGdiPlusBrush pBrush, GpRect pRect), GpStatus, PROC
+FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
 FillPie                         PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
-FillPie                         PROCEDURE(TGdiPlusBrush pBrush, GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+FillPie                         PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
 FillPieI                        PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
-FillPieI                        PROCEDURE(TGdiPlusBrush pBrush, GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+FillPie                         PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a path. If a figure in the path is not closed, this method treats the nonclosed figure as if it were closed by a straight line that connects the figure's starting and ending points.</summary>
 FillPath                        PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusGraphicsPath pPath), GpStatus, PROC
 !!!<summary>Creates a closed cardinal spline from an array of points and uses a brush to fill the interior of the spline.</summary>
