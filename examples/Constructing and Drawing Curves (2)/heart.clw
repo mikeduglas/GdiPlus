@@ -102,7 +102,7 @@ h                               UNSIGNED, AUTO
 
   numPoints = MAXIMUM(pts, 1)
   
-  !- calc points
+  !- calc points of cardinal splines
   minX = -1.83
   maxX = +1.83
   x = minX
@@ -111,8 +111,8 @@ h                               UNSIGNED, AUTO
     y = (x^2)^(1/3) + 0.9*((3.3-x^2)^0.5)*SIN(SELF.a*pi*x)
 
     !- convert to client coordinates
-    pts[i].x = x*w/4 + w/2
-    pts[i].y = -y*h/4 + h/2 + h/8
+    pts[i].x = x*w/4 + w/2                !- -2.0..+2.0
+    pts[i].y = -y*h/4 + h/2 + h/8         !- -1.5..+2.5
     x += dx
   END
 
@@ -126,7 +126,7 @@ h                               UNSIGNED, AUTO
   !- set background
   gTmp.FillRectangle(brush, 0, 0, img.GetWidth(), img.GetHeight())
   
-  !- draw curve
+  !- draw cardinal splines
   gTmp.DrawCurve(pen, ADDRESS(pts), numPoints)
   
   !- draw temp image on the device context
