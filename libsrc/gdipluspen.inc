@@ -13,9 +13,9 @@ lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
 !!!<summary>Creates a Pen object that uses a specified color and width.</summary>
-CreatePen                       PROCEDURE(GpARGB pColor, SREAL pWidth=1.0), GpStatus, PROC
+CreatePen                       PROCEDURE(GpARGB pColor, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld), GpStatus, PROC
 !!!<summary>Creates a Pen object that uses the attributes of a brush and a real number to set the width of this Pen object.</summary>
-CreatePen                       PROCEDURE(TGdiPlusBrush pBrush, SREAL pWidth=1.0), GpStatus, PROC
+CreatePen                       PROCEDURE(TGdiPlusBrush pBrush, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld), GpStatus, PROC
 !!!<summary>Releases resources used by the Pen object.</summary>
 DeletePen                       PROCEDURE(), GpStatus, PROC
 !!!<summary>Copies a Pen object.</summary>

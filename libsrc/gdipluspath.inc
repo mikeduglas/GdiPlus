@@ -244,7 +244,11 @@ GetSurroundColorCount           PROCEDURE(), UNSIGNED
 !!!<summary>Gets the surround colors currently specified for this path gradient brush.</summary>
 GetSurroundColors               PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Sets the surround colors of this path gradient brush. The surround colors are colors specified for discrete points on the brush's boundary path.</summary>
+SetSurroundColors               PROCEDURE(*GpARGB[] pColors, UNSIGNED pCount), GpStatus, PROC
+!!!<summary>Sets the surround colors of this path gradient brush. The surround colors are colors specified for discrete points on the brush's boundary path.</summary>
 SetSurroundColors               PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount), GpStatus, PROC
+!!!<summary>Sets the surround colors of this path gradient brush. The surround colors are colors specified for discrete points on the brush's boundary path.</summary>
+SetSurroundColor                PROCEDURE(GpARGB pColor), GpStatus, PROC
 !!!<summary>No summary.</summary>
 GetGraphicsPath                 PROCEDURE(*TGdiPlusGraphicsPath pPath), GpStatus, PROC
 !!!<summary>No summary.</summary>

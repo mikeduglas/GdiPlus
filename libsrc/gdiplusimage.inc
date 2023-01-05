@@ -135,6 +135,8 @@ FromFile                        PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE),
 !!!<summary>Creates a Bitmap object based on a string data.</summary>
 FromString                      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on an array of bytes along with size and format information.</summary>
+FromScan0                       PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, LONG pScan0), GpStatus, PROC
+!!!<summary>Creates a Bitmap object based on an array of bytes along with size and format information.</summary>
 FromScan0                       PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, BYTE[] pScan0), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on a Graphics object, a width, and a height.</summary>
 FromGraphics                    PROCEDURE(LONG pWidth, LONG pHeight, TGdiPlusGraphics pTarget), GpStatus, PROC

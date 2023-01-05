@@ -3201,11 +3201,15 @@ stream                          &IStream, AUTO
   END
   RETURN SELF.lastResult
 
-TGdiPlusBitmap.FromScan0      PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, BYTE[] pScan0)
+TGdiPlusBitmap.FromScan0      PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, LONG pScan0)
   CODE
-  SELF.lastResult = GdipCreateBitmapFromScan0(pWidth, pHeight, pStride, pFormat, ADDRESS(pScan0), SELF.nativeImage)
+  SELF.lastResult = GdipCreateBitmapFromScan0(pWidth, pHeight, pStride, pFormat, pScan0, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromScan0'), SELF.lastResult)
   RETURN SELF.lastResult
+
+TGdiPlusBitmap.FromScan0      PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, BYTE[] pScan0)
+  CODE
+  RETURN SELF.FromScan0(pWidth, pHeight, pStride, pFormat, ADDRESS(pScan0))
 
 TGdiPlusBitmap.CreateBitmap   PROCEDURE(LONG pWidth, LONG pHeight, GpPixelFormat pFormat)
   CODE
@@ -5994,15 +5998,15 @@ TGdiPlusPen.Destruct          PROCEDURE()
   CODE
   SELF.DeletePen()
   
-TGdiPlusPen.CreatePen         PROCEDURE(GpARGB pColor, SREAL pWidth=1.0)
+TGdiPlusPen.CreatePen         PROCEDURE(GpARGB pColor, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld)
   CODE
-  SELF.lastResult = GdipCreatePen1(pColor, pWidth, UnitWorld, SELF.nativePen)
+  SELF.lastResult = GdipCreatePen1(pColor, pWidth, pUnit, SELF.nativePen)
   GdipReportError(printf('TGdiPlusPen.CreatePen'), SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusPen.CreatePen         PROCEDURE(TGdiPlusBrush pBrush, SREAL pWidth=1.0)
+TGdiPlusPen.CreatePen         PROCEDURE(TGdiPlusBrush pBrush, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld)
   CODE
-  SELF.lastResult = GdipCreatePen2(pBrush.nativeBrush, pWidth, UnitWorld, SELF.nativePen)
+  SELF.lastResult = GdipCreatePen2(pBrush.nativeBrush, pWidth, pUnit, SELF.nativePen)
   GdipReportError(printf('TGdiPlusPen.CreatePen'), SELF.lastResult)
   RETURN SELF.lastResult
   
@@ -7188,6 +7192,11 @@ TGdiPlusImageAttributes.SetColorMatrix    PROCEDURE(typColorMatrix pColorMatrix,
   SELF.lastResult = GdipSetImageAttributesColorMatrix(SELF.nativeImageAttr, pType, TRUE, ADDRESS(pColorMatrix), 0, pMode)
   GdipReportError(printf('TGdiPlusImageAttributes.SetColorMatrix'), SELF.lastResult)
   RETURN SELF.lastResult
+!TGdiPlusImageAttributes.SetColorMatrix    PROCEDURE(typColorMatrix pColorMatrix, GpColorMatrixFlags pMode=ColorMatrixFlagsDefault, GpColorAdjustType pType=ColorAdjustTypeDefault)
+!  CODE
+!  SELF.lastResult = GdipSetImageAttributesColorMatrix(SELF.nativeImageAttr, pType, TRUE, ADDRESS(pColorMatrix.m), 0, pMode)
+!  GdipReportError(printf('TGdiPlusImageAttributes.SetColorMatrix'), SELF.lastResult)
+!  RETURN SELF.lastResult
     
 TGdiPlusImageAttributes.ClearColorMatrix  PROCEDURE(GpColorAdjustType pType=ColorAdjustTypeDefault)
   CODE
@@ -7465,6 +7474,10 @@ TGdiPlusPathGradientBrush.GetSurroundColors   PROCEDURE(*GpARGB[] pColors, *UNSI
   GdipReportError('TGdiPlusPathGradientBrush.GetSurroundColors', SELF.lastResult)
   RETURN SELF.lastResult
     
+TGdiPlusPathGradientBrush.SetSurroundColors   PROCEDURE(*GpARGB[] pColors, UNSIGNED pCount)
+  CODE
+  RETURN SELF.SetSurroundColors(pColors, pCount)
+
 TGdiPlusPathGradientBrush.SetSurroundColors   PROCEDURE(*GpARGB[] pColors, *UNSIGNED pCount)
   CODE
   pCount = MAXIMUM(pColors, 1)
@@ -7472,6 +7485,12 @@ TGdiPlusPathGradientBrush.SetSurroundColors   PROCEDURE(*GpARGB[] pColors, *UNSI
   GdipReportError('TGdiPlusPathGradientBrush.SetSurroundColors', SELF.lastResult)
   RETURN SELF.lastResult
     
+TGdiPlusPathGradientBrush.SetSurroundColor    PROCEDURE(GpARGB pColor)
+clrs                                            GpARGB, DIM(1)
+  CODE
+  clrs[1] = pColor
+  RETURN SELF.SetSurroundColors(clrs, 1)
+
 TGdiPlusPathGradientBrush.GetGraphicsPath PROCEDURE(*TGdiPlusGraphicsPath pPath)
   CODE
   SELF.lastResult = GdipGetPathGradientPath(SELF.nativeBrush, pPath.nativePath)
