@@ -1,6 +1,9 @@
 !https://stackoverflow.com/questions/74508343/is-there-a-simple-way-to-draw-a-graph-in-christmas-tree-farm-in-r
   
   PROGRAM
+  
+  !- link manifest
+  PRAGMA('link(ChristmasTree.exe.manifest)')
 
   INCLUDE('winapi.inc'), ONCE
   INCLUDE('gdiplus.inc'), ONCE
@@ -9,6 +12,12 @@
     MODULE('win api')
       winapi::SystemParametersInfo(ULONG uiAction, ULONG uiParam, ULONG pvParam, ULONG fWinIni),BYTE,PROC,PASCAL,NAME('SystemParametersInfoA')
     END
+    wndProc(HWND hWnd, ULONG wMsg, UNSIGNED wParam, LONG lParam), LONG, PASCAL, PRIVATE
+    LOWORD(LONG pLongVal), LONG, PRIVATE
+    HIWORD(LONG pLongVal), LONG, PRIVATE
+    GET_X_LPARAM(LONG pLongVal), SHORT, PRIVATE
+    GET_Y_LPARAM(LONG pLongVal), SHORT, PRIVATE
+
     PointInPolygon(LONG nvert, LONG vertices, GpPointF pt), BOOL !https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon/2922778#2922778
     INCLUDE('printf.inc'), ONCE
   END
@@ -34,6 +43,7 @@ ULW_ALPHA                     EQUATE(2h)
 
 
 TChristmasTree                CLASS(TWnd), TYPE
+wndClient                       &TCWnd, PRIVATE
 imgStatic                       &TGdiPlusBitmap, PRIVATE
 imgDynamic                      &TGdiPlusBitmap, PRIVATE
 scaleX                          SREAL, PRIVATE
@@ -43,6 +53,10 @@ branchPts                       LIKE(GpPointF), DIM(11), PRIVATE
 trunkPts                        LIKE(GpPointF), DIM(4), PRIVATE
 maxBulbs                        LONG(200), PRIVATE
 starSize                        SREAL(0.75), PRIVATE
+starPts                         LIKE(GpPointF), DIM(10), PRIVATE
+refreshTimer                    LONG, PRIVATE
+bDragModeActive                 BOOL, PROTECTED                 !- https://stackoverflow.com/questions/6142206/what-is-the-proper-way-of-handling-a-mouse-drag
+curMousePt                      LIKE(POINT), PRIVATE
 
 Construct                       PROCEDURE()
 Destruct                        PROCEDURE(), VIRTUAL
@@ -51,9 +65,14 @@ Kill                            PROCEDURE()
 MakeStaticImage                 PROCEDURE(), PRIVATE
 MakeDynamicImage                PROCEDURE(), PRIVATE
 OpenWindow                      PROCEDURE(), BYTE, PROTECTED
+SetTimer                        PROCEDURE(LONG pTimer)
 Display                         PROCEDURE()
 MakeTopmost                     PROCEDURE(), PRIVATE
 TransformPoint                  PROCEDURE(GpPointF pt), PRIVATE
+!- events
+OnLButtonDown                   PROCEDURE(UNSIGNED wParam, LONG lParam), BOOL, PROTECTED, VIRTUAL
+OnLButtonUp                     PROCEDURE(UNSIGNED wParam, LONG lParam), BOOL, PROTECTED, VIRTUAL
+OnMouseMove                     PROCEDURE(UNSIGNED wParam, LONG lParam), PROTECTED, VIRTUAL
                               END
 
 
@@ -65,10 +84,9 @@ Window                        WINDOW('Christmas tree'),AT(,,186,179),GRAY,FONT('
 
   CODE
   OPEN(Window)
-  Window{PROP:Timer} = 50
   
   Me.Init(Window)
-  
+  Me.SetTimer(50)
   Me.Display()
 
   ACCEPT
@@ -81,14 +99,63 @@ Window                        WINDOW('Christmas tree'),AT(,,186,179),GRAY,FONT('
   Me.Kill()
 
   
+  !!!region macros
+LOWORD                        PROCEDURE(LONG pLongVal)
+  CODE
+  RETURN BAND(pLongVal, 0FFFFh)
+
+HIWORD                        PROCEDURE(LONG pLongVal)
+  CODE
+  RETURN BSHIFT(BAND(pLongVal, 0FFFF0000h), -16)
+
+GET_X_LPARAM                  PROCEDURE(LONG pLongVal)
+  CODE
+  RETURN LOWORD(pLongVal)
+
+GET_Y_LPARAM                  PROCEDURE(LONG pLongVal)
+  CODE
+  RETURN HIWORD(pLongVal)
+!!!endregion
+
+!!!region callback
+wndProc                       PROCEDURE(HWND hWnd,ULONG wMsg,UNSIGNED wParam,LONG lParam)
+win                             TWnd
+christmasWin                    &TChristmasTree
+  CODE
+  win.SetHandle(hWnd)
+  !- get TChristmasTree instance
+  christmasWin &= win.GetWindowLong(GWL_USERDATA)
+  IF christmasWin &= NULL
+    !- not our window
+    RETURN win.DefWindowProc(wMsg, wParam, lParam)
+  END
   
+  CASE wMsg
+  OF WM_LBUTTONDOWN
+    IF christmasWin.OnLButtonDown(wParam, lParam) = FALSE
+      RETURN FALSE
+    END
+  OF WM_LBUTTONUP
+    IF christmasWin.OnLButtonUp(wParam, lParam) = FALSE
+      RETURN FALSE
+    END
+  OF WM_MOUSEMOVE
+    christmasWin.OnMouseMove(wParam, lParam)
+  END
   
+  !- call original window proc (don't forget - wndProc is called for TChristmasTree.wndClient, not for TChristmasTree itself!)
+  RETURN christmasWin.wndClient.CallWindowProc(wMsg, wParam, lParam)
+!!!endregion
+
+!!!region TChristmasTree
 TChristmasTree.Construct      PROCEDURE()
   CODE
+  SELF.wndClient &= NEW TCWnd
   
 TChristmasTree.Destruct       PROCEDURE()
   CODE
-
+  DISPOSE(SELF.wndClient)
+  
 TChristmasTree.Init           PROCEDURE(<WINDOW pW>)
 rcScreen                        LIKE(_RECT_)
 rcWin                           LIKE(_RECT_)
@@ -106,6 +173,10 @@ rcWin                           LIKE(_RECT_)
 
   !- make static image
   SELF.MakeStaticImage()
+  
+  !- subclass client window
+  SELF.wndClient.Init(pW)
+  SELF.wndClient.SetWndProc(ADDRESS(wndProc), ADDRESS(SELF))
 
 TChristmasTree.Kill           PROCEDURE()
   CODE
@@ -122,6 +193,11 @@ TChristmasTree.Kill           PROCEDURE()
     DISPOSE(SELF.imgDynamic)
     SELF.imgDynamic &= NULL
   END
+
+TChristmasTree.SetTimer       PROCEDURE(LONG pTimer)
+  CODE
+  SELF.refreshTimer = pTimer
+  SELF.SetProp(PROP:Timer, pTimer)
 
 TChristmasTree.MakeStaticImage    PROCEDURE()
 g                                   TGdiPlusGraphics
@@ -202,7 +278,6 @@ clrBulb                             LONG, AUTO
 nBulbs                              LONG(0)
 counter                             LONG, STATIC
 starAlpha                           SREAL, AUTO
-starPts                             LIKE(GpPointF), DIM(10), AUTO
 starCenter                          LIKE(GpPointF), AUTO
 pt                                  &GpPointF, AUTO
 dx                                  SREAL, AUTO
@@ -245,24 +320,25 @@ i                                   LONG, AUTO
 
   dx = 2.199
   LOOP i=1 TO 10 BY 2
-    starPts[i].x = COS(dx)*SELF.starSize/2
-    starPts[i].y = SIN(dx)*SELF.starSize/2 + 8 - SELF.starSize
+    SELF.starPts[i].x = COS(dx)*SELF.starSize/2
+    SELF.starPts[i].y = SIN(dx)*SELF.starSize/2 + 8 - SELF.starSize
     dx = dx + 0.628
-    starPts[i+1].x = COS(dx)*SELF.starSize
-    starPts[i+1].y = SIN(dx)*SELF.starSize + 8 - SELF.starSize
+    SELF.starPts[i+1].x = COS(dx)*SELF.starSize
+    SELF.starPts[i+1].y = SIN(dx)*SELF.starSize + 8 - SELF.starSize
     dx = dx + 0.628
   END
-  LOOP i=1 TO MAXIMUM(starPts, 1)
-    pt &= ADDRESS(starPts[i])
+  LOOP i=1 TO MAXIMUM(SELF.starPts, 1)
+    pt &= ADDRESS(SELF.starPts[i])
     SELF.TransformPoint(pt)
+!    printd('star[%i]=(%i, %i)', i, SELF.starPts[i].x, SELF.starPts[i].y)
   END
 
   pen.CreatePen(0FFFF5050h, 1, UnitPixel)
   br.CreateSolidBrush(GdipMakeARGB(COLOR:Blue, starAlpha * 128 + 127))
   
   !- star shape
-  g.FillPolygon(br, ADDRESS(starPts), 10)
-  g.DrawPolygon(pen, ADDRESS(starPts), 10)
+  g.FillPolygon(br, ADDRESS(SELF.starPts), 10)
+  g.DrawPolygon(pen, ADDRESS(SELF.starPts), 10)
   
   !- star radiuses
   starCenter.x = 0
@@ -270,7 +346,7 @@ i                                   LONG, AUTO
   SELF.TransformPoint(starCenter)
   
   LOOP i=1 TO 10
-    g.DrawLine(pen, starCenter.x, starCenter.y, starPts[i].x, starPts[i].y)
+    g.DrawLine(pen, starCenter.x, starCenter.y, SELF.starPts[i].x, SELF.starPts[i].y)
   END
 
   pen.DeletePen()
@@ -359,6 +435,61 @@ TChristmasTree.TransformPoint PROCEDURE(GpPointF pt)
   pt.x = SELF.origin.x + SELF.scaleX*pt.x
   pt.y = SELF.origin.y - SELF.scaleY*pt.y
 
+TChristmasTree.OnLButtonDown  PROCEDURE(UNSIGNED wParam, LONG lParam)
+pt                              LIKE(POINT), AUTO
+ptMouse                         LIKE(GpPointF), AUTO
+  CODE
+  !- mouse coords in client window
+  pt.x = GET_X_LPARAM(lParam)
+  pt.y = GET_Y_LPARAM(lParam)
+  !- transform POINT to GpPointF
+  ptMouse.x = pt.x
+  ptMouse.y = pt.y
+  !- check wether mouse inside the tree's trunk (the trunk is opaque and can be captured)
+  IF PointInPolygon(MAXIMUM(SELF.trunkPts, 1), ADDRESS(SELF.trunkPts), ptMouse)
+    IF SELF.wndClient.DragDetect(pt)
+      !- enable drag mode
+      SELF.bDragModeActive = TRUE
+      SELF.wndClient.SetCapture()
+      SETCURSOR(CURSOR:Drop)
+      !- disable timer
+      SELF.SetProp(PROP:Timer, 0)
+      !- save mouse pos
+      SELF.curMousePt = pt
+      RETURN FALSE
+    END
+  END
+  
+TChristmasTree.OnLButtonUp    PROCEDURE(UNSIGNED wParam, LONG lParam)
+pt                              LIKE(POINT), AUTO
+ptMouse                         LIKE(GpPointF), AUTO
+  CODE
+  IF SELF.bDragModeActive
+    SELF.wndClient.ReleaseCapture()
+    SETCURSOR()
+    SELF.bDragModeActive = FALSE
+    !- mouse coords in client window
+    pt.x = GET_X_LPARAM(lParam)
+    pt.y = GET_Y_LPARAM(lParam)
+    !- enable timer
+    SELF.SetProp(PROP:Timer, SELF.refreshTimer)
+  END
+  RETURN TRUE
+
+TChristmasTree.OnMouseMove    PROCEDURE(UNSIGNED wParam, LONG lParam)
+pt                              LIKE(POINT)
+rc                              TRect
+  CODE
+  IF SELF.bDragModeActive
+    !- mouse pos
+    pt.x = GET_X_LPARAM(lParam)
+    pt.y = GET_Y_LPARAM(lParam)
+    !- move the window
+    SELF.GetWindowRect(rc)
+    rc.OffsetRect(pt.x-SELF.curMousePt.x, pt.y-SELF.curMousePt.y)
+    SELF.MoveWindow(rc.left, rc.top, rc.Width(), rc.Height(), FALSE)
+  END
+!!!endregion
 
 PointInPolygon                PROCEDURE(LONG nvert, LONG vertices, GpPointF pt)
 verti                           &GpPointF
