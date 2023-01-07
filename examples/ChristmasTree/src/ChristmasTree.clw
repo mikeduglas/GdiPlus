@@ -438,20 +438,20 @@ TChristmasTree.TransformPoint PROCEDURE(GpPointF pt)
 TChristmasTree.OnLButtonDown  PROCEDURE(UNSIGNED wParam, LONG lParam)
 pt                              LIKE(POINT), AUTO
 ptMouse                         LIKE(GpPointF), AUTO
+sm                              TSystemMetrics
   CODE
   !- mouse coords in client window
   pt.x = GET_X_LPARAM(lParam)
   pt.y = GET_Y_LPARAM(lParam)
   !- transform POINT to GpPointF
   ptMouse.x = pt.x
-  ptMouse.y = pt.y
+  ptMouse.y = pt.y + sm.CyCaption() + sm.CyBorder()
   !- check wether mouse inside the tree's trunk (the trunk is opaque and can be captured)
   IF PointInPolygon(MAXIMUM(SELF.trunkPts, 1), ADDRESS(SELF.trunkPts), ptMouse)
     IF SELF.wndClient.DragDetect(pt)
       !- enable drag mode
       SELF.bDragModeActive = TRUE
       SELF.wndClient.SetCapture()
-      SETCURSOR(CURSOR:Drop)
       !- disable timer
       SELF.SetProp(PROP:Timer, 0)
       !- save mouse pos
@@ -466,7 +466,6 @@ ptMouse                         LIKE(GpPointF), AUTO
   CODE
   IF SELF.bDragModeActive
     SELF.wndClient.ReleaseCapture()
-    SETCURSOR()
     SELF.bDragModeActive = FALSE
     !- mouse coords in client window
     pt.x = GET_X_LPARAM(lParam)
