@@ -12,7 +12,8 @@
     MODULE('win api')
       winapi::SystemParametersInfo(ULONG uiAction, ULONG uiParam, ULONG pvParam, ULONG fWinIni),BYTE,PROC,PASCAL,NAME('SystemParametersInfoA')
     END
-    wndProc(HWND hWnd, ULONG wMsg, UNSIGNED wParam, LONG lParam), LONG, PASCAL, PRIVATE
+    mainWndProc(HWND hWnd, ULONG wMsg, UNSIGNED wParam, LONG lParam), LONG, PASCAL, PRIVATE
+    clientWndProc(HWND hWnd, ULONG wMsg, UNSIGNED wParam, LONG lParam), LONG, PASCAL, PRIVATE
     LOWORD(LONG pLongVal), LONG, PRIVATE
     HIWORD(LONG pLongVal), LONG, PRIVATE
     GET_X_LPARAM(LONG pLongVal), SHORT, PRIVATE
@@ -118,7 +119,32 @@ GET_Y_LPARAM                  PROCEDURE(LONG pLongVal)
 !!!endregion
 
 !!!region callback
-wndProc                       PROCEDURE(HWND hWnd,ULONG wMsg,UNSIGNED wParam,LONG lParam)
+mainWndProc                   PROCEDURE(HWND hWnd,ULONG wMsg,UNSIGNED wParam,LONG lParam)
+win                             TWnd
+christmasWin                    &TChristmasTree
+  CODE
+  win.SetHandle(hWnd)
+  !- get TChristmasTree instance
+  christmasWin &= win.GetWindowLong(GWL_USERDATA)
+  IF christmasWin &= NULL
+    !- not our window
+    RETURN win.DefWindowProc(wMsg, wParam, lParam)
+  END
+  
+  CASE wMsg
+  OF WM_QUERYENDSESSION
+    !- allow shutdown
+    RETURN TRUE
+    
+  OF WM_ENDSESSION
+    !- close the app
+    POST(EVENT:CloseWindow)
+    RETURN TRUE
+  END
+  
+  RETURN christmasWin.CallWindowProc(wMsg, wParam, lParam)
+
+clientWndProc                 PROCEDURE(HWND hWnd,ULONG wMsg,UNSIGNED wParam,LONG lParam)
 win                             TWnd
 christmasWin                    &TChristmasTree
   CODE
@@ -143,7 +169,7 @@ christmasWin                    &TChristmasTree
     christmasWin.OnMouseMove(wParam, lParam)
   END
   
-  !- call original window proc (don't forget - wndProc is called for TChristmasTree.wndClient, not for TChristmasTree itself!)
+  !- call original window proc (don't forget - clientWndProc is called for TChristmasTree.wndClient, not for TChristmasTree itself!)
   RETURN christmasWin.wndClient.CallWindowProc(wMsg, wParam, lParam)
 !!!endregion
 
@@ -174,9 +200,12 @@ rcWin                           LIKE(_RECT_)
   !- make static image
   SELF.MakeStaticImage()
   
-  !- subclass client window
+  !- subclass main  window
+  SELF.SetWndProc(ADDRESS(mainWndProc), ADDRESS(SELF))
+  
+!- subclass client window
   SELF.wndClient.Init(pW)
-  SELF.wndClient.SetWndProc(ADDRESS(wndProc), ADDRESS(SELF))
+  SELF.wndClient.SetWndProc(ADDRESS(clientWndProc), ADDRESS(SELF))
 
 TChristmasTree.Kill           PROCEDURE()
   CODE
