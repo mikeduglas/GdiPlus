@@ -116,6 +116,8 @@ DrawArc                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect
 DrawArcI                        PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an arc. The arc is part of an ellipse.</summary>
 DrawArc                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+!!!<summary>Draws an arc. The arc is part of an ellipse.</summary>
+DrawArc                         PROCEDURE(TGdiPlusPen pPen, TRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws a Bezier spline.</summary>
 DrawBezier                      PROCEDURE(TGdiPlusPen pPen, SREAL pX1, SREAL pY1, SREAL pX2, SREAL pY2, SREAL pX3, SREAL pY3, SREAL pX4, SREAL pY4), GpStatus, PROC
 !!!<summary>Draws a Bezier spline.</summary>
@@ -136,6 +138,8 @@ DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect
 DrawRectangleI                  PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Draws a rectangle.</summary>
 DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect), GpStatus, PROC
+!!!<summary>Draws a rectangle.</summary>
+DrawRectangle                   PROCEDURE(TGdiPlusPen pPen, TRect pRect), GpStatus, PROC
 !!!<summary>Draws a sequence of rectangles.</summary>
 DrawRectangles                  PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Draws a sequence of rectangles.</summary>
@@ -148,6 +152,8 @@ DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect
 DrawEllipseI                    PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Draws an ellipse.</summary>
 DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect), GpStatus, PROC
+!!!<summary>Draws an ellipse.</summary>
+DrawEllipse                     PROCEDURE(TGdiPlusPen pPen, TRect pRect), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
 DrawPie                         PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
@@ -156,6 +162,8 @@ DrawPie                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRectF pRect
 DrawPieI                        PROCEDURE(TGdiPlusPen pPen, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws an pie.</summary>
 DrawPie                         PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+!!!<summary>Draws an pie.</summary>
+DrawPie                         PROCEDURE(TGdiPlusPen pPen, TRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Draws a polygon.</summary>
 DrawPolygon                     PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Draws a polygon.</summary>
@@ -195,6 +203,8 @@ FillRectangleI                  PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNE
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
 FillRectangle                   PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
+FillRectangle                   PROCEDURE(TGdiPlusBrush pBrush, TRect pRect), GpStatus, PROC
+!!!<summary>Uses a brush to fill the interior of a rectangle.</summary>
 FillRectanglesI                 PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a polygon.</summary>
 FillPolygon                     PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UNSIGNED pCount, GpFillMode pMode=FillModeAlternate), GpStatus, PROC
@@ -208,6 +218,8 @@ FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF p
 FillEllipseI                    PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of an ellipse that is specified by coordinates and dimensions.</summary>
 FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect), GpStatus, PROC
+!!!<summary>Uses a brush to fill the interior of an ellipse that is specified by coordinates and dimensions.</summary>
+FillEllipse                     PROCEDURE(TGdiPlusBrush pBrush, TRect pRect), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
 FillPie                         PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
@@ -216,6 +228,8 @@ FillPie                         PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRectF p
 FillPieI                        PROCEDURE(TGdiPlusBrush pBrush, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a pie.</summary>
 FillPie                         PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
+!!!<summary>Uses a brush to fill the interior of a pie.</summary>
+FillPie                         PROCEDURE(TGdiPlusBrush pBrush, TRect pRect, SREAL pStartAngle, SREAL pSweepAngle), GpStatus, PROC
 !!!<summary>Uses a brush to fill the interior of a path. If a figure in the path is not closed, this method treats the nonclosed figure as if it were closed by a straight line that connects the figure's starting and ending points.</summary>
 FillPath                        PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusGraphicsPath pPath), GpStatus, PROC
 !!!<summary>Creates a closed cardinal spline from an array of points and uses a brush to fill the interior of the spline.</summary>
@@ -259,6 +273,8 @@ DrawImage                       PROCEDURE(TGdiPlusImage pImage, SREAL pX, SREAL 
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, TRect pRect), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
 DrawImageI                      PROCEDURE(TGdiPlusImage pImage, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight), GpStatus, PROC
 !!!<summary>Draws an image in a parallelogram.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint), GpStatus, PROC
@@ -272,6 +288,8 @@ DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF 
 DrawImageI                      PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SIGNED pDstY, SIGNED pSrcX, SIGNED pSrcY, SIGNED pSrcWidth, SIGNED pSrcHeight, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pPoint, CONST *GpRect pRect, GpUnit pSrcUnit), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pPoint, TRect pRect, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, SREAL pDstX, SREAL pDstY, SREAL pDstWidth, SREAL pDstHeight, SREAL pSrcX, SREAL pSrcY, SREAL pSrcWidth, SREAL pSrcHeight, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
@@ -287,7 +305,11 @@ DrawImageI                      PROCEDURE(TGdiPlusImage pImage, SIGNED pDstX, SI
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, TRect pDestRect, TRect pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, TRect pDestRect, TRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
                                   CONST *GpRectF pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
@@ -299,7 +321,13 @@ DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint p
                                   CONST *GpRect pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
+                                  TRect pSrcRect, GpUnit pSrcUnit), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
                                   CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
+!!!<summary>Draws an image.</summary>
+DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
+                                  TRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
 DrawImage                       PROCEDURE(TGdiPlusImage pImage, CONST *GpRectF pSrcRect, TGdiPlusMatrix pXform, TGdiPlusEffect pEffect, GpUnit pSrcUnit), GpStatus, PROC
 !!!<summary>Draws an image.</summary>
@@ -321,11 +349,15 @@ IntersectClip                   PROCEDURE(CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Same as SetClip(CombineModeIntersect).</summary>
 IntersectClip                   PROCEDURE(CONST *GpRect pRect), GpStatus, PROC
 !!!<summary>Same as SetClip(CombineModeIntersect).</summary>
+IntersectClip                   PROCEDURE(TRect pRect), GpStatus, PROC
+!!!<summary>Same as SetClip(CombineModeIntersect).</summary>
 IntersectClip                   PROCEDURE(TGdiPlusRegion pRegion), GpStatus, PROC
 !!!<summary>Same as SetClip(CombineModeExclude).</summary>
 ExcludeClip                     PROCEDURE(CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Same as SetClip(CombineModeExclude).</summary>
 ExcludeClip                     PROCEDURE(CONST *GpRect pRect), GpStatus, PROC
+!!!<summary>Same as SetClip(CombineModeExclude).</summary>
+ExcludeClip                     PROCEDURE(TRect pRect), GpStatus, PROC
 !!!<summary>Same as SetClip(CombineModeExclude).</summary>
 ExcludeClip                     PROCEDURE(TGdiPlusRegion pRegion), GpStatus, PROC
 !!!<summary>Sets the clipping region of this Graphics object to an infinite region.</summary>
@@ -340,12 +372,16 @@ GetClip                         PROCEDURE(*TGdiPlusRegion pRegion), GpStatus, PR
 GetClipBounds                   PROCEDURE(*GpRectF pRect), GpStatus, PROC
 !!!<summary>Gets a rectangle that encloses the clipping region of this Graphics object.</summary>
 GetClipBounds                   PROCEDURE(*GpRect pRect), GpStatus, PROC
+!!!<summary>Gets a rectangle that encloses the clipping region of this Graphics object.</summary>
+GetClipBounds                   PROCEDURE(*TRect pRect), GpStatus, PROC
 !!!<summary>Determines whether the clipping region of this Graphics object is empty.</summary>
 IsClipEmpty                     PROCEDURE(), BOOL
 !!!<summary>Gets a rectangle that encloses the visible clipping region of this Graphics object. The visible clipping region is the intersection of the clipping region of this Graphics object and the clipping region of the window.</summary>
 GetVisibleClipBounds            PROCEDURE(*GpRectF pRect), GpStatus, PROC
 !!!<summary>Gets a rectangle that encloses the visible clipping region of this Graphics object. The visible clipping region is the intersection of the clipping region of this Graphics object and the clipping region of the window.</summary>
 GetVisibleClipBounds            PROCEDURE(*GpRect pRect), GpStatus, PROC
+!!!<summary>Gets a rectangle that encloses the visible clipping region of this Graphics object. The visible clipping region is the intersection of the clipping region of this Graphics object and the clipping region of the window.</summary>
+GetVisibleClipBounds            PROCEDURE(*TRect pRect), GpStatus, PROC
 !!!<summary>Determines whether the visible clipping region of this Graphics object is empty. The visible clipping region is the intersection of the clipping region of this Graphics object and the clipping region of the window.</summary>
 IsVisibleClipEmpty              PROCEDURE(), BOOL
 !!!<summary>Determines whether the specified point is inside the visible clipping region of this Graphics object.</summary>
@@ -360,6 +396,8 @@ IsVisibleI                      PROCEDURE(SIGNED pX, SIGNED pY), BOOL
 IsVisible                       PROCEDURE(CONST *GpRectF pRect), BOOL
 !!!<summary>Determines whether the specified rectangle intersects the visible clipping region of this Graphics object.</summary>
 IsVisible                       PROCEDURE(CONST *GpRect pRect), BOOL
+!!!<summary>Determines whether the specified rectangle intersects the visible clipping region of this Graphics object.</summary>
+IsVisible                       PROCEDURE(TRect pRect), BOOL
 !!!<summary>Determines whether the specified rectangle intersects the visible clipping region of this Graphics object.</summary>
 IsVisible                       PROCEDURE(SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight), BOOL
 !!!<summary>Determines whether the specified rectangle intersects the visible clipping region of this Graphics object.</summary>
