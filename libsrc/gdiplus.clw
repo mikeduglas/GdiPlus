@@ -1434,10 +1434,10 @@ paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCap
       GdipGetEffectParameterSize(LONG pEffect,*UNSIGNED pSize),GpStatus,PASCAL,NAME('fptr_GdipGetEffectParameterSize'),DLL
       GdipSetEffectParameters(LONG pEffect,LONG pParams,UNSIGNED pSize),GpStatus,PASCAL,NAME('fptr_GdipSetEffectParameters'),DLL
       GdipGetEffectParameters(LONG pEffect,*UNSIGNED pSize,LONG pParams),GpStatus,PASCAL,NAME('fptr_GdipGetEffectParameters'),DLL
-      GdipCreateMatrix(LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix'),DLL
-      GdipCreateMatrix2(LONG pMatrix,SREAL pM11,SREAL pM12,SREAL pM21,SREAL pM22,SREAL pDx,SREAL pDy),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix2'),DLL
-      GdipCreateMatrix3(LONG pMatrix,LONG pRect,LONG pDstplg),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix3'),DLL
-      GdipCreateMatrix3I(LONG pMatrix,LONG pRect,LONG pDstplg),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrixI'),DLL
+      GdipCreateMatrix(*LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix'),DLL
+      GdipCreateMatrix2(SREAL pM11,SREAL pM12,SREAL pM21,SREAL pM22,SREAL pDx,SREAL pDy,*LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix2'),DLL
+      GdipCreateMatrix3(LONG pRect,LONG pDstplg,*LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix3'),DLL
+      GdipCreateMatrix3I(LONG pRect,LONG pDstplg,*LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipCreateMatrix3I'),DLL
       GdipDeleteMatrix(LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipDeleteMatrix'),DLL
       GdipCloneMatrix(LONG pMatrix,*LONG pCloneMatrix),GpStatus,PASCAL,NAME('fptr_GdipCloneMatrix'),DLL
       GdipGetMatrixElements(LONG pMatrix,LONG pElements),GpStatus,PASCAL,NAME('fptr_GdipGetMatrixElements'),DLL
@@ -2704,7 +2704,7 @@ TGdiPlusImage.FromFile        PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE)
 enc                             TStringEncoding
 wstr                            STRING(FILE:MaxFilePath*2+2)
   CODE
-  SELF.nativeImage = 0
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(LONGPATH(pFileName))
   IF pUseICM
     SELF.lastResult = GdipLoadImageFromFileICM(ADDRESS(wstr), SELF.nativeImage)
@@ -2718,7 +2718,7 @@ TGdiPlusImage.FromString      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
 lpStream                        LONG, AUTO
 stream                          &IStream, AUTO
   CODE
-  SELF.nativeImage = 0
+  SELF.DisposeImage()
   lpStream = ToStream(pImageData)
   IF lpStream
     stream &= (lpStream)
@@ -3173,7 +3173,7 @@ TGdiPlusBitmap.FromFile       PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE)
 enc                             TStringEncoding
 wstr                            STRING(FILE:MaxFilePath*2+2)
   CODE
-  SELF.nativeImage = 0
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(LONGPATH(pFileName))
   IF pUseICM
     SELF.lastResult = GdipCreateBitmapFromFileICM(ADDRESS(wstr), SELF.nativeImage)
@@ -3187,7 +3187,7 @@ TGdiPlusBitmap.FromString     PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
 lpStream                        LONG, AUTO
 stream                          &IStream, AUTO
   CODE
-  SELF.nativeImage = 0
+  SELF.DisposeImage()
   lpStream = ToStream(pImageData)
   IF lpStream
     stream &= (lpStream)
@@ -3203,6 +3203,7 @@ stream                          &IStream, AUTO
 
 TGdiPlusBitmap.FromScan0      PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, LONG pScan0)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateBitmapFromScan0(pWidth, pHeight, pStride, pFormat, pScan0, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromScan0'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -3213,24 +3214,28 @@ TGdiPlusBitmap.FromScan0      PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride,
 
 TGdiPlusBitmap.CreateBitmap   PROCEDURE(LONG pWidth, LONG pHeight, GpPixelFormat pFormat)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateBitmapFromScan0(pWidth, pHeight, 0, pFormat, 0, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromScan0'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.FromGraphics   PROCEDURE(LONG pWidth, LONG pHeight, TGdiPlusGraphics pTarget)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateBitmapFromGraphics(pWidth, pHeight, pTarget.nativeGraphics, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromGraphics'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.FromBITMAPINFO PROCEDURE(CONST *STRING pBitmapInfo, BYTE[] pBitmapData)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateBitmapFromGdiDib(ADDRESS(pBitmapInfo), ADDRESS(pBitmapData), SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromBITMAPINFO'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.FromHBITMAP    PROCEDURE(HBITMAP pHbm, HANDLE pHpal)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateBitmapFromHBITMAP(pHbm, pHpal, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromHBITMAP'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -3244,6 +3249,7 @@ hbmReturn                       HBITMAP(0)
 
 TGdiPlusBitmap.FromHICON      PROCEDURE(HICON pHicon)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateBitmapFromHICON(pHicon, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromHICON'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -3259,6 +3265,7 @@ TGdiPlusBitmap.FromResource   PROCEDURE(HINSTANCE pHInstance, STRING pBitmapName
 enc                             TStringEncoding
 wstr                            STRING(FILE:MaxFilePath*2+2)
   CODE
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(CLIP(pBitmapName))
   SELF.lastResult = GdipCreateBitmapFromResource(pHInstance, ADDRESS(wstr), SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromResource(%x, %S)', pHInstance, pBitmapName), SELF.lastResult)
@@ -3356,7 +3363,8 @@ lpOutRect                       LONG, AUTO
   ELSE
     lpOutRect = ADDRESS(pOutputRect)
   END
-
+  
+  pOutputBitmap.DisposeImage()
   SELF.lastResult = GdipBitmapCreateApplyEffect(ADDRESS(SELF.nativeImage), 1, pEffect.nativeEffect, lpRect, lpOutRect, pOutputBitmap.nativeImage, pEffect.bUseAuxData, ADDRESS(pEffect.auxData), pEffect.auxDataSize)
   GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -3402,6 +3410,7 @@ TGdiPlusGraphics.Destruct     PROCEDURE()
   
 TGdiPlusGraphics.FromHDC      PROCEDURE(HDC phdc, <HANDLE phdevice>)
   CODE
+  SELF.DeleteGraphics()
   IF OMITTED(phdevice)
     SELF.lastResult = GdipCreateFromHDC(phdc, SELF.nativeGraphics)
   ELSE
@@ -3412,6 +3421,7 @@ TGdiPlusGraphics.FromHDC      PROCEDURE(HDC phdc, <HANDLE phdevice>)
   
 TGdiPlusGraphics.FromHWND     PROCEDURE(HWND phwnd, BOOL pIcm=FALSE)
   CODE
+  SELF.DeleteGraphics()
   IF NOT pIcm
     SELF.lastResult = GdipCreateFromHWND(phwnd, SELF.nativeGraphics)
   ELSE
@@ -3422,6 +3432,7 @@ TGdiPlusGraphics.FromHWND     PROCEDURE(HWND phwnd, BOOL pIcm=FALSE)
 
 TGdiPlusGraphics.FromImage    PROCEDURE(TGdiPlusImage pImage)
   CODE
+  SELF.DeleteGraphics()
   SELF.lastResult = GdipGetImageGraphicsContext(pImage.nativeImage, SELF.nativeGraphics)
   GdipReportError('TGdiPlusGraphics.FromImage', SELF.lastResult)
   RETURN SELF.lastResult
@@ -5063,24 +5074,28 @@ TGdiPlusMatrix.Destruct       PROCEDURE()
   
 TGdiPlusMatrix.CreateMatrix   PROCEDURE()
   CODE
+  SELF.DeleteMatrix()
   SELF.lastResult = GdipCreateMatrix(SELF.nativeMatrix)
   GdipReportError(printf('TGdiPlusMatrix.CreateMatrix'), SELF.lastResult)
   RETURN SELF.lastResult
     
 TGdiPlusMatrix.CreateMatrix   PROCEDURE(SREAL pM11, SREAL pM12, SREAL pM21, SREAL pM22, SREAL pDx, SREAL pDy)
   CODE
+  SELF.DeleteMatrix()
   SELF.lastResult = GdipCreateMatrix2(pM11, pM12, pM21, pM22, pDx, pDy, SELF.nativeMatrix)
   GdipReportError(printf('TGdiPlusMatrix.CreateMatrix'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusMatrix.CreateMatrix   PROCEDURE(CONST *GprectF pRect, CONST *GpPointF pDstplg)
   CODE
+  SELF.DeleteMatrix()
   SELF.lastResult = GdipCreateMatrix3(ADDRESS(pRect), ADDRESS(pDstplg), SELF.nativeMatrix)
   GdipReportError(printf('TGdiPlusMatrix.CreateMatrix'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusMatrix.CreateMatrix   PROCEDURE(CONST *GpRect pRect, CONST *GpPoint pDstplg)
   CODE
+  SELF.DeleteMatrix()
   SELF.lastResult = GdipCreateMatrix3I(ADDRESS(pRect), ADDRESS(pDstplg), SELF.nativeMatrix)
   GdipReportError(printf('TGdiPlusMatrix.CreateMatrixI'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5265,6 +5280,7 @@ TGdiPlusFont.Destruct         PROCEDURE()
   
 TGdiPlusFont.FromDC           PROCEDURE(HDC phdc)
   CODE
+  SELF.DeleteFont()
   SELF.lastResult = GdipCreateFontFromDC(phdc, SELF.nativeFont)
   GdipReportError(printf('TGdiPlusFont.FromDC'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5283,12 +5299,14 @@ lf                              LIKE(GpLOGFONTA)
 
 TGdiPlusFont.FromLogfontA     PROCEDURE(HDC phdc, GpLOGFONTA pLogFont)
   CODE
+  SELF.DeleteFont()
   SELF.lastResult = GdipCreateFontFromLogfontA(phdc, ADDRESS(pLogFont), SELF.nativeFont)
   GdipReportError(printf('TGdiPlusFont.FromLogfontA'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusFont.CreateFont       PROCEDURE(TGdiPlusFontFamily pFamily, SREAL pEmSize, GpFontStyle pStyle, GpUnit pUnit)
   CODE
+  SELF.DeleteFont()
   SELF.lastResult = GdipCreateFont(pFamily.nativeFamily, pEmSize, pStyle, pUnit, SELF.nativeFont)
   GdipReportError(printf('TGdiPlusFont.CreateFont'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5413,6 +5431,7 @@ enc                             TStringEncoding
 wstr                            STRING(64)
 nativeFontCollection            LONG, AUTO
   CODE
+  SELF.DeleteFontFamily()
   wstr = enc.ToCWStr(CLIP(pName))
   nativeFontCollection = CHOOSE(NOT OMITTED(pFontCollection), pFontCollection.nativeFontCollection, 0)
   SELF.lastResult = GdipCreateFontFamilyFromName(ADDRESS(wstr), nativeFontCollection, SELF.nativeFamily)
@@ -5421,18 +5440,21 @@ nativeFontCollection            LONG, AUTO
 
 TGdiPlusFontFamily.GenericSansSerif   PROCEDURE()
   CODE
+  SELF.DeleteFontFamily()
   SELF.lastResult = GdipGetGenericFontFamilySansSerif(SELF.nativeFamily)
   GdipReportError(printf('TGdiPlusFontFamily.GenericSansSerif'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusFontFamily.GenericSerif   PROCEDURE()
   CODE
+  SELF.DeleteFontFamily()
   SELF.lastResult = GdipGetGenericFontFamilySerif(SELF.nativeFamily)
   GdipReportError(printf('TGdiPlusFontFamily.GenericSerif'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusFontFamily.GenericMonospace   PROCEDURE()
   CODE
+  SELF.DeleteFontFamily()
   SELF.lastResult = GdipGetGenericFontFamilyMonospace(SELF.nativeFamily)
   GdipReportError(printf('TGdiPlusFontFamily.GenericMonospace'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -5593,18 +5615,21 @@ TGdiPlusGraphicsPath.Destruct PROCEDURE()
   
 TGdiPlusGraphicsPath.CreatePath   PROCEDURE(GpFillMode pFillMode=FillModeAlternate)
   CODE
+  SELF.DeletePath()
   SELF.lastResult = GdipCreatePath(pFillMode, SELF.nativePath)
   GdipReportError(printf('TGdiPlusGraphicsPath.CreatePath'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusGraphicsPath.CreatePath   PROCEDURE(LONG pPoints, LONG pTypes, UNSIGNED pCount, GpFillMode pFillMode=FillModeAlternate)
   CODE
+  SELF.DeletePath()
   SELF.lastResult = GdipCreatePath2(pPoints, pTypes, pCount, pFillMode, SELF.nativePath)
   GdipReportError(printf('TGdiPlusGraphicsPath.CreatePath'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusGraphicsPath.CreatePathI  PROCEDURE(LONG pPoints, LONG pTypes, UNSIGNED pCount, GpFillMode pFillMode=FillModeAlternate)
   CODE
+  SELF.DeletePath()
   SELF.lastResult = GdipCreatePath2I(pPoints, pTypes, pCount, pFillMode, SELF.nativePath)
   GdipReportError(printf('TGdiPlusGraphicsPath.CreatePathI'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6108,12 +6133,14 @@ TGdiPlusPen.Destruct          PROCEDURE()
   
 TGdiPlusPen.CreatePen         PROCEDURE(GpARGB pColor, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld)
   CODE
+  SELF.DeletePen()
   SELF.lastResult = GdipCreatePen1(pColor, pWidth, pUnit, SELF.nativePen)
   GdipReportError(printf('TGdiPlusPen.CreatePen'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusPen.CreatePen         PROCEDURE(TGdiPlusBrush pBrush, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld)
   CODE
+  SELF.DeletePen()
   SELF.lastResult = GdipCreatePen2(pBrush.nativeBrush, pWidth, pUnit, SELF.nativePen)
   GdipReportError(printf('TGdiPlusPen.CreatePen'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6441,6 +6468,7 @@ brushType                       GpBrushType
 !!!region TGdiPlusSolidBrush
 TGdiPlusSolidBrush.CreateSolidBrush   PROCEDURE(GpARGB pColor)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateSolidFill(pColor, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusSolidBrush.CreateSolidBrush'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6462,6 +6490,7 @@ fillColor                       GpARGB
 !!!region TGdiPlusTextureBrush
 TGdiPlusTextureBrush.CreateTextureBrush   PROCEDURE(TGdiPlusImage pImage, GpWrapMode pWrapMode=WrapModeTile)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateTexture(pImage.nativeImage, pWrapMode, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusTextureBrush.CreateTextureBrush'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6476,12 +6505,14 @@ TGdiPlusTextureBrush.CreateTextureBrush  PROCEDURE(TGdiPlusImage pImage, GpWrapM
 
 TGdiPlusTextureBrush.CreateTextureBrush   PROCEDURE(TGdiPlusImage pImage, GpWrapMode pWrapMode, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateTexture2(pImage.nativeImage, pWrapMode, pX, pY, pWrapMode, pHeight, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusTextureBrush.CreateTextureBrush'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusTextureBrush.CreateTextureBrushI  PROCEDURE(TGdiPlusImage pImage, GpWrapMode pWrapMode, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateTexture2I(pImage.nativeImage, pWrapMode, pX, pY, pWrapMode, pHeight, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusTextureBrush.CreateTextureBrushI'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6496,12 +6527,14 @@ TGdiPlusTextureBrush.CreateTextureBrush   PROCEDURE(TGdiPlusImage pImage, TGdiPl
 
 TGdiPlusTextureBrush.CreateTextureBrush   PROCEDURE(TGdiPlusImage pImage, TGdiPlusImageAttributes pImageAttrs, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateTextureIA(pImage.nativeImage, pImageAttrs.nativeImageAttr, pX, pY, pWidth, pHeight, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusTextureBrush.CreateTextureBrush'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusTextureBrush.CreateTextureBrushI  PROCEDURE(TGdiPlusImage pImage, TGdiPlusImageAttributes pImageAttrs, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateTextureIAI(pImage.nativeImage, pImageAttrs.nativeImageAttr, pX, pY, pWidth, pHeight, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusTextureBrush.CreateTextureBrushI'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6571,36 +6604,42 @@ TGdiPlusTextureBrush.GetImage PROCEDURE(*TGdiPlusImage pImage)
 !!!region TGdiPlusLinearGradientBrush
 TGdiPlusLinearGradientBrush.CreateLineBrush   PROCEDURE(CONST *GpPointF pPt1, CONST *GpPointF pPt2, GpARGB pColor1, GpARGB pColor2)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateLineBrush(ADDRESS(pPt1), ADDRESS(pPt2), pColor1, pColor2, WrapModeTile, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusLinearGradientBrush.CreateLineBrush'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusLinearGradientBrush.CreateLineBrush  PROCEDURE(CONST *GpPoint pPt1, CONST *GpPoint pPt2, GpARGB pColor1, GpARGB pColor2)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateLineBrushI(ADDRESS(pPt1), ADDRESS(pPt2), pColor1, pColor2, WrapModeTile, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusLinearGradientBrush.CreateLineBrushI'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusLinearGradientBrush.CreateLineBrush   PROCEDURE(CONST *GpRectF pRect, GpARGB pColor1, GpARGB pColor2, GpLinearGradientMode pMode)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateLineBrushFromRect(ADDRESS(pRect), pColor1, pColor2, pMode, WrapModeTile, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusLinearGradientBrush.CreateLineBrush'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusLinearGradientBrush.CreateLineBrush   PROCEDURE(CONST *GpRect pRect, GpARGB pColor1, GpARGB pColor2, GpLinearGradientMode pMode)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateLineBrushFromRectI(ADDRESS(pRect), pColor1, pColor2, pMode, WrapModeTile, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusLinearGradientBrush.CreateLineBrushI'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusLinearGradientBrush.CreateLineBrush   PROCEDURE(CONST *GpRectF pRect, GpARGB pColor1, GpARGB pColor2, SREAL pAngle, BOOL pIsAngleScalable)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateLineBrushFromRectWithAngle(ADDRESS(pRect), pColor1, pColor2, pAngle, pIsAngleScalable, WrapModeTile, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusLinearGradientBrush.CreateLineBrush'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusLinearGradientBrush.CreateLineBrush  PROCEDURE(CONST *GpRect pRect, GpARGB pColor1, GpARGB pColor2, SREAL pAngle, BOOL pIsAngleScalable)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateLineBrushFromRectWithAngleI(ADDRESS(pRect), pColor1, pColor2, pAngle, pIsAngleScalable, WrapModeTile, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusLinearGradientBrush.CreateLineBrushI'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6754,6 +6793,7 @@ mode                                        GpWrapMode
 !!!region TGdiPlusHatchBrush
 TGdiPlusHatchBrush.CreateHatchBrush   PROCEDURE(GpHatchStyle pHatchStyle, GpARGB pForeColor, GpARGB pBackColor=COLOR:Black)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreateHatchBrush(pHatchStyle, pForeColor, pBackColor, SELF.nativeBrush)
   GdipReportError(printf('TGdiPlusHatchBrush.CreateHatchBrush'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -6787,36 +6827,42 @@ TGdiPlusRegion.Destruct       PROCEDURE()
   
 TGdiPlusRegion.CreateRegion   PROCEDURE()
   CODE
+  SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegion(SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.CreateRegion'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusRegion.FromRect       PROCEDURE(CONST *GpRectF pRect)
   CODE
+  SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegionRect(ADDRESS(pRect), SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.FromRect'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusRegion.FromRect       PROCEDURE(CONST *GpRect pRect)
   CODE
+  SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegionRectI(ADDRESS(pRect), SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.FromRect'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusRegion.FromGraphicsPath   PROCEDURE(TGdiPlusGraphicsPath pPath)
   CODE
+  SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegionPath(pPath.nativePath, SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.FromGraphicsPath'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusRegion.FromRegionData PROCEDURE(*BYTE[] pData)
   CODE
+  SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegionRgnData(ADDRESS(pData), MAXIMUM(pData, 1), SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.FromRegionData'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusRegion.FromHRGN       PROCEDURE(HRGN phRgn)
   CODE
+  SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegionHrgn(phRgn, SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.FromHRGN'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -7083,6 +7129,7 @@ TGdiPlusCachedBitmap.Destruct PROCEDURE()
   
 TGdiPlusCachedBitmap.CrewateCachedBitmap  PROCEDURE(TGdiPlusBitmap pBitmap, TGdiPlusGraphics pGraphics)
   CODE
+  SELF.DeleteCachedBitmap()
   SELF.lastResult = GdipCreateCachedBitmap(pBitmap.nativeImage, pGraphics.nativeGraphics, SELF.nativeCachedBitmap)
   GdipReportError(printf('TGdiPlusCachedBitmap.CrewateCachedBitmap'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -7104,18 +7151,21 @@ TGdiPlusStringFormat.Destruct PROCEDURE()
   
 TGdiPlusStringFormat.CreateStringFormat   PROCEDURE(UNSIGNED pFormatFlags=0, USHORT pLanguage=0)
   CODE
+  SELF.DeleteStringFormat()
   SELF.lastResult = GdipCreateStringFormat(pFormatFlags, pLanguage, SELF.nativeFormat)
   GdipReportError(printf('TGdiPlusStringFormat.CreateStringFormat'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.CreateGenericDefault PROCEDURE()
   CODE
+  SELF.DeleteStringFormat()
   SELF.lastResult = GdipStringFormatGetGenericDefault(SELF.nativeFormat)
   GdipReportError(printf('TGdiPlusStringFormat.CreateGenericDefault'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.CreateGenericTypographic PROCEDURE()
   CODE
+  SELF.DeleteStringFormat()
   SELF.lastResult = GdipStringFormatGetGenericTypographic(SELF.nativeFormat)
   GdipReportError(printf('TGdiPlusStringFormat.CreateGenericTypographic'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -7263,6 +7313,7 @@ TGdiPlusImageAttributes.Destruct  PROCEDURE()
   
 TGdiPlusImageAttributes.CreateImageAttributes PROCEDURE()
   CODE
+  SELF.DeleteImageAttributes()
   SELF.lastResult = GdipCreateImageAttributes(SELF.nativeImageAttr)
   GdipReportError(printf('TGdiPlusImageAttributes.CreateImageAttributes'), SELF.lastResult)
   RETURN SELF.lastResult
@@ -7439,6 +7490,7 @@ TGdiPlusGraphisPathIterator.Destruct  PROCEDURE()
   
 TGdiPlusGraphisPathIterator.CreatePathIter    PROCEDURE(TGdiPlusGraphicsPath pPath)
   CODE
+  SELF.DeletePathIter()
   SELF.lastResult = GdipCreatePathIter(SELF.nativeIterator, pPath.nativePath)
   GdipReportError('TGdiPlusGraphisPathIterator.CreatePathIter', SELF.lastResult)
   RETURN SELF.lastResult
@@ -7532,18 +7584,21 @@ resultCount                             UNSIGNED
 !!!region TGdiPlusPathGradientBrush
 TGdiPlusPathGradientBrush.CreatePathGradient  PROCEDURE(LONG pPoints, UNSIGNED pCount, GpWrapMode pWrapMode=WrapModeClamp)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreatePathGradient(pPoints, pCount, pWrapMode, SELF.nativeBrush)
   GdipReportError('TGdiPlusPathGradientBrush.CreatePathGradient', SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusPathGradientBrush.CreatePathGradientI PROCEDURE(LONG pPoints, UNSIGNED pCount, GpWrapMode pWrapMode=WrapModeClamp)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreatePathGradientI(pPoints, pCount, pWrapMode, SELF.nativeBrush)
   GdipReportError('TGdiPlusPathGradientBrush.CreatePathGradientI', SELF.lastResult)
   RETURN SELF.lastResult
     
 TGdiPlusPathGradientBrush.CreatePathGradient  PROCEDURE(TGdiPlusGraphicsPath pPath)
   CODE
+  SELF.DeleteBrush()
   SELF.lastResult = GdipCreatePathGradientFromPath(pPath.nativePath, SELF.nativeBrush)
   GdipReportError('TGdiPlusPathGradientBrush.CreatePathGradient', SELF.lastResult)
   RETURN SELF.lastResult
@@ -7781,12 +7836,14 @@ TGdiPlusPathGradientBrush.SetWrapMode PROCEDURE(GpWrapMode pWrapMode)
 !!!region TGdiPlusMetafile
 TGdiPlusMetafile.CreateFromWmf    PROCEDURE(HMETAFILE phWmf, typWmfPlaceableFileHeader pFileHeader, BOOL pDeleteWmf=FALSE)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateMetafileFromWmf(phWmf, pDeleteWmf, ADDRESS(pFileHeader), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromWmf', SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusMetafile.CreateFromEmf    PROCEDURE(HENHMETAFILE phEmf, BOOL pDeleteEmf=FALSE)
   CODE
+  SELF.DisposeImage()
   SELF.lastResult = GdipCreateMetafileFromEmf(phEmf, pDeleteEmf, SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromEmf', SELF.lastResult)
   RETURN SELF.lastResult
@@ -7795,6 +7852,7 @@ TGdiPlusMetafile.CreateFromFile   PROCEDURE(STRING pFileName)
 enc                                 TStringEncoding
 wstr                                STRING(FILE:MaxFilePath*2+2)
   CODE
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(LONGPATH(pFileName))
   SELF.lastResult = GdipCreateMetafileFromFile(ADDRESS(wstr), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromFile', SELF.lastResult)
@@ -7804,6 +7862,7 @@ TGdiPlusMetafile.CreateFromFile   PROCEDURE(STRING pFileName, typWmfPlaceableFil
 enc                                 TStringEncoding
 wstr                                STRING(FILE:MaxFilePath*2+2)
   CODE
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(LONGPATH(pFileName))
   SELF.lastResult = GdipCreateMetafileFromWmfFile(ADDRESS(wstr), ADDRESS(pFileHeader), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromFile', SELF.lastResult)
@@ -7813,6 +7872,7 @@ TGdiPlusMetafile.CreateFromString PROCEDURE(STRING pData)
 lpStream                            LONG, AUTO
 stream                              &IStream, AUTO
   CODE
+  SELF.DisposeImage()
   lpStream = ToStream(pData)
   SELF.lastResult = GdipCreateMetafileFromStream(lpStream, SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.CreateFromString', SELF.lastResult)
@@ -7826,6 +7886,7 @@ TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, GpEmfType pType=E
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   CODE
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(CLIP(pDescription))
   SELF.lastResult = GdipRecordMetafile(pReferenceHdc, pType, 0, MetafileFrameUnitGdi, ADDRESS(wstr), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
@@ -7835,6 +7896,7 @@ TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRectF pF
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   CODE
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(CLIP(pDescription))
   SELF.lastResult = GdipRecordMetafile(pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstr), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
@@ -7844,6 +7906,7 @@ TGdiPlusMetafile.RecordMetafile   PROCEDURE(HDC pReferenceHdc, CONST *GpRect pFr
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pDescription))*2+2)
   CODE
+  SELF.DisposeImage()
   wstr = enc.ToCWStr(CLIP(pDescription))
   SELF.lastResult = GdipRecordMetafileI(pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstr), SELF.nativeImage)
   GdipReportError('TGdiPlusMetafile.RecordMetafile', SELF.lastResult)
@@ -7854,6 +7917,7 @@ enc                                 TStringEncoding
 wstrFile                            STRING(FILE:MaxFilePath*2+2)
 wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
   CODE
+  SELF.DisposeImage()
   wstrFile = enc.ToCWStr(LONGPATH(pFileName))
   wstrDescr = enc.ToCWStr(CLIP(pDescription))
   SELF.lastResult = GdipRecordMetafileFileName(ADDRESS(wstrFile), pReferenceHdc, pType, 0, MetafileFrameUnitGdi, ADDRESS(wstrDescr), SELF.nativeImage)
@@ -7865,6 +7929,7 @@ enc                                 TStringEncoding
 wstrFile                            STRING(FILE:MaxFilePath*2+2)
 wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
   CODE
+  SELF.DisposeImage()
   wstrFile = enc.ToCWStr(LONGPATH(pFileName))
   wstrDescr = enc.ToCWStr(CLIP(pDescription))
   SELF.lastResult = GdipRecordMetafileFileName(ADDRESS(wstrFile), pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstrDescr), SELF.nativeImage)
@@ -7876,6 +7941,7 @@ enc                                 TStringEncoding
 wstrFile                            STRING(FILE:MaxFilePath*2+2)
 wstrDescr                           STRING(LEN(CLIP(pDescription))*2+2)
   CODE
+  SELF.DisposeImage()
   wstrFile = enc.ToCWStr(LONGPATH(pFileName))
   wstrDescr = enc.ToCWStr(CLIP(pDescription))
   SELF.lastResult = GdipRecordMetafileFileNameI(ADDRESS(wstrFile), pReferenceHdc, pType, ADDRESS(pFrameRect), pFrameUnit, ADDRESS(wstrDescr), SELF.nativeImage)
@@ -8004,6 +8070,7 @@ TGdiPlusCustomLineCap.Destruct    PROCEDURE()
   
 TGdiPlusCustomLineCap.CreateCustomLineCap PROCEDURE(TGdiPlusGraphicsPath pFillPath, TGdiPlusGraphicsPath pStrokePath, GpLineCap pBaseCap=LineCapFlat, SREAL pBaseInset=0)
   CODE
+  SELF.DeleteCustomLineCap()
   SELF.lastResult = GdipCreateCustomLineCap(pFillPath.nativePath, pStrokePath.nativePath, pBaseCap, pBaseInset, SELF.nativeCap)
   GdipReportError('TGdiPlusCustomLineCap.CreateCustomLineCap', SELF.lastResult)
   RETURN SELF.lastResult
@@ -8096,6 +8163,7 @@ scale                                   SREAL
 !!!region TGdiPlusAdjustableArrowCap
 TGdiPlusAdjustableArrowCap.CreateAdjustableArrowCap   PROCEDURE(SREAL pHeight, SREAL pWidth, BOOL pIsFilled=TRUE)
   CODE
+  SELF.DeleteCustomLineCap()
   SELF.lastResult = GdipCreateAdjustableArrowCap(pHeight, pWidth, pIsFilled, SELF.nativeCap)
   GdipReportError('TGdiPlusAdjustableArrowCap.CreateAdjustableArrowCap', SELF.lastResult)
   RETURN SELF.lastResult
