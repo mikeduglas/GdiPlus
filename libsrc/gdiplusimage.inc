@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Image, Bitmap, CachedBitmap classes
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -33,6 +33,8 @@ GetLastStatus                   PROCEDURE(), GpStatus
 FromFile                        PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE), GpStatus, PROC
 !!!<summary>Creates an Image object based on a string data.</summary>
 FromString                      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE), GpStatus, PROC
+!!!<summary>Creates an Image object based on a string data.</summary>
+FromString                      PROCEDURE(*STRING pImageData, BOOL pUseICM=FALSE), GpStatus, PROC
 !!!<summary>Saves this image to a file.</summary>
 !!!<param name="pFileName">The path name for the saved image.</param>
 !!!<param name="pFormat">The encoder to use to save the image. Built-in formats:
@@ -73,6 +75,8 @@ GetType                         PROCEDURE(), GpImageType
 GetFlags                        PROCEDURE(), ULONG
 !!!<summary>Gets a globally unique identifier (GUID) that identifies the format of this Image object.</summary>
 GetRawFormat                    PROCEDURE(*GUID pGuid), GpStatus, PROC
+!!!<summary>Returns a mime type that identifies the format of this Image object.</summary>
+GetMimeType                     PROCEDURE(), STRING
 !!!<summary>Gets the pixel format of this Image object.</summary>
 GetPixelFormat                  PROCEDURE(), GpPixelFormat
 !!!<summary>Gets the number of properties (pieces of metadata) stored in this Image object.</summary>
