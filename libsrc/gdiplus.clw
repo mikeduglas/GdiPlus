@@ -1,9 +1,9 @@
 !* GDI+ support
 !* Class implementations
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
-                              MEMBER
+  MEMBER
 
   INCLUDE('svcomdef.inc'), ONCE
   INCLUDE('winapi.inc'), ONCE
@@ -2596,7 +2596,7 @@ i                               LONG, AUTO
 enc                             TStringEncoding
 mimeTypeW                       &STRING, AUTO
 mimeTypeStrLen                  LONG, AUTO
-mimeTypeA                       STRING(20), AUTO
+mimeTypeA                       STRING(32), AUTO
 ret                             BOOL(FALSE)
   CODE
   GdipGetImageEncodersSize(num, bytes)
@@ -2628,6 +2628,7 @@ ret                             BOOL(FALSE)
       !- Success
       pClsId = codecInfo.Clsid
       ret = TRUE
+      BREAK
     END
   END
 
@@ -2715,6 +2716,10 @@ wstr                            STRING(FILE:MaxFilePath*2+2)
   RETURN SELF.lastResult
   
 TGdiPlusImage.FromString      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
+  CODE
+  RETURN SELF.FromString(pImageData, pUseICM)
+  
+TGdiPlusImage.FromString      PROCEDURE(*STRING pImageData, BOOL pUseICM=FALSE)
 lpStream                        LONG, AUTO
 stream                          &IStream, AUTO
   CODE
@@ -2914,6 +2919,39 @@ TGdiPlusImage.GetRawFormat    PROCEDURE(*GUID pGuid)
   SELF.lastResult = GdipGetImageRawFormat(SELF.nativeImage, ADDRESS(pGuid))
   GdipReportError('TGdiPlusImage.GetRawFormat', SELF.lastResult)
   RETURN SELF.lastResult
+  
+TGdiPlusImage.GetMimeType     PROCEDURE()
+fmt                             LIKE(GUID), AUTO
+  CODE
+  IF SELF.GetRawFormat(fmt) = GpStatus:Ok
+    IF fmt = ImageFormatMemoryBMP
+      RETURN 'image/bmp'
+    ELSIF fmt = ImageFormatBMP
+      RETURN 'image/bmp'
+    ELSIF fmt = ImageFormatEMF
+      RETURN 'image/emf'
+    ELSIF fmt = ImageFormatWMF
+      RETURN 'image/wmf'
+    ELSIF fmt = ImageFormatJPEG
+      RETURN 'image/jpeg'
+    ELSIF fmt = ImageFormatPNG
+      RETURN 'image/png'
+    ELSIF fmt = ImageFormatGIF
+      RETURN 'image/gif'
+    ELSIF fmt = ImageFormatEXIF
+      RETURN 'image/jpeg'
+    ELSIF fmt = ImageFormatTIFF
+      RETURN 'image/tiff'
+    ELSIF fmt = ImageFormatIcon
+      RETURN 'image/vnd.microsoft.icon'
+    ELSIF fmt = ImageFormatHEIF
+      RETURN 'image/heif'
+    ELSIF fmt = ImageFormatWEBP
+      RETURN 'image/webp'
+    END
+  END
+  
+  RETURN ''
   
 TGdiPlusImage.GetPixelFormat  PROCEDURE()
 fmt                             GpPixelFormat(0)
