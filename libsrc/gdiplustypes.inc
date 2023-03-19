@@ -1,6 +1,6 @@
 !* GDI+ support
 !* Base struct and enum declarations
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
   INCLUDE('svcomdef.inc'), ONCE
@@ -195,6 +195,103 @@ PixelOffsetModeHighSpeed      EQUATE(QualityModeLow)
 PixelOffsetModeHighQuality    EQUATE(QualityModeHigh)
 PixelOffsetModeNone           EQUATE(3)   !- No pixel offset
 PixelOffsetModeHalf           EQUATE(4)   !- Offset by -0.5, -0.5 for fast anti-alias perf
+
+
+!---------------------------------------------------------------------------
+! Image file format identifiers
+!---------------------------------------------------------------------------
+!DEFINE_GUID(ImageFormatUndefined, 0xb96b3ca9,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatMemoryBMP, 0xb96b3caa,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatBMP,       0xb96b3cab,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatEMF,       0xb96b3cac,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatWMF,       0xb96b3cad,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatJPEG,      0xb96b3cae,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatPNG,       0xb96b3caf,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatGIF,       0xb96b3cb0,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatTIFF,      0xb96b3cb1,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatEXIF,      0xb96b3cb2,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatIcon,      0xb96b3cb5,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatHEIF,      0xb96b3cb6,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+!DEFINE_GUID(ImageFormatWEBP,      0xb96b3cb7,0x0728,0x11d3,0x9d,0x7b,0x00,0x00,0xf8,0x1e,0xf3,0x2e);
+
+ImageFormatUndefined          GROUP
+Data1                           LONG(0b96b3ca9h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatMemoryBMP          GROUP
+Data1                           LONG(0b96b3caah)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatBMP                GROUP
+Data1                           LONG(0b96b3cabh)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatEMF                GROUP
+Data1                           LONG(0b96b3cach)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatWMF                GROUP
+Data1                           LONG(0b96b3cadh)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatJPEG                GROUP
+Data1                           LONG(0b96b3caeh)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatPNG                GROUP
+Data1                           LONG(0b96b3cafh)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatGIF                GROUP
+Data1                           LONG(0b96b3cb0h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatEXIF               GROUP
+Data1                           LONG(0b96b3cb1h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatTIFF               GROUP
+Data1                           LONG(0b96b3cb2h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatIcon               GROUP
+Data1                           LONG(0b96b3cb5h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatHEIF               GROUP
+Data1                           LONG(0b96b3cb6h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
+ImageFormatWEBP               GROUP
+Data1                           LONG(0b96b3cb7h)
+Data2                           SHORT(0728h)
+Data3                           SHORT(11d3h)
+Data4                           STRING('<9dh,7bh,0h,0h,0f8h,1eh,0f3h,2eh>')
+                              END
 
 
 !---------------------------------------------------------------------------
