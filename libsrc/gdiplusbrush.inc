@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Brush classes
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -12,6 +12,8 @@ nativeBrush                     LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Cleans up resources used by a Brush object.</summary>
 DeleteBrush                     PROCEDURE(), GpStatus, PROC
 !!!<summary>Creates a new Brush object based on this brush.</summary>
@@ -174,6 +176,8 @@ nativeImageAttr                 LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates an ImageAttributes object.</summary>
 CreateImageAttributes           PROCEDURE(), GpStatus, PROC
 !!!<summary>Releases resources used by the ImageAttributes object.</summary>

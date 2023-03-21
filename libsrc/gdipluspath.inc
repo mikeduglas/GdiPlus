@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Graphics Path class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -12,6 +12,8 @@ nativePath                      LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a GraphicsPath object and initializes the fill mode.</summary>
 CreatePath                      PROCEDURE(GpFillMode pFillMode=FillModeAlternate), GpStatus, PROC
 !!!<summary>Creates a GraphicsPath object based on an array of points, an array of types, and a fill mode.</summary>
@@ -194,6 +196,8 @@ nativeIterator                  LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a new GraphicsPathIterator object and associates it with a GraphicsPath object.</summary>
 CreatePathIter                  PROCEDURE(TGdiPlusGraphicsPath pPath), GpStatus, PROC
 !!!<summary>Releases resources used by the GraphicsPathIterator object.</summary>

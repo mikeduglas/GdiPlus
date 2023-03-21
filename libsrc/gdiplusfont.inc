@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Font class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -14,6 +14,8 @@ nativeFont                      LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a Font object based on the GDI font object that is currently selected into a specified device context.</summary>
 FromDC                          PROCEDURE(HDC phdc), GpStatus, PROC
 !!!<summary>Creates a Font object directly from a GDI logical font.</summary>
@@ -60,6 +62,8 @@ nativeFamily                    LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a FontFamily object based on a specified font family.</summary>
 CreateFontFamily                PROCEDURE(STRING pName), GpStatus, PROC
 !!!<summary>Creates a FontFamily object based on a specified font family.</summary>
@@ -101,6 +105,8 @@ lastResult                          GpStatus, PROTECTED
 
 Construct                           PROCEDURE()
 Destruct                            PROCEDURE(), VIRTUAL
+Initialized                         PROCEDURE(), BOOL
+
 GetFamilyCount                      PROCEDURE(), UNSIGNED
 GetFamily                           PROCEDURE(UNSIGNED pCount, UNSIGNED pIndex, *TGdiPlusFontFamily pFamily), GpStatus, PROC
                                   END

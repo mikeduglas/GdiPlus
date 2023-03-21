@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Matrix class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -12,6 +12,8 @@ nativeMatrix                    LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates and initializes a Matrix object that represents the identity matrix.</summary>
 CreateMatrix                    PROCEDURE(), GpStatus, PROC
 !!!<summary>Creates and initializes a Matrix object based on six numbers that define an affine transformation.</summary>

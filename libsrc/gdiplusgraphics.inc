@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Graphics class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -13,6 +13,8 @@ lastResult                      GpStatus, PROTECTED
 
 Construct                       PROCEDURE()
 Destruct                        PROCEDURE(), VIRTUAL
+
+Initialized                     PROCEDURE(), BOOL
 
 !!!<summary>Creates a Graphics object that is associated with a specified device context.</summary>
 FromHDC                         PROCEDURE(HDC phdc, <HANDLE phdevice>), GpStatus, PROC

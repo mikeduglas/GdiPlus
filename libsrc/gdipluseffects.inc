@@ -155,6 +155,8 @@ bUseAuxData                     BOOL, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 GetAuxDataSize                  PROCEDURE(), UNSIGNED
 GetAuxData                      PROCEDURE(), *STRING
 UseAuxData                      PROCEDURE(<BOOL pUseAuxData>), BOOL, PROC

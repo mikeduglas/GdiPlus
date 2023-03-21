@@ -2696,7 +2696,11 @@ TGdiPlusImage.Construct       PROCEDURE()
 TGdiPlusImage.Destruct        PROCEDURE()
   CODE
   SELF.DisposeImage()
-  
+    
+TGdiPlusImage.Initialized     PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeImage <> 0)
+
 TGdiPlusImage.GetLastStatus   PROCEDURE()
   CODE
   RETURN SELF.lastResult
@@ -3310,10 +3314,18 @@ wstr                            STRING(FILE:MaxFilePath*2+2)
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
+rect                            LIKE(GpRectF), AUTO
+un                              GpUnit, AUTO
   CODE
   pDstBitmap.DisposeImage()
   SELF.lastResult = GdipCloneBitmapAreaI(pX, pY, pWidth, pHeight, pFormat, SELF.nativeImage, pDstBitmap.nativeImage)
-  GdipReportError(printf('TGdiPlusBitmap.Clone'), SELF.lastResult)
+  GdipReportError(printf('TGdiPlusBitmap.Clone(%i, %i, %i, %i)', pX, pY, pWidth, pHeight), SELF.lastResult)
+  
+!  IF SELF.lastResult = GpStatus:OutOfMemory
+!    SELF.GetBounds(rect, un)
+!    printd('TGdiPlusBitmap.Clone(): image bounds (%i, %i, %i, %i)', rect.x, rect.y, rect.width, rect.height)
+!  END
+  
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.Clone          PROCEDURE(GpRect pRect, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
@@ -3446,6 +3458,10 @@ TGdiPlusGraphics.Destruct     PROCEDURE()
   CODE
   SELF.DeleteGraphics()
   
+TGdiPlusGraphics.Initialized  PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeGraphics <> 0)
+
 TGdiPlusGraphics.FromHDC      PROCEDURE(HDC phdc, <HANDLE phdevice>)
   CODE
   SELF.DeleteGraphics()
@@ -4817,6 +4833,10 @@ TGdiPlusEffect.Destruct       PROCEDURE()
   SELF.lastResult = GdipDeleteEffect(SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusEffect.Destruct'), SELF.lastResult)
 
+TGdiPlusEffect.Initialized    PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeEffect <> 0)
+
 TGdiPlusEffect.GetAuxDataSize PROCEDURE()
   CODE
   RETURN SELF.auxDataSize
@@ -5110,6 +5130,10 @@ TGdiPlusMatrix.Destruct       PROCEDURE()
   CODE
   SELF.DeleteMatrix()
   
+TGdiPlusMatrix.Initialized    PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeMatrix <> 0)
+
 TGdiPlusMatrix.CreateMatrix   PROCEDURE()
   CODE
   SELF.DeleteMatrix()
@@ -5316,6 +5340,10 @@ TGdiPlusFont.Destruct         PROCEDURE()
   CODE
   SELF.DeleteFont()
   
+TGdiPlusFont.Initialized      PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeFont <> 0)
+
 TGdiPlusFont.FromDC           PROCEDURE(HDC phdc)
   CODE
   SELF.DeleteFont()
@@ -5460,6 +5488,10 @@ TGdiPlusFontFamily.Destruct   PROCEDURE()
   CODE
   SELF.DeleteFontFamily()
   
+TGdiPlusFontFamily.Initialized    PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeFamily <> 0)
+
 TGdiPlusFontFamily.CreateFontFamily   PROCEDURE(STRING pName)
   CODE
   RETURN SELF.FromName(pName)
@@ -5587,6 +5619,10 @@ TGdiPlusFontCollection.Construct  PROCEDURE()
 TGdiPlusFontCollection.Destruct   PROCEDURE()
   CODE
   
+TGdiPlusFontCollection.Initialized    PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeFontCollection <> 0)
+
 TGdiPlusFontCollection.GetFamilyCount PROCEDURE()
 numFound                                UNSIGNED(0)
   CODE
@@ -5651,6 +5687,10 @@ TGdiPlusGraphicsPath.Destruct PROCEDURE()
   CODE
   SELF.DeletePath()
   
+TGdiPlusGraphicsPath.Initialized  PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativePath <> 0)
+
 TGdiPlusGraphicsPath.CreatePath   PROCEDURE(GpFillMode pFillMode=FillModeAlternate)
   CODE
   SELF.DeletePath()
@@ -6169,6 +6209,10 @@ TGdiPlusPen.Destruct          PROCEDURE()
   CODE
   SELF.DeletePen()
   
+TGdiPlusPen.Initialized       PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativePen <> 0)
+
 TGdiPlusPen.CreatePen         PROCEDURE(GpARGB pColor, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld)
   CODE
   SELF.DeletePen()
@@ -6479,6 +6523,10 @@ TGdiPlusBrush.Destruct        PROCEDURE()
   CODE
   SELF.DeleteBrush()
   
+TGdiPlusBrush.Initialized     PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeBrush <> 0)
+
 TGdiPlusBrush.DeleteBrush     PROCEDURE()
   CODE
   IF SELF.nativeBrush
@@ -6863,6 +6911,10 @@ TGdiPlusRegion.Destruct       PROCEDURE()
   CODE
   SELF.DeleteRegion()
   
+TGdiPlusRegion.Initialized    PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeRegion <> 0)
+
 TGdiPlusRegion.CreateRegion   PROCEDURE()
   CODE
   SELF.DeleteRegion()
@@ -7165,6 +7217,10 @@ TGdiPlusCachedBitmap.Destruct PROCEDURE()
   CODE
   SELF.DeleteCachedBitmap()
   
+TGdiPlusCachedBitmap.Initialized  PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeCachedBitmap <> 0)
+
 TGdiPlusCachedBitmap.CrewateCachedBitmap  PROCEDURE(TGdiPlusBitmap pBitmap, TGdiPlusGraphics pGraphics)
   CODE
   SELF.DeleteCachedBitmap()
@@ -7187,6 +7243,10 @@ TGdiPlusStringFormat.Destruct PROCEDURE()
   CODE
   SELF.DeleteStringFormat()
   
+TGdiPlusStringFormat.Initialized  PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeFormat <> 0)
+
 TGdiPlusStringFormat.CreateStringFormat   PROCEDURE(UNSIGNED pFormatFlags=0, USHORT pLanguage=0)
   CODE
   SELF.DeleteStringFormat()
@@ -7349,6 +7409,10 @@ TGdiPlusImageAttributes.Destruct  PROCEDURE()
   CODE
   SELF.DeleteImageAttributes()
   
+TGdiPlusImageAttributes.Initialized   PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeImageAttr <> 0)
+
 TGdiPlusImageAttributes.CreateImageAttributes PROCEDURE()
   CODE
   SELF.DeleteImageAttributes()
@@ -7526,6 +7590,10 @@ TGdiPlusGraphisPathIterator.Destruct  PROCEDURE()
   CODE
   SELF.DeletePathIter()
   
+TGdiPlusGraphisPathIterator.Initialized   PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeIterator <> 0)
+
 TGdiPlusGraphisPathIterator.CreatePathIter    PROCEDURE(TGdiPlusGraphicsPath pPath)
   CODE
   SELF.DeletePathIter()
@@ -8106,6 +8174,10 @@ TGdiPlusCustomLineCap.Destruct    PROCEDURE()
   CODE
   SELF.DeleteCustomLineCap()
   
+TGdiPlusCustomLineCap.Initialized PROCEDURE()
+  CODE
+  RETURN CHOOSE(SELF.nativeCap <> 0)
+
 TGdiPlusCustomLineCap.CreateCustomLineCap PROCEDURE(TGdiPlusGraphicsPath pFillPath, TGdiPlusGraphicsPath pStrokePath, GpLineCap pBaseCap=LineCapFlat, SREAL pBaseInset=0)
   CODE
   SELF.DeleteCustomLineCap()

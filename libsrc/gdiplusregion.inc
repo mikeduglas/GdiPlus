@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Region class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -12,6 +12,8 @@ nativeRegion                    LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a region that is infinite.</summary>
 CreateRegion                    PROCEDURE(), GpStatus, PROC
 !!!<summary>Creates a region that is defined by a rectangle.</summary>

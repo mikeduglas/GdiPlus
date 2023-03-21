@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ StringFormat class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -18,6 +18,8 @@ nativeFormat                    LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a StringFormat object based on string format flags and a language.</summary>
 CreateStringFormat              PROCEDURE(UNSIGNED pFormatFlags=0, USHORT pLanguage=0), GpStatus, PROC
 !!!<summary>Creates a generic, default StringFormat object.</summary>

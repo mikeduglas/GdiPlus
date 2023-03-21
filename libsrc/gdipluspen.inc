@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Pen class
-!* mikeduglas 2022
+!* mikeduglas 2023
 !* mikeduglas@yandex.ru
 
 
@@ -12,6 +12,8 @@ nativePen                       LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a Pen object that uses a specified color and width.</summary>
 CreatePen                       PROCEDURE(GpARGB pColor, SREAL pWidth=1.0, GpUnit pUnit=UnitWorld), GpStatus, PROC
 !!!<summary>Creates a Pen object that uses the attributes of a brush and a real number to set the width of this Pen object.</summary>
@@ -113,6 +115,8 @@ nativeCap                       LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 !!!<summary>Creates a CustomLineCap object.</summary>
 CreateCustomLineCap             PROCEDURE(TGdiPlusGraphicsPath pFillPath, TGdiPlusGraphicsPath pStrokePath, GpLineCap pBaseCap=LineCapFlat, SREAL pBaseInset=0), GpStatus, PROC
 !!!<summary>Cleans up resources used by a CustomLineCap object.</summary>

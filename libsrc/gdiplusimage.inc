@@ -27,6 +27,7 @@ lastResult                      GpStatus, PROTECTED
 Construct                       PROCEDURE()
 Destruct                        PROCEDURE(), VIRTUAL
 
+Initialized                     PROCEDURE(), BOOL
 GetLastStatus                   PROCEDURE(), GpStatus
 
 !!!<summary>Creates an Image object based on a file.</summary>
@@ -207,6 +208,8 @@ nativeCachedBitmap              LONG, PROTECTED
 lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
+Initialized                     PROCEDURE(), BOOL
+
 CrewateCachedBitmap             PROCEDURE(TGdiPlusBitmap pBitmap, TGdiPlusGraphics pGraphics), GpStatus, PROC
 DeleteCachedBitmap              PROCEDURE(), GpStatus, PROC
                               END
