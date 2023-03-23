@@ -166,6 +166,8 @@ Clone                           PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pH
 !!!<summary>Creates a new Bitmap object by copying a portion of this bitmap.</summary>
 Clone                           PROCEDURE(GpRect pRect, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap), GpStatus, PROC
 !!!<summary>Creates a new Bitmap object by copying a portion of this bitmap.</summary>
+Clone                           PROCEDURE(TRect pRect, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap), GpStatus, PROC
+!!!<summary>Creates a new Bitmap object by copying a portion of this bitmap.</summary>
 Clone                           PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat), *TGdiPlusBitmap
 !!!<summary>Locks a rectangular portion of this bitmap and provides a temporary buffer that you can use to read or write pixel data in a specified format. Any pixel data that you write to the buffer is copied to the Bitmap object when you call UnlockBits.</summary>
 LockBits                        PROCEDURE(GpRect pRect, ULONG pFlags, GpPixelFormat pFormat, *GpBitmapData pLockedBitmapData), GpStatus, PROC

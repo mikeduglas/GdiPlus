@@ -3332,6 +3332,10 @@ TGdiPlusBitmap.Clone          PROCEDURE(GpRect pRect, GpPixelFormat pFormat, *TG
   CODE
   RETURN SELF.Clone(pRect.x, pRect.y, pRect.width, pRect.height, pFormat, pDstBitmap)
   
+TGdiPlusBitmap.Clone          PROCEDURE(TRect pRect, GpPixelFormat pFormat, *TGdiPlusBitmap pDstBitmap)
+  CODE
+  RETURN SELF.Clone(pRect.left, pRect.top, pRect.Width(), pRect.Height(), pFormat, pDstBitmap)
+
 TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, GpPixelFormat pFormat)
 dstBitmap                       &TGdiPlusBitmap
   CODE
