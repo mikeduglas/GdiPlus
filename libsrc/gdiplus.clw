@@ -3403,6 +3403,12 @@ lpRect                          LONG, AUTO
   GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
   RETURN SELF.lastResult
 
+TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, *TRect pRect)
+rc                              LIKE(_RECT_), AUTO
+  CODE
+  pRect.AssignTo(rc)
+  RETURN SELF.ApplyEffect(pEffect, rc)
+
 TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>, <*_RECT_ pOutputRect>, *TGdiPlusBitmap pOutputBitmap)
 lpRect                          LONG, AUTO
 lpOutRect                       LONG, AUTO
@@ -3422,6 +3428,12 @@ lpOutRect                       LONG, AUTO
   SELF.lastResult = GdipBitmapCreateApplyEffect(ADDRESS(SELF.nativeImage), 1, pEffect.nativeEffect, lpRect, lpOutRect, pOutputBitmap.nativeImage, pEffect.bUseAuxData, ADDRESS(pEffect.auxData), pEffect.auxDataSize)
   GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
   RETURN SELF.lastResult
+
+TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, *TRect pRect, *TGdiPlusBitmap pOutputBitmap)
+rc                              LIKE(_RECT_), AUTO
+  CODE
+  pRect.AssignTo(rc)
+  RETURN SELF.ApplyEffect(pEffect, rc,, pOutputBitmap)
 
 TGdiPlusBitmap.GetHistogramSize   PROCEDURE(GpHistogramFormat pFormat)
 numberOfEntries                     UNSIGNED(0)

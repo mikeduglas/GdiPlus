@@ -193,8 +193,12 @@ ConvertFormat                   PROCEDURE(GpPixelFormat pFormat, GpDitherType pD
 InitializePalette               PROCEDURE(CONST *STRING pPalette, GpPaletteType pPaletteType, UNSIGNED pOptimalColors, BOOL pUseTransparentColor), GpStatus, PROC
 !!!<summary>Alters this Bitmap object by applying a specified effect.</summary>
 ApplyEffect                     PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>), GpStatus, PROC
+!!!<summary>Alters this Bitmap object by applying a specified effect.</summary>
+ApplyEffect                     PROCEDURE(TGdiPlusEffect pEffect, *TRect pRect), GpStatus, PROC
 !!!<summary>Creates a new Bitmap object by applying a specified effect to an existing Bitmap object.</summary>
 ApplyEffect                     PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>, <*_RECT_ pOutputRect>, *TGdiPlusBitmap pOutputBitmap), GpStatus, PROC
+!!!<summary>Creates a new Bitmap object by applying a specified effect to an existing Bitmap object.</summary>
+ApplyEffect                     PROCEDURE(TGdiPlusEffect pEffect, *TRect pRect, *TGdiPlusBitmap pOutputBitmap), GpStatus, PROC
 !!!<summary>Returns the number of elements (in an array of UINTs) that you must allocate before you call the GetHistogram method of a Bitmap object.</summary>
 GetHistogramSize                PROCEDURE(GpHistogramFormat pFormat), UNSIGNED
 !!!<summary>Returns one or more histograms for specified color channels of this Bitmap object.</summary>
