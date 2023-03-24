@@ -4875,13 +4875,20 @@ paramSize                           UNSIGNED(0)
   GdipReportError(printf('TGdiPlusEffect.GetParameterSize'), SELF.lastResult)
   RETURN paramSize
   
-TGdiPlusEffect.SetParameters  PROCEDURE(STRING pParams, UNSIGNED pSize)
+TGdiPlusEffect.SetParameters  PROCEDURE(*GROUP pParams)
   CODE
-  SELF.lastResult = GdipSetEffectParameters(SELF.nativeEffect, ADDRESS(pParams), pSize)
+  SELF.lastResult = GdipSetEffectParameters(SELF.nativeEffect, ADDRESS(pParams), SIZE(pParams))
   GdipReportError(printf('TGdiPlusEffect.SetParameters'), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *STRING pParams)
+  CODE
+  SELF.lastResult = GdipGetEffectParameters(SELF.nativeEffect, pSize, ADDRESS(pParams))
+  GdipReportError(printf('TGdiPlusEffect.GetParameters'), SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusEffect.GetParameters  PROCEDURE(*GROUP pParams)
+pSize                           UNSIGNED, AUTO
   CODE
   SELF.lastResult = GdipGetEffectParameters(SELF.nativeEffect, pSize, ADDRESS(pParams))
   GdipReportError(printf('TGdiPlusEffect.GetParameters'), SELF.lastResult)
@@ -4897,18 +4904,12 @@ effId                           LIKE(_GUID)
   GdipReportError(printf('TGdiPlusBlurEffect.Construct'), SELF.lastResult)
   
 TGdiPlusBlurEffect.SetParameters  PROCEDURE(typBlurParams pParams)
-paramSize                           UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusBlurEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typBlurParams pParams)
-buf                                 STRING(SIZE(pParams))
+TGdiPlusBlurEffect.GetParameters  PROCEDURE(*typBlurParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
   
 !!!region TGdiPlusSharpenEffect
@@ -4920,18 +4921,12 @@ effId                               LIKE(_GUID)
   GdipReportError(printf('TGdiPlusSharpenEffect.Construct'), SELF.lastResult)
   
 TGdiPlusSharpenEffect.SetParameters   PROCEDURE(typSharpenParams pParams)
-paramSize                               UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusSharpenEffect.GetParameters   PROCEDURE(*UNSIGNED pSize, *typSharpenParams pParams)
-buf                                     STRING(SIZE(pParams))
+TGdiPlusSharpenEffect.GetParameters   PROCEDURE(*typSharpenParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
     
 !!!region TGdiPlusRedEyeCorrectionEffect
@@ -4943,18 +4938,12 @@ effId                                       LIKE(_GUID)
   GdipReportError(printf('TGdiPlusRedEyeCorrectionEffect.Construct'), SELF.lastResult)
   
 TGdiPlusRedEyeCorrectionEffect.SetParameters  PROCEDURE(typRedEyeCorrectionParams pParams)
-paramSize                                       UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams) + pParams.numberOfAreas * SIZE(_RECT_)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusRedEyeCorrectionEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typRedEyeCorrectionParams pParams)
-buf                                             STRING(SIZE(pParams))
+TGdiPlusRedEyeCorrectionEffect.GetParameters  PROCEDURE(*typRedEyeCorrectionParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
   
 !!!region TGdiPlusBrightnessContrastEffect
@@ -4966,18 +4955,12 @@ effId                                           LIKE(_GUID)
   GdipReportError(printf('TGdiPlusBrightnessContrastEffect.Construct'), SELF.lastResult)
   
 TGdiPlusBrightnessContrastEffect.SetParameters    PROCEDURE(typBrightnessContrastParams pParams)
-paramSize                                           UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusBrightnessContrastEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typBrightnessContrastParams pParams)
-buf                                                 STRING(SIZE(pParams))
+TGdiPlusBrightnessContrastEffect.GetParameters    PROCEDURE(*typBrightnessContrastParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusHueSaturationLightnessEffect
@@ -4989,18 +4972,12 @@ effId                                               LIKE(_GUID)
   GdipReportError(printf('TGdiPlusHueSaturationLightnessEffect.Construct'), SELF.lastResult)
   
 TGdiPlusHueSaturationLightnessEffect.SetParameters    PROCEDURE(typHueSaturationLightnessParams pParams)
-paramSize                                               UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusHueSaturationLightnessEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typHueSaturationLightnessParams pParams)
-buf                                                     STRING(SIZE(pParams))
+TGdiPlusHueSaturationLightnessEffect.GetParameters    PROCEDURE(*typHueSaturationLightnessParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusLevelsEffect
@@ -5012,18 +4989,12 @@ effId                               LIKE(_GUID)
   GdipReportError(printf('TGdiPlusLevelsEffect.Construct'), SELF.lastResult)
   
 TGdiPlusLevelsEffect.SetParameters    PROCEDURE(typLevelsParams pParams)
-paramSize                               UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusLevelsEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typLevelsParams pParams)
-buf                                     STRING(SIZE(pParams))
+TGdiPlusLevelsEffect.GetParameters    PROCEDURE(*typLevelsParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusTintEffect
@@ -5035,18 +5006,12 @@ effId                           LIKE(_GUID)
   GdipReportError(printf('TGdiPlusTintEffect.Construct'), SELF.lastResult)
   
 TGdiPlusTintEffect.SetParameters  PROCEDURE(typTintParams pParams)
-paramSize                           UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusTintEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typTintParams pParams)
-buf                                 STRING(SIZE(pParams))
+TGdiPlusTintEffect.GetParameters  PROCEDURE(*typTintParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusColorBalanceEffect
@@ -5058,18 +5023,12 @@ effId                                   LIKE(_GUID)
   GdipReportError(printf('TGdiPlusColorBalanceEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorBalanceEffect.SetParameters  PROCEDURE(typColorBalanceParams pParams)
-paramSize                                   UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusColorBalanceEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typColorBalanceParams pParams)
-buf                                         STRING(SIZE(pParams))
+TGdiPlusColorBalanceEffect.GetParameters  PROCEDURE(*typColorBalanceParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusColorMatrixEffect
@@ -5081,18 +5040,12 @@ effId                                   LIKE(_GUID)
   GdipReportError(printf('TGdiPlusColorMatrixEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorMatrixEffect.SetParameters   PROCEDURE(typColorMatrix pMatrix)
-paramSize                                   UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pMatrix)
-  RETURN PARENT.SetParameters(pMatrix, paramSize)
+  RETURN PARENT.SetParameters(pMatrix)
   
-TGdiPlusColorMatrixEffect.GetParameters   PROCEDURE(*UNSIGNED pSize, *typColorMatrix pMatrix)
-buf                                         STRING(SIZE(pMatrix))
+TGdiPlusColorMatrixEffect.GetParameters   PROCEDURE(*typColorMatrix pMatrix)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pMatrix = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pMatrix)
 !!!endregion
 
 !!!region TGdiPlusColorLUTEffect
@@ -5104,18 +5057,12 @@ effId                               LIKE(_GUID)
   GdipReportError(printf('TGdiPlusColorLUTEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorLUTEffect.SetParameters  PROCEDURE(typColorLUTParams pParams)
-paramSize                               UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusColorLUTEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *typColorLUTParams pParams)
-buf                                     STRING(SIZE(pParams))
+TGdiPlusColorLUTEffect.GetParameters  PROCEDURE(*typColorLUTParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusColorCurveEffect
@@ -5127,18 +5074,12 @@ effId                                   LIKE(_GUID)
   GdipReportError(printf('TGdiPlusColorCurveEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorCurveEffect.SetParameters    PROCEDURE(typColorCurveParams pParams)
-paramSize                                   UNSIGNED, AUTO
   CODE
-  paramSize = SIZE(pParams)
-  RETURN PARENT.SetParameters(pParams, paramSize)
+  RETURN PARENT.SetParameters(pParams)
   
-TGdiPlusColorCurveEffect.GetParameters    PROCEDURE(*UNSIGNED pSize, *typColorCurveParams pParams)
-buf                                         STRING(SIZE(pParams))
+TGdiPlusColorCurveEffect.GetParameters    PROCEDURE(*typColorCurveParams pParams)
   CODE
-  IF PARENT.GetParameters(pSize, buf) = GpStatus:Ok
-    pParams = buf
-  END
-  RETURN SELF.lastResult
+  RETURN PARENT.GetParameters(pParams)
 !!!endregion
 
 !!!region TGdiPlusMatrix

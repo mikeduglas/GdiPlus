@@ -161,72 +161,73 @@ GetAuxDataSize                  PROCEDURE(), UNSIGNED
 GetAuxData                      PROCEDURE(), *STRING
 UseAuxData                      PROCEDURE(<BOOL pUseAuxData>), BOOL, PROC
 GetParameterSize                PROCEDURE(), UNSIGNED
-SetParameters                   PROCEDURE(STRING pParams, UNSIGNED pSize), GpStatus, PROC, PROTECTED
+SetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC, PROTECTED
 GetParameters                   PROCEDURE(*UNSIGNED pSize, *STRING pParams), GpStatus, PROC, PROTECTED
+GetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC, PROTECTED
                               END
 
 TGdiPlusBlurEffect            CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typBlurParams pParams), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typBlurParams pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*typBlurParams pParams), GpStatus, PROC
                               END
 
 TGdiPlusSharpenEffect         CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typSharpenParams pParams), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typSharpenParams pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*typSharpenParams pParams), GpStatus, PROC
                               END
 
 TGdiPlusRedEyeCorrectionEffect    CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                           PROCEDURE()
 SetParameters                       PROCEDURE(typRedEyeCorrectionParams pParams), GpStatus, PROC
-GetParameters                       PROCEDURE(*UNSIGNED pSize, *typRedEyeCorrectionParams pParams), GpStatus, PROC
+GetParameters                       PROCEDURE(*typRedEyeCorrectionParams pParams), GpStatus, PROC
                                   END
 
 TGdiPlusBrightnessContrastEffect  CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                           PROCEDURE()
 SetParameters                       PROCEDURE(typBrightnessContrastParams pParams), GpStatus, PROC
-GetParameters                       PROCEDURE(*UNSIGNED pSize, *typBrightnessContrastParams pParams), GpStatus, PROC
+GetParameters                       PROCEDURE(*typBrightnessContrastParams pParams), GpStatus, PROC
                                   END
 
 TGdiPlusHueSaturationLightnessEffect  CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                               PROCEDURE()
 SetParameters                           PROCEDURE(typHueSaturationLightnessParams pParams), GpStatus, PROC
-GetParameters                           PROCEDURE(*UNSIGNED pSize, *typHueSaturationLightnessParams pParams), GpStatus, PROC
+GetParameters                           PROCEDURE(*typHueSaturationLightnessParams pParams), GpStatus, PROC
                                       END
 
 TGdiPlusLevelsEffect          CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typLevelsParams pParams), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typLevelsParams pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*typLevelsParams pParams), GpStatus, PROC
                               END
 
 TGdiPlusTintEffect            CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typTintParams pParams), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typTintParams pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*typTintParams pParams), GpStatus, PROC
                               END
 
 TGdiPlusColorBalanceEffect    CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typColorBalanceParams pParams), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typColorBalanceParams pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*typColorBalanceParams pParams), GpStatus, PROC
                               END
 
 TGdiPlusColorMatrixEffect     CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typColorMatrix pMatrix), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typColorMatrix pMatrix), GpStatus, PROC
+GetParameters                   PROCEDURE(*typColorMatrix pMatrix), GpStatus, PROC
                               END
 
 TGdiPlusColorLUTEffect        CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typColorLUTParams pLUT), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typColorLUTParams pLUT), GpStatus, PROC
+GetParameters                   PROCEDURE(*typColorLUTParams pLUT), GpStatus, PROC
                               END
 
 TGdiPlusColorCurveEffect      CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
 Construct                       PROCEDURE()
 SetParameters                   PROCEDURE(typColorCurveParams pParams), GpStatus, PROC
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *typColorCurveParams pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*typColorCurveParams pParams), GpStatus, PROC
                               END
