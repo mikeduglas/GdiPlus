@@ -9,7 +9,7 @@
   INCLUDE('winapi.inc'), ONCE
   INCLUDE('gdiplus.inc'), ONCE
 
-!- GDI+ function names
+!!!region GDI+ function names
 szGdiplusStartup              CSTRING('GdiplusStartup'), STATIC
 szGdiplusShutdown             CSTRING('GdiplusShutdown'), STATIC
 szGdipLoadImageFromFile       CSTRING('GdipLoadImageFromFile'), STATIC
@@ -611,9 +611,9 @@ szGdipSetAdjustableArrowCapMiddleInset    CSTRING('GdipSetAdjustableArrowCapMidd
 szGdipGetAdjustableArrowCapMiddleInset    CSTRING('GdipGetAdjustableArrowCapMiddleInset'), STATIC
 szGdipSetAdjustableArrowCapFillState  CSTRING('GdipSetAdjustableArrowCapFillState'), STATIC
 szGdipGetAdjustableArrowCapFillState  CSTRING('GdipGetAdjustableArrowCapFillState'), STATIC
+!!!endregion
 
-
-!- GDI+ function pointers
+!!!region GDI+ function pointers
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
 paGdiplusShutdown             LONG, NAME('fptr_GdiplusShutdown')
 paGdipLoadImageFromFile       LONG, NAME('fptr_GdipLoadImageFromFile')
@@ -1215,7 +1215,7 @@ paGdipSetAdjustableArrowCapMiddleInset    LONG, NAME('fptr_GdipSetAdjustableArro
 paGdipGetAdjustableArrowCapMiddleInset    LONG, NAME('fptr_GdipGetAdjustableArrowCapMiddleInset')
 paGdipSetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipSetAdjustableArrowCapFillState')
 paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCapFillState')
-
+!!!endregion
 
 
   MAP
@@ -1845,6 +1845,7 @@ paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCap
     END
 
     GdipReportError(STRING pMethodName, GpStatus pErr),PRIVATE
+    GdipCreateEffectFromGuid(STRING pGuid, *LONG pHandle), GpStatus, PRIVATE
     ToStream(STRING pData),LONG,PRIVATE
     GetEncoderClsid(STRING pFormat, *_CLSID pClsId),BOOL,PROC,PRIVATE
     GetFileMimeType(STRING pFileName),STRING,PRIVATE
@@ -2556,6 +2557,12 @@ GdipReportError               PROCEDURE(STRING pMethodName, GpStatus pErr)
     printd('[TGdiPlus] %s failed, error code %i', pMethodName, pErr)
   END
   
+GdipCreateEffectFromGuid      PROCEDURE(STRING pGuid, *LONG pHandle)
+effId                           LIKE(_GUID)
+  CODE
+  IIDFromString(pGuid, effId)
+  RETURN GdipCreateEffect(effId, pHandle)
+
 ToStream                      PROCEDURE(STRING pData)
 nDataLen                        LONG, AUTO
 lpStream                        LONG, AUTO
@@ -4877,14 +4884,9 @@ paramSize                           UNSIGNED(0)
   
 TGdiPlusEffect.SetParameters  PROCEDURE(*GROUP pParams)
   CODE
+  printd('TGdiPlusEffect.SetParameters: nativeEffect %x, group size %i, param size %i', SELF.nativeEffect, SIZE(pParams), SELF.GetParameterSize())
   SELF.lastResult = GdipSetEffectParameters(SELF.nativeEffect, ADDRESS(pParams), SIZE(pParams))
   GdipReportError(printf('TGdiPlusEffect.SetParameters'), SELF.lastResult)
-  RETURN SELF.lastResult
-
-TGdiPlusEffect.GetParameters  PROCEDURE(*UNSIGNED pSize, *STRING pParams)
-  CODE
-  SELF.lastResult = GdipGetEffectParameters(SELF.nativeEffect, pSize, ADDRESS(pParams))
-  GdipReportError(printf('TGdiPlusEffect.GetParameters'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusEffect.GetParameters  PROCEDURE(*GROUP pParams)
@@ -4897,10 +4899,8 @@ pSize                           UNSIGNED, AUTO
 
 !!!region TGdiPlusBlurEffect
 TGdiPlusBlurEffect.Construct  PROCEDURE()
-effId                           LIKE(_GUID)
   CODE
-  IIDFromString(BlurEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(BlurEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusBlurEffect.Construct'), SELF.lastResult)
   
 TGdiPlusBlurEffect.SetParameters  PROCEDURE(typBlurParams pParams)
@@ -4914,10 +4914,8 @@ TGdiPlusBlurEffect.GetParameters  PROCEDURE(*typBlurParams pParams)
   
 !!!region TGdiPlusSharpenEffect
 TGdiPlusSharpenEffect.Construct   PROCEDURE()
-effId                               LIKE(_GUID)
   CODE
-  IIDFromString(SharpenEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(SharpenEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusSharpenEffect.Construct'), SELF.lastResult)
   
 TGdiPlusSharpenEffect.SetParameters   PROCEDURE(typSharpenParams pParams)
@@ -4931,10 +4929,8 @@ TGdiPlusSharpenEffect.GetParameters   PROCEDURE(*typSharpenParams pParams)
     
 !!!region TGdiPlusRedEyeCorrectionEffect
 TGdiPlusRedEyeCorrectionEffect.Construct  PROCEDURE()
-effId                                       LIKE(_GUID)
   CODE
-  IIDFromString(RedEyeCorrectionEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(RedEyeCorrectionEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusRedEyeCorrectionEffect.Construct'), SELF.lastResult)
   
 TGdiPlusRedEyeCorrectionEffect.SetParameters  PROCEDURE(typRedEyeCorrectionParams pParams)
@@ -4948,10 +4944,8 @@ TGdiPlusRedEyeCorrectionEffect.GetParameters  PROCEDURE(*typRedEyeCorrectionPara
   
 !!!region TGdiPlusBrightnessContrastEffect
 TGdiPlusBrightnessContrastEffect.Construct    PROCEDURE()
-effId                                           LIKE(_GUID)
   CODE
-  IIDFromString(BrightnessContrastEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(BrightnessContrastEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusBrightnessContrastEffect.Construct'), SELF.lastResult)
   
 TGdiPlusBrightnessContrastEffect.SetParameters    PROCEDURE(typBrightnessContrastParams pParams)
@@ -4965,10 +4959,8 @@ TGdiPlusBrightnessContrastEffect.GetParameters    PROCEDURE(*typBrightnessContra
 
 !!!region TGdiPlusHueSaturationLightnessEffect
 TGdiPlusHueSaturationLightnessEffect.Construct    PROCEDURE()
-effId                                               LIKE(_GUID)
   CODE
-  IIDFromString(HueSaturationLightnessEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(HueSaturationLightnessEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusHueSaturationLightnessEffect.Construct'), SELF.lastResult)
   
 TGdiPlusHueSaturationLightnessEffect.SetParameters    PROCEDURE(typHueSaturationLightnessParams pParams)
@@ -4982,10 +4974,8 @@ TGdiPlusHueSaturationLightnessEffect.GetParameters    PROCEDURE(*typHueSaturatio
 
 !!!region TGdiPlusLevelsEffect
 TGdiPlusLevelsEffect.Construct    PROCEDURE()
-effId                               LIKE(_GUID)
   CODE
-  IIDFromString(LevelsEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(LevelsEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusLevelsEffect.Construct'), SELF.lastResult)
   
 TGdiPlusLevelsEffect.SetParameters    PROCEDURE(typLevelsParams pParams)
@@ -4999,10 +4989,8 @@ TGdiPlusLevelsEffect.GetParameters    PROCEDURE(*typLevelsParams pParams)
 
 !!!region TGdiPlusTintEffect
 TGdiPlusTintEffect.Construct  PROCEDURE()
-effId                           LIKE(_GUID)
   CODE
-  IIDFromString(TintEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(TintEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusTintEffect.Construct'), SELF.lastResult)
   
 TGdiPlusTintEffect.SetParameters  PROCEDURE(typTintParams pParams)
@@ -5016,10 +5004,8 @@ TGdiPlusTintEffect.GetParameters  PROCEDURE(*typTintParams pParams)
 
 !!!region TGdiPlusColorBalanceEffect
 TGdiPlusColorBalanceEffect.Construct  PROCEDURE()
-effId                                   LIKE(_GUID)
   CODE
-  IIDFromString(ColorBalanceEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(ColorBalanceEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusColorBalanceEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorBalanceEffect.SetParameters  PROCEDURE(typColorBalanceParams pParams)
@@ -5033,10 +5019,8 @@ TGdiPlusColorBalanceEffect.GetParameters  PROCEDURE(*typColorBalanceParams pPara
 
 !!!region TGdiPlusColorMatrixEffect
 TGdiPlusColorMatrixEffect.Construct   PROCEDURE()
-effId                                   LIKE(_GUID)
   CODE
-  IIDFromString(ColorMatrixEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(ColorMatrixEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusColorMatrixEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorMatrixEffect.SetParameters   PROCEDURE(typColorMatrix pMatrix)
@@ -5050,10 +5034,8 @@ TGdiPlusColorMatrixEffect.GetParameters   PROCEDURE(*typColorMatrix pMatrix)
 
 !!!region TGdiPlusColorLUTEffect
 TGdiPlusColorLUTEffect.Construct  PROCEDURE()
-effId                               LIKE(_GUID)
   CODE
-  IIDFromString(ColorLUTEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(ColorLUTEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusColorLUTEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorLUTEffect.SetParameters  PROCEDURE(typColorLUTParams pParams)
@@ -5067,10 +5049,8 @@ TGdiPlusColorLUTEffect.GetParameters  PROCEDURE(*typColorLUTParams pParams)
 
 !!!region TGdiPlusColorCurveEffect
 TGdiPlusColorCurveEffect.Construct    PROCEDURE()
-effId                                   LIKE(_GUID)
   CODE
-  IIDFromString(ColorCurveEffectGuidString, effId)
-  SELF.lastResult = GdipCreateEffect(effId, SELF.nativeEffect)
+  SELF.lastResult = GdipCreateEffectFromGuid(ColorCurveEffectGuidString, SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusColorCurveEffect.Construct'), SELF.lastResult)
   
 TGdiPlusColorCurveEffect.SetParameters    PROCEDURE(typColorCurveParams pParams)

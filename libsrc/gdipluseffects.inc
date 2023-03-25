@@ -21,8 +21,11 @@ ColorCurveEffectGuidString              EQUATE('{{DD6A0022-58E4-4a67-9D9B-D48EB8
 
 !-----------------------------------------------------------------------------
 
+!!!<summary>typSharpenParams contains members that specify the nature of a sharpening adjustment to a bitmap.</summary>
 typSharpenParams              GROUP, TYPE
+!!!<summary>Specifies the sharpening radius (the radius of the convolution kernel) in pixels. The radius must be in the range 0 through 255. As the radius increases, more surrounding pixels are involved in calculating the new value of a given pixel.</summary>
 radius                          SREAL
+!!!<summary>Real number in the range 0 through 100 that specifies the amount of sharpening to be applied. A value of 0 specifies no sharpening. As the value of amount increases, the sharpness increases.</summary>
 amount                          SREAL
                               END
 
