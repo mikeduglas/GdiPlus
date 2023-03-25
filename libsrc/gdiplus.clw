@@ -4884,7 +4884,6 @@ paramSize                           UNSIGNED(0)
   
 TGdiPlusEffect.SetParameters  PROCEDURE(*GROUP pParams)
   CODE
-  printd('TGdiPlusEffect.SetParameters: nativeEffect %x, group size %i, param size %i', SELF.nativeEffect, SIZE(pParams), SELF.GetParameterSize())
   SELF.lastResult = GdipSetEffectParameters(SELF.nativeEffect, ADDRESS(pParams), SIZE(pParams))
   GdipReportError(printf('TGdiPlusEffect.SetParameters'), SELF.lastResult)
   RETURN SELF.lastResult
