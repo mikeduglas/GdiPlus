@@ -161,9 +161,8 @@ GetAuxDataSize                  PROCEDURE(), UNSIGNED
 GetAuxData                      PROCEDURE(), *STRING
 UseAuxData                      PROCEDURE(<BOOL pUseAuxData>), BOOL, PROC
 GetParameterSize                PROCEDURE(), UNSIGNED
-SetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC, PROTECTED
-GetParameters                   PROCEDURE(*UNSIGNED pSize, *STRING pParams), GpStatus, PROC, PROTECTED
-GetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC, PROTECTED
+SetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC
+GetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC
                               END
 
 TGdiPlusBlurEffect            CLASS(TGdiPlusEffect), TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
