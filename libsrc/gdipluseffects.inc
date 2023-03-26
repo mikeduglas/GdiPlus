@@ -119,7 +119,7 @@ lutA                            BYTE,DIM(256)
                               END
 
 GpCurveAdjustments            EQUATE(LONG)
-                              ITEMIZE
+                              ITEMIZE(0)
 AdjustExposure                  EQUATE
 AdjustDensity                   EQUATE
 AdjustContrast                  EQUATE
@@ -131,7 +131,7 @@ AdjustBlackSaturation           EQUATE
                               END
 
 GpCurveChannel                EQUATE(LONG)
-                              ITEMIZE
+                              ITEMIZE(0)
 CurveChannelAll                 EQUATE
 CurveChannelRed                 EQUATE
 CurveChannelGreen               EQUATE
