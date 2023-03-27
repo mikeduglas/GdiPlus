@@ -12,6 +12,7 @@
 !!!region GDI+ function names
 szGdiplusStartup              CSTRING('GdiplusStartup'), STATIC
 szGdiplusShutdown             CSTRING('GdiplusShutdown'), STATIC
+szGdipFree                    CSTRING('GdipFree'), STATIC
 szGdipLoadImageFromFile       CSTRING('GdipLoadImageFromFile'), STATIC
 szGdipLoadImageFromFileICM    CSTRING('GdipLoadImageFromFileICM'), STATIC
 szGdipLoadImageFromStream     CSTRING('GdipLoadImageFromStream'), STATIC
@@ -616,6 +617,7 @@ szGdipGetAdjustableArrowCapFillState  CSTRING('GdipGetAdjustableArrowCapFillStat
 !!!region GDI+ function pointers
 paGdiplusStartup              LONG, NAME('fptr_GdiplusStartup')
 paGdiplusShutdown             LONG, NAME('fptr_GdiplusShutdown')
+paGdipFree                    LONG, NAME('fptr_GdipFree')
 paGdipLoadImageFromFile       LONG, NAME('fptr_GdipLoadImageFromFile')
 paGdipLoadImageFromFileICM    LONG, NAME('fptr_GdipLoadImageFromFileICM')
 paGdipLoadImageFromStream     LONG, NAME('fptr_GdipLoadImageFromStream')
@@ -1230,6 +1232,7 @@ paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCap
       !c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusinit.h
       GdipStartup(*ULONG pToken, LONG pInput, LONG pOutput),GpStatus,PASCAL,NAME('fptr_GdiplusStartup'),DLL
       GdipShutdown(ULONG pToken),PASCAL,NAME('fptr_GdiplusShutdown'),DLL
+      GdipFree(LONG pPtr),PASCAL,NAME('fptr_GdipFree'),DLL
       !c:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gdiplusflat.h
       GdipLoadImageFromFile(LONG pFileName, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFile'),DLL
       GdipLoadImageFromFileICM(LONG pFileName, *LONG pImage),GpStatus,PASCAL,NAME('fptr_GdipLoadImageFromFileICM'),DLL
@@ -1295,8 +1298,8 @@ paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCap
       GdipBitmapSetPixel(LONG pBitmap,LONG pX,LONG pY,GpARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetPixel'),DLL
       GdipBitmapSetResolution(LONG pBitmap,SREAL pXDpi,SREAL pYDpi),GpStatus,PASCAL,NAME('fptr_GdipBitmapSetResolution'),DLL
       GdipBitmapConvertFormat(LONG pBitmap,GpPixelFormat pFormat,GpDitherType pDithertype,GpPaletteType pPalettetype,LONG pPalette,SREAL pAlphaThresholdPercent),GpStatus,PASCAL,NAME('fptr_GdipBitmapConvertFormat'),DLL
-      GdipBitmapApplyEffect(LONG pBitmap,LONG pEffect,LONG pRect,BOOL pUseAuxData,LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapApplyEffect'),DLL
-      GdipBitmapCreateApplyEffect(LONG pBitmaps,UNSIGNED pNumInputs,LONG pEffect,LONG pRect,LONG pOutRect,*LONG pOutputBitmap,BOOL pUseAuxData,LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapCreateApplyEffect'),DLL
+      GdipBitmapApplyEffect(LONG pBitmap,LONG pEffect,LONG pRect,BOOL pUseAuxData,*LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapApplyEffect'),DLL
+      GdipBitmapCreateApplyEffect(LONG pBitmaps,UNSIGNED pNumInputs,LONG pEffect,LONG pRect,LONG pOutRect,*LONG pOutputBitmap,BOOL pUseAuxData,*LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapCreateApplyEffect'),DLL
       GdipBitmapGetHistogramSize(GpHistogramFormat pFormat,*UNSIGNED pNumberOfEntries),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetHistogramSize'),DLL
       GdipBitmapGetHistogram(LONG pBitmaps,GpHistogramFormat pFormat,UNSIGNED pNumberOfEntries,LONG pChannel0,LONG pChannel1,LONG pChannel2,LONG pChannel3),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetHistogram'),DLL
       GdipInitializePalette(LONG pPalette,GpPaletteType pType,UNSIGNED pOptimalColors,BOOL pUseTransparentColor,LONG pBitmaps),GpStatus,PASCAL,NAME('fptr_GdipInitializePalette'),DLL
@@ -1910,6 +1913,8 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
     IF paGdiplusStartup AND paGdiplusShutdown
       SELF.bInitialized = TRUE
 
+      paGdipFree                          = winapi::GetProcAddress(SELF.hDll, szGdipFree)
+      
       paGdipLoadImageFromFile             = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFile)
       paGdipLoadImageFromFileICM          = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromFileICM)
       paGdipLoadImageFromStream           = winapi::GetProcAddress(SELF.hDll, szGdipLoadImageFromStream)
@@ -3399,6 +3404,8 @@ TGdiPlusBitmap.InitializePalette  PROCEDURE(CONST *STRING pPalette, GpPaletteTyp
 
 TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>)
 lpRect                          LONG, AUTO
+lpAuxData                       LONG(0)
+lpAuxDataSize                   UNSIGNED(0)
   CODE
   IF OMITTED(pRect)
     lpRect = 0
@@ -3406,8 +3413,13 @@ lpRect                          LONG, AUTO
     lpRect = ADDRESS(pRect)
   END
   
-  SELF.lastResult =   GdipBitmapApplyEffect(SELF.nativeImage, pEffect.nativeEffect, lpRect, pEffect.bUseAuxData, ADDRESS(pEffect.auxData), pEffect.auxDataSize)
+  pEffect.FreeAuxData()
+  SELF.lastResult =   GdipBitmapApplyEffect(SELF.nativeImage, pEffect.nativeEffect, lpRect, pEffect.bUseAuxData, lpAuxData, lpAuxDataSize)
   GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
+  IF SELF.lastResult = GpStatus:OK
+    pEffect.SetAuxData(lpAuxData, lpAuxDataSize)
+  END
+
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, *TRect pRect)
@@ -3419,6 +3431,8 @@ rc                              LIKE(_RECT_), AUTO
 TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, <_RECT_ pRect>, <*_RECT_ pOutputRect>, *TGdiPlusBitmap pOutputBitmap)
 lpRect                          LONG, AUTO
 lpOutRect                       LONG, AUTO
+lpAuxData                       LONG(0)
+lpAuxDataSize                   UNSIGNED(0)
   CODE
   IF OMITTED(pRect)
     lpRect = 0
@@ -3432,8 +3446,13 @@ lpOutRect                       LONG, AUTO
   END
   
   pOutputBitmap.DisposeImage()
-  SELF.lastResult = GdipBitmapCreateApplyEffect(ADDRESS(SELF.nativeImage), 1, pEffect.nativeEffect, lpRect, lpOutRect, pOutputBitmap.nativeImage, pEffect.bUseAuxData, ADDRESS(pEffect.auxData), pEffect.auxDataSize)
+  pEffect.FreeAuxData()
+  SELF.lastResult = GdipBitmapCreateApplyEffect(ADDRESS(SELF.nativeImage), 1, pEffect.nativeEffect, lpRect, lpOutRect, pOutputBitmap.nativeImage, pEffect.bUseAuxData, lpAuxData, lpAuxDataSize)
   GdipReportError(printf('TGdiPlusBitmap.ApplyEffect'), SELF.lastResult)
+  IF SELF.lastResult = GpStatus:OK
+    pEffect.SetAuxData(lpAuxData, lpAuxDataSize)
+  END
+  
   RETURN SELF.lastResult
 
 TGdiPlusBitmap.ApplyEffect    PROCEDURE(TGdiPlusEffect pEffect, *TRect pRect, *TGdiPlusBitmap pOutputBitmap)
@@ -4850,11 +4869,10 @@ TGdiPlusPixelFormat.IsCanonical   PROCEDURE()
 !!!region TGdiPlusEffect
 TGdiPlusEffect.Destruct       PROCEDURE()
   CODE
-  IF NOT SELF.auxData &= NULL
-    DISPOSE(SELF.auxData)
-  END
+  SELF.FreeAuxData()
   SELF.lastResult = GdipDeleteEffect(SELF.nativeEffect)
   GdipReportError(printf('TGdiPlusEffect.Destruct'), SELF.lastResult)
+  SELF.nativeEffect = 0
 
 TGdiPlusEffect.Initialized    PROCEDURE()
   CODE
@@ -4875,6 +4893,22 @@ TGdiPlusEffect.UseAuxData     PROCEDURE(<BOOL pUseAuxData>)
   END
   RETURN SELF.bUseAuxData
   
+TGdiPlusEffect.SetAuxData     PROCEDURE(LONG pDataPtr, UNSIGNED pDataSize)
+  CODE
+  IF pDataPtr AND pDataSize
+    SELF.auxData &= (pDataPtr) &':'& pDataSize
+    SELF.auxDataSize = pDataSize
+  END
+  
+TGdiPlusEffect.FreeAuxData    PROCEDURE()
+  CODE
+  IF NOT SELF.auxData &= NULL
+!    DISPOSE(SELF.auxData)
+    GdipFree(ADDRESS(SELF.auxData))
+    SELF.auxData &= NULL
+    SELF.auxDataSize = 0
+  END
+
 TGdiPlusEffect.GetParameterSize   PROCEDURE()
 paramSize                           UNSIGNED(0)
   CODE

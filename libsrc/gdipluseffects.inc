@@ -163,6 +163,8 @@ Initialized                     PROCEDURE(), BOOL
 GetAuxDataSize                  PROCEDURE(), UNSIGNED
 GetAuxData                      PROCEDURE(), *STRING
 UseAuxData                      PROCEDURE(<BOOL pUseAuxData>), BOOL, PROC
+SetAuxData                      PROCEDURE(LONG pDataPtr, UNSIGNED pDataSize), PRIVATE
+FreeAuxData                     PROCEDURE(), PRIVATE
 GetParameterSize                PROCEDURE(), UNSIGNED
 SetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC
 GetParameters                   PROCEDURE(*GROUP pParams), GpStatus, PROC
