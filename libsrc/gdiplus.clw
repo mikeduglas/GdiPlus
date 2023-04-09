@@ -3275,12 +3275,16 @@ TGdiPlusBitmap.FromGraphics   PROCEDURE(LONG pWidth, LONG pHeight, TGdiPlusGraph
   GdipReportError(printf('TGdiPlusBitmap.FromGraphics'), SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusBitmap.FromBITMAPINFO PROCEDURE(CONST *STRING pBitmapInfo, BYTE[] pBitmapData)
+TGdiPlusBitmap.FromBITMAPINFO PROCEDURE(LONG pBitmapInfo, LONG pBitmapData)
   CODE
   SELF.DisposeImage()
-  SELF.lastResult = GdipCreateBitmapFromGdiDib(ADDRESS(pBitmapInfo), ADDRESS(pBitmapData), SELF.nativeImage)
+  SELF.lastResult = GdipCreateBitmapFromGdiDib(pBitmapInfo, pBitmapData, SELF.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.FromBITMAPINFO'), SELF.lastResult)
   RETURN SELF.lastResult
+
+TGdiPlusBitmap.FromBITMAPINFO PROCEDURE(CONST *STRING pBitmapInfo, BYTE[] pBitmapData)
+  CODE
+  RETURN SELF.FromBITMAPINFO(ADDRESS(pBitmapInfo), ADDRESS(pBitmapData))
 
 TGdiPlusBitmap.FromHBITMAP    PROCEDURE(HBITMAP pHbm, HANDLE pHpal)
   CODE

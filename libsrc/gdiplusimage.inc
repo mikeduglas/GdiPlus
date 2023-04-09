@@ -146,7 +146,11 @@ FromScan0                       PROCEDURE(LONG pWidth, LONG pHeight, LONG pStrid
 !!!<summary>Creates a Bitmap object based on a Graphics object, a width, and a height.</summary>
 FromGraphics                    PROCEDURE(LONG pWidth, LONG pHeight, TGdiPlusGraphics pTarget), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on a BITMAPINFO structure and an array of pixel data.</summary>
-!!!<param name="pBitmapInfo">BITMAPINFO</param>
+!!!<param name="pBitmapInfo">BITMAPINFO address.</param>
+!!!<param name="pBitmapData">An address of the array of bytes that contains the pixel data.</param>
+FromBITMAPINFO                  PROCEDURE(LONG pBitmapInfo, LONG pBitmapData), GpStatus, PROC
+!!!<summary>Creates a Bitmap object based on a BITMAPINFO structure and an array of pixel data.</summary>
+!!!<param name="pBitmapInfo">BITMAPINFO.</param>
 !!!<param name="pBitmapData">An array of bytes that contains the pixel data.</param>
 FromBITMAPINFO                  PROCEDURE(CONST *STRING pBitmapInfo, BYTE[] pBitmapData), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on a handle to a Windows Graphics Device Interface (GDI) bitmap and a handle to a GDI palette.</summary>
