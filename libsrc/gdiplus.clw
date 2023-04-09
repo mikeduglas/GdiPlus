@@ -1835,10 +1835,6 @@ paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCap
       GdipGetAdjustableArrowCapFillState(LONG pCap,*BOOL pIsFilled),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapFillState'),DLL
     END
     MODULE('Global memory api')
-      winapi::GlobalAlloc(LONG uFlags,LONG dwBytes),HGLOBAL,PASCAL,NAME('GlobalAlloc')
-      winapi::GlobalLock(HGLOBAL hMem),LONG,PASCAL,PROC,NAME('GlobalLock')
-      winapi::GlobalUnlock(HGLOBAL hMem),BOOL,PASCAL,PROC,NAME('GlobalUnlock')
-      winapi::GlobalFree(HGLOBAL hMem),BOOL,PASCAL,PROC,NAME('GlobalUnlock')
       winapi::memcpy(LONG lpDest,LONG lpSource,LONG nCount),LONG,PROC,NAME('_memcpy')
       winapi::CreateStreamOnHGlobal(LONG hGlobal,BOOL fDeleteOnRelease,LONG ppstm),LONG,PASCAL,PROC,NAME('CreateStreamOnHGlobal')
       winapi::IIDFromString(LONG lpsz, LONG lpiid),HRESULT,PASCAL,NAME('IIDFromString')
@@ -2571,19 +2567,18 @@ effId                           LIKE(_GUID)
 ToStream                      PROCEDURE(STRING pData)
 nDataLen                        LONG, AUTO
 lpStream                        LONG, AUTO
-hMem                            HGDIOBJ, AUTO
+gm                              TGlobalMemory
 pvData                          LONG
 hr                              HRESULT, AUTO
   CODE
   nDataLen = SIZE(pData)
-  hMem = winapi::GlobalAlloc(GMEM_MOVEABLE, nDataLen)
-  IF hMem
-    pvData = winapi::GlobalLock(hMem)
+  IF gm.GlobalAlloc(GMEM_MOVEABLE, nDataLen)
+    pvData = gm.GlobalLock()
     IF pvData
       winapi::memcpy(pvData, ADDRESS(pData), nDataLen)
-      winapi::GlobalUnlock(hMem)
+      gm.GlobalUnlock()
 
-      hr = winapi::CreateStreamOnHGlobal(hMem, FALSE, ADDRESS(lpStream))
+      hr = winapi::CreateStreamOnHGlobal(gm.GetHandle(), FALSE, ADDRESS(lpStream))
       IF hr <> S_OK
         printd('CreateStreamOnHGlobal error %x', hr)
       END
@@ -2591,7 +2586,7 @@ hr                              HRESULT, AUTO
       printd('GlobalLock error %i', winapi::GetLastError())
     END
     
-    winapi::GlobalFree(hMem)
+    gm.GlobalFree()
   ELSE
     printd('GlobalAlloc error %i', winapi::GetLastError())
   END
@@ -4903,7 +4898,6 @@ TGdiPlusEffect.SetAuxData     PROCEDURE(LONG pDataPtr, UNSIGNED pDataSize)
 TGdiPlusEffect.FreeAuxData    PROCEDURE()
   CODE
   IF NOT SELF.auxData &= NULL
-!    DISPOSE(SELF.auxData)
     GdipFree(ADDRESS(SELF.auxData))
     SELF.auxData &= NULL
     SELF.auxDataSize = 0
