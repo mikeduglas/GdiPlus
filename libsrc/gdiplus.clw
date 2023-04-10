@@ -612,6 +612,7 @@ szGdipSetAdjustableArrowCapMiddleInset    CSTRING('GdipSetAdjustableArrowCapMidd
 szGdipGetAdjustableArrowCapMiddleInset    CSTRING('GdipGetAdjustableArrowCapMiddleInset'), STATIC
 szGdipSetAdjustableArrowCapFillState  CSTRING('GdipSetAdjustableArrowCapFillState'), STATIC
 szGdipGetAdjustableArrowCapFillState  CSTRING('GdipGetAdjustableArrowCapFillState'), STATIC
+szGdipCreateStreamOnFile      CSTRING('GdipCreateStreamOnFile'), STATIC
 !!!endregion
 
 !!!region GDI+ function pointers
@@ -1217,6 +1218,7 @@ paGdipSetAdjustableArrowCapMiddleInset    LONG, NAME('fptr_GdipSetAdjustableArro
 paGdipGetAdjustableArrowCapMiddleInset    LONG, NAME('fptr_GdipGetAdjustableArrowCapMiddleInset')
 paGdipSetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipSetAdjustableArrowCapFillState')
 paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCapFillState')
+paGdipCreateStreamOnFile      LONG, NAME('fptr_GdipCreateStreamOnFile')
 !!!endregion
 
 
@@ -1833,6 +1835,8 @@ paGdipGetAdjustableArrowCapFillState  LONG, NAME('fptr_GdipGetAdjustableArrowCap
       GdipGetAdjustableArrowCapMiddleInset(LONG pCap,*SREAL pInset),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapMiddleInset'),DLL
       GdipSetAdjustableArrowCapFillState(LONG pCap,BOOL pIsFilled),GpStatus,PASCAL,NAME('fptr_GdipSetAdjustableArrowCapFillState'),DLL
       GdipGetAdjustableArrowCapFillState(LONG pCap,*BOOL pIsFilled),GpStatus,PASCAL,NAME('fptr_GdipGetAdjustableArrowCapFillState'),DLL
+
+      GdipCreateStreamOnFile(LONG pFileName,ULONG pAccess,*LONG pStream),GpStatus,PASCAL,NAME('fptr_GdipCreateStreamOnFile'),DLL
     END
     MODULE('Global memory api')
       winapi::memcpy(LONG lpDest,LONG lpSource,LONG nCount),LONG,PROC,NAME('_memcpy')
@@ -2510,6 +2514,8 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipGetAdjustableArrowCapMiddleInset    = winapi::GetProcAddress(SELF.hDll, szGdipGetAdjustableArrowCapMiddleInset)
       paGdipSetAdjustableArrowCapFillState  = winapi::GetProcAddress(SELF.hDll, szGdipSetAdjustableArrowCapFillState)
       paGdipGetAdjustableArrowCapFillState  = winapi::GetProcAddress(SELF.hDll, szGdipGetAdjustableArrowCapFillState)
+      
+      paGdipCreateStreamOnFile  = winapi::GetProcAddress(SELF.hDll, szGdipCreateStreamOnFile)
 
     ELSE
       printd('[GdiPlus] TGdiPlusInitializer.Construct: Cannot load GdiPlus APIs.')
@@ -2555,7 +2561,11 @@ TGdiPlusInitializer.Shutdown  PROCEDURE()
 GdipReportError               PROCEDURE(STRING pMethodName, GpStatus pErr)
   CODE
   IF pErr <> GpStatus:Ok
-    printd('[TGdiPlus] %s failed, error code %i', pMethodName, pErr)
+    IF pErr <> GpStatus:Win32Error
+      printd('[TGdiPlus] %s failed, Gdi+ error code %i', pMethodName, pErr)
+    ELSE
+      printd('[TGdiPlus] %s failed, Gdi+ error code %i, Win error code %i', pMethodName, pErr, winapi::GetLastError())
+    END
   END
   
 GdipCreateEffectFromGuid      PROCEDURE(STRING pGuid, *LONG pHandle)
@@ -2566,12 +2576,16 @@ effId                           LIKE(_GUID)
 
 ToStream                      PROCEDURE(STRING pData)
 nDataLen                        LONG, AUTO
-lpStream                        LONG, AUTO
+lpStream                        LONG(0)
 gm                              TGlobalMemory
 pvData                          LONG
 hr                              HRESULT, AUTO
   CODE
   nDataLen = SIZE(pData)
+  IF nDataLen=0
+    RETURN 0
+  END
+  
   IF gm.GlobalAlloc(GMEM_MOVEABLE, nDataLen)
     pvData = gm.GlobalLock()
     IF pvData
@@ -2586,7 +2600,7 @@ hr                              HRESULT, AUTO
       printd('GlobalLock error %i', winapi::GetLastError())
     END
     
-    gm.GlobalFree()
+!    gm.GlobalFree()  !- don't free this global handle, call stream.Release() instead.
   ELSE
     printd('GlobalAlloc error %i', winapi::GetLastError())
   END
@@ -2768,7 +2782,7 @@ clsid                           LIKE(_CLSID), AUTO
   GetEncoderClsid(sMimeType, clsid)
   
   SELF.lastResult = GdipSaveImageToFile(SELF.nativeImage, ADDRESS(wstr), ADDRESS(clsid), 0)
-  GdipReportError(printf('TGdiPlusImage.ToFile(%S, %S)', pFileName, pFormat), SELF.lastResult)
+  GdipReportError(printf('TGdiPlusImage.Save(%S, %S)', pFileName, pFormat), SELF.lastResult)
   RETURN SELF.lastResult
 
 TGdiPlusImage.ToString        PROCEDURE(STRING pFormat)
@@ -3232,7 +3246,30 @@ wstr                            STRING(FILE:MaxFilePath*2+2)
   GdipReportError(printf('TGdiPlusBitmap.FromFile(%S, %b)', pFileName, pUseICM), SELF.lastResult)
   RETURN SELF.lastResult
   
+TGdiPlusBitmap.FromFileStream PROCEDURE(STRING pFileName)
+enc                             TStringEncoding
+wstr                            STRING(FILE:MaxFilePath*2+2)
+lpStream                        LONG(0)
+stream                          &IStream
+  CODE
+  SELF.DisposeImage()
+  wstr = enc.ToCWStr(LONGPATH(pFileName))
+  SELF.lastResult = GdipCreateStreamOnFile(ADDRESS(wstr), 0, lpStream)  !- 0 is FileMode.Open
+  GdipReportError(printf('TGdiPlusBitmap.FromFileStream(%S) [GdipCreateStreamOnFile]', pFileName), SELF.lastResult)
+  IF SELF.lastResult = GpStatus:Ok
+    stream &= (lpStream)
+    SELF.lastResult = GdipCreateBitmapFromStream(lpStream, SELF.nativeImage)
+    stream.Release()
+    GdipReportError('TGdiPlusBitmap.FromFileStream(%S) [GdipCreateBitmapFromStream]', SELF.lastResult)
+  END
+  
+  RETURN SELF.lastResult
+  
 TGdiPlusBitmap.FromString     PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE)
+  CODE
+  RETURN SELF.FromString(pImageData, pUseICM)
+  
+TGdiPlusBitmap.FromString     PROCEDURE(*STRING pImageData, BOOL pUseICM=FALSE)
 lpStream                        LONG, AUTO
 stream                          &IStream, AUTO
   CODE

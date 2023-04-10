@@ -137,8 +137,13 @@ TGdiPlusBitmap                CLASS(TGdiPlusImage), TYPE, MODULE('gdiplus.clw'),
 CreateBitmap                    PROCEDURE(LONG pWidth, LONG pHeight, GpPixelFormat pFormat), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on a file.</summary>
 FromFile                        PROCEDURE(STRING pFileName, BOOL pUseICM=FALSE), GpStatus, PROC
+!!!<summary>Creates a Bitmap object based on a stream created from the file.</summary>
+!!!<remarks>It does not work for me. NotImplemented error.</remarks>
+FromFileStream                  PROCEDURE(STRING pFileName), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on a string data.</summary>
 FromString                      PROCEDURE(STRING pImageData, BOOL pUseICM=FALSE), GpStatus, PROC
+!!!<summary>Creates a Bitmap object based on a string data.</summary>
+FromString                      PROCEDURE(*STRING pImageData, BOOL pUseICM=FALSE), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on an array of bytes along with size and format information.</summary>
 FromScan0                       PROCEDURE(LONG pWidth, LONG pHeight, LONG pStride, GpPixelFormat pFormat, LONG pScan0), GpStatus, PROC
 !!!<summary>Creates a Bitmap object based on an array of bytes along with size and format information.</summary>
