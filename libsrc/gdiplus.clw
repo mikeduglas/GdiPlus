@@ -3394,7 +3394,7 @@ dstBitmap                       &TGdiPlusBitmap
   END
   RETURN dstBitmap
   
-TGdiPlusBitmap.LockBits       PROCEDURE(GpRect pRect, ULONG pFlags, GpPixelFormat pFormat, *GpBitmapData pLockedBitmapData)
+TGdiPlusBitmap.LockBits       PROCEDURE(GpRect pRect, GpImageLockMode pFlags, GpPixelFormat pFormat, *GpBitmapData pLockedBitmapData)
   CODE
   SELF.lastResult = GdipBitmapLockBits(SELF.nativeImage, ADDRESS(pRect), pFlags, pFormat, ADDRESS(pLockedBitmapData))
   GdipReportError(printf('TGdiPlusBitmap.LockBits'), SELF.lastResult)

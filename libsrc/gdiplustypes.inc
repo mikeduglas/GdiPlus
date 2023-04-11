@@ -914,3 +914,11 @@ MM_ANISOTROPIC                EQUATE(8)
 GpGraphicsState               EQUATE(ULONG)
 GpGraphicsContainer           EQUATE(ULONG)
 
+
+!--------------------------------------------------------------------------
+! Access modes used when calling Image::LockBits
+!--------------------------------------------------------------------------
+GpImageLockMode               EQUATE(LONG)
+ImageLockModeRead             EQUATE(0001h)
+ImageLockModeWrite            EQUATE(0002h)
+ImageLockModeUserInputBuf     EQUATE(0004h)
