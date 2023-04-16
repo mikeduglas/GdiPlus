@@ -600,7 +600,7 @@ StringTrimmingEllipsisPath    EQUATE(5)
 
 
 !---------------------------------------------------------------------------
-! StringFormatFlags
+! StringFormatFlags: https://learn.microsoft.com/en-us/windows/win32/api/gdiplusenums/ne-gdiplusenums-stringformatflags
 !---------------------------------------------------------------------------
 GpStringFormatFlags                   EQUATE(LONG)
 StringFormatFlagsDirectionRightToLeft EQUATE(00000001h)
@@ -613,14 +613,6 @@ StringFormatFlagsNoWrap               EQUATE(00001000h)
 StringFormatFlagsLineLimit            EQUATE(00002000h)
 StringFormatFlagsNoClip               EQUATE(00004000h)
 StringFormatFlagsBypassGDI            EQUATE(80000000h)
-
-
-!---------------------------------------------------------------------------
-! StringFormatFlags
-!---------------------------------------------------------------------------
-
-
-
 
 
 

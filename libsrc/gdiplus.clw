@@ -7304,7 +7304,7 @@ TGdiPlusStringFormat.Initialized  PROCEDURE()
   CODE
   RETURN CHOOSE(SELF.nativeFormat <> 0)
 
-TGdiPlusStringFormat.CreateStringFormat   PROCEDURE(UNSIGNED pFormatFlags=0, USHORT pLanguage=0)
+TGdiPlusStringFormat.CreateStringFormat   PROCEDURE(GpStringFormatFlags pFormatFlags=0, USHORT pLanguage=0)
   CODE
   SELF.DeleteStringFormat()
   SELF.lastResult = GdipCreateStringFormat(pFormatFlags, pLanguage, SELF.nativeFormat)
@@ -7341,14 +7341,14 @@ TGdiPlusStringFormat.DeleteStringFormat   PROCEDURE()
   END
   RETURN SELF.lastResult
   
-TGdiPlusStringFormat.SetFormatFlags   PROCEDURE(UNSIGNED pFlags)
+TGdiPlusStringFormat.SetFormatFlags   PROCEDURE(GpStringFormatFlags pFlags)
   CODE
   SELF.lastResult = GdipSetStringFormatFlags(SELF.nativeFormat, pFlags)
   GdipReportError(printf('TGdiPlusStringFormat.SetFormatFlags'), SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetFormatFlags   PROCEDURE()
-flags                                   UNSIGNED
+flags                                   GpStringFormatFlags, AUTO
   CODE
   SELF.lastResult = GdipSetStringFormatFlags(SELF.nativeFormat, flags)
   GdipReportError(printf('TGdiPlusStringFormat.GetFormatFlags'), SELF.lastResult)
@@ -7361,7 +7361,7 @@ TGdiPlusStringFormat.SetAlignment PROCEDURE(GpStringAlignment pAlign)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetAlignment PROCEDURE()
-align                               GpStringAlignment
+align                               GpStringAlignment, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatAlign(SELF.nativeFormat, align)
   GdipReportError(printf('TGdiPlusStringFormat.GetAlignment'), SELF.lastResult)
@@ -7374,7 +7374,7 @@ TGdiPlusStringFormat.SetLineAlignment PROCEDURE(GpStringAlignment pAlign)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetLineAlignment PROCEDURE()
-align                                   GpStringAlignment
+align                                   GpStringAlignment, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatLineAlign(SELF.nativeFormat, align)
   GdipReportError(printf('TGdiPlusStringFormat.GetLineAlignment'), SELF.lastResult)
@@ -7387,7 +7387,7 @@ TGdiPlusStringFormat.SetHotkeyPrefix  PROCEDURE(GpHotkeyPrefix pHotkeyPrefix)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetHotkeyPrefix  PROCEDURE()
-prefix                                  GpHotkeyPrefix
+prefix                                  GpHotkeyPrefix, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatHotkeyPrefix(SELF.nativeFormat, prefix)
   GdipReportError(printf('TGdiPlusStringFormat.GetHotkeyPrefix'), SELF.lastResult)
@@ -7400,7 +7400,7 @@ TGdiPlusStringFormat.SetTabStops  PROCEDURE(SREAL pFirstTabOffset, *SREAL[] pTab
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetTabStopCount  PROCEDURE()
-count                                   UNSIGNED
+count                                   UNSIGNED, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatTabStopCount(SELF.nativeFormat, count)
   GdipReportError(printf('TGdiPlusStringFormat.GetTabStopCount'), SELF.lastResult)
@@ -7419,16 +7419,16 @@ TGdiPlusStringFormat.SetDigitSubstitution PROCEDURE(USHORT pLanguage, GpStringDi
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetDigitSubstitutionLanguage PROCEDURE()
-lang                                                USHORT
-method                                              GpStringDigitSubstitute
+lang                                                USHORT, AUTO
+method                                              GpStringDigitSubstitute, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatDigitSubstitution(SELF.nativeFormat, lang, method)
   GdipReportError(printf('TGdiPlusStringFormat.GetDigitSubstitutionLanguage'), SELF.lastResult)
   RETURN lang
   
 TGdiPlusStringFormat.GetDigitSubstitutionMethod   PROCEDURE()
-lang                                                USHORT
-method                                              GpStringDigitSubstitute
+lang                                                USHORT, AUTO
+method                                              GpStringDigitSubstitute, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatDigitSubstitution(SELF.nativeFormat, lang, method)
   GdipReportError(printf('TGdiPlusStringFormat.GetDigitSubstitutionMethod'), SELF.lastResult)
@@ -7441,7 +7441,7 @@ TGdiPlusStringFormat.SetTrimming  PROCEDURE(GpStringTrimming pTrimming)
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetTrimming  PROCEDURE()
-trimming                            GpStringTrimming
+trimming                            GpStringTrimming, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatTrimming(SELF.nativeFormat, trimming)
   GdipReportError(printf('TGdiPlusStringFormat.GetTrimming'), SELF.lastResult)
@@ -7454,7 +7454,7 @@ TGdiPlusStringFormat.SetMeasurableCharacterRanges PROCEDURE(UNSIGNED pRangeCount
   RETURN SELF.lastResult
   
 TGdiPlusStringFormat.GetMeasurableCharacterRangeCount PROCEDURE()
-count                                                   UNSIGNED
+count                                                   UNSIGNED, AUTO
   CODE
   SELF.lastResult = GdipGetStringFormatMeasurableCharacterRangeCount(SELF.nativeFormat, count)
   GdipReportError(printf('TGdiPlusStringFormat.GetMeasurableCharacterRangeCount'), SELF.lastResult)

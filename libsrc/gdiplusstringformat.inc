@@ -21,7 +21,7 @@ Destruct                        PROCEDURE(), VIRTUAL
 Initialized                     PROCEDURE(), BOOL
 
 !!!<summary>Creates a StringFormat object based on string format flags and a language.</summary>
-CreateStringFormat              PROCEDURE(UNSIGNED pFormatFlags=0, USHORT pLanguage=0), GpStatus, PROC
+CreateStringFormat              PROCEDURE(GpStringFormatFlags pFormatFlags=0, USHORT pLanguage=0), GpStatus, PROC
 !!!<summary>Creates a generic, default StringFormat object.</summary>
 CreateGenericDefault            PROCEDURE(), GpStatus, PROC
 !!!<summary>Creates a generic, typographic StringFormat object.</summary>
@@ -31,9 +31,9 @@ Clone                           PROCEDURE(TGdiPlusStringFormat pClonedStringForm
 !!!<summary>Releases resources used by the StringFormat object.</summary>
 DeleteStringFormat              PROCEDURE(), GpStatus, PROC
 !!!<summary>Sets the format flags for this StringFormat object. The format flags determine most of the characteristics of a StringFormat object.</summary>
-SetFormatFlags                  PROCEDURE(UNSIGNED pFlags), GpStatus, PROC
+SetFormatFlags                  PROCEDURE(GpStringFormatFlags pFlags), GpStatus, PROC
 !!!<summary>Gets the string format flags for this StringFormat object.</summary>
-GetFormatFlags                  PROCEDURE(), UNSIGNED
+GetFormatFlags                  PROCEDURE(), GpStringFormatFlags
 !!!<summary>Sets the character alignment of this StringFormat object in relation to the origin of the layout rectangle. The layout rectangle is used to position the displayed string.</summary>
 SetAlignment                    PROCEDURE(GpStringAlignment pAlign), GpStatus, PROC
 !!!<summary>Gets an element of the StringAlignment enumeration that indicates the character alignment of this StringFormat object in relation to the origin of the layout rectangle. A layout rectangle is used to position the displayed string.</summary>
