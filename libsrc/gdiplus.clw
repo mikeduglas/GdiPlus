@@ -4198,7 +4198,7 @@ TGdiPlusGraphics.FillRegion   PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusRegion pRe
   GdipReportError('TGdiPlusGraphics.FillRegion', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 enc                             TStringEncoding
 wstr                            STRING(LEN(CLIP(pStr))*2+2)
 nativeFont                      LONG, AUTO
@@ -4208,7 +4208,7 @@ nativeBrush                     LONG, AUTO
   CODE
   wstr = enc.ToCWStr(CLIP(pStr))
   
-  nativeFont = CHOOSE(NOT OMITTED(pFont), pFont.nativeFont, 0)
+  nativeFont = pFont.nativeFont
   nativeFormat = CHOOSE(NOT OMITTED(pFormat), pFormat.nativeFormat, 0)
   nativeBrush = CHOOSE(NOT OMITTED(pBrush), pBrush.nativeBrush, 0)
   
@@ -4216,7 +4216,7 @@ nativeBrush                     LONG, AUTO
   GdipReportError('TGdiPlusGraphics.DrawString', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, TRect pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 rc                              LIKE(GpRectF), AUTO
   CODE
   rc.x = pLayoutRect.left
@@ -4225,7 +4225,7 @@ rc                              LIKE(GpRectF), AUTO
   rc.height = pLayoutRect.Height()
   RETURN SELF.DrawString(pStr, rc, pFont, pBrush, pFormat)
   
-TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 rc                              LIKE(GpRectF)
   CODE
   rc.x = pOrigin.x
@@ -4234,7 +4234,7 @@ rc                              LIKE(GpRectF)
   rc.height = 0
   RETURN SELF.DrawString(pStr, rc, pFont, pBrush, pFormat)
 
-TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, POINT pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 pt                              LIKE(GpPointF), AUTO
   CODE
   pt.x = pOrigin.x
