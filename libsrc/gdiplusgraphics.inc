@@ -246,16 +246,24 @@ FillClosedCurveI                PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UN
 FillRegion                      PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusRegion pRegion), GpStatus, PROC
 
 !!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
-DrawString                      PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <TGdiPlusFont pFont>, <TGdiPlusBrush pBrush>, <TGdiPlusStringFormat pFormat>), GpStatus, PROC
+DrawString                      PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+!!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
+DrawString                      PROCEDURE(STRING pStr, TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 !!!<summary>Draws a string based on a font, and an origin.</summary>
-DrawString                      PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <TGdiPlusFont pFont>, <TGdiPlusBrush pBrush>, <TGdiPlusStringFormat pFormat>), GpStatus, PROC
+DrawString                      PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+!!!<summary>Draws a string based on a font, and an origin.</summary>
+DrawString                      PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 
 !!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
-MeasureString                   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <TGdiPlusFont pFont>, <TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
+!!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
+MeasureString                   PROCEDURE(STRING pStr, TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
-MeasureString                   PROCEDURE(STRING pStr, CONST *GpSizeF pLayoutRectSize, <TGdiPlusFont pFont>, <TGdiPlusStringFormat pFormat>, *GpSizeF pSize), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, CONST *GpSizeF pLayoutRectSize, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpSizeF pSize), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
-MeasureString                   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <TGdiPlusFont pFont>, <TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
+!!!<summary>Measures the extent of the string in the specified font.</summary>
+MeasureString                   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
 
 !!!<summary>Draws the image stored in a CachedBitmap object.</summary>
 DrawCachedBitmap                PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY), GpStatus, PROC

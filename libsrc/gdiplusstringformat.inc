@@ -34,7 +34,7 @@ DeleteStringFormat              PROCEDURE(), GpStatus, PROC
 SetFormatFlags                  PROCEDURE(UNSIGNED pFlags), GpStatus, PROC
 !!!<summary>Gets the string format flags for this StringFormat object.</summary>
 GetFormatFlags                  PROCEDURE(), UNSIGNED
-!!!<summary>Sets the line alignment of this StringFormat object in relation to the origin of the layout rectangle. The line alignment setting specifies how to align the string vertically in the layout rectangle. The layout rectangle is used to position the displayed string.</summary>
+!!!<summary>Sets the character alignment of this StringFormat object in relation to the origin of the layout rectangle. The layout rectangle is used to position the displayed string.</summary>
 SetAlignment                    PROCEDURE(GpStringAlignment pAlign), GpStatus, PROC
 !!!<summary>Gets an element of the StringAlignment enumeration that indicates the character alignment of this StringFormat object in relation to the origin of the layout rectangle. A layout rectangle is used to position the displayed string.</summary>
 GetAlignment                    PROCEDURE(), GpStringAlignment

@@ -4198,7 +4198,7 @@ TGdiPlusGraphics.FillRegion   PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusRegion pRe
   GdipReportError('TGdiPlusGraphics.FillRegion', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <TGdiPlusFont pFont>, <TGdiPlusBrush pBrush>, <TGdiPlusStringFormat pFormat>)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 enc                             TStringEncoding
 wstr                            STRING(LEN(CLIP(pStr))*2+2)
 nativeFont                      LONG, AUTO
@@ -4216,7 +4216,16 @@ nativeBrush                     LONG, AUTO
   GdipReportError('TGdiPlusGraphics.DrawString', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <TGdiPlusFont pFont>, <TGdiPlusBrush pBrush>, <TGdiPlusStringFormat pFormat>)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+rc                              LIKE(GpRectF), AUTO
+  CODE
+  rc.x = pLayoutRect.left
+  rc.y = pLayoutRect.top
+  rc.width = pLayoutRect.Width()
+  rc.height = pLayoutRect.Height()
+  RETURN SELF.DrawString(pStr, rc, pFont, pBrush, pFormat)
+  
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 rc                              LIKE(GpRectF)
   CODE
   rc.x = pOrigin.x
@@ -4225,7 +4234,14 @@ rc                              LIKE(GpRectF)
   rc.height = 0
   RETURN SELF.DrawString(pStr, rc, pFont, pBrush, pFormat)
 
-TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <TGdiPlusFont pFont>, <TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox)
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+pt                              LIKE(GpPointF), AUTO
+  CODE
+  pt.x = pOrigin.x
+  pt.y = pOrigin.y
+  RETURN SELF.DrawString(pStr, pt, pFont, pBrush, pFormat)
+  
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pStr))*2+2)
 nativeFont                          LONG, AUTO
@@ -4242,7 +4258,26 @@ linesFilled                         UNSIGNED
   GdipReportError('TGdiPlusGraphics.MeasureString', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpSizeF pLayoutRectSize, <TGdiPlusFont pFont>, <TGdiPlusStringFormat pFormat>, *GpSizeF pSize)
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox)
+rcLayout                            LIKE(GpRectF), AUTO
+rcBoundingBox                       LIKE(GpRectF), AUTO
+ret                                 GpStatus, AUTO
+  CODE
+  pBoundingBox.SetRectEmpty()
+  rcLayout.x = pLayoutRect.left
+  rcLayout.y = pLayoutRect.top
+  rcLayout.width = pLayoutRect.Width()
+  rcLayout.height = pLayoutRect.Height()
+  ret = SELF.MeasureString(pStr, rcLayout, pFont, pFormat, rcBoundingBox)
+  IF ret = GpStatus:Ok
+    pBoundingBox.left = rcBoundingBox.x
+    pBoundingBox.top = rcBoundingBox.y
+    pBoundingBox.Width(rcBoundingBox.width)
+    pBoundingBox.Height(rcBoundingBox.height)
+  END
+  RETURN ret
+  
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpSizeF pLayoutRectSize, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpSizeF pSize)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pStr))*2+2)
 nativeFont                          LONG, AUTO
@@ -4272,7 +4307,7 @@ boundingBox                         LIKE(GpRectF)
   
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <TGdiPlusFont pFont>, <TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox)
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pStr))*2+2)
 nativeFont                          LONG, AUTO
@@ -4294,6 +4329,23 @@ layoutRect                          LIKE(GpRectF)
   SELF.lastResult = GdipMeasureString(SELF.nativeGraphics, ADDRESS(wstr), -1, nativeFont, ADDRESS(layoutRect), nativeFormat, ADDRESS(pBoundingBox), codepointsFitted, linesFilled)
   GdipReportError('TGdiPlusGraphics.MeasureString', SELF.lastResult)
   RETURN SELF.lastResult
+
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox)
+ptOrigin                            LIKE(GpPointF), AUTO
+rcBoundingBox                       LIKE(GpRectF), AUTO
+ret                                 GpStatus, AUTO
+  CODE
+  pBoundingBox.SetRectEmpty()
+  ptOrigin.x = pOrigin.x
+  ptOrigin.y = pOrigin.y
+  ret = SELF.MeasureString(pStr, ptOrigin, pFont, pFormat, rcBoundingBox)
+  IF ret = GpStatus:Ok
+    pBoundingBox.left = rcBoundingBox.x
+    pBoundingBox.top = rcBoundingBox.y
+    pBoundingBox.Width(rcBoundingBox.width)
+    pBoundingBox.Height(rcBoundingBox.height)
+  END
+  RETURN ret
 
 TGdiPlusGraphics.DrawCachedBitmap PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY)
   CODE
