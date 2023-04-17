@@ -166,6 +166,8 @@ FromHBITMAP                     PROCEDURE(HBITMAP pHbm, HPALETTE pHpal), GpStatu
 GetHBITMAP                      PROCEDURE(ULONG pBackground), HBITMAP
 !!!<summary>Creates a Bitmap object based on an icon.</summary>
 FromHICON                       PROCEDURE(HICON pHicon), GpStatus, PROC
+!!!<summary>Creates a Bitmap object based on an existing bitmap.</summary>
+FromBitmap                      PROCEDURE(TGdiPlusBitmap pSource), GpStatus, PROC
 !!!<summary>Creates an icon from this Bitmap object.</summary>
 GetHICON                        PROCEDURE(), HICON
 !!!<summary>Creates a Bitmap object based on an application or DLL instance handle and the name of a bitmap resource.</summary>

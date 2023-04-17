@@ -3344,6 +3344,10 @@ TGdiPlusBitmap.FromHICON      PROCEDURE(HICON pHicon)
   GdipReportError(printf('TGdiPlusBitmap.FromHICON'), SELF.lastResult)
   RETURN SELF.lastResult
 
+TGdiPlusBitmap.FromBitmap     PROCEDURE(TGdiPlusBitmap pSource)
+  CODE
+  RETURN SELF.CreateBitmap(pSource.GetWidth(), pSource.GetHeight(), pSource.GetPixelFormat())
+
 TGdiPlusBitmap.GetHICON       PROCEDURE()
 hiconReturn                     HICON(0)
   CODE
