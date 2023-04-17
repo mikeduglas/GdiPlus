@@ -3394,6 +3394,28 @@ dstBitmap                       &TGdiPlusBitmap
   END
   RETURN dstBitmap
   
+TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight, *TGdiPlusBitmap pDstBitmap)
+  CODE
+  RETURN SELF.Clone(pX, pY, pWidth, pHeight, SELF.GetPixelFormat(), pDstBitmap)
+
+TGdiPlusBitmap.Clone          PROCEDURE(GpRect pRect, *TGdiPlusBitmap pDstBitmap)
+  CODE
+  RETURN SELF.Clone(pRect.x, pRect.y, pRect.width, pRect.height, pDstBitmap)
+  
+TGdiPlusBitmap.Clone          PROCEDURE(TRect pRect, *TGdiPlusBitmap pDstBitmap)
+  CODE
+  RETURN SELF.Clone(pRect.left, pRect.top, pRect.Width(), pRect.Height(), pDstBitmap)
+
+TGdiPlusBitmap.Clone          PROCEDURE(LONG pX, LONG pY, LONG pWidth, LONG pHeight)
+dstBitmap                       &TGdiPlusBitmap
+  CODE
+  dstBitmap &= NEW TGdiPlusBitmap
+  IF SELF.Clone(pX, pY, pWidth, pHeight, dstBitmap) <> GpStatus:Ok
+    DISPOSE(dstBitmap)
+    dstBitmap &= NULL
+  END
+  RETURN dstBitmap
+  
 TGdiPlusBitmap.LockBits       PROCEDURE(GpRect pRect, GpImageLockMode pFlags, GpPixelFormat pFormat, *GpBitmapData pLockedBitmapData)
   CODE
   SELF.lastResult = GdipBitmapLockBits(SELF.nativeImage, ADDRESS(pRect), pFlags, pFormat, ADDRESS(pLockedBitmapData))
