@@ -3866,6 +3866,10 @@ TGdiPlusGraphics.DrawArc      PROCEDURE(TGdiPlusPen pPen, TRect pRect, SREAL pSt
   CODE
   RETURN SELF.DrawArcI(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height(), pStartAngle, pSweepAngle)
 
+TGdiPlusGraphics.DrawArc      PROCEDURE(TGdiPlusPen pPen, TRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
+  CODE
+  RETURN SELF.DrawArc(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height(), pStartAngle, pSweepAngle)
+
 TGdiPlusGraphics.DrawBezier   PROCEDURE(TGdiPlusPen pPen, SREAL pX1, SREAL pY1, SREAL pX2, SREAL pY2, SREAL pX3, SREAL pY3, SREAL pX4, SREAL pY4)
   CODE
   SELF.lastResult = GdipDrawBezier(SELF.nativeGraphics, pPen.nativePen, pX1, pY1, pX2, pY2, pX3, pY3, pX4, pY4)
@@ -3922,6 +3926,10 @@ TGdiPlusGraphics.DrawRectangle    PROCEDURE(TGdiPlusPen pPen, TRect pRect)
   CODE
   RETURN SELF.DrawRectangleI(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height())
 
+TGdiPlusGraphics.DrawRectangle    PROCEDURE(TGdiPlusPen pPen, TRectF pRect)
+  CODE
+  RETURN SELF.DrawRectangle(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height())
+
 TGdiPlusGraphics.DrawRectangles   PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount)
   CODE
   SELF.lastResult = GdipDrawRectangles(SELF.nativeGraphics, pPen.nativePen, pPoints, pCount)
@@ -3958,6 +3966,10 @@ TGdiPlusGraphics.DrawEllipse  PROCEDURE(TGdiPlusPen pPen, TRect pRect)
   CODE
   RETURN SELF.DrawEllipseI(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height())
 
+TGdiPlusGraphics.DrawEllipse  PROCEDURE(TGdiPlusPen pPen, TRectF pRect)
+  CODE
+  RETURN SELF.DrawEllipse(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height())
+
 TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   SELF.lastResult = GdipDrawPie(SELF.nativeGraphics, pPen.nativePen, pX, pY, pWidth, pHeight, pStartAngle, pSweepAngle)
@@ -3981,6 +3993,10 @@ TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, CONST *GpRect pRect, S
 TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, TRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.DrawPieI(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height(), pStartAngle, pSweepAngle)
+
+TGdiPlusGraphics.DrawPie      PROCEDURE(TGdiPlusPen pPen, TRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
+  CODE
+  RETURN SELF.DrawPie(pPen, pRect.left, pRect.top, pRect.Width(), pRect.Height(), pStartAngle, pSweepAngle)
 
 TGdiPlusGraphics.DrawPolygon  PROCEDURE(TGdiPlusPen pPen, LONG pPoints, UNSIGNED pCount)
   CODE
@@ -4090,6 +4106,10 @@ TGdiPlusGraphics.FillRectangle    PROCEDURE(TGdiPlusBrush pBrush, TRect pRect)
   CODE
   RETURN SELF.FillRectangleI(pBrush, pRect.left, pRect.top, pRect.Width(), pRect.Height())
 
+TGdiPlusGraphics.FillRectangle    PROCEDURE(TGdiPlusBrush pBrush, TRectF pRect)
+  CODE
+  RETURN SELF.FillRectangle(pBrush, pRect.left, pRect.top, pRect.Width(), pRect.Height())
+
 TGdiPlusGraphics.FillRectangles   PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UNSIGNED pCount)
   CODE
   SELF.lastResult = GdipFillRectangles(SELF.nativeGraphics, pBrush.nativeBrush, pPoints, pCount)
@@ -4138,6 +4158,10 @@ TGdiPlusGraphics.FillEllipse  PROCEDURE(TGdiPlusBrush pBrush, TRect pRect)
   CODE
   RETURN SELF.FillEllipseI(pBrush, pRect.left, pRect.top, pRect.Width(), pRect.Height())
 
+TGdiPlusGraphics.FillEllipse  PROCEDURE(TGdiPlusBrush pBrush, TRectF pRect)
+  CODE
+  RETURN SELF.FillEllipse(pBrush, pRect.left, pRect.top, pRect.Width(), pRect.Height())
+
 TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, SREAL pX, SREAL pY, SREAL pWidth, SREAL pHeight, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   SELF.lastResult = GdipFillPie(SELF.nativeGraphics, pBrush.nativeBrush, pX, pY, pWidth, pHeight, pStartAngle, pSweepAngle)
@@ -4161,6 +4185,10 @@ TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, CONST *GpRect pRec
 TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, TRect pRect, SREAL pStartAngle, SREAL pSweepAngle)
   CODE
   RETURN SELF.FillPieI(pBrush, pRect.left, pRect.top, pRect.Width(), pRect.Height(), pStartAngle, pSweepAngle)
+
+TGdiPlusGraphics.FillPie      PROCEDURE(TGdiPlusBrush pBrush, TRectF pRect, SREAL pStartAngle, SREAL pSweepAngle)
+  CODE
+  RETURN SELF.FillPie(pBrush, pRect.left, pRect.top, pRect.Width(), pRect.Height(), pStartAngle, pSweepAngle)
 
 TGdiPlusGraphics.FillPath     PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusGraphicsPath pPath)
   CODE
@@ -4225,6 +4253,15 @@ rc                              LIKE(GpRectF), AUTO
   rc.height = pLayoutRect.Height()
   RETURN SELF.DrawString(pStr, rc, pFont, pBrush, pFormat)
   
+TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, TRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
+rc                              LIKE(GpRectF), AUTO
+  CODE
+  rc.x = pLayoutRect.left
+  rc.y = pLayoutRect.top
+  rc.width = pLayoutRect.Width()
+  rc.height = pLayoutRect.Height()
+  RETURN SELF.DrawString(pStr, rc, pFont, pBrush, pFormat)
+
 TGdiPlusGraphics.DrawString   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>)
 rc                              LIKE(GpRectF)
   CODE
@@ -4277,6 +4314,25 @@ ret                                 GpStatus, AUTO
   END
   RETURN ret
   
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, TRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox)
+rcLayout                            LIKE(GpRectF), AUTO
+rcBoundingBox                       LIKE(GpRectF), AUTO
+ret                                 GpStatus, AUTO
+  CODE
+  pBoundingBox.SetRectEmpty()
+  rcLayout.x = pLayoutRect.left
+  rcLayout.y = pLayoutRect.top
+  rcLayout.width = pLayoutRect.Width()
+  rcLayout.height = pLayoutRect.Height()
+  ret = SELF.MeasureString(pStr, rcLayout, pFont, pFormat, rcBoundingBox)
+  IF ret = GpStatus:Ok
+    pBoundingBox.left = rcBoundingBox.x
+    pBoundingBox.top = rcBoundingBox.y
+    pBoundingBox.Width(rcBoundingBox.width)
+    pBoundingBox.Height(rcBoundingBox.height)
+  END
+  RETURN ret
+
 TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, CONST *GpSizeF pLayoutRectSize, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpSizeF pSize)
 enc                                 TStringEncoding
 wstr                                STRING(LEN(CLIP(pStr))*2+2)
@@ -4347,6 +4403,23 @@ ret                                 GpStatus, AUTO
   END
   RETURN ret
 
+TGdiPlusGraphics.MeasureString    PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox)
+ptOrigin                            LIKE(GpPointF), AUTO
+rcBoundingBox                       LIKE(GpRectF), AUTO
+ret                                 GpStatus, AUTO
+  CODE
+  pBoundingBox.SetRectEmpty()
+  ptOrigin.x = pOrigin.x
+  ptOrigin.y = pOrigin.y
+  ret = SELF.MeasureString(pStr, ptOrigin, pFont, pFormat, rcBoundingBox)
+  IF ret = GpStatus:Ok
+    pBoundingBox.left = rcBoundingBox.x
+    pBoundingBox.top = rcBoundingBox.y
+    pBoundingBox.Width(rcBoundingBox.width)
+    pBoundingBox.Height(rcBoundingBox.height)
+  END
+  RETURN ret
+
 TGdiPlusGraphics.DrawCachedBitmap PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY)
   CODE
   SELF.lastResult = GdipDrawCachedBitmap(SELF.nativeGraphics, pCBitmap.nativeCachedBitmap, pX, pY)
@@ -4391,6 +4464,10 @@ TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pRec
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, TRect pRect)
   CODE
   RETURN SELF.DrawImageI(pImage, pRect.left, pRect.top, pRect.Width(), pRect.Height())
+  
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, TRectF pRect)
+  CODE
+  RETURN SELF.DrawImage(pImage, pRect.left, pRect.top, pRect.Width(), pRect.Height())
 
 TGdiPlusGraphics.DrawImageI   PROCEDURE(TGdiPlusImage pImage, SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight)
   CODE
@@ -4442,6 +4519,10 @@ TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pPo
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pPoint, TRect pSrcRect, GpUnit pSrcUnit)
   CODE
   RETURN SELF.DrawImageI(pImage, pPoint.x, pPoint.y, pSrcRect.left, pSrcRect.top, pSrcRect.Width(), pSrcRect.Height(), pSrcUnit)
+     
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pPoint, TRectF pSrcRect, GpUnit pSrcUnit)
+  CODE
+  RETURN SELF.DrawImage(pImage, pPoint.x, pPoint.y, pSrcRect.left, pSrcRect.top, pSrcRect.Width(), pSrcRect.Height(), pSrcUnit)
 
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, SREAL pDstX, SREAL pDstY, SREAL pDstWidth, SREAL pDstHeight, SREAL pSrcX, SREAL pSrcY, SREAL pSrcWidth, SREAL pSrcHeight, GpUnit pSrcUnit)
   CODE
@@ -4486,6 +4567,11 @@ TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, TRect pDestRect, T
   CODE
   RETURN SELF.DrawImageI(pImage, pDestRect.left, pDestRect.top, pDestRect.Width(), pDestRect.Height(), | 
     pSrcRect.left, pSrcRect.top, pSrcRect.Width(), pSrcRect.Height(), pSrcUnit)
+         
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, TRectF pDestRect, TRectF pSrcRect, GpUnit pSrcUnit)
+  CODE
+  RETURN SELF.DrawImage(pImage, pDestRect.left, pDestRect.top, pDestRect.Width(), pDestRect.Height(), | 
+    pSrcRect.left, pSrcRect.top, pSrcRect.Width(), pSrcRect.Height(), pSrcUnit)
 
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpRect pDestRect, CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
   CODE
@@ -4497,63 +4583,50 @@ TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, TRect pDestRect, T
   RETURN SELF.DrawImageI(pImage, pDestRect.left, pDestRect.top, pDestRect.Width(), pDestRect.Height(), | 
     pSrcRect.left, pSrcRect.top, pSrcRect.Width(), pSrcRect.Height(), pSrcUnit, pImageAttr)
 
-TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
-                                CONST *GpRectF pSrcRect, GpUnit pSrcUnit)
-pts                             GROUP(GpPointF), DIM(3).
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, TRectF pDestRect, TRectF pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
   CODE
-  pts[1] = pUpperLeftPoint
-  pts[2] = pUpperRightPoint
-  pts[3] = pLowerLeftPoint
-  SELF.lastResult = GdipDrawImagePointsRect(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, 0, 0, 0)
-  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
-  RETURN SELF.lastResult
+  RETURN SELF.DrawImage(pImage, pDestRect.left, pDestRect.top, pDestRect.Width(), pDestRect.Height(), | 
+    pSrcRect.left, pSrcRect.top, pSrcRect.Width(), pSrcRect.Height(), pSrcUnit, pImageAttr)
          
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
-                                CONST *GpRectF pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
+                                CONST *GpRectF pSrcRect, GpUnit pSrcUnit, <*TGdiPlusImageAttributes pImageAttr>)
 pts                             GROUP(GpPointF), DIM(3).
+nativeAttr                      LONG, AUTO
   CODE
   pts[1] = pUpperLeftPoint
   pts[2] = pUpperRightPoint
   pts[3] = pLowerLeftPoint
-  SELF.lastResult = GdipDrawImagePointsRect(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr.nativeImageAttr, 0, 0)
-  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
-  RETURN SELF.lastResult
-
-TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
-                                CONST *GpRect pSrcRect, GpUnit pSrcUnit)
-pts                             GROUP(GpPoint), DIM(3).
-  CODE
-  pts[1] = pUpperLeftPoint
-  pts[2] = pUpperRightPoint
-  pts[3] = pLowerLeftPoint
-  SELF.lastResult = GdipDrawImagePointsRectI(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, 0, 0, 0)
+  nativeAttr = CHOOSE(NOT OMITTED(pImageAttr), pImageAttr.nativeImageAttr, 0)
+  SELF.lastResult = GdipDrawImagePointsRect(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, nativeAttr, 0, 0)
   GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
   RETURN SELF.lastResult
   
 TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
-                                TRect pSrcRect, GpUnit pSrcUnit)
+                                CONST *GpRect pSrcRect, GpUnit pSrcUnit, <*TGdiPlusImageAttributes pImageAttr>)
+pts                             GROUP(GpPoint), DIM(3).
+nativeAttr                      LONG, AUTO
+  CODE
+  pts[1] = pUpperLeftPoint
+  pts[2] = pUpperRightPoint
+  pts[3] = pLowerLeftPoint
+  nativeAttr = CHOOSE(NOT OMITTED(pImageAttr), pImageAttr.nativeImageAttr, 0)
+  SELF.lastResult = GdipDrawImagePointsRectI(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, nativeAttr, 0, 0)
+  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
+  RETURN SELF.lastResult
+  
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
+                                TRect pSrcRect, GpUnit pSrcUnit, <*TGdiPlusImageAttributes pImageAttr>)
 rc                              LIKE(GpRect), AUTO
   CODE
   rc.x = pSrcRect.left
   rc.y = pSrcRect.top
   rc.width = pSrcRect.Width()
   rc.height = pSrcRect.Height()
-  RETURN SELF.DrawImage(pImage, pUpperLeftPoint, pUpperRightPoint, pLowerLeftPoint, rc, pSrcUnit)
-
-TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
-                                CONST *GpRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
-pts                             GROUP(GpPoint), DIM(3).
-  CODE
-  pts[1] = pUpperLeftPoint
-  pts[2] = pUpperRightPoint
-  pts[3] = pLowerLeftPoint
-  SELF.lastResult = GdipDrawImagePointsRectI(SELF.nativeGraphics, pImage.nativeImage, ADDRESS(pts), 3, pSrcRect.x, pSrcRect.y, pSrcRect.width, pSrcRect.height, pSrcUnit, pImageAttr.nativeImageAttr, 0, 0)
-  GdipReportError('TGdiPlusGraphics.DrawImage', SELF.lastResult)
-  RETURN SELF.lastResult
+  RETURN SELF.DrawImage(pImage, pUpperLeftPoint, pUpperRightPoint, pLowerLeftPoint, rc, pSrcUnit, pImageAttr)
   
-TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPoint pUpperLeftPoint, CONST *GpPoint pUpperRightPoint, CONST *GpPoint pLowerLeftPoint, |
-                                TRect pSrcRect, GpUnit pSrcUnit, TGdiPlusImageAttributes pImageAttr)
-rc                              LIKE(GpRect), AUTO
+TGdiPlusGraphics.DrawImage    PROCEDURE(TGdiPlusImage pImage, CONST *GpPointF pUpperLeftPoint, CONST *GpPointF pUpperRightPoint, CONST *GpPointF pLowerLeftPoint, |
+                                TRectF pSrcRect, GpUnit pSrcUnit, <*TGdiPlusImageAttributes pImageAttr>)
+rc                              LIKE(GpRectF), AUTO
   CODE
   rc.x = pSrcRect.left
   rc.y = pSrcRect.top
@@ -4625,6 +4698,15 @@ rc                                  LIKE(GpRect), AUTO
   rc.width = pRect.Width()
   rc.height = pRect.Height()
   RETURN SELF.IntersectClip(rc)
+        
+TGdiPlusGraphics.IntersectClip    PROCEDURE(TRectF pRect)
+rc                                  LIKE(GpRectF), AUTO
+  CODE
+  rc.x = pRect.left
+  rc.y = pRect.top
+  rc.width = pRect.Width()
+  rc.height = pRect.Height()
+  RETURN SELF.IntersectClip(rc)
 
 TGdiPlusGraphics.IntersectClip    PROCEDURE(TGdiPlusRegion pRegion)
   CODE
@@ -4640,6 +4722,15 @@ TGdiPlusGraphics.ExcludeClip  PROCEDURE(CONST *GpRect pRect)
         
 TGdiPlusGraphics.ExcludeClip  PROCEDURE(TRect pRect)
 rc                              LIKE(GpRect), AUTO
+  CODE
+  rc.x = pRect.left
+  rc.y = pRect.top
+  rc.width = pRect.Width()
+  rc.height = pRect.Height()
+  RETURN SELF.ExcludeClip(rc)
+        
+TGdiPlusGraphics.ExcludeClip  PROCEDURE(TRectF pRect)
+rc                              LIKE(GpRectF), AUTO
   CODE
   rc.x = pRect.left
   rc.y = pRect.top
@@ -4696,6 +4787,16 @@ rc                                  LIKE(GpRect), AUTO
   pRect.Width(rc.width)
   pRect.Height(rc.height)
   RETURN SELF.lastResult
+        
+TGdiPlusGraphics.GetClipBounds    PROCEDURE(*TRectF pRect)
+rc                                  LIKE(GpRectF), AUTO
+  CODE
+  SELF.lastResult = SELF.GetClipBounds(rc)
+  pRect.left = rc.x
+  pRect.top = rc.y
+  pRect.Width(rc.width)
+  pRect.Height(rc.height)
+  RETURN SELF.lastResult
 
 TGdiPlusGraphics.IsClipEmpty  PROCEDURE()
 res                             BOOL
@@ -4718,6 +4819,16 @@ TGdiPlusGraphics.GetVisibleClipBounds PROCEDURE(*GpRect pRect)
         
 TGdiPlusGraphics.GetVisibleClipBounds PROCEDURE(*TRect pRect)
 rc                                      LIKE(GpRect), AUTO
+  CODE
+  SELF.lastResult = SELF.GetVisibleClipBounds(rc)
+  pRect.left = rc.x
+  pRect.top = rc.y
+  pRect.Width(rc.width)
+  pRect.Height(rc.height)
+  RETURN SELF.lastResult
+        
+TGdiPlusGraphics.GetVisibleClipBounds PROCEDURE(*TRectF pRect)
+rc                                      LIKE(GpRectF), AUTO
   CODE
   SELF.lastResult = SELF.GetVisibleClipBounds(rc)
   pRect.left = rc.x
@@ -4773,6 +4884,10 @@ TGdiPlusGraphics.IsVisible    PROCEDURE(CONST *GpRect pRect)
 TGdiPlusGraphics.IsVisible    PROCEDURE(TRect pRect)
   CODE
   RETURN SELF.IsVisibleI(pRect.left, pRect.top, pRect.Width(), pRect.Height())
+        
+TGdiPlusGraphics.IsVisible    PROCEDURE(TRectF pRect)
+  CODE
+  RETURN SELF.IsVisible(pRect.left, pRect.top, pRect.Width(), pRect.Height())
 
 TGdiPlusGraphics.IsVisibleI   PROCEDURE(SIGNED pX, SIGNED pY, SIGNED pWidth, SIGNED pHeight)
 res                             BOOL
