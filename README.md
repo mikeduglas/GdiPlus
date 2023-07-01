@@ -51,7 +51,9 @@ include gdiplus.inc in global data section:
 
 ### Examples
 All examples based on code found here:
-https://docs.microsoft.com/en-us/windows/win32/gdiplus/-gdiplus-using-gdi--use
+https://docs.microsoft.com/en-us/windows/win32/gdiplus/-gdiplus-using-gdi--use  
+
+*Also*, there is [Photo Corrector](https://github.com/mikeduglas/PhotoCorr) - handy image editor written in Clarion using gdi+ classes.
 
 
 ### Requirements
