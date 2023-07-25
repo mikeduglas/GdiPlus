@@ -3372,6 +3372,10 @@ un                              GpUnit, AUTO
   pDstBitmap.DisposeImage()
   SELF.lastResult = GdipCloneBitmapAreaI(pX, pY, pWidth, pHeight, pFormat, SELF.nativeImage, pDstBitmap.nativeImage)
   GdipReportError(printf('TGdiPlusBitmap.Clone(%i, %i, %i, %i)', pX, pY, pWidth, pHeight), SELF.lastResult)
+
+!  IF SELF.lastResult <> GpStatus:Ok
+!    printd('Debug...')
+!  END
   
 !  IF SELF.lastResult = GpStatus:OutOfMemory
 !    SELF.GetBounds(rect, un)
@@ -3587,6 +3591,10 @@ TGdiPlusGraphics.FromHWND     PROCEDURE(HWND phwnd, BOOL pIcm=FALSE)
   END
   GdipReportError('TGdiPlusGraphics.FromHWND', SELF.lastResult)
   RETURN SELF.lastResult
+  
+TGdiPlusGraphics.FromTWnd     PROCEDURE(TWnd pWnd, BOOL pIcm=FALSE)
+  CODE
+  RETURN SELF.FromHWND(pWnd.GetHandle(), pIcm)
 
 TGdiPlusGraphics.FromImage    PROCEDURE(TGdiPlusImage pImage)
   CODE

@@ -20,6 +20,8 @@ Initialized                     PROCEDURE(), BOOL
 FromHDC                         PROCEDURE(HDC phdc, <HANDLE phdevice>), GpStatus, PROC
 !!!<summary>Creates a Graphics object that is associated with a specified window.</summary>
 FromHWND                        PROCEDURE(HWND phwnd, BOOL pIcm=FALSE), GpStatus, PROC
+!!!<summary>Creates a Graphics object that is associated with a specified window.</summary>
+FromTWnd                        PROCEDURE(TWnd pWnd, BOOL pIcm=FALSE), GpStatus, PROC
 !!!<summary>Creates a Graphics object that is associated with an Image object.</summary>
 FromImage                       PROCEDURE(TGdiPlusImage pImage), GpStatus, PROC
 !!!<summary>Releases resources used by the Graphics object.</summary>
