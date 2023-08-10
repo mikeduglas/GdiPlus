@@ -1297,7 +1297,7 @@ paGdipCreateStreamOnFile      LONG, NAME('fptr_GdipCreateStreamOnFile')
       GdipBitmapLockBits(LONG pBitmap,LONG pRect,ULONG pFlags,GpPixelFormat pFormat,LONG pLockedBitmapData),GpStatus,PASCAL,NAME('fptr_GdipBitmapLockBits'),DLL
       GdipBitmapUnlockBits(LONG pBitmap,LONG pLockedBitmapData),GpStatus,PASCAL,NAME('fptr_GdipBitmapUnlockBits'),DLL
       GdipBitmapGetPixel(LONG pBitmap,LONG pX,LONG pY,*GpARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetPixel'),DLL
-      GdipBitmapSetPixel(LONG pBitmap,LONG pX,LONG pY,GpARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipBitmapGetPixel'),DLL
+      GdipBitmapSetPixel(LONG pBitmap,LONG pX,LONG pY,GpARGB pColor),GpStatus,PASCAL,NAME('fptr_GdipBitmapSetPixel'),DLL
       GdipBitmapSetResolution(LONG pBitmap,SREAL pXDpi,SREAL pYDpi),GpStatus,PASCAL,NAME('fptr_GdipBitmapSetResolution'),DLL
       GdipBitmapConvertFormat(LONG pBitmap,GpPixelFormat pFormat,GpDitherType pDithertype,GpPaletteType pPalettetype,LONG pPalette,SREAL pAlphaThresholdPercent),GpStatus,PASCAL,NAME('fptr_GdipBitmapConvertFormat'),DLL
       GdipBitmapApplyEffect(LONG pBitmap,LONG pEffect,LONG pRect,BOOL pUseAuxData,*LONG pAuxData,*UNSIGNED pAuxDataSize),GpStatus,PASCAL,NAME('fptr_GdipBitmapApplyEffect'),DLL
