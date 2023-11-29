@@ -2562,9 +2562,9 @@ GdipReportError               PROCEDURE(STRING pMethodName, GpStatus pErr)
   CODE
   IF pErr <> GpStatus:Ok
     IF pErr <> GpStatus:Win32Error
-      printd('[TGdiPlus] %s failed, Gdi+ error code %i', pMethodName, pErr)
+      printd('[TGdiPlus] %s failed, Gdi+ error %s (%i)', pMethodName, GdipGetStatusName(pErr), pErr)
     ELSE
-      printd('[TGdiPlus] %s failed, Gdi+ error code %i, Win error code %i', pMethodName, pErr, winapi::GetLastError())
+      printd('[TGdiPlus] %s failed, Gdi+ error %s (%i), Win error code %i', pMethodName, GdipGetStatusName(pErr), pErr, winapi::GetLastError())
     END
   END
   
@@ -2708,6 +2708,58 @@ GdipMakeARGB                  PROCEDURE(BYTE pAlpha, BYTE pRed, BYTE pGreen, BYT
 GdipMakeARGB                  PROCEDURE(LONG pClarionColor, BYTE pAlpha=255)
   CODE
   RETURN GdipMakeARGB(pAlpha, BAND(pClarionColor, 0FFh), BAND(BSHIFT(pClarionColor, -8), 0FFh), BAND(BSHIFT(pClarionColor, -16), 0FFh))
+  
+GdipGetStatusName             PROCEDURE(GpStatus pStatus)
+  CODE
+  CASE pStatus
+  OF GpStatus:Ok
+    RETURN 'Ok'
+  OF GpStatus:GenericError
+    RETURN 'GenericError'
+  OF GpStatus:InvalidParameter
+    RETURN 'InvalidParameter'
+  OF GpStatus:OutOfMemory
+    RETURN 'OutOfMemory'
+  OF GpStatus:ObjectBusy
+    RETURN 'ObjectBusy'
+  OF GpStatus:InsufficientBuffer
+    RETURN 'InsufficientBuffer'
+  OF GpStatus:NotImplemented
+    RETURN 'NotImplemented'
+  OF GpStatus:Win32Error
+    RETURN 'Win32Error'
+  OF GpStatus:WrongState
+    RETURN 'WrongState'
+  OF GpStatus:Aborted
+    RETURN 'Aborted'
+  OF GpStatus:FileNotFound
+    RETURN 'FileNotFound'
+  OF GpStatus:ValueOverflow
+    RETURN 'ValueOverflow'
+  OF GpStatus:AccessDenied
+    RETURN 'AccessDenied'
+  OF GpStatus:UnknownImageFormat
+    RETURN 'UnknownImageFormat'
+  OF GpStatus:FontFamilyNotFound
+    RETURN 'FontFamilyNotFound'
+  OF GpStatus:FontStyleNotFound
+    RETURN 'FontStyleNotFound'
+  OF GpStatus:NotTrueTypeFont
+    RETURN 'NotTrueTypeFont'
+  OF GpStatus:UnsupportedGdiplusVersion
+    RETURN 'UnsupportedGdiplusVersion'
+  OF GpStatus:GdiplusNotInitialized
+    RETURN 'GdiplusNotInitialized'
+  OF GpStatus:PropertyNotFound
+    RETURN 'PropertyNotFound'
+  OF GpStatus:PropertyNotSupported
+    RETURN 'PropertyNotSupported'
+  OF GpStatus:ProfileNotFound
+    RETURN 'ProfileNotFound'
+  ELSE
+    printd('[TGdiPlus] GdipGetStatusName(%i): unexpected status.', pStatus)
+    RETURN 'UnexpectedStatus'
+  END
 !!!endregion
   
 !!!region TGdiPlusImage

@@ -24,5 +24,6 @@
     MODULE('gdiplus.clw')
       GdipMakeARGB(BYTE pAlpha, BYTE pRed, BYTE pGreen, BYTE pBlue), GpARGB
       GdipMakeARGB(LONG pClarionColor, BYTE pAlpha=255), GpARGB
+      GdipGetStatusName(GpStatus pStatus), STRING
     END
   END

@@ -37,6 +37,7 @@ UnsupportedGdiplusVersion       EQUATE(17)
 GdiplusNotInitialized           EQUATE(18)
 PropertyNotFound                EQUATE(19)
 PropertyNotSupported            EQUATE(20)
+ProfileNotFound                 EQUATE(21)  !GDIPVER >= 0x0110
                               END
 
 
