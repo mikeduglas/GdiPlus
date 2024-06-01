@@ -126,6 +126,8 @@ FindFirstItem                   PROCEDURE(*GpImageItemData pItem), GpStatus, PRO
 FindNextImageItem               PROCEDURE(*GpImageItemData pItem), GpStatus, PROC
 !!!<summary>Gets one piece of metadata from this Image object.</summary>
 GetImageItemData                PROCEDURE(*GpImageItemData pItem), GpStatus, PROC
+!!!<summary>Display the image in an IMAGE control.</summary>
+Show                            PROCEDURE(SIGNED pImageFeq), BOOL, PROC
                               END
 
 

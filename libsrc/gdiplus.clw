@@ -3196,6 +3196,17 @@ TGdiPlusImage.GetImageItemData    PROCEDURE(*GpImageItemData pItem)
   SELF.lastResult = GdipGetImageItemData(SELF.nativeImage, ADDRESS(pItem))
   GdipReportError(printf('TGdiPlusImage.GetImageItemData'), SELF.lastResult)
   RETURN SELF.lastResult
+  
+TGdiPlusImage.Show            PROCEDURE(SIGNED pImageFeq)
+sBits                           &STRING, AUTO
+  CODE
+  IF pImageFeq{PROP:Type} = CREATE:image
+    sBits &= SELF.ToString('image/bmp')
+    pImageFeq{PROP:ImageBits} = sBits
+    DISPOSE(sBits)
+    RETURN TRUE
+  END
+  RETURN FALSE
 !!!endregion
   
 !!!region TGdiPlusPropertyItem
