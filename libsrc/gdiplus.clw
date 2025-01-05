@@ -1,6 +1,6 @@
 !* GDI+ support
 !* Class implementations
-!* mikeduglas 2023
+!* mikeduglas 2023-2025
 !* mikeduglas@yandex.ru
 
   MEMBER
@@ -3150,7 +3150,7 @@ count                                   UNSIGNED
     
 TGdiPlusImage.GetFrameDimensionsList  PROCEDURE(LONG pDimensionIDs, UNSIGNED pCount)
   CODE
-  SELF.lastResult = GdipImageGetFrameDimensionsList(SELF.nativeImage, ADDRESS(pDimensionIDs), pCount)
+  SELF.lastResult = GdipImageGetFrameDimensionsList(SELF.nativeImage, pDimensionIDs, pCount)
   GdipReportError(printf('TGdiPlusImage.GetFrameDimensionsList'), SELF.lastResult)
   RETURN SELF.lastResult
     
