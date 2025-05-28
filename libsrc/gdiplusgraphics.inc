@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Graphics class
-!* mikeduglas 2023
+!* mikeduglas 2023-2025
 !* mikeduglas@yandex.ru
 
 
@@ -286,6 +286,9 @@ MeasureString                   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, 
 MeasureString                   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
 MeasureString                   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
+
+!!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
+MeasureCharacterRanges          PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions), GpStatus, PROC
 
 !!!<summary>Draws the image stored in a CachedBitmap object.</summary>
 DrawCachedBitmap                PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY), GpStatus, PROC

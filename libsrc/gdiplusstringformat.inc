@@ -1,13 +1,8 @@
 !* GDI+ support
 !* GDI+ StringFormat class
-!* mikeduglas 2023
+!* mikeduglas 2023-2025
 !* mikeduglas@yandex.ru
 
-
-!GpCharacterRange              GROUP, TYPE
-!First                           UNSIGNED
-!Length                          UNSIGNED
-!                              END
 
 
 !--------------------------------------------------------------------------

@@ -416,6 +416,7 @@ szGdipGetRegionScansI         CSTRING('GdipGetRegionScansI'), STATIC
 szGdipFlush                   CSTRING('GdipFlush'), STATIC
 szGdipDrawString              CSTRING('GdipDrawString'), STATIC
 szGdipMeasureString           CSTRING('GdipMeasureString'), STATIC
+szGdipMeasureCharacterRanges  CSTRING('GdipMeasureCharacterRanges'), STATIC
 szGdipDrawCachedBitmap        CSTRING('GdipDrawCachedBitmap'), STATIC
 szGdipDrawImage               CSTRING('GdipDrawImage'), STATIC
 szGdipDrawImageI              CSTRING('GdipDrawImageI'), STATIC
@@ -1022,6 +1023,7 @@ paGdipGetRegionScansI         LONG, NAME('fptr_GdipGetRegionScansI')
 paGdipFlush                   LONG, NAME('fptr_GdipFlush')
 paGdipDrawString              LONG, NAME('fptr_GdipDrawString')
 paGdipMeasureString           LONG, NAME('fptr_GdipMeasureString')
+paGdipMeasureCharacterRanges  LONG, NAME('fptr_GdipMeasureCharacterRanges')
 paGdipDrawCachedBitmap        LONG, NAME('fptr_GdipDrawCachedBitmap')
 paGdipDrawImage               LONG, NAME('fptr_GdipDrawImage')
 paGdipDrawImageI              LONG, NAME('fptr_GdipDrawImageI')
@@ -1398,6 +1400,7 @@ paGdipCreateStreamOnFile      LONG, NAME('fptr_GdipCreateStreamOnFile')
       GdipFillRegion(LONG pGraphics,LONG pBrush,LONG pRegion),GpStatus,PASCAL,NAME('fptr_GdipFillRegion'),DLL
       GdipDrawString(LONG pGraphics,LONG pStr,UNSIGNED pLen,LONG pFont,LONG pRect,LONG pFormat,LONG pBrush),GpStatus,PASCAL,NAME('fptr_GdipDrawString'),DLL
       GdipMeasureString(LONG pGraphics,LONG pStr,UNSIGNED pLen,LONG pFont,LONG pRect,LONG pFormat,LONG pBoundingBox,*UNSIGNED pCodepointsFitted,*UNSIGNED pLinesFilled),GpStatus,PASCAL,NAME('fptr_GdipMeasureString'),DLL
+      GdipMeasureCharacterRanges(LONG pGraphics,LONG pStr,UNSIGNED pLen,LONG pFont,LONG pRectF,LONG pFormat,LONG pRegionCount,LONG pRegions),GpStatus,PASCAL,NAME('fptr_GdipMeasureCharacterRanges'),DLL
       GdipDrawCachedBitmap(LONG pGraphics,LONG pCachedBitmap,SIGNED pX,SIGNED pY),GpStatus,PASCAL,NAME('fptr_GdipDrawCachedBitmap'),DLL
       GdipDrawImage(LONG pGraphics,LONG pImage,SREAL pX,SREAL pY),GpStatus,PASCAL,NAME('fptr_GdipDrawImage'),DLL
       GdipDrawImageI(LONG pGraphics,LONG pImage,SIGNED pX,SIGNED pY),GpStatus,PASCAL,NAME('fptr_GdipDrawImageI'),DLL
@@ -1670,12 +1673,12 @@ paGdipCreateStreamOnFile      LONG, NAME('fptr_GdipCreateStreamOnFile')
       GdipTranslateRegion(LONG pRegion,SREAL pdx,SREAL pdy),GpStatus,PASCAL,NAME('fptr_GdipTranslateRegion'),DLL
       GdipTranslateRegionI(LONG pRegion,SIGNED pdx,SIGNED pdy),GpStatus,PASCAL,NAME('fptr_GdipTranslateRegionI'),DLL
       GdipTransformRegion(LONG pRegion,LONG pMatrix),GpStatus,PASCAL,NAME('fptr_GdipTransformRegion'),DLL
-      GdipGetRegionBounds(LONG pRegion,LONG pPath,LONG pRect),GpStatus,PASCAL,NAME('fptr_GdipGetRegionBounds'),DLL
-      GdipGetRegionBoundsI(LONG pRegion,LONG pPath,LONG pRect),GpStatus,PASCAL,NAME('fptr_GdipGetRegionBoundsI'),DLL
-      GdipGetRegionHRgn(LONG pRegion,LONG pPath,*HRGN phrgn),GpStatus,PASCAL,NAME('fptr_GdipGetRegionHRgn'),DLL
-      GdipIsEmptyRegion(LONG pRegion,LONG pPath,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsEmptyRegion'),DLL
-      GdipIsInfiniteRegion(LONG pRegion,LONG pPath,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsInfiniteRegion'),DLL
-      GdipIsEqualRegion(LONG pRegion,LONG pOtherRegion,LONG pPath,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsEqualRegion'),DLL
+      GdipGetRegionBounds(LONG pRegion,LONG pGraphics,LONG pRect),GpStatus,PASCAL,NAME('fptr_GdipGetRegionBounds'),DLL
+      GdipGetRegionBoundsI(LONG pRegion,LONG pGraphics,LONG pRect),GpStatus,PASCAL,NAME('fptr_GdipGetRegionBoundsI'),DLL
+      GdipGetRegionHRgn(LONG pRegion,LONG pGraphics,*HRGN phrgn),GpStatus,PASCAL,NAME('fptr_GdipGetRegionHRgn'),DLL
+      GdipIsEmptyRegion(LONG pRegion,LONG pGraphics,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsEmptyRegion'),DLL
+      GdipIsInfiniteRegion(LONG pRegion,LONG pGraphics,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsInfiniteRegion'),DLL
+      GdipIsEqualRegion(LONG pRegion,LONG pOtherRegion,LONG pGraphics,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsEqualRegion'),DLL
       GdipGetRegionDataSize(LONG pRegion,*UNSIGNED pBufferSize),GpStatus,PASCAL,NAME('fptr_GdipGetRegionDataSize'),DLL
       GdipGetRegionData(LONG pRegion,LONG pBuffer,UNSIGNED pBufferSize,*UNSIGNED pSizeFilled),GpStatus,PASCAL,NAME('fptr_GdipGetRegionData'),DLL
       GdipIsVisibleRegionPoint(LONG pRegion,SREAL pX,SREAL pY,LONG pPath,*BOOL pRes),GpStatus,PASCAL,NAME('fptr_GdipIsVisibleRegionPoint'),DLL
@@ -2064,6 +2067,7 @@ GP_DLLNAME                      CSTRING('Gdiplus.dll'), STATIC
       paGdipFlush                         = winapi::GetProcAddress(SELF.hDll, szGdipFlush)
       paGdipDrawString                    = winapi::GetProcAddress(SELF.hDll, szGdipDrawString)
       paGdipMeasureString                 = winapi::GetProcAddress(SELF.hDll, szGdipMeasureString)
+      paGdipMeasureCharacterRanges        = winapi::GetProcAddress(SELF.hDll, szGdipMeasureCharacterRanges)
       paGdipDrawCachedBitmap              = winapi::GetProcAddress(SELF.hDll, szGdipDrawCachedBitmap)
       paGdipDrawImage                     = winapi::GetProcAddress(SELF.hDll, szGdipDrawImage)
       paGdipDrawImageI                    = winapi::GetProcAddress(SELF.hDll, szGdipDrawImageI)
@@ -4516,6 +4520,24 @@ ret                                 GpStatus, AUTO
     pBoundingBox.Height(rcBoundingBox.height)
   END
   RETURN ret
+  
+TGdiPlusGraphics.MeasureCharacterRanges   PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions)
+enc                                         TStringEncoding
+wstr                                        STRING(LEN(CLIP(pStr))*2+2)
+nativeFont                                  LONG, AUTO
+nativeFormat                                LONG, AUTO
+regionCount                                 LONG, AUTO
+  CODE
+  wstr = enc.ToCWStr(CLIP(pStr))
+  
+  nativeFont = pFont.nativeFont
+  nativeFormat = pFormat.nativeFormat
+  regionCount = pFormat.GetMeasurableCharacterRangeCount()
+  
+  SELF.lastResult = GdipMeasureCharacterRanges(SELF.nativeGraphics, ADDRESS(wstr), -1, | 
+          nativeFont, ADDRESS(pLayoutRect), nativeFormat, regionCount, pRegions)
+  GdipReportError('TGdiPlusGraphics.MeasureCharacterRanges', SELF.lastResult)
+  RETURN SELF.lastResult
 
 TGdiPlusGraphics.DrawCachedBitmap PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY)
   CODE
@@ -7184,13 +7206,17 @@ TGdiPlusRegion.Initialized    PROCEDURE()
   CODE
   RETURN CHOOSE(SELF.nativeRegion <> 0)
 
+TGdiPlusRegion.GetHandle      PROCEDURE()
+  CODE
+  RETURN SELF.nativeRegion
+
 TGdiPlusRegion.CreateRegion   PROCEDURE()
   CODE
   SELF.DeleteRegion()
   SELF.lastResult = GdipCreateRegion(SELF.nativeRegion)
   GdipReportError(printf('TGdiPlusRegion.CreateRegion'), SELF.lastResult)
   RETURN SELF.lastResult
-  
+
 TGdiPlusRegion.FromRect       PROCEDURE(CONST *GpRectF pRect)
   CODE
   SELF.DeleteRegion()
@@ -7376,43 +7402,43 @@ TGdiPlusRegion.Transform      PROCEDURE(TGdiPlusMatrix pMatrix)
   GdipReportError(printf('TGdiPlusRegion.Transform'), SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusRegion.GetBounds      PROCEDURE(TGdiPlusGraphicsPath pPath, *GpRectF pRect)
+TGdiPlusRegion.GetBounds      PROCEDURE(TGdiPlusGraphics pGraphics, *GpRectF pRect)
   CODE
-  SELF.lastResult = GdipGetRegionBounds(SELF.nativeRegion, pPath.nativePath, ADDRESS(pRect))
+  SELF.lastResult = GdipGetRegionBounds(SELF.nativeRegion, pGraphics.nativeGraphics, ADDRESS(pRect))
   GdipReportError(printf('TGdiPlusRegion.GetBounds'), SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusRegion.GetBounds      PROCEDURE(TGdiPlusGraphicsPath pPath, *GpRect pRect)
+TGdiPlusRegion.GetBounds      PROCEDURE(TGdiPlusGraphics pGraphics, *GpRect pRect)
   CODE
-  SELF.lastResult = GdipGetRegionBoundsI(SELF.nativeRegion, pPath.nativePath, ADDRESS(pRect))
+  SELF.lastResult = GdipGetRegionBoundsI(SELF.nativeRegion, pGraphics.nativeGraphics, ADDRESS(pRect))
   GdipReportError(printf('TGdiPlusRegion.GetBounds'), SELF.lastResult)
   RETURN SELF.lastResult
   
-TGdiPlusRegion.GetHRGN        PROCEDURE(TGdiPlusGraphicsPath pPath)
+TGdiPlusRegion.GetHRGN        PROCEDURE(TGdiPlusGraphics pGraphics)
 hrgn                            HRGN
   CODE
-  SELF.lastResult = GdipGetRegionHRgn(SELF.nativeRegion, pPath.nativePath, hrgn)
+  SELF.lastResult = GdipGetRegionHRgn(SELF.nativeRegion, pGraphics.nativeGraphics, hrgn)
   GdipReportError(printf('TGdiPlusRegion.GetHRGN'), SELF.lastResult)
   RETURN hrgn
   
-TGdiPlusRegion.IsEmpty        PROCEDURE(TGdiPlusGraphicsPath pPath)
+TGdiPlusRegion.IsEmpty        PROCEDURE(TGdiPlusGraphics pGraphics)
 res                             BOOL
   CODE
-  SELF.lastResult = GdipIsEmptyRegion(SELF.nativeRegion, pPath.nativePath, res)
+  SELF.lastResult = GdipIsEmptyRegion(SELF.nativeRegion, pGraphics.nativeGraphics, res)
   GdipReportError(printf('TGdiPlusRegion.IsEmpty'), SELF.lastResult)
   RETURN res
   
-TGdiPlusRegion.IsInfinite     PROCEDURE(TGdiPlusGraphicsPath pPath)
+TGdiPlusRegion.IsInfinite     PROCEDURE(TGdiPlusGraphics pGraphics)
 res                             BOOL
   CODE
-  SELF.lastResult = GdipIsInfiniteRegion(SELF.nativeRegion, pPath.nativePath, res)
+  SELF.lastResult = GdipIsInfiniteRegion(SELF.nativeRegion, pGraphics.nativeGraphics, res)
   GdipReportError(printf('TGdiPlusRegion.IsInfinite'), SELF.lastResult)
   RETURN res
   
-TGdiPlusRegion.Equals         PROCEDURE(TGdiPlusRegion pRegion, TGdiPlusGraphicsPath pPath)
+TGdiPlusRegion.Equals         PROCEDURE(TGdiPlusRegion pRegion, TGdiPlusGraphics pGraphics)
 res                             BOOL
   CODE
-  SELF.lastResult = GdipIsEqualRegion(SELF.nativeRegion, pRegion.nativeRegion, pPath.nativePath, res)
+  SELF.lastResult = GdipIsEqualRegion(SELF.nativeRegion, pRegion.nativeRegion, pGraphics.nativeGraphics, res)
   GdipReportError(printf('TGdiPlusRegion.Equals'), SELF.lastResult)
   RETURN res
   

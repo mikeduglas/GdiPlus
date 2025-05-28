@@ -915,3 +915,10 @@ GpImageLockMode               EQUATE(LONG)
 ImageLockModeRead             EQUATE(0001h)
 ImageLockModeWrite            EQUATE(0002h)
 ImageLockModeUserInputBuf     EQUATE(0004h)
+
+
+GpCharacterRange              GROUP, TYPE
+First                           UNSIGNED
+Length                          UNSIGNED
+                              END
+

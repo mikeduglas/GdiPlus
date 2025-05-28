@@ -1,6 +1,6 @@
 !* GDI+ support
 !* GDI+ Region class
-!* mikeduglas 2023
+!* mikeduglas 2023-2025
 !* mikeduglas@yandex.ru
 
 
@@ -13,6 +13,7 @@ lastResult                      GpStatus, PROTECTED
 
 Destruct                        PROCEDURE(), VIRTUAL
 Initialized                     PROCEDURE(), BOOL
+GetHandle                       PROCEDURE(), LONG
 
 !!!<summary>Creates a region that is infinite.</summary>
 CreateRegion                    PROCEDURE(), GpStatus, PROC
@@ -73,17 +74,17 @@ TranslateI                      PROCEDURE(SIGNED pDx, SIGNED pDy), GpStatus, PRO
 !!!<summary>Transforms this region by multiplying each of its data points by a specified matrix.</summary>
 Transform                       PROCEDURE(TGdiPlusMatrix pMatrix), GpStatus, PROC
 !!!<summary>Gets a rectangle that encloses this region.</summary>
-GetBounds                       PROCEDURE(TGdiPlusGraphicsPath pPath, *GpRectF pRect), GpStatus, PROC
+GetBounds                       PROCEDURE(TGdiPlusGraphics pGraphics, *GpRectF pRect), GpStatus, PROC
 !!!<summary>Gets a rectangle that encloses this region.</summary>
-GetBounds                       PROCEDURE(TGdiPlusGraphicsPath pPath, *GpRect pRect), GpStatus, PROC
+GetBounds                       PROCEDURE(TGdiPlusGraphics pGraphics, *GpRect pRect), GpStatus, PROC
 !!!<summary>Creates a GDI region from this region.</summary>
-GetHRGN                         PROCEDURE(TGdiPlusGraphicsPath pPath), HRGN
+GetHRGN                         PROCEDURE(TGdiPlusGraphics pGraphics), HRGN
 !!!<summary>Determines whether this region is empty.</summary>
-IsEmpty                         PROCEDURE(TGdiPlusGraphicsPath pPath), BOOL
+IsEmpty                         PROCEDURE(TGdiPlusGraphics pGraphics), BOOL
 !!!<summary>Determines whether this region is infinite.</summary>
-IsInfinite                      PROCEDURE(TGdiPlusGraphicsPath pPath), BOOL
+IsInfinite                      PROCEDURE(TGdiPlusGraphics pGraphics), BOOL
 !!!<summary>Determines whether this region is equal to a specified region.</summary>
-Equals                          PROCEDURE(TGdiPlusRegion pRegion, TGdiPlusGraphicsPath pPath), BOOL
+Equals                          PROCEDURE(TGdiPlusRegion pRegion, TGdiPlusGraphics pGraphics), BOOL
 !!!<summary>Gets the number of bytes of data that describes this region.</summary>
 GetDataSize                     PROCEDURE(), UNSIGNED
 !!!<summary>Gets data that describes this region.</summary>
