@@ -59,6 +59,23 @@ SetTrimming                     PROCEDURE(GpStringTrimming pTrimming), GpStatus,
 GetTrimming                     PROCEDURE(), GpStringTrimming
 !!!<summary>Sets a series of character ranges for this StringFormat object that, when in a string, can be measured by the Graphics::MeasureCharacterRanges method.</summary>
 SetMeasurableCharacterRanges    PROCEDURE(UNSIGNED pRangeCount, LONG pRanges), GpStatus, PROC
+!!!<summary>Sets a series of character ranges for this StringFormat object that, when in a string, can be measured by the Graphics::MeasureCharacterRanges method.</summary>
+SetMeasurableCharacterRanges    PROCEDURE(TGdiPlusCharacterRanges pRanges), GpStatus, PROC
 !!!<summary>Gets the number of measurable character ranges that are currently set. The character ranges that are set can be measured in a string by using the Graphics::MeasureCharacterRanges method.</summary>
 GetMeasurableCharacterRangeCount    PROCEDURE(), UNSIGNED
+                              END
+
+
+TGdiPlusCharacterRanges       CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
+ranges                          &GpCharacterRanges, PRIVATE
+rangesArray                     &STRING, PRIVATE
+
+Construct                       PROCEDURE()
+Destruct                        PROCEDURE(), VIRTUAL
+AddRange                        PROCEDURE(UNSIGNED pFirst, UNSIGNED pLength)    !- pFirst is 1-based
+Reset                           PROCEDURE()
+ResetArray                      PROCEDURE(), PRIVATE
+GetCount                        PROCEDURE(), LONG
+GetArrayAddress                 PROCEDURE(), LONG
+GetRange                        PROCEDURE(LONG pIndex, *LONG pFirst, *LONG pLength), BOOL, PROC    !- pFirst is 1-based
                               END

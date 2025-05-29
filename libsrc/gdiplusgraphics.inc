@@ -289,6 +289,8 @@ MeasureString                   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlus
 
 !!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
 MeasureCharacterRanges          PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions), GpStatus, PROC
+!!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
+MeasureCharacterRanges          PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions), GpStatus, PROC
 
 !!!<summary>Draws the image stored in a CachedBitmap object.</summary>
 DrawCachedBitmap                PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY), GpStatus, PROC
@@ -500,4 +502,19 @@ BeginContainer                  PROCEDURE(CONST *GpRect pDstRect,CONST *GpRect p
 BeginContainer                  PROCEDURE(), GpGraphicsContainer
 !!!<summary>Closes a graphics container that was previously opened by the BeginContainer method.</summary>
 EndContainer                    PROCEDURE(GpGraphicsContainer pState), GpStatus, PROC
+                              END
+
+
+TGdiPlusCharacterRegions      CLASS, TYPE, MODULE('gdiplus.clw'), LINK('gdiplus.clw')
+regions                         &GpCharacterRegions, PRIVATE
+regionsArray                    &STRING, PRIVATE
+
+Construct                       PROCEDURE()
+Destruct                        PROCEDURE(), VIRTUAL
+CreateRegions                   PROCEDURE(LONG pCount)
+Reset                           PROCEDURE()
+ResetArray                      PROCEDURE(), PRIVATE
+GetCount                        PROCEDURE(), LONG
+GetRegion                       PROCEDURE(LONG pIndex), *TGdiPlusRegion
+GetArrayAddress                 PROCEDURE(), LONG
                               END

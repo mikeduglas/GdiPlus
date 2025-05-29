@@ -1,6 +1,6 @@
 !* GDI+ support
 !* Base struct and enum declarations
-!* mikeduglas 2023
+!* mikeduglas 2023-25
 !* mikeduglas@yandex.ru
 
   INCLUDE('svcomdef.inc'), ONCE

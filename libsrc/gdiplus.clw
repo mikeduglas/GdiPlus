@@ -1878,7 +1878,20 @@ reserved                        ULONG
 STATFLAG_DEFAULT              EQUATE(0) !- Requests that the statistics include the pwcsName member of the STATSTG structure.
 STATFLAG_NONAME               EQUATE(1) !- Requests that the statistics not include the pwcsName member of the STATSTG structure.
 STATFLAG_NOOPEN               EQUATE(2) !- Not implemented.
+!!!endregion
 
+!!!region GpCharacterRanges
+GpCharacterRanges             QUEUE(GpCharacterRange), TYPE.
+!!!endregion
+
+!!!region GpCharacterRegions
+GpCharacterRegion             GROUP, TYPE
+rgn                             &TGdiPlusRegion
+                              END
+GpCharacterRegions            QUEUE(GpCharacterRegion).
+GpCharacterRegionRef          GROUP, TYPE
+rgnRef                          LONG
+                              END
 !!!endregion
 
 !!!region GdiPlus initializer
@@ -4539,6 +4552,10 @@ regionCount                                 LONG, AUTO
   GdipReportError('TGdiPlusGraphics.MeasureCharacterRanges', SELF.lastResult)
   RETURN SELF.lastResult
 
+TGdiPlusGraphics.MeasureCharacterRanges   PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions)
+  CODE
+  RETURN SELF.MeasureCharacterRanges(pStr, pFont, pLayoutRect, pFormat, pRegions.GetArrayAddress())
+  
 TGdiPlusGraphics.DrawCachedBitmap PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY)
   CODE
   SELF.lastResult = GdipDrawCachedBitmap(SELF.nativeGraphics, pCBitmap.nativeCachedBitmap, pX, pY)
@@ -7690,7 +7707,13 @@ TGdiPlusStringFormat.SetMeasurableCharacterRanges PROCEDURE(UNSIGNED pRangeCount
   SELF.lastResult = GdipSetStringFormatMeasurableCharacterRanges(SELF.nativeFormat, pRangeCount, pRanges)
   GdipReportError(printf('TGdiPlusStringFormat.SetMeasurableCharacterRanges'), SELF.lastResult)
   RETURN SELF.lastResult
-  
+    
+TGdiPlusStringFormat.SetMeasurableCharacterRanges PROCEDURE(TGdiPlusCharacterRanges pRanges)
+  CODE
+  SELF.lastResult = GdipSetStringFormatMeasurableCharacterRanges(SELF.nativeFormat, pRanges.GetCount(), pRanges.GetArrayAddress())
+  GdipReportError(printf('TGdiPlusStringFormat.SetMeasurableCharacterRanges'), SELF.lastResult)
+  RETURN SELF.lastResult
+
 TGdiPlusStringFormat.GetMeasurableCharacterRangeCount PROCEDURE()
 count                                                   UNSIGNED, AUTO
   CODE
@@ -8624,4 +8647,147 @@ isFilled                                BOOL
   SELF.lastResult = GdipGetAdjustableArrowCapFillState(SELF.nativeCap, isFilled)
   GdipReportError('TGdiPlusAdjustableArrowCap.IsFilled', SELF.lastResult)
   RETURN isFilled
+!!!endregion
+  
+!!!region TGdiPlusCharacterRanges
+TGdiPlusCharacterRanges.Construct PROCEDURE()
+  CODE
+  SELF.ranges &= NEW GpCharacterRanges
+  
+TGdiPlusCharacterRanges.Destruct  PROCEDURE()
+  CODE
+  SELF.Reset()
+  DISPOSE(SELF.ranges)
+  
+TGdiPlusCharacterRanges.AddRange  PROCEDURE(UNSIGNED pFirst, UNSIGNED pLength)
+  CODE
+  IF pFirst > 0 AND pLength > 0
+    SELF.ranges.First = pFirst-1  !- First is 0-based
+    SELF.ranges.Length = pLength
+    ADD(SELF.ranges)
+  ELSE
+    printd('[TGdiPlus] %s failed, Invalid argument(s) (%i, %i)', 'TGdiPlusCharacterRanges.AddRange', pFirst, pLength)
+  END
+  
+TGdiPlusCharacterRanges.Reset PROCEDURE()
+  CODE
+  FREE(SELF.ranges)
+  SELF.ResetArray()
+  
+TGdiPlusCharacterRanges.ResetArray    PROCEDURE()
+  CODE
+  IF NOT SELF.rangesArray &= NULL
+    DISPOSE(SELF.rangesArray)
+    SELF.rangesArray &= NULL
+  END
+
+TGdiPlusCharacterRanges.GetCount  PROCEDURE()
+  CODE
+  RETURN RECORDS(SELF.ranges)
+  
+TGdiPlusCharacterRanges.GetArrayAddress   PROCEDURE()
+nCount                                      LONG, AUTO
+sz                                          LONG, AUTO
+i                                           LONG, AUTO
+rangeItem                                   &GpCharacterRange, AUTO
+  CODE
+  SELF.ResetArray()
+  nCount = RECORDS(SELF.ranges)
+  IF nCount
+    sz = SIZE(GpCharacterRange)
+    SELF.rangesArray &= NEW STRING(sz * nCount)
+    LOOP i=1 TO nCount
+      GET(SELF.ranges, i)
+      rangeItem &= ADDRESS(SELF.rangesArray[(i-1)*sz+1 : i*sz])
+      rangeItem.First = SELF.ranges.First
+      rangeItem.Length = SELF.ranges.Length
+    END
+  END
+
+  RETURN ADDRESS(SELF.rangesArray)
+  
+TGdiPlusCharacterRanges.GetRange  PROCEDURE(LONG pIndex, *LONG pFirst, *LONG pLength)
+  CODE
+  GET(SELF.ranges, pIndex)
+  IF NOT ERRORCODE()
+    pFirst = SELF.ranges.First+1  !- 1-based
+    pLength = SELF.ranges.Length
+    RETURN TRUE
+  ELSE
+    pFirst = 0
+    pLength = 0
+    printd('[TGdiPlus] %s failed, Index out of range (%i)', 'TGdiPlusCharacterRanges.GetRange', pIndex)
+    RETURN FALSE
+  END
+!!!endregion
+  
+!!!region TGdiPlusCharacterRegions
+TGdiPlusCharacterRegions.Construct    PROCEDURE()
+  CODE
+  SELF.regions &= NEW GpCharacterRegions
+
+TGdiPlusCharacterRegions.Destruct PROCEDURE()
+  CODE
+  SELF.Reset()
+  DISPOSE(SELF.regions)
+
+TGdiPlusCharacterRegions.CreateRegions    PROCEDURE(LONG pCount)
+  CODE
+  LOOP pCount TIMES
+    SELF.regions.rgn &= NEW TGdiPlusRegion
+    SELF.regions.rgn.CreateRegion()
+    ADD(SELF.regions)
+  END
+
+TGdiPlusCharacterRegions.Reset    PROCEDURE()
+i                                   LONG, AUTO
+  CODE
+  LOOP i=1 TO RECORDS(SELF.regions)
+    GET(SELF.regions, i)
+    SELF.regions.rgn.DeleteRegion()
+    SELF.regions.rgn &= NULL
+    PUT(SELF.regions)
+  END
+  FREE(SELF.regions)
+  SELF.ResetArray()
+
+TGdiPlusCharacterRegions.ResetArray   PROCEDURE()
+  CODE
+  IF NOT SELF.regionsArray &= NULL
+    DISPOSE(SELF.regionsArray)
+    SELF.regionsArray &= NULL
+  END
+
+TGdiPlusCharacterRegions.GetCount PROCEDURE()
+  CODE
+  RETURN RECORDS(SELF.regions)
+  
+TGdiPlusCharacterRegions.GetRegion    PROCEDURE(LONG pIndex)
+  CODE
+  GET(SELF.regions, pIndex)
+  IF NOT ERRORCODE()
+    RETURN SELF.regions.rgn
+  END
+  RETURN NULL
+  
+TGdiPlusCharacterRegions.GetArrayAddress  PROCEDURE()
+nCount                                      LONG, AUTO
+sz                                          LONG, AUTO
+i                                           LONG, AUTO
+rgnItem                                     &GpCharacterRegionRef, AUTO
+  CODE
+  SELF.ResetArray()
+  nCount = RECORDS(SELF.regions)
+  IF nCount
+    sz = SIZE(GpCharacterRegionRef)
+    SELF.regionsArray &= NEW STRING(sz * nCount)
+    LOOP i=1 TO nCount
+      GET(SELF.regions, i)
+      rgnItem &= ADDRESS(SELF.regionsArray[(i-1)*sz+1 : i*sz])
+!      rgnItem.rgnRef = ADDRESS(SELF.regions.rgn.nativeRegion)
+      rgnItem.rgnRef = SELF.regions.rgn.nativeRegion
+    END
+  END
+
+  RETURN ADDRESS(SELF.regionsArray)
 !!!endregion
