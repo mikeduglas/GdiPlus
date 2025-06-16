@@ -318,6 +318,11 @@ MeasureCharacterRanges          PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRec
 !!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
 MeasureCharacterRanges          PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions), GpStatus, PROC
 
+!!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
+MeasureCharacterRangesW         PROCEDURE(STRING pWStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions), GpStatus, PROC
+!!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
+MeasureCharacterRangesW         PROCEDURE(STRING pWStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions), GpStatus, PROC
+
 !!!<summary>Draws the image stored in a CachedBitmap object.</summary>
 DrawCachedBitmap                PROCEDURE(TGdiPlusCachedBitmap pCBitmap, SIGNED pX, SIGNED pY), GpStatus, PROC
 

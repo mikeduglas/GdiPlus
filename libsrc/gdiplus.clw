@@ -4683,26 +4683,36 @@ ret                                 GpStatus, AUTO
     pBoundingBox.Height(rcBoundingBox.height)
   END
   RETURN ret
-  
+
 TGdiPlusGraphics.MeasureCharacterRanges   PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions)
 enc                                         TStringEncoding
 wstr                                        STRING(LEN(CLIP(pStr))*2+2)
-nativeFont                                  LONG, AUTO
-nativeFormat                                LONG, AUTO
-regionCount                                 LONG, AUTO
   CODE
   wstr = enc.ToCWStr(CLIP(pStr))
+  RETURN SELF.MeasureCharacterRangesW(wstr, pFont, pLayoutRect, pFormat, pRegions)
+
+TGdiPlusGraphics.MeasureCharacterRanges   PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions)
+  CODE
+  RETURN SELF.MeasureCharacterRanges(pStr, pFont, pLayoutRect, pFormat, pRegions.GetArrayAddress())
+
+TGdiPlusGraphics.MeasureCharacterRangesW    PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions)
+wstr                                          STRING(LEN(CLIP(pStr))+2), AUTO
+nativeFont                                    LONG, AUTO
+nativeFormat                                  LONG, AUTO
+regionCount                                   LONG, AUTO
+  CODE
+  wStr = CLIP(pStr) &'<0,0>'
   
   nativeFont = pFont.nativeFont
   nativeFormat = pFormat.nativeFormat
   regionCount = pFormat.GetMeasurableCharacterRangeCount()
   
   SELF.lastResult = GdipMeasureCharacterRanges(SELF.nativeGraphics, ADDRESS(wstr), -1, | 
-          nativeFont, ADDRESS(pLayoutRect), nativeFormat, regionCount, pRegions)
-  GdipReportError('TGdiPlusGraphics.MeasureCharacterRanges', SELF.lastResult)
+    nativeFont, ADDRESS(pLayoutRect), nativeFormat, regionCount, pRegions)
+  GdipReportError('TGdiPlusGraphics.MeasureCharacterRangesW', SELF.lastResult)
   RETURN SELF.lastResult
 
-TGdiPlusGraphics.MeasureCharacterRanges   PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions)
+TGdiPlusGraphics.MeasureCharacterRangesW    PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, *TGdiPlusCharacterRegions pRegions)
   CODE
   RETURN SELF.MeasureCharacterRanges(pStr, pFont, pLayoutRect, pFormat, pRegions.GetArrayAddress())
   
