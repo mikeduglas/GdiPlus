@@ -262,30 +262,56 @@ FillClosedCurveI                PROCEDURE(TGdiPlusBrush pBrush, LONG pPoints, UN
 FillRegion                      PROCEDURE(TGdiPlusBrush pBrush, TGdiPlusRegion pRegion), GpStatus, PROC
 
 !!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
-DrawString                      PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+DrawString                      PROCEDURE(STRING pStr, *GpRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 !!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
-DrawString                      PROCEDURE(STRING pStr, TRect pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+DrawString                      PROCEDURE(STRING pStr, *TRect pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 !!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
-DrawString                      PROCEDURE(STRING pStr, TRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+DrawString                      PROCEDURE(STRING pStr, *TRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 !!!<summary>Draws a string based on a font, and an origin.</summary>
 DrawString                      PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 !!!<summary>Draws a string based on a font, and an origin.</summary>
-DrawString                      PROCEDURE(STRING pStr, POINT pOrigin, TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+DrawString                      PROCEDURE(STRING pStr, *POINT pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+
+!!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
+DrawStringW                     PROCEDURE(STRING pWStr, *GpRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+!!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
+DrawStringW                     PROCEDURE(STRING pWStr, *TRect pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+!!!<summary>Draws a string based on a font, a layout rectangle, and a format.</summary>
+DrawStringW                     PROCEDURE(STRING pWStr, *TRectF pLayoutRect, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+!!!!<summary>Draws a string based on a font, and an origin.</summary>
+!DrawStringW                     PROCEDURE(STRING pWStr, CONST *GpPointF pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
+!!!!<summary>Draws a string based on a font, and an origin.</summary>
+!DrawStringW                     PROCEDURE(STRING pWStr, *POINT pOrigin, *TGdiPlusFont pFont, <*TGdiPlusBrush pBrush>, <*TGdiPlusStringFormat pFormat>), GpStatus, PROC
 
 !!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
 MeasureString                   PROCEDURE(STRING pStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
-MeasureString                   PROCEDURE(STRING pStr, TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, *TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
-MeasureString                   PROCEDURE(STRING pStr, TRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, *TRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
 MeasureString                   PROCEDURE(STRING pStr, CONST *GpSizeF pLayoutRectSize, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpSizeF pSize), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
 MeasureString                   PROCEDURE(STRING pStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
-MeasureString                   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, *POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
 !!!<summary>Measures the extent of the string in the specified font.</summary>
-MeasureString                   PROCEDURE(STRING pStr, POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
+MeasureString                   PROCEDURE(STRING pStr, *POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
+
+!!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
+MeasureStringW                  PROCEDURE(STRING pWStr, CONST *GpRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
+!!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
+MeasureStringW                  PROCEDURE(STRING pWStr, *TRect pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
+!!!<summary>Measures the extent of the string in the specified font, format, and layout rectangle.</summary>
+MeasureStringW                  PROCEDURE(STRING pWStr, *TRectF pLayoutRect, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
+!!!!<summary>Measures the extent of the string in the specified font.</summary>
+!MeasureStringW                  PROCEDURE(STRING pWStr, CONST *GpSizeF pLayoutRectSize, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpSizeF pSize), GpStatus, PROC
+!!!!<summary>Measures the extent of the string in the specified font.</summary>
+!MeasureStringW                  PROCEDURE(STRING pWStr, CONST *GpPointF pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *GpRectF pBoundingBox), GpStatus, PROC
+!!!<summary>Measures the extent of the string in the specified font.</summary>
+MeasureStringW                  PROCEDURE(STRING pWStr, *POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRect pBoundingBox), GpStatus, PROC
+!!!<summary>Measures the extent of the string in the specified font.</summary>
+MeasureStringW                  PROCEDURE(STRING pWStr, *POINT pOrigin, <*TGdiPlusFont pFont>, <*TGdiPlusStringFormat pFormat>, *TRectF pBoundingBox), GpStatus, PROC
 
 !!!<summary>Gets a set of regions each of which bounds a range of character positions within a string.</summary>
 MeasureCharacterRanges          PROCEDURE(STRING pStr, TGdiPlusFont pFont, GpRectF pLayoutRect, TGdiPlusStringFormat pFormat, LONG pRegions), GpStatus, PROC
