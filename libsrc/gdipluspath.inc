@@ -102,6 +102,10 @@ AddClosedCurveI                 PROCEDURE(LONG pPoints, UNSIGNED pCount, SREAL p
 AddRectangle                    PROCEDURE(CONST *GpRectF pRect), GpStatus, PROC
 !!!<summary>Adds a rectangle to this path.</summary>
 AddRectangle                    PROCEDURE(CONST *GpRect pRect), GpStatus, PROC
+!!!<summary>Adds a rectangle to this path.</summary>
+AddRectangle                    PROCEDURE(CONST *TRectF pRect), GpStatus, PROC
+!!!<summary>Adds a rectangle to this path.</summary>
+AddRectangle                    PROCEDURE(CONST *TRect pRect), GpStatus, PROC
 !!!<summary>Adds a sequence of rectangles to this path.</summary>
 AddRectangles                   PROCEDURE(LONG pRects, UNSIGNED pCount), GpStatus, PROC
 !!!<summary>Adds a sequence of rectangles to this path.</summary>

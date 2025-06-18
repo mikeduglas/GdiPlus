@@ -6418,7 +6418,25 @@ TGdiPlusGraphicsPath.AddRectangle PROCEDURE(CONST *GpRect pRect)
   SELF.lastResult = GdipAddPathRectangleI(SELF.nativePath, pRect.x, pRect.y, pRect.width, pRect.height)
   GdipReportError(printf('TGdiPlusGraphicsPath.AddRectangleI'), SELF.lastResult)
   RETURN SELF.lastResult
-  
+          
+TGdiPlusGraphicsPath.AddRectangle   PROCEDURE(CONST *TRectF pRect)
+rc                                    LIKE(GpRectF), AUTO
+  CODE
+  rc.x=pRect.left
+  rc.y=pRect.top
+  rc.width=pRect.Width()
+  rc.height=pRect.Height()
+  RETURN SELF.AddRectangle(rc)
+          
+TGdiPlusGraphicsPath.AddRectangle   PROCEDURE(CONST *TRect pRect)
+rc                                    LIKE(GpRect), AUTO
+  CODE
+  rc.x=pRect.left
+  rc.y=pRect.top
+  rc.width=pRect.Width()
+  rc.height=pRect.Height()
+  RETURN SELF.AddRectangle(rc)
+
 TGdiPlusGraphicsPath.AddRectangles    PROCEDURE(LONG pRects, UNSIGNED pCount)
   CODE
   SELF.lastResult = GdipAddPathRectangles(SELF.nativePath, pRects, pCount)
